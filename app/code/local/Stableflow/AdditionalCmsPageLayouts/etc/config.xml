@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <global>
+        <page>
+            <layouts>
+                <page_left_menu>
+                    <label>One column left menu</label>
+                    <template>page/1column-left-menu.phtml</template>
+                </page_left_menu>
+                <page_two_columns_top>
+                    <label>Two column top</label>
+                    <template>page/2columns-top.phtml</template>
+                </page_two_columns_top>
+            </layouts>
+        </page>
+    </global>
+</config>

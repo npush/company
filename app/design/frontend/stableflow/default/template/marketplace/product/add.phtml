@@ -1,0 +1,193 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('My Product - Add') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getUrl('*/*/save') ?>" method="post" id="form-validate" enctype="multipart/form-data">
+     <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey') ?>
+        <h2 class="legend"><?php echo $this->__('Product Information') ?></h2>
+        <ul class="form-list">
+            <li>
+                <div class="field">
+                    <label for="category" class="required"><em>*</em><?php echo $this->__('Product Category') ?></label>
+                    <div class="input-box">
+                        <select name="product[category_ids][]" id="category" class="required-entry select multiselect" multiple="multiple">
+                            <option value="" selected="selected"><?php echo $this->__('Please Select Category--'); ?></option>  
+                            <?php $category = Mage::helper('marketplace')->getCategoryCollection(); ?>
+                            <?php foreach ($category as $cat) : ?>
+                                <?php $currentCategory = Mage::getModel("catalog/category")->load($cat->getEntityId()); ?>
+                                <option 
+                                <?php
+                                if(!is_null($this->getFormData()->getCategoryIds()))
+                                if (in_array($currentCategory->getId(), $this->getFormData()->getCategoryIds())) {
+                                    echo "selected=selected";
+                                }
+                                ?>
+                                value="<?php echo $currentCategory->getId(); ?>"><?php echo $currentCategory->getName(); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo $this->__('Product Name') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[name]" id="name" value="<?php echo $this->getFormData()->getName(); ?>" title="<?php echo $this->__('Product Name') ?>" class="input-text required-entry" />
+                    </div>
+                </div>
+            </li>  
+            <li>
+                <div class="field">
+                    <label for="description" class="required"><em>*</em><?php echo $this->__('Description') ?></label>
+                    <div class="input-box">
+                        <textarea name="product[description]" id="description" class="input-text required-entry" title="<?php echo $this->__('Description') ?>" rows="4" ><?php echo $this->getFormData()->getDescription(); ?></textarea>
+                    </div>
+                </div> 
+            </li>  
+            <li> 
+                <div class="field">
+                    <label for="short_description" class="required"><em>*</em><?php echo $this->__('Short Description') ?></label>
+                    <div class="input-box">
+                        <textarea name="product[short_description]" id="short_description" class="input-text required-entry" title="<?php echo $this->__('Short Description') ?>" rows="4" ><?php echo $this->getFormData()->getDescription();?></textarea>
+                    </div>
+                </div>
+            </li>
+            <li> 
+                <div class="field">
+                    <label for="delivery_time"><?php echo $this->__('Delivery Time') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[delivery_time]" id="delivery_time" value="<?php echo $this->getFormData()->getDeliveryTime(); ?>" title="<?php echo $this->__('Delivery Time') ?>" class="input-text" />
+                    </div>
+                </div>
+                <!--<div class="field">
+                    <label for="shipping_charges"><?php //echo $this->__('Shipping Charges') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[shipping_charges]" id="shipping_charges" value="<?php echo $this->getFormData()->getShippingCharges(); ?>" title="<?php echo $this->__('Shipping Charges') ?>" class="input-text" />
+                    </div>
+                </div>-->
+            </li>
+            <li> 
+                <div class="field">
+                    <label for="sku" class="required"><em>*</em><?php echo $this->__('SKU') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[sku]" id="sku" value="<?php echo $this->getFormData()->getSku(); ?>" title="<?php echo $this->__('SKU') ?>" class="input-text required-entry" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="price" class="required"><em>*</em><?php echo $this->__('Price') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[price]" id="price" value="<?php echo $this->getFormData()->getPrice();  ?>" title="<?php echo $this->__('Price') ?>" class="input-text required-entry validate-number" />
+                    </div>
+                </div>
+            </li>
+            <li> 
+                <div class="field">
+                    <label for="stock" class="required"><em>*</em><?php echo $this->__('Stock') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[qty]" id="qty" value="<?php echo $this->getFormData()->getQty(); ?>" title="<?php echo $this->__('Stock') ?>" class="input-text required-entry validate-number" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="weight" class="required"><em>*</em><?php echo $this->__('Weight') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[weight]" id="weight" value="<?php echo $this->getFormData()->getWeight();  ?>" title="<?php echo $this->__('Weight') ?>" class="input-text required-entry validate-number" />
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="field">
+        <div class="upload-head">
+            <label for="image" class="required"><?php echo $this->__('Upload Image') ?></label>
+        </div>
+        <div class="input-box">
+            <input type="hidden" name = "product[image][new]" value="1"/>
+            <table class="marketplace-image data-table">
+                <tr>
+                    <th><?php echo $this->__('Base Image') ?></th>
+                    <td><input type="file" id="product-image" name="image"  title="<?php echo $this->__('Image') ?>" class="input-text" /></td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->__('Small Image') ?></th>
+                    <td><input type="file" id="product-image" name="small_image"  title="<?php echo $this->__('Small Image') ?>" class="input-text" /></td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->__('Thumbnail Image') ?></th>
+                    <td><input type="file" id="product-image" name="thumbnail"  title="<?php echo $this->__('Thumbnail Image') ?>" class="input-text" /></td>
+                </tr>                            
+            </table>                       
+            <b><span class="img-format"><?php echo $this->__('(Small Image / Thumbnail Image : Allowed upto '.Mage::helper('marketplace')->getNewProductUploadImageSize().' bytes and jpg, jpeg, png & gif format)') ?></span></b>
+        </div>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <p class="back-link">
+            <a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>">
+                <small>&laquo; </small>
+                <?php echo $this->__('Back') ?>
+            </a>
+        </p>
+        <button type="submit" title="<?php echo $this->__('Save') ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
+    </div>
+</form>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+
+<script language="javascript" type="text/javascript">
+    window.onload = function() {
+        if(document.getElementById('page_content')){
+            if(document.getElementById('page_content').value == ''){
+                document.getElementById('page_content').value = "<p>Page Content</p>";
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    var productForm = new VarienForm('form-validate', true);
+    
+   /* Event.observe(window, 'load', function() {
+        if(document.getElementById('description')){
+            if(document.getElementById('description').value == ''){
+                document.getElementById('description').value = "<p>Enter description</p>";
+                document.getElementById('short_description').value = "<p>Enter short description</p>";
+            }
+        }
+        tinyMCE.init({
+            mode : "exact",
+            theme : "advanced",
+            strict_loading_mode : true,
+            elements : "description,short_description",
+            theme_advanced_toolbar_location : "top",
+            theme_advanced_toolbar_align : "left",
+            theme_advanced_path_location : "bottom",
+            extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+            theme_advanced_resize_horizontal : "true",
+            theme_advanced_resizing : "true",
+            apply_source_formatting : "true",
+            convert_urls : "false",
+            force_br_newlines : "true",
+            doctype : '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;'
+        });
+    });
+    */
+    //]]>
+</script>

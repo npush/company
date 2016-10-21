@@ -1,0 +1,14 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 7/6/16
+ * Time: 5:20 PM
+ */
+?>
+<div class="contact-menu text-center max-sidebar underline">
+    <span class="phone-number"><i class="icon icon-phone-auricular-and-clock-delivery-symbol"></i><?php echo Mage::getStoreConfig('general/store_information/phone');?></span>
+    <button data-toggle="modal" href="#draggable" class="btn yellow-mint btn-outline"><?php echo $this->__('Ask question')?></button>
+    <!-- Cart -->
+    <?php echo $this->getChildHtml('minicartLeft'); ?>
+</div>

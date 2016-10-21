@@ -1,0 +1,100 @@
+<?php $showPriceSlider = Mage::helper('layerednavigation')->getIsPriceSliderEnabled() ?>
+
+<?php $filterType = $this->getType() ?>
+<?php if ($filterType != 'catalog/layer_filter_price'): ?>
+<ol>
+<?php foreach ($this->getItems() as $_item): ?>
+    <li class="<?php echo $_item->isSelected() ? 'filter-active' : 'filter-inactive' ?>">
+        <?php if ($_item->getCount() > 0): ?>
+        <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>">
+        	<span class="filter-checkbox">
+        		<?php if($_item->isSelected()): ?><span style="line-height:10px;font-size: 18px; color: initial;">&#10003;</span><?php endif; ?>
+			</span>
+			<span class="filter-label"><?php echo $_item->getLabel() ?></span>
+		</a>
+        <?php else: echo $_item->getLabel() ?>
+        <?php endif; ?>
+        <?php if ($this->shouldDisplayProductCount()): ?>
+        <span class="filter-count">(<?php echo $_item->getCount() ?>)</span>
+        <?php endif; ?>
+    </li>
+<?php endforeach ?>
+</ol>
+<?php else: ?>
+
+	<?php if(!$showPriceSlider): ?>
+	
+		<ol>
+		<?php foreach ($this->getItems() as $_item): ?>
+			<li class="<?php echo $_item->isSelected() ? 'filter-active' : 'filter-inactive' ?>">
+				<?php if ($_item->getCount() > 0): ?>
+				<a href="<?php echo $this->urlEscape($_item->getUrl()) ?>">
+					<span class="filter-checkbox">
+						<?php if($_item->isSelected()): ?><i class="fa fa-check"></i><?php endif; ?>
+					</span>
+					<span class="filter-label"><?php echo $_item->getLabel() ?></span>
+				</a>
+				<?php else: echo $_item->getLabel() ?>
+				<?php endif; ?>
+				<?php if ($this->shouldDisplayProductCount()): ?>
+				<span class="filter-count">(<?php echo $_item->getCount() ?>)</span>
+				<?php endif; ?>
+			</li>
+		<?php endforeach ?>
+		</ol>	
+	
+	<?php else: ?>
+
+		<?php 
+			$priceMin = $this->getPriceFilterMin(); $priceMax = $this->getPriceFilterMax();
+		
+			if (!is_null($priceMin) && !empty($priceMin)) {
+				$minPrice = $this->getPriceFilterMin();
+			} else {
+				if (Mage::registry('current_category')) {
+					$minPrice=Mage::getSingleton('catalog/layer')->setCurrentCategory(Mage::registry('current_category'))->getProductCollection()->getMinPrice();
+				} else {
+					$minPrice=$this->getLayer()->getProductCollection()->getMinPrice();
+				}
+			}
+			if (!is_null($priceMax) && !empty($priceMax)) {
+				$maxPrice = $this->getPriceFilterMax();
+			} else {
+				if (Mage::registry('current_category')) {
+					$maxPrice=Mage::getSingleton('catalog/layer')->setCurrentCategory(Mage::registry('current_category'))->getProductCollection()->getMaxPrice(); 				
+				} else {
+					$maxPrice=$this->getLayer()->getProductCollection()->getMaxPrice();
+				}
+			}
+		?>
+	
+		<?php $i = 0; foreach ($this->getItems() as $_item): ?>
+			<?php if($i > 0) {continue;} $url = $_item->getUrl(); $pattern = "/([\\?&])price=(.*)([\\?&]*)/";; $filterUrl = preg_replace($pattern, '${1}', $url); $i++;?>
+		<?php endforeach ?>	
+
+		<div class="pfilter">
+			<input type="hidden" id="price-filter-url" value="<?php echo $filterUrl ?>">
+			<input type="hidden" id="price-filter-min" value="<?php echo $minPrice; ?>">
+			<input type="hidden" id="price-filter-max" value="<?php echo $maxPrice; ?>">
+			<?php if (Mage::registry('current_category')): ?>
+				<input type="hidden" id="original-price-filter-min" value="<?php echo $minPrice=Mage::getSingleton('catalog/layer')->setCurrentCategory(Mage::registry('current_category'))->getProductCollection()->getMinPrice(); ?> ">
+				<input type="hidden" id="original-price-filter-max" value="<?php echo $maxPrice=Mage::getSingleton('catalog/layer')->setCurrentCategory(Mage::registry('current_category'))->getProductCollection()->getMaxPrice(); ?> ">
+			<?php else: ?>
+				<input type="hidden" id="original-price-filter-min" value="<?php echo $minPrice=$this->getLayer()->getProductCollection()->getMinPrice(); ?> ">
+				<input type="hidden" id="original-price-filter-max" value="<?php echo $maxPrice=$this->getLayer()->getProductCollection()->getMaxPrice(); ?> ">
+			<?php endif; ?>
+
+			<div id="slider-range" >
+				<div class="ui-slider-range ui-widget-header ui-corner-all" ></div>
+				<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>			
+				<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+			</div>
+			<div id="slider-range-vals">
+				<p>Price: <span id="price_from"></span> - <span id="price_to"></span></p>
+			</div>
+		</div>
+
+	<?php endif; ?>
+
+<?php endif; ?>
+

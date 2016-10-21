@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Dropfin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade 
+ * this extension to newer versions in the future. 
+ *
+ * @category    Dropfin
+ * @package     Autosearch
+ * @copyright   Copyright (c) Dropfin (http://www.dropfin.com)
+ */
+-->
+<config>
+    <modules>
+        <Dropfin_Autosearch>
+            <version>1.0.0</version>
+        </Dropfin_Autosearch>
+    </modules>
+    <default>
+        <dropfin_autosearch>
+            <configurations module="autosearch">
+                <enabled>1</enabled>
+                <search_box_text>Search</search_box_text>
+                <search_min_count>3</search_min_count>
+                <search_box_settings>1</search_box_settings>
+                <search_item_count>3</search_item_count>
+                <suggestion_word>0</suggestion_word>
+                <suggestion_word_count>3</suggestion_word_count>
+            </configurations>
+        </dropfin_autosearch>
+    </default>
+    <frontend>
+        <routers>
+            <dropfin_autosearch>
+                <use>standard</use>
+                <args>
+                    <module>Dropfin_Autosearch</module>
+                    <frontName>autosearch</frontName>
+                </args>
+            </dropfin_autosearch>
+        </routers>      
+        <layout>
+            <updates>
+                <dropfin_autosearch>
+                    <file>dropfin/autosearch.xml</file>
+                </dropfin_autosearch>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <models>
+            <autosearch>
+                <class>Dropfin_Autosearch_Model</class>
+            </autosearch>
+        </models>
+        <helpers>
+            <dropfin_autosearch>
+                <class>Dropfin_Autosearch_Helper</class>
+            </dropfin_autosearch>
+        </helpers>       
+    </global> 
+</config>

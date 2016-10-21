@@ -1,0 +1,68 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 7/5/16
+ * Time: 5:39 PM
+ */
+?>
+
+<!DOCTYPE html>
+
+<!--[if lt IE 7 ]> <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js"> <!--<![endif]-->
+
+<head>
+    <?php echo $this->getChildHtml('head') ?>
+</head>
+<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'  page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed"':'' ?>>
+<?php echo $this->getChildHtml('after_body_start') ?>
+<div class="page">
+    <?php echo $this->getChildHtml('global_notices') ?>
+    <!-- BEGIN HEADER INNER -->
+    <?php echo $this->getChildHtml('header') ?>
+    <!-- END HEADER INNER -->
+
+    <!-- BEGIN HEADER & CONTENT DIVIDER -->
+    <div class="clearfix"> </div>
+    <!-- END HEADER & CONTENT DIVIDER -->
+
+    <div class="page-container">
+        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar navbar-collapse collapse">
+                <?php echo $this->getChildHtml('leftMenu'); ?>
+            </div>
+        </div>
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="page-bar">
+                    <?php echo $this->getChildHtml('global_messages') ?>
+                    <?php echo $this->getChildHtml('breadcrumbs') ?>
+                </div>
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content bg-gray-light">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- END PAGE HEADER-->
+                    <div class="type-content">
+                        <?php echo $this->getChildHtml('topFilter') ?>
+                    </div>
+                    <?php echo $this->getChildHtml('content') ?>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <?php echo $this->getChildHtml('footer_before') ?>
+    <?php echo $this->getChildHtml('footer') ?>
+    <?php echo $this->getChildHtml('global_cookie_notice') ?>
+    <?php echo $this->getChildHtml('before_body_end') ?>
+</div>
+
+<?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>

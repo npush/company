@@ -1,0 +1,36 @@
+<?php if($this->canShowBlock()): ?>
+<style>
+.catalog-category-view #narrow-by-list li span.filter-label,
+.catalog-category-view #narrow-by-list li span.filter-count,
+.catalog-category-view #narrow-by-list .pfilter #slider-range-vals{
+	color: #<?php echo Mage::getStoreConfig('mkmage_layerednavigation/mkmage_layerednavigation_display/filter_color',Mage::app()->getStore()) ?>;
+}
+.catalog-category-view #narrow-by-list li.filter-active span.filter-label,
+.catalog-category-view #narrow-by-list li.filter-active span.filter-count{
+	color: #<?php echo Mage::getStoreConfig('mkmage_layerednavigation/mkmage_layerednavigation_display/filter_color_active',Mage::app()->getStore()) ?>;
+}
+</style>
+<div class="block block-layered-nav">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
+    </div>
+    <div class="block-content">    
+        <?php echo $this->getStateHtml() ?>
+        <?php if ($this->getLayer()->getState()->getFilters()): ?>
+            <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+        <?php endif; ?>
+        <?php if($this->canShowOptions()): ?>
+            <dl id="narrow-by-list">
+                <?php $_filters = $this->getFilters() ?>
+                <?php foreach ($_filters as $_filter): ?>
+                <?php if($_filter->getItemsCount() > 0): ?>
+                    <dt><?php echo $this->__($_filter->getName()) ?><span class="glyphicon glyphicon-chevron-up" id="glyph"></span></dt>                    
+                    <dd><?php $_filter->setTemplate('mkmage/layerednavigation/filter.phtml'); echo $_filter->getHtml() ?></dd>
+                <?php endif; ?>
+                <?php endforeach; ?>
+            </dl>
+            <script type="text/javascript">decorateDataList('narrow-by-list')</script>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>

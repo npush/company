@@ -1,0 +1,71 @@
+.mkmage-overlay{
+	display: none;
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background-color: #363636;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+}
+.mkmage-loader{
+	display: none;
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 1000000;
+    transform: translate3d(-50%,-50%,0)
+}
+
+.catalog-category-view #narrow-by-list .pfilter,
+.catalogsearch-result-index #narrow-by-list .pfilter {
+	padding: 5px 15px;
+}
+
+.catalog-category-view #narrow-by-list .pfilter #slider-range-vals,
+.catalogsearch-result-index #narrow-by-list .pfilter #slider-range-vals {
+	margin-top: 10px;
+}
+
+.catalog-category-view #narrow-by-list dd ol > li > a,
+.catalogsearch-result-index #narrow-by-list dd ol > li > a {
+	display: inline-block;
+	text-decoration: none;
+}
+
+.catalog-category-view #narrow-by-list li span.filter-label,
+.catalogsearch-result-index #narrow-by-list li span.filter-label {
+	display: inline-block;
+    vertical-align: middle;
+    font-size: 15px;
+    line-height: 1;
+}
+
+.catalog-category-view #narrow-by-list li span.filter-count,
+.catalogsearch-result-index #narrow-by-list li span.filter-count {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0;
+}
+
+.catalog-category-view #narrow-by-list li span.filter-checkbox,
+.catalogsearch-result-index #narrow-by-list li span.filter-checkbox {
+    display: inline-block;
+    vertical-align: middle;
+	width: 13px;
+    height: 13px;
+    line-height: 7px;
+    border: 1px solid silver;
+    border-radius: 3px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.catalog-category-view #narrow-by-list li span.filter-label,
+.catalogsearch-result-index #narrow-by-list li span.filter-label {
+	display: inline-block;
+    vertical-align: middle;
+}

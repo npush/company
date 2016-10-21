@@ -1,0 +1,75 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<div class="page-header navbar navbar-fixed-top">
+    <div class="page-header-inner">
+        <div class="page-logo underline">
+            <a class="logo" href="<?php echo $this->getUrl('') ?>">
+                <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large logo-default" />
+                <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small logo-min-default" />
+            </a>
+            <p><?php echo Mage::getStoreConfig('design/head/default_description') ?></p>
+            <div class="menu-toggler sidebar-toggler">
+                <i class="icon icon-arrow-point-to-left"></i>
+                <i class="icon icon-arrow-point-to-right"></i>
+            </div>
+        </div>
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <div class="top-menu">
+                <!-- Search -->
+                <div class="navbar-form pull-left">
+                    <?php echo $this->getChildHtml('topSearch') ?>
+                </div>
+                <!-- Header links -->
+                <div>
+                    <?php echo $this->getChildHtml('topLinks') ?>
+                </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    fullpage.initialize('#fullpage', {
+        menu: '#menu',
+        css3:true
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.bxslider').bxSlider();
+    });
+</script>
+
+<?php echo $this->getChildHtml('topContainer'); ?>

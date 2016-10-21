@@ -1,0 +1,124 @@
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+
+.marketplace-image td, .marketplace-image tr,.marketplace-image th{
+    /*border:1px solid #000;*/ 
+    padding:0 0 0 10px;
+    line-height: 30px;
+}
+.marketplace-image th{
+    font-weight: bold;
+    background: #fbfaf6;
+}
+span.img-format { 
+    font-size:10px;
+}
+.upload-head { 
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    padding: 0 0 5px 0;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+}
+
+#loading-process {
+    position:absolute;
+    top:45%;
+    left:50%;
+    margin-left:-60px;
+    border:2px solid #f1af73;
+    padding:15px 60px;
+    background:#fff4e9;
+    color:#d85909;
+    font-size:1.1em;
+    font-weight:bold;
+    text-align:center;
+    z-index:501;
+}
+
+#loading-mask {
+    background:background:url(../images/blank.gif) repeat;
+    position:absolute;
+    color:#d85909;
+    font-size:1.1em;
+    font-weight:bold;
+    text-align:center;
+    opacity:0.80;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; /* IE8 */
+    z-index:500;
+}
+#loading-mask .loader {
+    position:fixed;
+    top:45%;
+    left:50%;
+    width:150px;
+    margin-left:-105px;
+    padding:15px 30px;
+    background:#fff4e9;
+    border:2px solid #f1af73;
+    color:#d85909;
+    font-weight:bold;
+    text-align:center;
+    z-index:1000;
+}
+
+/* added on 09-Oct-2013 for seller info page */
+.customer-logo { padding-bottom: 5px;margin: 1px;border: 1px;}  
+
+.store-details table.data-table {
+    margin:10px 0 0 0;
+}
+
+.store-details table.data-table th{
+    font-weight: bold;
+    background: #fbfaf6;
+}
+.marketplace-account.box-recent h2 {
+    font-size:16px;	
+}
+
+.common-orange-button {
+    display: block;
+    height: 19px;
+    border: 1px solid #de5400;
+    background: #f18200;
+    padding: 0 8px;
+    font: bold 12px/19px Arial, Helvetica, sans-serif;
+    text-align: center;
+    white-space: nowrap;
+    color: #fff;
+    text-decoration:none;
+}
+
+.btn-add-product {
+    width:auto;
+    margin:0 0 5px 0;
+}
+
+.marketplace-head h2{
+    float:left;
+}
+
+.marketplace-head .btn-add-product {
+    float:right;
+}
+
+.my-orders {
+    margin:30px 0 0 0;
+}  

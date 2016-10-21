@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Clearandfizzy
+ *
+ * NOTICE OF LICENSE
+ *
+ *
+ * THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE
+ * COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE"). THE WORK IS PROTECTED BY
+ * COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS
+ * AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
+
+ * BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE
+ * TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY
+ * BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS
+ * CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND
+ * CONDITIONS.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * versions in the future. If you wish to customize this extension for your
+ * needs please refer to http://www.clearandfizzy.com for more information.
+ *
+ * @category    Community
+ * @package     Clearandfizzy_Reducedcheckout
+ * @copyright   Copyright (c) 2015 Clearandfizzy ltd. (http://www.clearandfizzy.com)
+ * @license     http://www.clearandfizzy.com/license.txt
+ * @author		Gareth Price <gareth@clearandfizzy.com>
+ * 
+ */
+-->
+<config>
+	<!-- Group appears as a heading on the right hand side of the screen -->
+    <sections>
+        <clearandfizzy_reducedcheckout_settings>
+ 
+	        <label>Reduced Checkout</label>
+	        <tab>sales</tab>
+			<frontend_type>text</frontend_type>
+	        <sort_order>1020</sort_order>
+	        <show_in_default>1</show_in_default>
+	        <show_in_website>1</show_in_website>
+	        <show_in_store>1</show_in_store>   
+           	<groups>
+				<reducedcheckout>
+					<label>Reduced Checkout Settings </label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>   
+					<expanded>0</expanded>
+
+					<fields>
+				        <isenabled>
+							<label>Enable Reduced Checkout</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>    				        
+				            <comment>Enable reduced checkout functionality</comment>
+				            <sort_order>10</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>                    
+				        </isenabled>
+				        
+				        <loginstep_type>
+							<label>Login Step</label>
+							<frontend_type>select</frontend_type>
+				            <source_model>clearandfizzy_reducedcheckout/system_config_source_login_step</source_model>
+				            <comment>
+				            <![CDATA[Select the look of of the login step of the checkout process.]]>
+				            </comment>
+				            <sort_order>20</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>                    
+				        </loginstep_type>					        
+
+						<hide_telephone_fax>
+							<label>Hide Telephone and Fax</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>    				        
+				            <comment>Removes Telephone and Fax from Billing &amp; Shipping steps, hides &amp; defaults these required fields to 00</comment>
+				            <sort_order>21</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>                    
+				        </hide_telephone_fax>	  					        					        					        		        
+
+						<!-- todo: Gp - make this into a drop down menu -->
+				        <default_shipping>
+				            <label>Shipping Method Step</label>
+				            <frontend_type>select</frontend_type>
+				            <source_model>clearandfizzy_reducedcheckout/system_config_source_shipping_enabledmethods</source_model>
+				            <comment>The code for the default shipping method</comment>
+				            <sort_order>30</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>                    
+				        </default_shipping>
+			        
+			        	<default_payment>
+							<!-- todo: Gp - make this into a drop down menu -->
+				            <label>Payment Method Step</label>
+				            <frontend_type>select</frontend_type>
+				            <source_model>clearandfizzy_reducedcheckout/system_config_source_payment_enabledmethods</source_model>
+				            <comment>The code for the default payment method</comment>
+				            <sort_order>40</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>                    
+				        </default_payment>		
+
+						<register_on_order_success>
+							<label>Order Success page - Guest to Customer Converter</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+				            <comment>
+				               <![CDATA[ Enable "Register now" Form on Order Success page - Displays a form encouraging guest users to register.]]>
+				            </comment>
+				            <sort_order>50</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>                    
+				        </register_on_order_success>	
+				       
+				       	<enable28112fix>
+							<label>Enable Shipping Tablerates Bug #28112 fix</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>    				        
+				            <comment>Enable fix for Magento bug #28112 Shipping tablerates</comment>
+				            <sort_order>70</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>                    
+				        </enable28112fix>	        
+						<hide_edityourcart>
+							<label>Hide "Edit Your Cart" on checkout</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[Hides the "Edit Your Cart" link on the final step of the checkout process - forcusing the user on proceeding onto completing the order.]]>
+							</comment>
+						</hide_edityourcart>
+						<order_comments>
+							<label>Order comment</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>
+								<![CDATA[Customer can add comment to order.]]>
+							</comment>
+						</order_comments>
+					</fields>
+				</reducedcheckout>
+				<reducedcheckout_cart>
+					<label>Cart Settings</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>   
+					<expanded>0</expanded>
+					<fields>
+				        <hide_emptycart>
+							<label>Hide Empty-Cart Button</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>    				        
+				            <sort_order>1</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>     
+				            <comment>
+					            <![CDATA[Remove the "Empty Cart" button focusing the customer to proceed with purchasing all items.]]>
+				            </comment> 
+				        </hide_emptycart>
+
+				        <hide_crosssells>
+							<label>Hide Cross-sells block</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>    				        
+				            <sort_order>2</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>
+				            <comment>
+				            <![CDATA[Removes the "Cross Sells" block.]]>
+				        	</comment>                      
+				        </hide_crosssells>
+				        
+				        <hide_estimateshipping>
+							<label>Hide Estimate Delivery block</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>    				        
+				            <sort_order>3</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store> 
+							<comment>
+				            <![CDATA[Remove the "Estimate Delivery" Form]]>
+				        	</comment>  
+				                            			        
+				        </hide_estimateshipping>	
+				        				        
+				        <hide_discountcode>
+							<label>Hide Discount Code block</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>    				        
+				            <sort_order>4</sort_order>
+				            <show_in_default>1</show_in_default>
+				            <show_in_website>1</show_in_website>
+				            <show_in_store>1</show_in_store>          
+							<comment>
+				            <![CDATA[Remove the "Discount Code" Block]]>
+				        	</comment>  				            
+				                    			        
+				        </hide_discountcode>	
+
+					</fields>
+				
+				</reducedcheckout_cart>							
+	        </groups>
+ 
+        </clearandfizzy_reducedcheckout_settings>
+    </sections>
+ 
+</config>

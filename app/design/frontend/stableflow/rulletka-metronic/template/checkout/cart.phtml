@@ -1,0 +1,117 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+?>
+<div class="portlet light portlet-fit bordered">
+    <div class="portlet-title">
+        <h1><?php echo $this->__('Shopping Cart') ?></h1>
+
+        <?php echo $this->getMessagesBlock()->toHtml() ?>
+        <?php echo $this->getChildHtml('form_before') ?>
+    </div>
+    <div class="portlet-body form">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="table-responsive">
+                        <form action="<?php echo $this->getFormActionUrl() ?>" method="post">
+                            <?php echo $this->getBlockHtml('formkey'); ?>
+                            <fieldset>
+                                <table class="table table-panel table-bordered-light ">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center"> товар </th>
+                                        <th> <?php echo $this->__('Product Name') ?> </th>
+                                        <th> <?php echo $this->__('Unit Price') ?> </th>
+                                        <th> <?php echo $this->__('Qty') ?> </th>
+                                        <th> <?php echo $this->__('Subtotal') ?> </th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <?php foreach($this->getItems() as $_item): ?>
+                                        <?php echo $this->getItemHtml($_item) ?>
+                                    <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-margin">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <p class="txt-link">После оформления заказа наш менеджер свяжется с Вами и уточнит стоимость заказа с учетом места доставки и время, наиболее удобное для Вас</p>
+                    <p>
+                        Оформляя заказ, вы автоматически принимаете  <a href="" class="link-underline">КЛИЕНТСКОЕ СОГЛАШЕНИЕ</a>
+                    </p>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="checkbox2" checked="">
+                        <label for="checkbox2" class="checkbox-label">
+                            принимаю
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group text-right">
+                    <p><span class="vertical-bottom line-height-md">Ориентироваочная стоимость:</span> <span class="basket-number basket-number-lg"><?php echo $this->getChildHtml('totals');?></span></p>
+                    <?php if(!$this->hasError()): ?>
+                        <ul class="checkout-types">
+                            <?php foreach ($this->getMethods('top_methods') as $method): ?>
+                                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                                    <li><?php echo $methodHtml; ?></li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <?php if($this->getContinueShoppingUrl()): ?>
+                        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue Shopping')) ?>" class="btn btn-sm yellow btn-width" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')"><span><i class="icon icon-arrows_left left-pull"></i><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MKMage_Mkcore>
+            <active>true</active>
+            <codePool>local</codePool>
+        </MKMage_Mkcore>
+    </modules>
+</config>

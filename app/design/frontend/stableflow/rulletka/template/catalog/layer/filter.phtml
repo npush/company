@@ -1,0 +1,35 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 7/11/16
+ * Time: 4:30 PM
+ */
+?>
+<?php
+/**
+ * Template for filter items block
+ *
+ * @see Mage_Catalog_Block_Layer_Filter
+ */
+?>
+
+<?php foreach ($this->getItems() as $_item): ?>
+    <div class="checkbox-group">
+    <?php if ($_item->getCount() > 0): ?>
+        <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>" class="checkbox-label">
+            <?php echo $_item->getLabel() ?>
+            <?php if ($this->shouldDisplayProductCount()): ?>
+                <span class="count">(<?php echo $_item->getCount() ?>)</span>
+            <?php endif; ?>
+        </a>
+    <?php else: ?>
+        <span>
+            <?php echo $_item->getLabel(); ?>
+            <?php if ($this->shouldDisplayProductCount()): ?>
+                <span class="count">(<?php echo $_item->getCount() ?>)</span>
+            <?php endif; ?>
+            </span>
+    <?php endif; ?>
+    </div>
+<?php endforeach; ?>

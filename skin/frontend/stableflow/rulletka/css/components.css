@@ -1,0 +1,41 @@
+.has-error .checkbox, 
+.has-error .checkbox-inline, 
+.has-error .control-label, 
+.has-error .help-block, 
+.has-error .radio, 
+.has-error .radio-inline, 
+.has-error.checkbox label, 
+.has-error.checkbox-inline label, 
+.has-error.radio label, 
+.has-error.radio-inline label {
+  color:#181717;
+}
+
+.radius-none {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important; 
+}
+
+.has-span {
+  color:#b81010;
+}
+
+.form-control::-moz-placeholder {
+    color: #595959;
+    opacity: 1;
+}
+
+.has-error .form-control::-moz-placeholder {
+    color: #b81010;
+    opacity: 1;
+}
+
+.has-error .form-control {
+  border-color:#b81010;
+}
+
+label.control-label {
+    font-weight: normal;
+    font-family: 'OpenSansSemiboldRegular';
+}

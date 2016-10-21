@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'icomoon';
+    src:    url('fonts/icomoon.eot?lr96ne');
+    src:    url('fonts/icomoon.eot?lr96ne#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?lr96ne') format('truetype'),
+        url('fonts/icomoon.woff?lr96ne') format('woff'),
+        url('fonts/icomoon.svg?lr96ne#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrow-point-down:before {
+    content: "\e900";
+}
+.icon-arrow-point-to-left:before {
+    content: "\e901";
+}
+.icon-arrow-point-to-right:before {
+    content: "\e902";
+}
+.icon-arrows:before {
+    content: "\e903";
+}
+.icon-arrows_left:before {
+    content: "\e904";
+}
+.icon-article:before {
+    content: "\e905";
+}
+.icon-avatar:before {
+    content: "\e906";
+}
+.icon-business:before {
+    content: "\e907";
+}
+.icon-cancel-music:before {
+    content: "\e908";
+}
+.icon-check:before {
+    content: "\e909";
+}
+.icon-cinema:before {
+    content: "\e90a";
+}
+.icon-command:before {
+    content: "\e90b";
+}
+.icon-comments:before {
+    content: "\e90c";
+}
+.icon-create-new-pencil-button:before {
+    content: "\e90d";
+}
+.icon-down-arrow:before {
+    content: "\e90e";
+}
+.icon-email-filled-closed-envelope:before {
+    content: "\e90f";
+}
+.icon-excavator:before {
+    content: "\e910";
+}
+.icon-home:before {
+    content: "\e911";
+}
+.icon-interface:before {
+    content: "\e912";
+}
+.icon-left-arrow:before {
+    content: "\e913";
+}
+.icon-multimedia:before {
+    content: "\e914";
+}
+.icon-newspaper:before {
+    content: "\e915";
+}
+.icon-phone-auricular-and-clock-delivery-symbol:before {
+    content: "\e916";
+}
+.icon-photo:before {
+    content: "\e917";
+}
+.icon-play-button:before {
+    content: "\e918";
+}
+.icon-play-button_left:before {
+    content: "\e919";
+}
+.icon-right-arrow:before {
+    content: "\e91a";
+}
+.icon-round-done-button:before {
+    content: "\e91b";
+}
+.icon-shopping-cart:before {
+    content: "\e91c";
+}
+.icon-social:before {
+    content: "\e91d";
+}
+.icon-square:before {
+    content: "\e91e";
+}
+.icon-suitcase:before {
+    content: "\e91f";
+}
+.icon-suitcase-1:before {
+    content: "\e920";
+}
+.icon-tool:before {
+    content: "\e921";
+}
+

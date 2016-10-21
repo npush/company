@@ -1,0 +1,101 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 7/29/16
+ * Time: 12:32 PM
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="portlet light portlet-fit bordered">
+    <div class="portlet-title">
+    </div>
+    <div class="portlet-body ">
+
+        <div class="timeline timeline-product">
+            <!-- TIMELINE ITEM -->
+            <?php include "product-view-image_block.phtml"?>
+            <div class="timeline-body clearfix">
+                <div class="timeline-body-head">
+                    <div class="timeline-body-head-caption">
+                        <a class="timeline-body-title font-blue-madison" href="javascript:;">СВЕТОДИОДНЫЙ LED СВЕТИЛЬНИК ВЫСОКОГО ПОДВЕСА HIGH BAY 50W (80W, 100w, 120W, 150w, 200w)</a>
+                    </div>
+                </div>
+                <?php include "product-view-raiting.phtml"?>
+                <div class="timeline-body-content">
+                    <p class="timeline-conten-min-width txt-link margin-bottom-lg">Вы можете заказать товар прямо сейчас на нашем сайте! Наши специалисты подберут то, что Вас интересует по минимальной цене и с минимальной стоимостью доставки специально для Вас!</p>
+                    <p>Сверхяркий 150-ваттный светильник High Bay от Edison Opto предназначен для решения задач промышленного освещения
+                        и обеспечивает световой поток в 12000лм. Заменяет галогенный светильник мощностью 600 ватт. Срок окупаемости в среднем составляет 1,5-2 года в зависимости от времени работы светильника.  Светильник выглядит как традиционный фонарь High Bay, но будучи построен на базе светодиодов, он способен обеспечить существенную экономию </p>
+                    <a href="" class="link-underline timeline-icon">Развернуть<i class="icon icon-arrow-point-down"></i></a>
+                    <div class="row margin-top-biggest">
+                        <div class="col-md-6 col-sm-6">
+                            <ul class="list-icon-navs">
+                                <li>
+                                    <a href=""><i class="icon icon-home"></i>использование в дизайне</a>
+                                </li>
+                                <li>
+                                    <a href=""><i class="icon icon-photo"></i>3 фото / видео</a>
+                                </li>
+                                <li>
+                                    <a href=""><i class="icon icon-comments"></i>3 комментария</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-sm-6 text-right">
+                            <div class="basket-number basket-number-lg">2 240 <span>грн</span></div>
+                            <a href="" class="link-underline">Попросить скидку</a>
+                            <div class="clearfix margin-top-min">
+                                <button class="btn btn-default-none btn-lg  border-radius-none margin-top-min" type="button">В наличии</button>
+                                <button class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button"><i class="icon icon-shopping-cart"></i></button>
+                                <button class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button">купить сейчас</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- END TIMELINE ITEM -->
+        </div>
+
+        <div class="tabbable tabbable-tabdrop">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab1" data-toggle="tab">описание товара</a>
+                </li>
+                <li>
+                    <a href="#tab2" data-toggle="tab">предложения (2)</a>
+                </li>
+                <li>
+                    <a href="#tab3" data-toggle="tab">отзывы (3)</a>
+                </li>
+                <li>
+                    <a href="#tab4" data-toggle="tab" onclick="initPortfolio()">Галерея (5)</a>
+                </li>
+                <li>
+                    <a href="#tab5" data-toggle="tab" onclick="initPortfolioTwo()">Статьи (6)</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <?php include "product-view-tab_1.phtml"?>
+                <?php include "product-view-tab_2.phtml"?>
+                <?php include "product-view-tab_3.phtml"?>
+                <?php include "product-view-tab_4.phtml"?>
+                <?php include "product-view-tab_5.phtml"?>
+            </div>
+        </div>
+
+    </div>
+</div>

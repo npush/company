@@ -1,0 +1,30 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 7/6/16
+ * Time: 5:18 PM
+ */
+?>
+<?php
+$contactEmail = Mage::getStoreConfig('trans_email/ident_support/email');
+
+$generalName = Mage::getStoreConfig('trans_email/ident_general/name');
+$generalEmail = Mage::getStoreConfig('trans_email/ident_general/email');
+?>
+<div class="contact-panel">
+    <ul class="contact-ul">
+        <li>
+            <a href="vk.com/rulletka_biz" target="_blank">
+                <i class="icon icon-social"></i>
+                <span class="text-underline">vk.com/rulletka_biz</span>
+            </a>
+        </li>
+        <li>
+            <a href="mailto:<?php echo $generalEmail?>" target="_blank">
+                <i class="icon icon-email-filled-closed-envelope"></i>
+                <span><?php echo $generalName?> 45454</span>
+            </a>
+        </li>
+    </ul>
+</div>

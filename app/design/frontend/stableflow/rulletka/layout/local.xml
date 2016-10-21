@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+
+
+    <!--
+    Category default layout
+    -->
+    <!--catalog_category_view>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-top.phtml</template>
+            </action>
+        </reference>
+    </catalog_category_view>
+
+    <catalog_category_layered>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-top.phtml</template>
+            </action>
+        </reference>
+    </catalog_category_layered-->
+
+
+
+
+</layout>

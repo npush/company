@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <mkmage translate="label" module="mkcore">
+            <label><![CDATA[<div style="position: absolute;"><img id="mkmage_block" src="" alt="" border="0" /></div>&nbsp;<script>
+            var n = SKIN_URL.indexOf("adminhtml");
+            $('mkmage_block').src = SKIN_URL.substring(0, n) + "/adminhtml/default/default/mkcore.png";
+            </script>]]></label>
+            <sort_order>100</sort_order>
+        </mkmage>
+    </tabs>
+</config>

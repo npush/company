@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MKMage_LayeredNavigation>
+            <active>true</active>
+            <codePool>local</codePool>
+			<depends>
+				<Mage_Catalog />
+			</depends>
+        </MKMage_LayeredNavigation>
+    </modules>
+</config> 
