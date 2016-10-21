@@ -51,7 +51,7 @@ foreach ($children as $child) {
 
     $html .= '<li '. $this->_getRenderedMenuItemAttributes($child) .'>';
 
-    $html .= '<a href="'. $child->getUrl() .'" class="'. $outermostClassCode .' '. $_hasChildren .'nav-link nav-toggle">'.
+    $html .= '<a href="'. $child->getUrl() .'" class="'. $outermostClassCode .' '. $_hasChildren .'nav-link nav-toggle underline">'.
             '<span class="title">'. $this->escapeHtml($this->__($child->getName())) .'</span>'.
             '<span class="arrow"><i class="icon icon-arrow-point-to-right"></i><i class="icon icon-arrow-point-down"></i></span>'.
         '</a>';

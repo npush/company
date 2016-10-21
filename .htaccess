@@ -1,4 +1,5 @@
-e lines for CGI mode
+############################################
+## uncomment these lines for CGI mode
 ## make sure to specify the correct cgi php binary file name
 ## it might be /cgi-bin/php-cgi
 
@@ -31,7 +32,7 @@ e lines for CGI mode
 ## adjust memory limit
 
 #    php_value memory_limit 64M
-    php_value memory_limit 512M
+    php_value memory_limit 256M
     php_value max_execution_time 18000
 
 ############################################
@@ -231,4 +232,3 @@ e lines for CGI mode
         Deny from all
 
     </Files>
-

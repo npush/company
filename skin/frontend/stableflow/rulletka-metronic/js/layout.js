@@ -3,9 +3,9 @@ Core script to handle the entire theme and core functions
 **/
 var Layout = function ($) {
 
-    var layoutImgPath = '../images/';
+    var layoutImgPath = 'layouts/layout/img/';
 
-    var layoutCssPath = '../css/';
+    var layoutCssPath = 'layouts/layout/css/';
 
     var resBreakpointMd = App.getResponsiveBreakpoint('md');
 
@@ -55,7 +55,7 @@ var Layout = function ($) {
 
         var menu = $('.page-sidebar-menu');
 
-        if (mode === 'click' || mode === 'set') {
+        if (mode === 'hover' || mode === 'set') {
             el = $(el);
         } else if (mode === 'match') {
             menu.find("li > a").each(function() {

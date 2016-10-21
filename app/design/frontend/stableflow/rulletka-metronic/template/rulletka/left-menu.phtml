@@ -4,8 +4,8 @@
     <div class="page-sidebar navbar-collapse collapse">
         <!-- Contact menu -->
         <div class="contact-menu text-center <!-- max-sidebar--> underline">
-            <span class="phone-number"><i class="icon icon-phone-auricular-and-clock-delivery-symbol"></i><?php echo Mage::getStoreConfig('general/store_information/phone');?></span>
-            <button data-toggle="modal" href="#draggable" class="btn yellow-mint btn-outline"><?php echo $this->__('Ask question')?></button>
+            <span class="phone-number"><i class="icon icon-phone-auricular-and-clock-delivery-symbol"></i><span class="min-sidebar"><?php echo Mage::getStoreConfig('general/store_information/phone');?></span></span>
+            <button data-toggle="modal" href="#draggable" class="btn yellow-mint btn-outline min-sidebar"><?php echo $this->__('Ask question')?></button>
             <?php echo $this->getChildHtml('mini.cart'); ?>
         </div>
         <!-- End contact menu -->

@@ -1,6 +1,8 @@
+.idea
 .htaccess.sample
 .modgit/
 .modman/
+key
 app/code/community/Phoenix/Moneybookers/
 app/code/community/Cm/RedisSession/
 app/code/core/
