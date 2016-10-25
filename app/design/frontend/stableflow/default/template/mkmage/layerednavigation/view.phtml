@@ -26,7 +26,7 @@
                 <?php if($_filter->getItemsCount() > 0): ?>
                     <div class="type-checkbox clearfix" >
                         <span class="type-title"><?php echo $this->__($_filter->getName()) ?>:</span>                  
-                        <div class="display-filter toggle-content"><?php $_filter->setTemplate('mkmage/layerednavigation/filter.phtml'); echo $_filter->getHtml() ?></div>
+                        <div class="display-filter"><?php $_filter->setTemplate('mkmage/layerednavigation/filter.phtml'); echo $_filter->getHtml() ?></div>
                     </div>
                 <?php endif; ?>
                 <?php endforeach; ?>

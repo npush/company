@@ -4318,6 +4318,13 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   padding: 0 15px;
 }
 
+/*.display-filter .inline-block {
+  height: 22px;
+  overflow: hidden;
+}
+.display-filter.open .inline-block {
+  height: auto;
+}*/
 /* ============================================ *
  * Layered Navigation
  * ============================================ */

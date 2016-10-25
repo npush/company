@@ -551,9 +551,9 @@ jQuery(document).ready(function() {
         var hasAccordion = wrapper.hasClass('accordion');
         var startOpen = wrapper.hasClass('open');
 
-        var dl = wrapper.children('div:first');
-        var dts = dl.children('ul');
-        var panes = dl.children('li');
+        var dl = wrapper.children('dl:first');
+        var dts = dl.children('dt');
+        var panes = dl.children('dd');
         var groups = new Array(dts, panes);
 
         //Create a ul for tabs if necessary.
