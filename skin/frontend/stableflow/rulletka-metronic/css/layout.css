@@ -4316,7 +4316,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 /* ============================================ *
  * Layered Navigation
  * ============================================ */
-.block-layered-nav .block-subtitle--filter {
+/*.block-layered-nav .block-subtitle--filter {
   display: none;
   margin: 0;
   margin-bottom: 10px;
@@ -4525,7 +4525,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   right: 10px;
   top: 50%;
   margin-top: -3px;
-}
+}*/
 
 /*#narrow-by-list,
 #narrow-by-list2 {
