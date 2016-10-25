@@ -129,7 +129,7 @@ var Layout = function ($) {
     // Handle sidebar menu
     var handleSidebarMenu = function () {
         // handle sidebar link click
-        $('.page-sidebar-menu').on('click', 'li > a.nav-toggle, li > a > span.nav-toggle', function (e) {
+        $('.page-sidebar-menu').on('click', 'li' /* > a.nav-toggle, li > a > span.nav-toggle'*/, function (e) {
             var that = $(this).closest('.nav-item').children('.nav-link');
 
             if (App.getViewPort().width >= resBreakpointMd && !$('.page-sidebar-menu').attr("data-initialized") &&
@@ -200,7 +200,7 @@ var Layout = function ($) {
                 });
             }
 
-            //e.preventDefault();
+            e.preventDefault();
         });
 
         // handle scrolling to top on responsive menu toggler click when header is fixed for mobile view
