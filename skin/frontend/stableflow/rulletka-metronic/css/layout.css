@@ -591,17 +591,17 @@ Page sidebar
   display: none;
 
 }
-.page-sidebar .page-sidebar-menu li .arrow .icon-arrow-point-to-right {
+.page-sidebar .page-sidebar-menu li .arrow  .icon-arrow-point-to-right {
   display:block;
 }
-.page-sidebar .page-sidebar-menu li:hover .arrow .icon-arrow-point-to-right {
+.page-sidebar .page-sidebar-menu li.open .arrow .icon-arrow-point-to-right {
   display:none;
 }
 .page-sidebar .page-sidebar-menu li .arrow .icon-arrow-point-down {
   display:none;
 }
 
-.page-sidebar .page-sidebar-menu li:hover .arrow .icon-arrow-point-down {
+.page-sidebar .page-sidebar-menu li.open .arrow .icon-arrow-point-down {
   display:block;
 }
 .page-sidebar .page-sidebar-menu .sub-menu li,
