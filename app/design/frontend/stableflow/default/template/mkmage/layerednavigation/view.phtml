@@ -24,7 +24,7 @@
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount() > 0): ?>
-                    <dt><?php echo $this->__($_filter->getName()) ?><span class="glyphicon glyphicon-chevron-up" id="glyph"></span></dt>                    
+                    <dt><?php echo $this->__($_filter->getName()) ?></dt>                    
                     <dd><?php $_filter->setTemplate('mkmage/layerednavigation/filter.phtml'); echo $_filter->getHtml() ?></dd>
                 <?php endif; ?>
                 <?php endforeach; ?>
