@@ -4313,6 +4313,11 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     margin: 0 3px;
 }
 
+.inline-block {
+  display: inline-block;
+  padding: 0 15px;
+}
+
 /* ============================================ *
  * Layered Navigation
  * ============================================ */

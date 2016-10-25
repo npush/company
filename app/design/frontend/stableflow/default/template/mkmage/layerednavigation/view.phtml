@@ -24,8 +24,8 @@
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount() > 0): ?>
-                    <div class="type-checkbox">
-                        <span class="type-title pull-left"><?php echo $this->__($_filter->getName()) ?></span>                  
+                    <div class="type-checkbox clearfix" >
+                        <span class="type-title pull-left"><?php echo $this->__($_filter->getName()) ?>:</span>                  
                         <div class="display-filter pull-left toggle-content"><?php $_filter->setTemplate('mkmage/layerednavigation/filter.phtml'); echo $_filter->getHtml() ?></div>
                     </div>
                 <?php endif; ?>

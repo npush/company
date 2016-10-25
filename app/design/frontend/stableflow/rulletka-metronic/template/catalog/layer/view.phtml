@@ -43,15 +43,17 @@
         <?php endif; ?>
         <?php if($this->canShowOptions()): ?>
             <p class="block-subtitle"><?php echo $this->__('Shopping Options') ?></p>
-            <dl id="narrow-by-list">
+            <div id="narrow-by-list">
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
-                    <dt><?php echo $this->__($_filter->getName()) ?></dt>
-                    <dd><?php echo $_filter->getHtml() ?></dd>
+                    <div class="type-checkbox clearfix" >
+                        <span class="type-title pull-left"><?php echo $this->__($_filter->getName()) ?>:</span>                  
+                        <div class="display-filter pull-left toggle-content"><?php echo $_filter->getHtml() ?></div>
+                    </div> 
                 <?php endif; ?>
                 <?php endforeach; ?>
-            </dl>
+            </div>
             <script type="text/javascript">decorateDataList('narrow-by-list')</script>
         <?php endif; ?>
     </div>

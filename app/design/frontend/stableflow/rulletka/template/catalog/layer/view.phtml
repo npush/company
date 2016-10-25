@@ -43,12 +43,14 @@
         <?php endif; ?>
         <?php if($this->canShowOptions()): ?>
             <p class="block-subtitle block-subtitle--filter"><?php echo $this->__('Filter') ?></p>
-            <div id="narrow-by-list" class="toggle-content">
+            <div id="narrow-by-list">
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
-                    <div ><?php echo $this->__($_filter->getName()) ?></div>
-                    <div ><?php echo $_filter->getHtml() ?></div>
+                    <div class="type-checkbox clearfix" >
+                        <span class="type-title pull-left"><?php echo $this->__($_filter->getName()) ?>:</span>                  
+                        <div class="display-filter pull-left toggle-content"><?php echo $_filter->getHtml() ?></div>
+                    </div>
                 <?php endif; ?>
                 <?php endforeach; ?>
             </div>
