@@ -2,7 +2,7 @@
 <?php if(!empty($_filters)): ?>
 <div class="currently">
     <p class="block-subtitle"><?php echo $this->__('Filtered By') ?></p>
-    <ol>
+    <ul>
     <?php foreach ($_filters as $_filter): ?>
         <li>
         	<div class="active-filter-wrapper">
@@ -29,6 +29,6 @@
             </div>
         </li>
     <?php endforeach; ?>
-    </ol>
+    </ul>
 </div>
 <?php endif; ?>

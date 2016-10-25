@@ -38,7 +38,7 @@ $_renderers = $this->getParentBlock()->getChild('state_renderers')->getSortedChi
 <?php if(!empty($_filters)): ?>
 <div class="currently">
     <p class="block-subtitle"><?php echo $this->__('Currently Shopping by:') ?></p>
-    <ol>
+    <ul>
     <?php foreach ($_filters as $_filter): ?>
         <?php
         $_rendered = false;
@@ -68,6 +68,6 @@ $_renderers = $this->getParentBlock()->getChild('state_renderers')->getSortedChi
         </li>
         <?php endif; ?>
     <?php endforeach; ?>
-    </ol>
+    </ul>
 </div>
 <?php endif; ?>

@@ -35,7 +35,7 @@
 <?php if(!empty($_filters)): ?>
 <div class="currently">
     <p class="block-subtitle"><?php echo $this->__('Currently Shopping by:') ?></p>
-    <ol>
+    <ul>
     <?php foreach ($_filters as $_filter): ?>
         <li>
             <span class="label"><?php echo $this->__($_filter->getName()) ?>:</span> <span class="value"><?php echo $this->stripTags($_filter->getLabel()) ?></span>
@@ -50,6 +50,6 @@
             <?php endif; ?>
         </li>
     <?php endforeach; ?>
-    </ol>
+    </ul>
 </div>
 <?php endif; ?>

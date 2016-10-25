@@ -2,7 +2,7 @@
 
 <?php $filterType = $this->getType() ?>
 <?php if ($filterType != 'catalog/layer_filter_price'): ?>
-<ol>
+<ul>
 <?php foreach ($this->getItems() as $_item): ?>
     <li class="<?php echo $_item->isSelected() ? 'filter-active' : 'filter-inactive' ?>">
         <?php if ($_item->getCount() > 0): ?>
@@ -19,12 +19,12 @@
         <?php endif; ?>
     </li>
 <?php endforeach ?>
-</ol>
+</ul>
 <?php else: ?>
 
 	<?php if(!$showPriceSlider): ?>
 	
-		<ol>
+		<ul>
 		<?php foreach ($this->getItems() as $_item): ?>
 			<li class="<?php echo $_item->isSelected() ? 'filter-active' : 'filter-inactive' ?>">
 				<?php if ($_item->getCount() > 0): ?>
@@ -41,7 +41,7 @@
 				<?php endif; ?>
 			</li>
 		<?php endforeach ?>
-		</ol>	
+		</ul>	
 	
 	<?php else: ?>
 
