@@ -20,12 +20,14 @@
             <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
         <?php endif; ?>
         <?php if($this->canShowOptions()): ?>
-            <div id="narrow-by-list"  class="type-checkbox">
+            <div id="narrow-by-list">
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount() > 0): ?>
-                    <span class="type-title pull-left"><?php echo $this->__($_filter->getName()) ?></span>                  
-                    <div class="display-filter pull-left toggle-content"><?php $_filter->setTemplate('mkmage/layerednavigation/filter.phtml'); echo $_filter->getHtml() ?></div>
+                    <div class="type-checkbox">
+                        <span class="type-title pull-left"><?php echo $this->__($_filter->getName()) ?></span>                  
+                        <div class="display-filter pull-left toggle-content"><?php $_filter->setTemplate('mkmage/layerednavigation/filter.phtml'); echo $_filter->getHtml() ?></div>
+                    </div>
                 <?php endif; ?>
                 <?php endforeach; ?>
             </div>
