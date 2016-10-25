@@ -47,7 +47,7 @@ foreach ($children as $child) {
     $child->setPositionClass($itemPositionClassPrefix . $counter);
 
     $outermostClassCode = 'level'. $childLevel;
-    $_hasChildren = ($child->hasChildren()) ? 'has-children' : '';
+    $_hasChildren = ($child->hasChildren()) ? 'has-children ' : '';
 
     $html .= '<li '. $this->_getRenderedMenuItemAttributes($child) .'>';
 

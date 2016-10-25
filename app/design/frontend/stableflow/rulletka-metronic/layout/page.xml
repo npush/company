@@ -64,16 +64,14 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_js</type><name>js/app.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/form-dropzone.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/layout.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/ui-modals.min.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/ui-modals.js</name></action>
 
-
+                <action method="addItem"><type>skin_css</type><name>fonts/osans.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/font-awesome.min.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/icomoon.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/bootstrap.min.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/layout.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/darkblue.css</name></action>
-
-
             </block>
 
             <block type="core/text_list" name="after_body_start" as="after_body_start" translate="label">

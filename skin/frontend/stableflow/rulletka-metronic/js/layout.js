@@ -3,9 +3,9 @@ Core script to handle the entire theme and core functions
 **/
 var Layout = function ($) {
 
-    var layoutImgPath = 'layouts/layout/img/';
+    var layoutImgPath = '../images/';
 
-    var layoutCssPath = 'layouts/layout/css/';
+    var layoutCssPath = '../css/';
 
     var resBreakpointMd = App.getResponsiveBreakpoint('md');
 
@@ -55,7 +55,7 @@ var Layout = function ($) {
 
         var menu = $('.page-sidebar-menu');
 
-        if (mode === 'hover' || mode === 'set') {
+        if (mode === 'click' || mode === 'set') {
             el = $(el);
         } else if (mode === 'match') {
             menu.find("li > a").each(function() {
@@ -132,7 +132,9 @@ var Layout = function ($) {
         $('.page-sidebar-menu').on('click', 'li > a.nav-toggle, li > a > span.nav-toggle', function (e) {
             var that = $(this).closest('.nav-item').children('.nav-link');
 
-            if (App.getViewPort().width >= resBreakpointMd && !$('.page-sidebar-menu').attr("data-initialized") && $('body').hasClass('page-sidebar-closed') &&  that.parent('li').parent('.page-sidebar-menu').size() === 1) {
+            if (App.getViewPort().width >= resBreakpointMd && !$('.page-sidebar-menu').attr("data-initialized") &&
+                $('body').hasClass('page-sidebar-closed') &&
+                that.parent('li').parent('.page-sidebar-menu').size() === 1) {
                 return;
             }
 
@@ -198,98 +200,7 @@ var Layout = function ($) {
                 });
             }
 
-            e.preventDefault();
-        });
-
-        // handle menu close for angularjs version
-        if (App.isAngularJsApp()) {
-            $(".page-sidebar-menu li > a").on("click", function(e) {
-                if (App.getViewPort().width < resBreakpointMd && $(this).next().hasClass('sub-menu') === false) {
-                    $('.page-header .responsive-toggler').click();
-                }
-            });
-        }
-
-        // handle ajax links within sidebar menu
-        $('.page-sidebar').on('click', ' li > a.ajaxify', function (e) {
-            e.preventDefault();
-            App.scrollTop();
-
-            var url = $(this).attr("href");
-            var menuContainer = $('.page-sidebar ul');
-            var pageContent = $('.page-content');
-            var pageContentBody = $('.page-content .page-content-body');
-
-            menuContainer.children('li.active').removeClass('active');
-            menuContainer.children('arrow.open').removeClass('open');
-
-            $(this).parents('li').each(function () {
-                $(this).addClass('active');
-                $(this).children('a > span.arrow').addClass('open');
-            });
-            $(this).parents('li').addClass('active');
-
-            if (App.getViewPort().width < resBreakpointMd && $('.page-sidebar').hasClass("in")) { // close the menu on mobile view while laoding a page 
-                $('.page-header .responsive-toggler').click();
-            }
-
-            App.startPageLoading();
-
-            var the = $(this);
-            
-            $.ajax({
-                type: "GET",
-                cache: false,
-                url: url,
-                dataType: "html",
-                success: function (res) {
-                    if (the.parents('li.open').size() === 0) {
-                        $('.page-sidebar-menu > li.open > a').click();
-                    }
-
-                    App.stopPageLoading();
-                    pageContentBody.html(res);
-                    Layout.fixContentHeight(); // fix content height
-                    App.initAjax(); // initialize core stuff
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    App.stopPageLoading();
-                    pageContentBody.html('<h4>Could not load the requested content.</h4>');
-                }
-            });
-        });
-
-        // handle ajax link within main content
-        $('.page-content').on('click', '.ajaxify', function (e) {
-            e.preventDefault();
-            App.scrollTop();
-
-            var url = $(this).attr("href");
-            var pageContent = $('.page-content');
-            var pageContentBody = $('.page-content .page-content-body');
-
-            App.startPageLoading();
-
-            if (App.getViewPort().width < resBreakpointMd && $('.page-sidebar').hasClass("in")) { // close the menu on mobile view while laoding a page 
-                $('.page-header .responsive-toggler').click();
-            }
-
-            $.ajax({
-                type: "GET",
-                cache: false,
-                url: url,
-                dataType: "html",
-                success: function (res) {
-                    App.stopPageLoading();
-                    pageContentBody.html(res);
-                    Layout.fixContentHeight(); // fix content height
-                    App.initAjax(); // initialize core stuff
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    pageContentBody.html('<h4>Could not load the requested content.</h4>');
-                    App.stopPageLoading();
-                }
-            });
+            //e.preventDefault();
         });
 
         // handle scrolling to top on responsive menu toggler click when header is fixed for mobile view
@@ -626,11 +537,9 @@ var Layout = function ($) {
 
 }(jQuery);
 
-if (App.isAngularJsApp() === false) {
-    jQuery(document).ready(function() {    
-       Layout.init(); // init metronic core componets
-    });
-}
+jQuery(document).ready(function() {
+   Layout.init(); // init metronic core componets
+});
 
 
 $j(document).ready(function () {
