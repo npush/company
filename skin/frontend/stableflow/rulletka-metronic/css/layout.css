@@ -4527,12 +4527,12 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   margin-top: -3px;
 }
 
-#narrow-by-list,
+/*#narrow-by-list,
 #narrow-by-list2 {
   padding: 10px;
   border: 1px solid #cccccc;
   border-top: 0;
-}
+}*/
 
 .block-layered-nav dl ol > li > a,
 .block-layered-nav dl ol > li > span {
