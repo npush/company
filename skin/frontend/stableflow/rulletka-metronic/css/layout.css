@@ -615,7 +615,7 @@ Page sidebar
 
 .page-sidebar .page-sidebar-menu .sub-menu li > a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu li > a {
-  display: block;
+/*  display: block;*/
   margin: 0;
   padding: 6px 60px 6px 30px;
   text-decoration: none;
