@@ -25,6 +25,34 @@
  */
 ?>
 <?php $_width=$this->getImageWidth() ?>
+<div class="portfolio-content portfolio-3">
+    <?php foreach($this->getGalleryCollection as $_image):?>
+        <?php print_r($_image);?>
+    <?php endforeach ?>
+    <div id="js-grid-lightbox-gallery" class="cbp">
+        <div class="cbp-item web-design graphic print motion">
+            <a href="" class="cbp-caption cbp-singlePageInline" rel="nofollow">
+                <div class="cbp-caption-defaultWrap">
+                    <img src="images/img-4.jpg" alt="">
+                </div>
+            </a>
+        </div>
+    </div>
+
+</div>
+<div class="row row-margin">
+    <div class="col-md-12">
+        <div class="form-group">
+            <a class="btn btn-sm yellow btn-width" href="catalog.html">
+                <i class="icon icon-arrows_left left-pull"></i>
+                вернуться в каталог
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!--
 <div class="product-image-popup" style="width:<?php echo $_width; ?>px;">
     <div class="buttons-set"><a href="#" onclick="window.close(); return false;" class="button"><span><?php echo $this->__('Close Window') ?></span></a></div>
     <?php if($this->getPreviusImageUrl() || $this->getNextImageUrl()): ?>
@@ -64,3 +92,4 @@ Event.observe(window, 'load', function(){
 });
 //]]>
 </script>
+-->
