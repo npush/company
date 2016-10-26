@@ -169,7 +169,7 @@ var Layout = function ($) {
 
             var slideOffeset = -200;
 
-            if (sub.is(":visible") && !sub.hasClass('level0')) {
+            if (sub.is(":visible") ) {
                 $('.arrow', the).removeClass("open");
                 the.parent().removeClass("open");
                 sub.slideUp(slideSpeed, function () {

@@ -187,6 +187,9 @@ Product view
                 <action method="addReviewSummaryTemplate"><type>short</type><template>review/helper/summary_short.phtml</template></action>
                 <action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
                 -->
+                <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml">
+                    <block type="core/text_list" name="product.info.media.after" as="after" />
+                </block>
                 <block type="core/text_list" name="alert.urls" as="alert_urls" translate="label">
                     <label>Alert Urls</label>
                 </block>
@@ -200,13 +203,10 @@ Product view
 
                 <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
                 <!-- TABS  -->
-                <block type="catalog/product_view_description" name="product.description" as="description" template="catalog/product/view/description.phtml">
-                    <action method="addToParentGroup"><group>detailed_info</group></action>
-                </block>
                 <block type="catalog/product_view_attributes" name="product.attributes" as="additional" template="catalog/product/view/attributes.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                 </block>
-                <block type="catalog/product_gallery" name="catalog_product_gallery" template="catalog/product/gallery.phtml">
+                <block type="catalog/product_gallery" name="catalog_product_gallery" as="gallery" template="catalog/product/gallery.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                 </block>
                 <!--  -->

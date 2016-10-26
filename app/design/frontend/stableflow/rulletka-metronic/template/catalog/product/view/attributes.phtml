@@ -35,18 +35,26 @@
     $_product = $this->getProduct()
 ?>
 <?php if($_additional = $this->getAdditionalData()): ?>
-    <h2><?php echo $this->__('Additional Information') ?></h2>
-    <table class="data-table" id="product-attribute-specs-table">
-        <col width="25%" />
-        <col />
-        <tbody>
+    <div class="content-text ">
+
+        <p class="text-margin">
+            <?php echo $_helper->productAttribute($this->getProduct(), $_product->getDescription(), 'description') ?>
+        </p>
         <?php foreach ($_additional as $_data): ?>
-            <tr>
-                <th class="label"><?php echo $this->escapeHtml($this->__($_data['label'])) ?></th>
-                <td class="data"><?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
-            </tr>
+            <p class="line-dashed"><span class="dashed-style">
+                    <b><?php echo $this->escapeHtml($this->__($_data['label'])) ?></b> </span>
+                <?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?>
+            </p>
         <?php endforeach; ?>
-        </tbody>
-    </table>
-    <script type="text/javascript">decorateTable('product-attribute-specs-table')</script>
 <?php endif;?>
+        <div class="row row-margin">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <a class="btn btn-sm yellow btn-width" href="catalog.html">
+                        <i class="icon icon-arrows_left left-pull"></i>
+                        вернуться в каталог
+                     </a>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -84,11 +84,11 @@
                 <ul class="nav nav-tabs">
                     <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
                         <li class="<?php echo $i == 1 ?  'active' : '' ; ?>">
-                            <a href="#tab<?php echo $i;?>" data-toggle="tab"><?php echo $this->escapeHtml($alias); ?></a>
+                            <a href="#tab<?php echo $i;?>" data-toggle="tab" aria-expanded="false"><?php echo $this->escapeHtml($alias); ?></a>
                             <?php if ($title = $this->getChildData($alias, 'title')):?>
                                 <!--<a href="#tab<?php echo $i;?>" data-toggle="tab"><?php echo $this->escapeHtml($title); ?></a>-->
                             <?php endif;?>
-                            <?php $html_render .= '<div class="tab-pane active" id="tab'. $i .'"><div class="content-text ">'.$html.'</div></div>'; $i++;?>
+                            <?php $html_render .= '<div class="tab-pane ' . ($i == 1 ?  'active"' : '"') .  ' id="tab'. $i .'">'.$html.'</div>'; $i++;?>
                         </li>
                     <?php endforeach;?>
                 </ul>
