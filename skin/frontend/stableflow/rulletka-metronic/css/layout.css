@@ -531,7 +531,7 @@ Page sidebar
 
 .page-sidebar .page-sidebar-menu > li > a,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
-  display: block;
+/*  display: block;*/
   position: relative;
   margin: 0;
   border: 0px;
