@@ -115,7 +115,7 @@
 	}	
 
 	function categoryPageFiltersToggle() {
-		var filters = $('.catalog-category-view #narrow-by-list .glyphicon-chevron-up');
+		var filters = $('.catalog-category-view #narrow-by-list');
 		filters.click(function(){
 			if($(this).hasClass('inactive-filter')) {
 				$(this).removeClass('inactive-filter');
@@ -132,7 +132,7 @@
 	function handleFilters() {
 		if ($(window).width() < 980) {
 			if(!toggleFilters) {
-				var filters = $('.catalog-category-view #narrow-by-list .glyphicon-chevron-up');	
+				var filters = $('.catalog-category-view #narrow-by-list');
 				filters.each(function(){
 					if(!$(this).hasClass('inactive-filter')) {
 						$(this).click();
@@ -147,11 +147,11 @@
 		$(".pfilter").parent().addClass('priceFilterItem');
 		filter();		
 		categoryPageFiltersToggle();
-		//handleFilters();
+		handleFilters();
 	});
 	
 	$(window).resize(function(){
-		//handleFilters();	
+		handleFilters();
 	});
 
 })(jQuery);
