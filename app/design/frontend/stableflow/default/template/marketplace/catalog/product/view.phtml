@@ -16,7 +16,7 @@
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
 <script type="text/javascript">
-    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+    //var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
 <div class="portlet light portlet-fit bordered">
@@ -97,17 +97,113 @@
                 </div>
             </div>
         </form>
-        <!--<script type="text/javascript">
-            jQuery(document).ready(function($) {
-                $('#modal_product').on('shown.bs.modal', function() {
-                    $('.pgwSlider').pgwSlider({
+
+        <div class="modal fade draggable-modal" id="modal_product" tabindex="-1" role="basic" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
+                    </div>
+                    <div class="modal-body clearfix">
+                        <div class="title-slider clearfix">
+                            <h4 class="modal-title"><?php echo $_product->getName();?></h4>
+                        </div>
+                        <ul class="menu-slider display-inline">
+                            <!--<li class="active"><a href="">Все (3)</a></li>
+                            <li><a href="">Фото (2)</a></li>
+                            <li><a href="">Видео (1)</a></li>-->
+                        </ul>
+                        <ul class="pgwSlider">
+                            <?php foreach($_product->getMediaGalleryImages() as $_image):?>
+                                <li><img src="<?php echo $_image->getUrl();?>" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" ></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery('#modal_product').on('shown.bs.modal', function() {
+                    jQuery('.pgwSlider').pgwSlider({
                         autoSlide: false,
                         displayControls: true
                     });
                 })
 
-            })(jQuery);
-        </script>-->
+            });
+        </script>
+        <script type="text/javascript">
+            //<![CDATA[
+            jQuery(document).ready(function() {
+                console.log('asdasd');
+                jQuery('#js-grid-lightbox-gallery').cubeportfolio({
+                    filters: '#js-filters-lightbox-gallery1, #js-filters-lightbox-gallery2',
+                    loadMore: '#js-loadMore-lightbox-gallery',
+                    loadMoreAction: 'click',
+                    layoutMode: 'grid',
+                    mediaQueries: [
+                        {   width: 1500,
+                            cols: 5
+                        }, {
+                            width: 1100,
+                            cols: 4
+                        }, {
+                            width: 800,
+                            cols: 3
+                        }, {
+                            width: 480,
+                            cols: 2
+                        }, {
+                            width: 320,
+                            cols: 1
+                        }
+                    ],
+                    defaultFilter: '*',
+                    animationType: 'rotateSides',
+                    gapHorizontal: 10,
+                    gapVertical: 10,
+                    gridAdjustment: 'responsive',
+                    caption: 'zoom',
+                    displayType: 'default',
+                    displayTypeSpeed: 100,
+
+                    // lightbox
+                    lightboxDelegate: '.cbp-lightbox',
+                    lightboxGallery: true,
+                    lightboxTitleSrc: 'data-title',
+                    lightboxCounter: '<div class="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
+
+                    // singlePageInline
+                    singlePageInlineDelegate: '.cbp-singlePageInline',
+                    singlePageInlinePosition: 'below',
+                    singlePageInlineInFocus: true,
+                    singlePageInlineCallback: function(url, element) {
+                        // to update singlePageInline content use the following method: this.updateSinglePageInline(yourContent)
+                        var t = this;
+
+                        jQuery.ajax({
+                            url: url,
+                            type: 'GET',
+                            dataType: 'html',
+                            timeout: 10000
+                        })
+                            .done(function(result) {
+
+                                t.updateSinglePageInline(result);
+
+                            })
+                            .fail(function() {
+                                t.updateSinglePageInline('AJAX Error! Please refresh the page!');
+                            });
+                    }
+                });
+            });
+            //]]>
+        </script>
         <script type="text/javascript">
             //<![CDATA[
             var productAddToCartForm = new VarienForm('product_addtocart_form');

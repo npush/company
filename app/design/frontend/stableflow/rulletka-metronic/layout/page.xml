@@ -59,8 +59,8 @@ Default layout, loads most of the pages
                 <!--<action method="addItem"><type>skin_js</type><name>js/jquery.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/noconflict.js</name></action>-->
                 <action method="addItem"><type>skin_js</type><name>js/bootstrap.min.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/jquery.slimscroll.min.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/jquery.cubeportfolio.min.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/jquery.slimscroll.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/jquery.cubeportfolio.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/dropzone.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/form-dropzone.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/app.js</name></action>

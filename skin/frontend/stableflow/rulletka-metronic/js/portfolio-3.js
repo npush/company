@@ -57,6 +57,6 @@ function initPortfolio() {
                 .fail(function() {
                     t.updateSinglePageInline('AJAX Error! Please refresh the page!');
                 });
-        },
+        }
     });
 }
