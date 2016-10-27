@@ -7,10 +7,8 @@
             <div class="cbp-item web-design graphic print motion">
                 <a href="" class="cbp-caption cbp-singlePageInline" rel="nofollow">
                     <div class="cbp-caption-defaultWrap">
-                        <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getImageFile()); ?>"
-                            <?php if($_width): ?>
-                                width="<?php echo $_width ?>"
-                            <?php endif; ?>
+                        <img src="<?php echo $_image->getUrl(); //echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getImageFile()); ?>"
+                            <?php if($_width): ?> width="<?php echo $_width ?>"<?php endif; ?>
                              alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
                              title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
                              id="product-gallery-image" class="image" />
@@ -25,7 +23,7 @@
         <div class="form-group">
             <a class="btn btn-sm yellow btn-width" href="catalog.html">
                 <i class="icon icon-arrows_left left-pull"></i>
-                вернуться в каталог
+                <?php echo $this->__('Back to catalog');?>
             </a>
         </div>
     </div>
