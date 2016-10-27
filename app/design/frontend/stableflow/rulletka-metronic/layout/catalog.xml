@@ -194,6 +194,8 @@ Product view
                     <label>Alert Urls</label>
                 </block>
 
+                <block type="core/template" name="product-rating" template="rulletka/product-rating.phtml"/>
+
                 <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
 
                 <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">

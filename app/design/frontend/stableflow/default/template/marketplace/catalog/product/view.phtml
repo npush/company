@@ -37,8 +37,8 @@
                             <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
                         </div>
                     </div>
-                    <?php include "product-view-raiting.phtml"?>
-
+                    <!-- product-view-rating.phtml -->
+                    <?php echo $this->getChildHtml('product-rating') ?>
                     <div class="timeline-body-content">
                         <p class="timeline-conten-min-width txt-link margin-bottom-lg">Вы можете заказать товар прямо сейчас на нашем сайте! Наши специалисты подберут то, что Вас интересует по минимальной цене и с минимальной стоимостью доставки специально для Вас!</p>
                         <?php if ($_product->getShortDescription()):?>
@@ -106,7 +106,7 @@
                     </div>
                     <div class="modal-body clearfix">
                         <div class="title-slider clearfix">
-                            <h4 class="modal-title"><?php echo $_product->getName();?></h4>
+                            <h4 class="modal-title"><?php echo $this->escapeHtml($_product->getName());?></h4>
                         </div>
                         <ul class="menu-slider display-inline">
                             <!--<li class="active"><a href="">Все (3)</a></li>
