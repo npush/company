@@ -62,10 +62,26 @@
         <?php echo $_helper->productAttribute($_product, $_img, 'image'); ?>
     </a>
     <ul class="icon-characteristic">
+        <?php $tooltips = explode(',',$_product->getTooltops());?>
+        <?php foreach($tooltips as $_tooltipId) :?>
+            <?php $_img = $this->helper('attributeimage')->resizeImg($this->helper('attributeimage')->getAttributeImage($_tooltipId), 100, 100); ?>
+            <?php $_hint = $this->helper('attributeimage')->getAttributeHint($_tooltipId); ?>
+            <?php if ($_img ): ?>
+                <li>
+                    <a href="" data-content="" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
+                        <img src="<?php echo $this->escapeHtml($_img); ?>" alt="">
+                        <span><?php echo $this->escapeHtml($_hint); ?></span>
+                    </a>
+                </li>
+            <?php endif; ?>
+        <?php endforeach ;?>
+    </ul>
+
+    <!--<ul class="icon-characteristic">
         <li>
             <a href="" data-content="Для укладки в бассейнах" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
                 <img src="images/icon-product-3.png" alt="">
-                <span>5-35&deg;C</span>
+                <span></span>
             </a>
         </li>
         <li>
@@ -85,5 +101,5 @@
                 <img src="images/icon-product-4.png" alt="">
             </a>
         </li>
-    </ul>
+    </ul>-->
 </div>

@@ -1,3 +1,4 @@
+
 .idea
 .htaccess
 .htaccess.sample
@@ -105,3 +106,5 @@ skin/frontend/default/modern/
 skin/frontend/enterprise
 skin/install/
 var/
+# Excluded files
+!/app/design/adminhtml/default/default/template/solwin/*

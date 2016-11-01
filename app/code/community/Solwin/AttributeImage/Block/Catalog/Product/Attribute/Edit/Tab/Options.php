@@ -51,6 +51,7 @@ class Solwin_AttributeImage_Block_Catalog_Product_Attribute_Edit_Tab_Options ext
                 $value['sort_order'] = $option->getSortOrder();
                 $value['image'] = $option->getImage();
                 $value['thumb'] = $option->getThumb();
+                $value['hint'] = $option->getHint();
                 foreach ($this->getStores() as $store) {
                     $storeValues = $this->getStoreOptionValues($store->getId());
                     if (isset($storeValues[$option->getId()])) {

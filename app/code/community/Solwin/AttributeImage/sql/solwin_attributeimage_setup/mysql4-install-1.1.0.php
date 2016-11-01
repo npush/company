@@ -15,4 +15,9 @@ ALTER TABLE `{$tableOption}`
     ADD `thumb` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 ");
 
+$installer->run("
+ALTER TABLE `{$tableOption}`
+    ADD `hint` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+");
+
 $installer->endSetup();
