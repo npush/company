@@ -1,16 +1,5 @@
 <?xml version="1.0"?>
 <config>
-    <admin>
-        <routers>
-            <catsidebarnav>
-                <use>admin</use>
-                <args>
-                    <module>Magebuzz_Catsidebarnav</module>
-                    <frontName>catsidebarnav</frontName>
-                </args>
-            </catsidebarnav>
-        </routers>
-    </admin>
     <adminhtml>
         <layout>
             <updates>
