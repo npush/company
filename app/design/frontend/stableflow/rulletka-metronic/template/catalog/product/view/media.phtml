@@ -57,49 +57,23 @@
                 <?php endswitch ;?>
             <?php endforeach ;?>
         </div>
-        <?php $_img = '<img id="image" class="timeline-badge-userpic" src="'.$this->helper('catalog/image')
-                ->init($_product, 'image').'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';?>
+        <?php $_img = '<img id="image" class="timeline-badge-userpic" src="'. $this->helper('catalog/image')->init($_product, 'image').'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';?>
         <?php echo $_helper->productAttribute($_product, $_img, 'image'); ?>
     </a>
     <ul class="icon-characteristic">
         <?php $tooltips = explode(',',$_product->getTooltops());?>
         <?php foreach($tooltips as $_tooltipId) :?>
-            <?php $_img = $this->helper('attributeimage')->resizeImg($this->helper('attributeimage')->getAttributeImage($_tooltipId), 100, 100); ?>
+            <?php //$_img = $this->helper('attributeimage')->resizeImg($this->helper('attributeimage')->getAttributeImage($_tooltipId), 100, 100); ?>
+            <?php $_img = $this->helper('attributeimage')->getAttributeImage($_tooltipId); ?>
             <?php $_hint = $this->helper('attributeimage')->getAttributeHint($_tooltipId); ?>
             <?php if ($_img ): ?>
                 <li>
-                    <a href="" data-content="" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
+                    <a href="" data-content="<?php echo $this->escapeHtml($_hint); ?>" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
                         <img src="<?php echo $this->escapeHtml($_img); ?>" alt="">
-                        <span><?php echo $this->escapeHtml($_hint); ?></span>
+                        <span><?php echo $this->escapeHtml(Mage::getModel('catalog/resource_eav_attribute')->load($_tooltipId)->getFrontendLabel()); ?></span>
                     </a>
                 </li>
             <?php endif; ?>
         <?php endforeach ;?>
     </ul>
-
-    <!--<ul class="icon-characteristic">
-        <li>
-            <a href="" data-content="Для укладки в бассейнах" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
-                <img src="images/icon-product-3.png" alt="">
-                <span></span>
-            </a>
-        </li>
-        <li>
-            <a href="" data-content="Для укладки в бассейнах" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
-                <img src="images/icon-product-2.png" alt="">
-                <span>6-10мм</span>
-            </a>
-        </li>
-        <li>
-            <a href="" data-content="Для укладки в бассейнах" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
-                <img src="images/icon-product-1.png" alt="">
-                <span>5мм</span>
-            </a>
-        </li>
-        <li>
-            <a href="" data-content="Для укладки в бассейнах" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
-                <img src="images/icon-product-4.png" alt="">
-            </a>
-        </li>
-    </ul>-->
 </div>

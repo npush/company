@@ -70,16 +70,14 @@
                             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
                                 <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
                             <div class="body-product-txt">
-                                <?php
-                                $attributes = $_product->getAttributes();
-                                foreach ($attributes as $attribute) {
-                                    $group = $attribute->getAttributeGroupId();
-                                    $attributeCode = $attribute->getAttributeCode();
-                                    $label = $attribute->getStoreLabel();
-                                    $value = $attribute->getFrontend()->getValue($_product);
-                                    echo $group. "<p>{$label}<span class=\"bold\">{$value}</span></p>";
-                                }
-                                ?>
+                                <?php $attributes = []; //$_product->getAttributes();?>
+                                <?php foreach ($attributes as $attribute) :?>
+                                    <?php $group = $attribute->getAttributeGroupId();?>
+                                    <?php $attributeCode = $attribute->getAttributeCode();?>
+                                    <?php $label = $attribute->getStoreLabel();?>
+                                    <?php $value = $attribute->getFrontend()->getValue($_product);?>
+                                    <?php echo $group. "<p>{$label}<span class=\"bold\">{$value}</span></p>";?>
+                                <?php endforeach ?>
                             </div>
                         </div>
                         <div class="footer-product clearfix">

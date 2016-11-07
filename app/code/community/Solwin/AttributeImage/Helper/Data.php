@@ -64,4 +64,37 @@ class Solwin_AttributeImage_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         return $resizedURL;
     }
+
+    public function getResizedImage($fileName){
+        $width = 50; $height = 50; $path = 'tooltips'; $pathCache = 'tooltips/cache';
+        $newFileName = $width.'x'.$height.$fileName;
+        $this->_getResizedImage($path, $pathCache, $fileName, $newFileName, $width, $height);
+    }
+
+    private function _getResizedImage($path, $pathCache, $fileName, $newFileName, $width, $height, $quality = 100) {
+
+        $imageUrl = Mage::getBaseDir('media') . DS . $path . DS . $fileName;
+        if (!is_file($imageUrl))
+            return false;
+
+        $imageResized = Mage::getBaseDir('media') . DS . $pathCache . DS . $newFileName;
+        if (!file_exists($imageResized) && file_exists($imageUrl) || file_exists($imageUrl) && filemtime($imageUrl) > filemtime($imageResized)) :
+            $imageObj = new Varien_Image($imageUrl);
+            $imageObj->constrainOnly(false);
+            $imageObj->keepFrame(true);
+            $imageObj->backgroundColor(array(255,255,255));
+            $imageObj->keepTransparency(true);
+            $imageObj->keepAspectRatio(true);
+            $imageObj->quality($quality);
+            $imageObj->resize($width, $height);
+            $imageObj->save($imageResized);
+        endif;
+
+        if(file_exists($imageResized)){
+            return Mage::getBaseUrl('media') . $pathCache . DS . $newFileName;
+        }else{
+            return Mage::getBaseUrl('media') . $path . DS. $fileName;
+        }
+
+    }
 }
