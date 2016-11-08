@@ -2,24 +2,26 @@
 
 <?php $filterType = $this->getType() ?>
 <?php if ($filterType != 'catalog/layer_filter_price'): ?>
-<ul class="inline-block">
-<?php foreach ($this->getItems() as $_item): ?>
-    <li class="<?php echo $_item->isSelected() ? 'filter-active' : 'filter-inactive' ?>">
-        <?php if ($_item->getCount() > 0): ?>
-        <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>">
-        	<span class="filter-checkbox">
-        		<?php if($_item->isSelected()): ?><span style="line-height:10px;font-size: 18px; color: initial;">&#10003;</span><?php endif; ?>
-			</span>
-			<span class="filter-label"><?php echo $_item->getLabel() ?></span>
-		</a>
-        <?php else: echo $_item->getLabel() ?>
-        <?php endif; ?>
-        <?php if ($this->shouldDisplayProductCount()): ?>
-        <span class="filter-count">(<?php echo $_item->getCount() ?>)</span>
-        <?php endif; ?>
-    </li>
-<?php endforeach ?>
-</ul>
+	<?php if(Mage::registry('current_category')->getLevel() == 3): ?>
+		<ul class="inline-block">
+			<?php foreach ($this->getItems() as $_item): ?>
+				<li class="<?php echo $_item->isSelected() ? 'filter-active' : 'filter-inactive' ?>">
+					<?php if ($_item->getCount() > 0): ?>
+					<a href="<?php echo $this->urlEscape($_item->getUrl()) ?>">
+						<span class="filter-checkbox">
+							<?php if($_item->isSelected()): ?><span style="line-height:10px;font-size: 18px; color: initial;">&#10003;</span><?php endif; ?>
+						</span>
+						<span class="filter-label"><?php echo $_item->getLabel() ?></span>
+					</a>
+					<?php else: echo $_item->getLabel() ?>
+					<?php endif; ?>
+					<?php if ($this->shouldDisplayProductCount()): ?>
+					<span class="filter-count">(<?php echo $_item->getCount() ?>)</span>
+					<?php endif; ?>
+				</li>
+			<?php endforeach ?>
+		</ul>
+	<?php endif ?>
 <?php else: ?>
 
 	<?php if(!$showPriceSlider): ?>
