@@ -60,12 +60,11 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_js</type><name>js/noconflict.js</name></action>-->
                 <action method="addItem"><type>skin_js</type><name>js/bootstrap.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/jquery.slimscroll.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/jquery.cubeportfolio.js</name></action>
+                <!--<action method="addItem"><type>skin_js</type><name>js/jquery.cubeportfolio.js</name></action>-->
                 <action method="addItem"><type>skin_js</type><name>js/dropzone.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/form-dropzone.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/app.js</name></action>
-                <!--<action method="addItem"><type>skin_js</type><name>js/portfolio-3.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/portfolio-1.js</name></action>-->
+                <action method="addItem"><type>skin_js</type><name>js/jquery-ui.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/pgwslider.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/layout.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/ui-modals.js</name></action>
@@ -74,7 +73,7 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_css</type><name>css/font-awesome.min.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/icomoon.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/bootstrap.min.css</name></action>
-                <action method="addItem"><type>skin_css</type><name>css/cubeportfolio.css</name></action>
+                <!--<action method="addItem"><type>skin_css</type><name>css/cubeportfolio.css</name></action>-->
                 <action method="addItem"><type>skin_css</type><name>css/portfolio.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/layout.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/darkblue.css</name></action>
