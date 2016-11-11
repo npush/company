@@ -1,22 +1,23 @@
 
 <?php $_width=$this->getImageWidth() ?>
-<div class="portfolio-content portfolio-3">
-    <?php foreach($this->getGalleryCollection() as $_image):?>
-        <?php //print_r($_image);?>
-        <div id="js-grid-lightbox-gallery" class="cbp">
-            <div class="cbp-item web-design graphic print motion">
-                <a href="" class="cbp-caption cbp-singlePageInline" rel="nofollow">
-                    <div class="cbp-caption-defaultWrap">
-                        <img src="<?php echo $_image->getUrl(); //echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getImageFile()); ?>"
-                            <?php if($_width): ?> width="<?php echo $_width ?>"<?php endif; ?>
-                             alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
-                             title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
-                             id="product-gallery-image" class="image" />
-                    </div>
+<div class="portfolio-content">
+    <?php if (count($this->getGalleryImages()) > 0): ?>
+        <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+            <?php if ($this->isGalleryImageVisible($_image)): ?>
+                <a class="thumb-link flipLightBox" href="<?php echo $_image->getUrl();?>" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>">
+                    <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>"
+                         width="75" height="75" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
                 </a>
-            </div>
-        </div>
-    <?php endforeach ?>
+            <?php endif; ?>
+            <?php $i++; endforeach; ?>
+    <?php endif; ?>
+
+<!--    <?php /*foreach($this->getGalleryCollection() as $_image):*/?>
+        <a href="<?php /*echo $_image->getUrl();*/?>" class="flipLightBox">
+            <img src="<?php /*echo $this->helper('catalog/image')->init($this->getProduct(), 'small_image', $_image->getImageFile()); */?>" width="225" height="225" alt="flipLightBox Image 1" />
+            <span><b>LightBox</b> Text to accompany first lightbox image</span>
+        </a>
+    --><?php /*endforeach */?>
 </div>
 <div class="row row-margin">
     <div class="col-md-12">
@@ -28,3 +29,25 @@
         </div>
     </div>
 </div>
+
+
+
+<!--
+<div class="portfolio-content portfolio-3">
+    <?php /*foreach($this->getGalleryCollection() as $_image):*/?>
+        <?php /*//print_r($_image);*/?>
+        <div id="js-grid-lightbox-gallery" class="cbp">
+            <div class="cbp-item web-design graphic print motion">
+                <a href="" class="cbp-caption cbp-singlePageInline" rel="nofollow">
+                    <div class="cbp-caption-defaultWrap">
+                        <img src="<?php /*echo $_image->getUrl(); //echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getImageFile()); */?>"
+                            <?php /*if($_width): */?> width="<?php /*echo $_width */?>"<?php /*endif; */?>
+                             alt="<?php /*echo $this->escapeHtml($_image->getLabel()) */?>"
+                             title="<?php /*echo $this->escapeHtml($_image->getLabel()) */?>"
+                             id="product-gallery-image" class="image" />
+                    </div>
+                </a>
+            </div>
+        </div>
+    <?php /*endforeach */?>
+</div>-->
