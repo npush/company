@@ -1,21 +1,11 @@
 
 <?php $_width=$this->getImageWidth() ?>
-<div class="portfolio-content portfolio-3">
+<div class="portfolio-content">
     <?php foreach($this->getGalleryCollection() as $_image):?>
-        <?php //print_r($_image);?>
-        <div id="js-grid-lightbox-gallery" class="cbp">
-            <div class="cbp-item web-design graphic print motion">
-                <a href="" class="cbp-caption cbp-singlePageInline" rel="nofollow">
-                    <div class="cbp-caption-defaultWrap">
-                        <img src="<?php echo $_image->getUrl(); //echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getImageFile()); ?>"
-                            <?php if($_width): ?> width="<?php echo $_width ?>"<?php endif; ?>
-                             alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
-                             title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
-                             id="product-gallery-image" class="image" />
-                    </div>
-                </a>
-            </div>
-        </div>
+        <a href="<?php echo $_image->getUrl();?>" class="flipLightBox">
+            <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'small_image', $_image->getImageFile()); ?>" width="225" height="225" alt="flipLightBox Image 1" />
+            <span><b>LightBox</b> Text to accompany first lightbox image</span>
+        </a>
     <?php endforeach ?>
 </div>
 <div class="row row-margin">
@@ -28,3 +18,22 @@
         </div>
     </div>
 </div>
+<!--
+<div class="portfolio-content portfolio-3">
+    <?php /*foreach($this->getGalleryCollection() as $_image):*/?>
+        <?php /*//print_r($_image);*/?>
+        <div id="js-grid-lightbox-gallery" class="cbp">
+            <div class="cbp-item web-design graphic print motion">
+                <a href="" class="cbp-caption cbp-singlePageInline" rel="nofollow">
+                    <div class="cbp-caption-defaultWrap">
+                        <img src="<?php /*echo $_image->getUrl(); //echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getImageFile()); */?>"
+                            <?php /*if($_width): */?> width="<?php /*echo $_width */?>"<?php /*endif; */?>
+                             alt="<?php /*echo $this->escapeHtml($_image->getLabel()) */?>"
+                             title="<?php /*echo $this->escapeHtml($_image->getLabel()) */?>"
+                             id="product-gallery-image" class="image" />
+                    </div>
+                </a>
+            </div>
+        </div>
+    <?php /*endforeach */?>
+</div>-->
