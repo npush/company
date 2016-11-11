@@ -90,10 +90,9 @@ b, strong, .bold {
     margin-left: 10px;
     
 }
-.icon .text-underline {
+.contact-ul .icon span {
   color: #fff;
   font-size: 15px;
-  line-height: 32px;
   vertical-align: top;
   position: absolute;
   left: 34px;
