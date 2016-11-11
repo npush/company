@@ -79,25 +79,22 @@
                 </div>
                 <!-- END TIMELINE ITEM -->
             </div>
-
-            <div class="tabbable tabbable-tabdrop">
-                <ul class="nav nav-tabs">
-                    <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
-                        <li class="<?php echo $i == 1 ?  'active' : '' ; ?>">
-                            <a href="#tab<?php echo $i;?>" data-toggle="tab" aria-expanded="false"><?php echo $this->escapeHtml($alias); ?></a>
-                            <?php if ($title = $this->getChildData($alias, 'title')):?>
-                                <!--<a href="#tab<?php echo $i;?>" data-toggle="tab"><?php echo $this->escapeHtml($title); ?></a>-->
-                            <?php endif;?>
-                            <?php $html_render .= '<div class="tab-pane ' . ($i == 1 ?  'active"' : '"') .  ' id="tab'. $i .'">'.$html.'</div>'; $i++;?>
-                        </li>
-                    <?php endforeach;?>
-                </ul>
-                <div class="tab-content">
-                    <?php echo $html_render; ?>
-                </div>
-            </div>
         </form>
-
+        <!-- Tabs content -->
+        <div class="tabbable tabbable-tabdrop">
+            <ul class="nav nav-tabs">
+                <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+                    <li <?php echo $i == 1 ?  'class="active"' : '' ;?> >
+                        <a href="#tab<?php echo $i;?>" data-toggle="tab" aria-expanded="false"><?php echo $this->escapeHtml($alias); ?></a>
+                        <?php $html_render .= '<div class="tab-pane' . ($i == 1 ?  ' active"' : '"') . ' id="tab' . $i . '">' . $html . '</div>'; $i++;?>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+            <div class="tab-content">
+                <?php echo $html_render; ?>
+            </div>
+        </div>
+        <!-- END Tabs content -->
         <div class="modal fade draggable-modal" id="modal_product" tabindex="-1" role="basic" aria-hidden="true">
             <div class="modal-dialog modal-dialog-lg">
                 <div class="modal-content">
@@ -139,7 +136,6 @@
         <script type="text/javascript">
             //<![CDATA[
             jQuery(document).ready(function() {
-                console.log('asdasd');
                 jQuery('#js-grid-lightbox-gallery').cubeportfolio({
                     filters: '#js-filters-lightbox-gallery1, #js-filters-lightbox-gallery2',
                     loadMore: '#js-loadMore-lightbox-gallery',

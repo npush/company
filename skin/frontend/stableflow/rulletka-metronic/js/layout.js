@@ -294,9 +294,9 @@ var Layout = function ($) {
 
     // Handles the horizontal menu
     var handleHorizontalMenu = function () {
-        console.log('// Handles the horizontal menu');
         //handle tab click
-        $('.page-header').on('click', '.hor-menu a[data-toggle="tab"]', function (e) {
+        $('.page-content').on('click', 'a[data-toggle="tab"]', function (e) {
+            console.log('tab#');
             e.preventDefault();
             var nav = $(".hor-menu .nav");
             var active_link = nav.find('li.current');

@@ -3,40 +3,21 @@
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar navbar-collapse collapse">
         <!-- Contact menu -->
-        <div class="contact-menu text-center <!-- max-sidebar--> underline">
+        <div class="contact-menu text-center underline">
             <span class="phone-number"><i class="icon icon-phone-auricular-and-clock-delivery-symbol"></i><span class="min-sidebar"><?php echo Mage::getStoreConfig('general/store_information/phone');?></span></span>
-            <button data-toggle="modal" href="#draggable" class="btn yellow-mint btn-outline min-sidebar"><?php echo $this->__('Ask question')?></button>
+            <div data-toggle="modal" href="#draggable" class="btn yellow-mint btn-outline min-sidebar"><?php echo $this->__('Ask question')?></div>
             <?php echo $this->getChildHtml('mini.cart'); ?>
         </div>
         <!-- End contact menu -->
-
         <?php echo $this->getChildHtml('top.menu'); ?>
         <?php echo $this->getChildHtml('post_list'); ?>
-        <?php $contactEmail = Mage::getStoreConfig('trans_email/ident_support/email');
-        $generalName = Mage::getStoreConfig('trans_email/ident_general/name');
-        $generalEmail = Mage::getStoreConfig('trans_email/ident_general/email');?>
-        <div class="contact-panel">
-            <ul class="contact-ul">
-                <li>
-                    <a href="vk.com/rulletka_biz" target="_blank">
-                        <i class="icon icon-social"></i>
-                        <span class="text-underline">vk.com/rulletka_biz</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="mailto:<?php echo $contactEmail?>" target="_blank">
-                        <i class="icon icon-email-filled-closed-envelope"></i>
-                        <span><?php echo $generalName?></span>
-                    </a>
-                </li>
-            </ul>
+        <div class="contact-panel"> <!--contact_panel_left_menu-->
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact_panel_left_menu')->toHtml(); ?>
         </div>
         <div class="bnt-block clearfix">
             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_menu_links')->toHtml(); ?>
         </div>
         <?php echo $this->getChildHtml('menu_links');?>
-
-        <!-- END SIDEBAR MENU -->
         <!-- END SIDEBAR MENU -->
         <!-- BEGIN FOOTER -->
         <div class="page-footer">

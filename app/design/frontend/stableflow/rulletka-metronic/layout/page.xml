@@ -64,8 +64,8 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_js</type><name>js/dropzone.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/form-dropzone.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/app.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/portfolio-3.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/portfolio-1.js</name></action>
+                <!--<action method="addItem"><type>skin_js</type><name>js/portfolio-3.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/portfolio-1.js</name></action>-->
                 <action method="addItem"><type>skin_js</type><name>js/pgwslider.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/layout.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/ui-modals.js</name></action>
@@ -89,21 +89,16 @@ Default layout, loads most of the pages
             <block type="page/html_header" name="header" as="header">
                 <block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.phtml"/>
                 <block type="page/template_links" name="top.links" as="topLinks"/>
-
             </block>
 
             <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
-
-            <block type="core/text_list" name="left" as="left" translate="label">
-                <label>Left Column</label>
-            </block>
 
             <block type="core/messages" name="global_messages" as="global_messages"/>
             <block type="core/messages" name="messages" as="messages"/>
 
             <block type="core/template" name="left-menu" as="left-menu" template="rulletka/left-menu.phtml">
                 <!--<block type="core/template" name="left.menu" template="rulletka/left-menu.phtml"/>-->
-                <block type="checkout/cart_minicart" name="mini.cart" as="mini.cart" template="checkout/cart/minicart.phtml">
+                <block type="checkout/cart_sidebar" name="mini.cart" as="mini.cart" template="checkout/cart/minicart.phtml">
                     <!--<block type="checkout/cart_sidebar" name="minicart_content" template="checkout/cart/minicart/items.phtml">
                         <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/minicart/default.phtml</template></action>
                     </block>-->
@@ -131,10 +126,6 @@ Default layout, loads most of the pages
                 <label>Main Content Area</label>
             </block>
 
-            <block type="core/text_list" name="right" as="right" translate="label">
-                <label>Right Column</label>
-            </block>
-
             <block type="page/html_footer" name="footer" as="footer" template="page/html/footer.phtml">
                 <block type="page/html_wrapper" name="bottom.container" as="bottomContainer" translate="label">
                     <label>Page Footer</label>
@@ -142,6 +133,13 @@ Default layout, loads most of the pages
                 </block>
                 <!--<block type="page/switch" name="store_switcher" as="store_switcher" template="page/switch/stores.phtml"/>
                 <block type="page/template_links" name="footer_links" as="footer_links" template="page/template/links.phtml"/>-->
+            </block>
+
+            <block type="core/text_list" name="modal_popup" as="modal_popup">
+                <block type="core/template" name="modal_success" output="toHtml"  template="rulletka/modal/login.phtml"/>
+                <block type="core/template" name="modal_ask_as" output="toHtml"  template="rulletka/modal/ask_as.phtml"/>
+                <block type="core/template" name="modal_register" output="toHtml"  template="rulletka/modal/register.phtml"/>
+                <block type="core/template" name="modal_review" output="toHtml"  template="rulletka/modal/review.phtml"/>
             </block>
 
             <block type="core/text_list" name="before_body_end" as="before_body_end" translate="label">
