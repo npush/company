@@ -5,12 +5,12 @@ jQuery(document).ready(function() {
       if (!jQuery(this).hasClass('active')) {
         jQuery(this).next().slideToggle();
         jQuery(this).addClass('active');
-        jQuery(this).prev().addClass('active');
+        jQuery(this).prev('a').addClass('active');
       }
       else if (jQuery(this).hasClass('active')) {
         jQuery(this).next().slideToggle();
         jQuery(this).removeClass('active');
-        jQuery(this).prev().removeClass('active');
+        jQuery(this).prev('a').removeClass('active');
       }
   });
 });
