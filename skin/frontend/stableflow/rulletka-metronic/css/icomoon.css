@@ -34,14 +34,15 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-point-down:before {
-    content: "\e900";
-}
+
 .icon-arrow-point-to-left:before {
     content: "\e901";
 }
-.icon-arrow-point-to-right:before {
+.icon-arrow-point-to-right:before  {
     content: "\e902";
+}
+.icon-arrow-point-down:before, .active.icon-arrow-point-to-right:before {
+    content: "\e900";
 }
 .icon-arrows:before {
     content: "\e903";
