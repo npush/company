@@ -81,6 +81,20 @@
             </div>
         </form>
         <!-- Tabs content -->
+
+        <div id="tabs">
+            <ul>
+                <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+                    <li>
+                        <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($alias); ?></a>
+                        <?php $html_render .= '<div id="#tabs-'. $i . '"' .  $html . '</div>'; $i++;?>
+                    </li>
+                <?php endforeach;?>
+                <?php echo $html_render; ?>
+            </ul>
+
+        </div>
+        <!--
         <div class="tabbable tabbable-tabdrop">
             <ul class="nav nav-tabs">
                 <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
@@ -94,6 +108,7 @@
                 <?php echo $html_render; ?>
             </div>
         </div>
+        -->
         <!-- END Tabs content -->
         <div class="modal fade draggable-modal" id="modal_product" tabindex="-1" role="basic" aria-hidden="true">
             <div class="modal-dialog modal-dialog-lg">
@@ -133,73 +148,7 @@
 
             });
         </script>
-        <script type="text/javascript">
-            //<![CDATA[
-            jQuery(document).ready(function() {
-                jQuery('#js-grid-lightbox-gallery').cubeportfolio({
-                    filters: '#js-filters-lightbox-gallery1, #js-filters-lightbox-gallery2',
-                    loadMore: '#js-loadMore-lightbox-gallery',
-                    loadMoreAction: 'click',
-                    layoutMode: 'grid',
-                    mediaQueries: [
-                        {   width: 1500,
-                            cols: 5
-                        }, {
-                            width: 1100,
-                            cols: 4
-                        }, {
-                            width: 800,
-                            cols: 3
-                        }, {
-                            width: 480,
-                            cols: 2
-                        }, {
-                            width: 320,
-                            cols: 1
-                        }
-                    ],
-                    defaultFilter: '*',
-                    animationType: 'rotateSides',
-                    gapHorizontal: 10,
-                    gapVertical: 10,
-                    gridAdjustment: 'responsive',
-                    caption: 'zoom',
-                    displayType: 'default',
-                    displayTypeSpeed: 100,
 
-                    // lightbox
-                    lightboxDelegate: '.cbp-lightbox',
-                    lightboxGallery: true,
-                    lightboxTitleSrc: 'data-title',
-                    lightboxCounter: '<div class="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
-
-                    // singlePageInline
-                    singlePageInlineDelegate: '.cbp-singlePageInline',
-                    singlePageInlinePosition: 'below',
-                    singlePageInlineInFocus: true,
-                    singlePageInlineCallback: function(url, element) {
-                        // to update singlePageInline content use the following method: this.updateSinglePageInline(yourContent)
-                        var t = this;
-
-                        jQuery.ajax({
-                            url: url,
-                            type: 'GET',
-                            dataType: 'html',
-                            timeout: 10000
-                        })
-                            .done(function(result) {
-
-                                t.updateSinglePageInline(result);
-
-                            })
-                            .fail(function() {
-                                t.updateSinglePageInline('AJAX Error! Please refresh the page!');
-                            });
-                    }
-                });
-            });
-            //]]>
-        </script>
         <script type="text/javascript">
             //<![CDATA[
             var productAddToCartForm = new VarienForm('product_addtocart_form');
