@@ -9,7 +9,7 @@
 #category-sidebar-nav li a.show-cat a.show-cat {font-size:13px;}
 #category-sidebar-nav li a:hover{color:#f7931d;/*  text-decoration:underline; */}
 /* Level 0 */
-#category-sidebar-nav li.level-top{line-height:25px;}
+#category-sidebar-nav li.level-top{line-height:25px; padding: 14px 25px;}
 #category-sidebar-nav li.level-top a.level-top{ font-size: 17px; text-transform: uppercase;}
 #category-sidebar-nav li ul.level0{padding:0 10px; display:none;}
 #category-sidebar-nav li ul.level0 a {font-size:16px;}
@@ -17,3 +17,27 @@
 #category-sidebar-nav li ul.level0 li.last{border:0 none;}
 /* Level 1 */
 #category-sidebar-nav li ul li ul{ display:none;padding:0 10px;}
+
+
+#category-sidebar-nav > li.level-top {
+  position:relative;
+}
+#category-sidebar-nav > li.level-to:before {
+  content:"";
+  left: 0;
+  bottom:0;
+  height:1px;
+  width:100%;
+  background-color:#333232;
+  position:absolute;
+
+}
+#category-sidebar-nav > li.level-to:after {
+  content:"";
+  left: 0;
+  bottom:-1px;
+  height:1px;
+  width:100%;
+  background-color:#535353;
+  position:absolute;
+} 
