@@ -110,7 +110,7 @@ class Magebuzz_Catsidebarnav_Block_Sidebar extends Magebuzz_Catsidebarnav_Block_
         $html[] = '<a href="'.$this->getCategoryUrl($category).'"'.$linkClass.'>';
         $html[] = '<span>' . $this->escapeHtml($category->getName()) . '</span>';
         $html[] = '</a>';
-        $html[] = '<a href="javascript://" class="right show-cat">&nbsp;';
+        $html[] = '<a href="javascript://" class="right show-cat icon icon-arrow-point-to-right">&nbsp;';
         $html[] = '</a>';
       }
       else{
