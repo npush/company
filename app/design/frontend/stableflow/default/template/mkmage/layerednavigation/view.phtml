@@ -11,6 +11,7 @@
 }
 </style>
 <div class="block block-layered-nav<?php if (!$this->getLayer()->getState()->getFilters()): ?> block-layered-nav--no-filters<?php endif; ?>">
+<?php if(Mage::registry('current_category')->getLevel() == 3): ?>
     <div class="block-title">
         <strong><span><?php echo $this->__('Shop By') ?></span></strong>
     </div>
@@ -34,6 +35,7 @@
             <script type="text/javascript">decorateDataList('narrow-by-list')</script>
         <?php endif; ?>
     </div>
+<?php endif ?>
 </div>
 <?php endif; ?>
 
