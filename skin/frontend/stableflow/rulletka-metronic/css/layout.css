@@ -90,6 +90,15 @@ b, strong, .bold {
     margin-left: 10px;
     
 }
+.icon .text-underline {
+  color: #fff;
+  font-size: 15px;
+  line-height: 32px;
+  vertical-align: top;
+  position: absolute;
+  left: 34px;
+  font-family: 'OpenSansRegular';
+}
 
 .text-underline {
     position:relative;
@@ -1763,7 +1772,6 @@ label.control-label {
   color:#fdcf09;
   font-size:20px;
     text-align: left;
-    width: 34px;
 }
 .contact-ul a {
   color: #fff;
