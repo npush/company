@@ -20,10 +20,10 @@
 #category-sidebar-nav li ul li ul{ display:none;padding:0 10px;}
 
 
-#category-sidebar-nav > li.level-top {
+li.level0 {
   position:relative;
 }
-#category-sidebar-nav > li.level-to:before {
+li.level0:before {
   content:"";
   left: 0;
   bottom:0;
@@ -33,7 +33,7 @@
   position:absolute;
 
 }
-#category-sidebar-nav > li.level-to:after {
+li.level0:after {
   content:"";
   left: 0;
   bottom:-1px;
