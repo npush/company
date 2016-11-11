@@ -48,7 +48,7 @@
             </a>
         </li>
         <li class="basket-number">
-            <span class="label"><?php echo $this->__('Cart Subtotal:') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
+            <span class="label"><?php echo $this->__('') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
             <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
                 <br />(<?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?>)
             <?php endif; ?>
