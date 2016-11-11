@@ -87,7 +87,7 @@
                 <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
                     <li>
                         <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($alias); ?></a>
-                        <?php $html_render .= '<div id="#tabs-'. $i . '"' .  $html . '</div>'; $i++;?>
+                        <?php $html_render .= '<div id="#tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
                     </li>
                 <?php endforeach;?>
                 <?php echo $html_render; ?>
