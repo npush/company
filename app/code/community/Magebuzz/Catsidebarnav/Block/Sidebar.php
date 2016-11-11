@@ -76,7 +76,7 @@ class Magebuzz_Catsidebarnav_Block_Sidebar extends Magebuzz_Catsidebarnav_Block_
     $linkClass = '';
     if ($isOutermost && $outermostItemClass) {
       $classes[] = $outermostItemClass;
-      $linkClass = ' class="'.$outermostItemClass.'"';
+      $linkClass = ' class="'.$outermostItemClass.' show-cat"';
     }
     if ($isFirst) {
       $classes[] = 'first';
