@@ -74,6 +74,24 @@ b, strong, .bold {
     font-family: 'OpenSansSemiboldRegular';
     vertical-align: top;
 }
+
+
+/* global-site-notice */
+.global-site-notice {
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+    text-shadow: 0 0 1px #000;
+    background: #c22d21;
+}
+.global-site-notice p {
+    margin:0;
+}
+.global-site-notice ~ .navbar-fixed-top {
+    top: 30px;
+}
+/* AND global-site-notice */
+
 /* search */
 
 .has-feedback.left-control-feedback .form-control-feedback {
@@ -3006,6 +3024,10 @@ input[type="checkbox"], input[type="radio"] {
 /* /.panel  */
 
 /* portfolio */
+
+#flb-lightbox {
+  z-index: 9999 !important;
+}
 
 .portfolio-content > a {
     border:1px solid #c2c2c2;
