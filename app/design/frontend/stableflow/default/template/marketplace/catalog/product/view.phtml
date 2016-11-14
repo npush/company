@@ -40,7 +40,7 @@
                     <!-- product-view-rating.phtml -->
                     <?php echo $this->getChildHtml('product-rating') ?>
                     <div class="timeline-body-content">
-                        <p class="timeline-conten-min-width txt-link margin-bottom-lg"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_view_notice')->toHtml();?> </p>
+                        <div class="timeline-conten-min-width txt-link margin-bottom-lg"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_view_notice')->toHtml();?> </div>
                         <?php if ($_product->getShortDescription()):?>
                             <div class="short-description">
                                 <h2><?php echo $this->__('Quick Overview') ?></h2>
