@@ -3010,9 +3010,37 @@ input[type="checkbox"], input[type="radio"] {
 .portfolio-content > a {
     border:1px solid #c2c2c2;
     display: inline-block;
-    width: 300px;
+    width: 16.4%;
     height: 300px;
     position: relative;
+}
+@media (min-width: 1000px) and (max-width: 1500px){ 
+
+  .portfolio-content > a {
+      width: 24.5%;
+  }
+
+}
+@media (min-width: 680px) and (max-width: 999px){ 
+
+  .portfolio-content > a {
+      width: 32.5%;
+  }
+
+}
+@media (min-width: 480px) and (max-width: 679px){ 
+
+  .portfolio-content > a {
+      width: 49.4%;
+  }
+
+}
+@media (max-width: 479px){ 
+
+  .portfolio-content > a {
+      width: 100%;
+  }
+
 }
 
 .portfolio-content > a > img {
