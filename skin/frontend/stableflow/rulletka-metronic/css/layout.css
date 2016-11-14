@@ -92,8 +92,11 @@ b, strong, .bold {
 .global-site-notice p {
     margin:0;
 }
-.global-site-notice ~ .navbar-fixed-top {
+.global-site-notice ~ .navbar-fixed-top  {
     top: 30px;
+}
+.global-site-notice ~ .navbar-fixed-top ~ .clearfix  ~ .page-container {
+    margin-top: 110px;
 }
 /* AND global-site-notice */
 
