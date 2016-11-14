@@ -88,11 +88,13 @@
                         <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
                             <li>
                                 <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($alias); ?></a>
-                                <div class="dfdfdf"><?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?></div>
+                                <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
                             </li>
                         <?php endforeach;?>
                     </ul>
-                    <?php echo $html_render; ?>
+                    <div class="tab-content">
+                        <?php echo $html_render; ?>
+                    </div>
                 </div>
                   <script  type="text/javascript">
                       jQuery(document).ready(function(){
