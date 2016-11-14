@@ -7,106 +7,118 @@
  */?>
 
 <div class="panel-group-tab accordion" id="accordion3">
-    <div class="panel panel-list">
+    <div class="panel panel-list product-review-table">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_1"> добавить свой отзыв </a>
+                <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_1"><?php echo $this->__('Write Your Own Review') ?></a>
             </h4>
         </div>
-        <div id="collapse_3_1" class="panel-collapse in">
-            <div class="panel-body">
-                <div class="form-group">
-                    <label class="col-label control-label">Ваше имя:<span class="has-span">*</span></label>
-                    <div class="col-form">
-                        <input type="text" class="form-control radius-none">
+        <?php if (/*$this->getAllowWriteReviewFlag()*/ true): ?>
+        <form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
+            <?php echo $this->getBlockHtml('formkey'); ?>
+            <?php echo $this->getChildHtml('form_fields_before')?>
+            <h3><?php echo $this->__("You're reviewing:"); ?>
+                <span><?php echo $this->escapeHtml($this->getProductInfo()->getName()) ?></span>
+            </h3>
+            <div id="collapse_3_1" class="panel-collapse in">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="nickname_field" class="required col-label control-label"><em>*</em><?php echo $this->__("What's your nickname?") ?></label>
+                        <div class="col-form">
+                            <input type="text" name="nickname" id="nickname_field" class="form-control radius-none input-text required-entry" value="<?php echo $this->escapeHtml($data->getNickname()) ?>" />
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-label control-label">E-mail:</label>
-                    <div class="col-form">
-                        <input type="text" class="form-control radius-none">
+                    <div class="form-group">
+                        <label class="col-label control-label">E-mail:</label>
+                        <div class="col-form">
+                            <input type="text" class="form-control radius-none">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-label control-label">Оценка:</label>
-                    <div class="col-form">
-                        <div class="stars-rating">
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-1-5">
-                            <label for="star-rating-1-5" class="radio-label"></label>
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-1-4">
-                            <label for="star-rating-1-4" class="radio-label"></label>
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-1-3">
-                            <label for="star-rating-1-3" class="radio-label"></label>
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-1-2">
-                            <label for="star-rating-1-2" class="radio-label"></label>
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-1-1">
-                            <label for="star-rating-1-1" class="radio-label"></label>
+                    <div class="form-group">
+                        <label class="col-label control-label">Оценка:</label>
+                        <div class="col-form">
+                            <div class="stars-rating">
+                                <?php foreach ($this->getRatings() as $_rating): ?>
+                                    <sapn><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></sapn>
+                                    <?php foreach ($_rating->getOptions() as $_option): ?>
+                                        <span class="value"><label for="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>"><input type="radio" name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" class="radio" /></label></span>
+                                    <?php endforeach; ?>
+                                <?php endforeach; ?>
+                                <input type="radio" disabled="disabled"  name="star-rating-1-5">
+                                <label for="star-rating-1-5" class="radio-label"></label>
+                                <input type="radio" disabled="disabled"  name="star-rating-1-4">
+                                <label for="star-rating-1-4" class="radio-label"></label>
+                                <input type="radio" disabled="disabled"  name="star-rating-1-3">
+                                <label for="star-rating-1-3" class="radio-label"></label>
+                                <input type="radio" disabled="disabled"  name="star-rating-1-2">
+                                <label for="star-rating-1-2" class="radio-label"></label>
+                                <input type="radio" disabled="disabled"  name="star-rating-1-1">
+                                <label for="star-rating-1-1" class="radio-label"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="summary_field" class="col-label control-label required"><em>*</em><?php echo $this->__('Summary of Your Review +/-') ?></label>
+                        <input type="text" name="title" id="summary_field" class="input-text required-entry" value="<?php echo $this->escapeHtml($data->getTitle()) ?>" />
+                    </div>
+                    <div class="form-group">
+                        <label for="review_field" class="col-label control-label required"><em>*</em><?php echo $this->__('Let us know your thoughts') ?></label>
+                        <div class="col-form">
+                            <textarea name="detail" id="review_field" cols="5" rows="3" class="form-control radius-none required-entry"><?php echo $this->escapeHtml($data->getDetail()) ?></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-label control-label">Плюсы:</label>
-                    <div class="col-form">
-                        <div class="panel-ul">
-                            <ol>
-                                <li>Ярко свети</li>
-                                <li>Мало тянет</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-label control-label">Минусы:</label>
-                    <div class="col-form">
-                        <div class="panel-ul">
-                            Дорого стоит
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-label control-label">Комментарий:</label>
-                    <div class="col-form">
-                        <textarea class="form-control radius-none" rows="3"></textarea>
-                    </div>
-                </div>
-
             </div>
-        </div>
-    </div>
-</div>
-<div class="comment-content">
-    <div class="c-comment-list">
-        <!-- Review text content -->
-        <div class="media">
-            <div class="media-body">
-                <h4 class="media-heading">
-                    <a href="#">Анатолий,</a>
-                    <span class="c-date">08.04.2016 12:16</span>
-                </h4>
-                <div class="stars-rating stars-sm">
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-5">
-                    <label for="star-rating-11-5" class="radio-label"></label>
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-4">
-                    <label for="star-rating-11-4" class="radio-label"></label>
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-3">
-                    <label for="star-rating-11-3" class="radio-label"></label>
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-2">
-                    <label for="star-rating-11-2" class="radio-label"></label>
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-1">
-                    <label for="star-rating-11-1" class="radio-label"></label>
+            <div class="row row-margin">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit Review')) ?>" class="btn btn-sm yellow btn-width">
+                            <i class="icon submit"></i>
+                            <?php echo $this->__('Submit Review') ?>
+                        </button>
+                    </div>
                 </div>
-                Купили недавно такие на Вашем сайте, нужно было в качестве студийного света. Очень довольны, светит хорошо, свет белый, все как надо </div>
-        </div>
-        <!-- End Review text content -->
+            </div>
+        </form>
+        <script type="text/javascript">
+            //<![CDATA[
+            var dataForm = new VarienForm('review-form');
+            Validation.addAllThese(
+                [
+                    ['validate-rating', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please select one of each of the ratings above')) ?>', function(v) {
+                        var trs = $('product-review-table').select('tr');
+                        var inputs;
+                        var error = 1;
+
+                        for( var j=0; j < trs.length; j++ ) {
+                            var tr = trs[j];
+                            if( j > 0 ) {
+                                inputs = tr.select('input');
+
+                                for( i in inputs ) {
+                                    if( inputs[i].checked == true ) {
+                                        error = 0;
+                                    }
+                                }
+
+                                if( error == 1 ) {
+                                    return false;
+                                } else {
+                                    error = 1;
+                                }
+                            }
+                        }
+                        return true;
+                    }]
+                ]
+            );
+            //]]>
+        </script>
+        <?php else: ?>
+            <p class="review-nologged" id="review-form">
+                <?php echo $this->__('Only registered users can write reviews. Please, <a href="%s">log in</a> or <a href="%s">register</a>', $this->getLoginLink(), Mage::helper('customer')->getRegisterUrl()) ?>
+            </p>
+        <?php endif ?>
     </div>
 </div>
-<div class="row row-margin">
-    <div class="col-md-12">
-        <div class="form-group">
-            <a class="btn btn-sm yellow btn-width" href="catalog.html">
-                <i class="icon icon-arrows_left left-pull"></i>
-                вернуться в каталог
-            </a>
-        </div>
-    </div>
-</div>
+

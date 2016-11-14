@@ -216,11 +216,11 @@ Product view
 
                 <block type="core/template" name="product.offers" as="offers" template="rulletka/product-offers.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
-                    <action method="setTitle" translate="value"><value>Offers</value></action>
+                    <action method="setTitle" translate="value"><value>Offer</value></action>
                 </block>
                 <block type="core/template" name="product.article" as="article" template="rulletka/product-article.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
-                    <action method="setTitle" translate="value"><value>Article`s</value></action>
+                    <action method="setTitle" translate="value"><value>Article</value></action>
                 </block>
                 <!--  -->
 
