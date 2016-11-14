@@ -3007,11 +3007,27 @@ input[type="checkbox"], input[type="radio"] {
 
 /* portfolio */
 
-.portfolio-3 .cbp-item {
+.portfolio-content > a {
     border:1px solid #c2c2c2;
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    position: relative;
 }
 
-.portfolio-3 .cbp-caption:hover:before {
+.portfolio-content > a > img {
+  bottom: 0;
+  display: block;
+  height: auto;
+  left: 0;
+  margin: auto;
+  max-width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.portfolio-content > a:hover:before {
   content:"";
   position:absolute;
   left: 0;
@@ -3024,7 +3040,8 @@ input[type="checkbox"], input[type="radio"] {
     -moz-opacity: 0.5;
     opacity: 0.5;
 }
-.portfolio-3 .cbp-caption:hover:after {
+
+.portfolio-content > a:hover:after {
   content:"\e914";
   position:absolute;
   color:#cfd6dd;
@@ -3040,7 +3057,7 @@ input[type="checkbox"], input[type="radio"] {
 
 @media (max-width: 991px) { 
 
-  .portfolio-3 .cbp-caption:hover:after {
+  .portfolio-content > a:hover:after {
     font: 35px "icomoon";
     margin-top: -16px;
     margin-left:-16px;
