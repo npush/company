@@ -80,22 +80,24 @@
         </form>
         <!-- Tabs content -->
         <div class="tabbable tabbable-tabdrop">
-            <div id="tabs">
-                <ul class="nav nav-tabs">
-                    <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
-                        <li>
-                            <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($alias); ?></a>
-                            <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
-                        </li>
-                    <?php endforeach;?>
-                </ul>
-                <?php echo $html_render; ?>
-            </div>
-              <script  type="text/javascript">
-                  jQuery(document).ready(function(){
-                    jQuery( "#tabs" ).tabs();
-                  });
-             </script>
+                <div id="tabs">
+                    <ul class="nav nav-tabs">
+                        <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+                            <li>
+                                <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($alias); ?></a>
+                                <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
+                            </li>
+                        <?php endforeach;?>
+                    </ul>
+                    <div class="tab-content">
+                        <?php echo $html_render; ?>
+                    </div>
+                </div>
+                  <script  type="text/javascript">
+                      jQuery(document).ready(function(){
+                        jQuery( "#tabs" ).tabs();
+                      });
+                 </script>    
         </div>
         <!-- END Tabs content -->
         <div class="modal fade draggable-modal" id="modal_product" tabindex="-1" role="basic" aria-hidden="true">
