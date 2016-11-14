@@ -59,6 +59,10 @@ Product view page
                 <action method="addToParentGroup"><group>detailed_info</group></action>
                 <action method="setTitle" translate="value"><value>Reviews</value></action>
             </block>
+            <block type="core/template" name="product.reviews_2" as="reviews_2" template="rulletka/product_review.phtml">
+                <action method="addToParentGroup"><group>detailed_info</group></action>
+                <action method="setTitle" translate="value"><value>Reviews_2</value></action>
+            </block>
         </reference>
     </catalog_product_view>
 
