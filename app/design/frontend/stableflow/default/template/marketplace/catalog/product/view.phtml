@@ -34,13 +34,13 @@
                 <div class="timeline-body clearfix">
                     <div class="timeline-body-head">
                         <div class="timeline-body-head-caption">
-                            <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
+                            <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name');?></a>
                         </div>
                     </div>
                     <!-- product-view-rating.phtml -->
                     <?php echo $this->getChildHtml('product-rating') ?>
                     <div class="timeline-body-content">
-                        <p class="timeline-conten-min-width txt-link margin-bottom-lg">Вы можете заказать товар прямо сейчас на нашем сайте! Наши специалисты подберут то, что Вас интересует по минимальной цене и с минимальной стоимостью доставки специально для Вас!</p>
+                        <p class="timeline-conten-min-width txt-link margin-bottom-lg"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_view_notice')->toHtml();?> </p>
                         <?php if ($_product->getShortDescription()):?>
                             <div class="short-description">
                                 <h2><?php echo $this->__('Quick Overview') ?></h2>
@@ -51,19 +51,19 @@
                             <div class="col-md-6 col-sm-6">
                                 <ul class="list-icon-navs">
                                     <li>
-                                        <a href=""><i class="icon icon-home"></i>использование в дизайне</a>
+                                        <a href=""><i class="icon icon-home"></i><?php echo $this->__('Use in the design')?></a>
                                     </li>
                                     <li>
-                                        <a href=""><i class="icon icon-photo"></i>3 фото / видео</a>
+                                        <a href=""><i class="icon icon-photo"></i><?php echo $this->__('Photo / Video')?></a>
                                     </li>
                                     <li>
-                                        <a href=""><i class="icon icon-comments"></i>3 комментария</a>
+                                        <a href=""><i class="icon icon-comments"></i><?php echo $this->__('Comment`s')?></a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="col-md-6 col-sm-6 text-right">
                                 <div class="basket-number basket-number-lg"><?php echo $this->getChildHtml('product_type_data') ?></div>
-                                <a href="" class="link-underline">Попросить скидку</a>
+                                <a href="" class="link-underline"><?php echo $this->__('Ask for discount')?></a>
                                 <div class="clearfix margin-top-min">
                                     <div class="add-to-box">
                                         <?php if($_product->isSaleable()): ?>
@@ -73,32 +73,29 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
                 <!-- END TIMELINE ITEM -->
             </div>
         </form>
         <!-- Tabs content -->
-
         <div class="tabbable tabbable-tabdrop">
-                <div id="tabs">
-                    <ul class="nav nav-tabs">
-                        <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
-                            <li>
-                                <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($alias); ?></a>
-                                <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
-                            </li>
-                        <?php endforeach;?>
-                    </ul>
-                    <?php echo $html_render; ?>
-                </div>
-                  <script  type="text/javascript">
-                      jQuery(document).ready(function(){
-                        jQuery( "#tabs" ).tabs();
-                      });
-                 </script>    
+            <div id="tabs">
+                <ul class="nav nav-tabs">
+                    <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+                        <li>
+                            <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($alias); ?></a>
+                            <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
+                        </li>
+                    <?php endforeach;?>
+                </ul>
+                <?php echo $html_render; ?>
+            </div>
+              <script  type="text/javascript">
+                  jQuery(document).ready(function(){
+                    jQuery( "#tabs" ).tabs();
+                  });
+             </script>
         </div>
         <!-- END Tabs content -->
         <div class="modal fade draggable-modal" id="modal_product" tabindex="-1" role="basic" aria-hidden="true">
@@ -112,9 +109,9 @@
                             <h4 class="modal-title"><?php echo $this->escapeHtml($_product->getName());?></h4>
                         </div>
                         <ul class="menu-slider display-inline">
-                            <!--<li class="active"><a href="">Все (3)</a></li>
-                            <li><a href="">Фото (2)</a></li>
-                            <li><a href="">Видео (1)</a></li>-->
+                            <li class="active"><a href=""><?php echo $this->__('All')?></a></li>
+                            <li><a href=""><?php echo $this->__('Photo')?></a></li>
+                            <li><a href=""><?php echo $this->__('Video')?></a></li>
                         </ul>
                         <ul class="pgwSlider">
                             <?php foreach($_product->getMediaGalleryImages() as $_image):?>
@@ -127,7 +124,6 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
-
         <script type="text/javascript">
             jQuery(document).ready(function() {
                 jQuery('#modal_product').on('shown.bs.modal', function() {
@@ -139,7 +135,6 @@
 
             });
         </script>
-
         <script type="text/javascript">
             //<![CDATA[
             var productAddToCartForm = new VarienForm('product_addtocart_form');
