@@ -87,6 +87,7 @@ b, strong, .bold {
     width: 100%;
     top: 0;
     left: 0;
+    z-index: 9999;
 }
 .global-site-notice p {
     margin:0;
