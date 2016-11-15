@@ -77,3 +77,45 @@
         <?php endforeach ;?>
     </ul>
 </div>
+
+<!-- Modal window -->
+<div class="modal fade draggable-modal" id="modal_product" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
+            </div>
+            <div class="modal-body clearfix">
+                <div class="title-slider clearfix">
+                    <h4 class="modal-title"><?php echo $this->escapeHtml($_product->getName());?></h4>
+                </div>
+                <ul class="menu-slider display-inline">
+                    <li class="active"><a href=""><?php echo $this->__('All')?></a></li>
+                    <li><a href=""><?php echo $this->__('Photo')?></a></li>
+                    <li><a href=""><?php echo $this->__('Video')?></a></li>
+                </ul>
+                <ul class="pgwSlider">
+                    <?php foreach ($this->getGalleryImages() as $_image): ?>
+                        <?php if ($this->isGalleryImageVisible($_image)): ?>
+                            <li><img src="<?php echo $this->getGalleryImageUrl($_image); ?>"></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.pgwSlider').pgwSlider({
+            autoSlide: false,
+            displayControls: true
+        });
+        /*jQuery('#modal_product').on('shown.bs.modal', function() {
+
+        })*/
+
+    });
+</script>
