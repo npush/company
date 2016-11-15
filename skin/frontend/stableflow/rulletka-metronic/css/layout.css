@@ -3129,7 +3129,7 @@ input[type="checkbox"], input[type="radio"] {
 
 }
 
-.cbp img {
+.cbp-caption-defaultWrap img {
     display: block;
     border: 0;
     width: 100%;
@@ -3159,6 +3159,24 @@ input[type="checkbox"], input[type="radio"] {
     color: #8f8f8f;
 }
 
+.portfolio-article .cbp-item {
+  width: 33%;
+}
+
+@media (max-width: 1500px) { 
+
+  .portfolio-article .cbp-item {
+    width: 50%;
+  }
+
+}
+@media (max-width: 900px) { 
+
+  .portfolio-article .cbp-item {
+    width: 100%;
+  }
+
+}
 /* /portfolio */
 
 
