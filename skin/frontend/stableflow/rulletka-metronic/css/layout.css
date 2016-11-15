@@ -2413,7 +2413,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .stars-rating.tars-rating-edit .radio-label:hover:before {
-    content: "\f005";
+    color: #000;
 }
 /* /stars */
 
