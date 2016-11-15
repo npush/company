@@ -2412,9 +2412,13 @@ input[type="checkbox"], input[type="radio"] {
   margin: 10px 0 5px;
 }
 
-.stars-rating.stars-rating-edit .radio-label:hover:before {
+.stars-rating.stars-rating-edit  input:checked ~ label:before , 
+.stars-rating.stars-rating-edit label:hover:before, 
+.stars-rating.stars-rating-edit  label:hover:before  ~ labele {
     content: "\f005";
 }
+
+
 /* /stars */
 
 
