@@ -2412,8 +2412,8 @@ input[type="checkbox"], input[type="radio"] {
   margin: 10px 0 5px;
 }
 
-.stars-rating.tars-rating-edit .radio-label:hover:before {
-    color: #000;
+.stars-rating.stars-rating-edit .radio-label:hover:before {
+    content: "\f005";
 }
 /* /stars */
 
