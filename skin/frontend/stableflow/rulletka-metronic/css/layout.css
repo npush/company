@@ -3161,6 +3161,9 @@ input[type="checkbox"], input[type="radio"] {
 
 .portfolio-article .cbp-item {
   width: 33%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 15px;
 }
 
 @media (max-width: 1500px) { 
