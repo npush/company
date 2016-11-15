@@ -95,8 +95,14 @@
                     <li><a href=""><?php echo $this->__('Video')?></a></li>
                 </ul>
                 <ul class="pgwSlider">
-                    <?php foreach($_product->getGalleryImages() as $_image):?>
-                        <li><img src="<?php echo $_image->getUrl();?>" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" ></li>
+                    <?php /*foreach($_product->getGalleryImages() as $_image):*/?><!--
+                        <li><img src="<?php /*echo $_image->getUrl();*/?>" alt="<?php /*echo $this->escapeHtml($_image->getLabel()) */?>" ></li>
+                    --><?php /*endforeach; */?>
+
+                    <?php foreach ($this->getGalleryImages() as $_image): ?>
+                        <?php if ($this->isGalleryImageVisible($_image)): ?>
+                            <li><img src="<?php echo $this->getGalleryImageUrl($_image); ?>"></li>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
             </div>
