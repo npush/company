@@ -82,9 +82,14 @@
         <div class="tabbable tabbable-tabdrop">
                 <div id="tabs">
                     <ul class="nav nav-tabs">
-                        <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+                        <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $groupTab => $html):?>
                             <li>
-                                <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($alias); ?></a>
+                                <?php if ($title = $this->getChildData($groupTab, 'title')):?>
+
+                                <?php else: ?>
+                                    <?php $title = $groupTab; ?>
+                                <?php endif;?>
+                                <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($title); ?></a>
                                 <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
                             </li>
                         <?php endforeach;?>
