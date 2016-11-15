@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label class="col-label control-label">Оценка:</label>
                         <div class="col-form">
-                            <div class="stars-rating">
+                            <div class="stars-rating stars-rating-edit">
                                 <?php foreach ($this->getRatings() as $_rating): ?>
                                     <sapn><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></sapn>
                                     <?php foreach ($_rating->getOptions() as $_option): ?>
