@@ -30,25 +30,25 @@
             <fieldset>
                 <ul class="form-list">
                     <li>
-                        <label for="nickname_field" class="required"><em>*</em><?php echo $this->__('Nickname') ?></label>
+                        <label for="nickname_field" class="required"><?php echo $this->__('Nickname') ?><span class="has-span">*</span></label>
                         <div class="input-box">
-                            <input type="text" name="name" id="name_field" class="input-text required-entry" value="<?php echo $this->escapeHtml($data->getName()) ?>" />
+                            <input type="text" name="name" id="name_field" class="form-control radius-none input-text required-entry" value="<?php echo $this->escapeHtml($data->getName()) ?>" />
                         </div>
                     </li>
                     <li>
-                        <label for="nickname_field" class="required"><em>*</em><?php echo $this->__('E-mail') ?></label>
+                        <label for="nickname_field" class="required"><?php echo $this->__('E-mail') ?><span class="has-span">*</span></label>
                         <div class="input-box">
-                            <input type="text" name="email" id="email_field" class="input-text required-entry validate-email" value="<?php echo $this->escapeHtml($data->getEmail()) ?>" />
+                            <input type="text" name="email" id="email_field" class="form-control radius-none input-text required-entry validate-email" value="<?php echo $this->escapeHtml($data->getEmail()) ?>" />
                         </div>
                     </li>
                     <li>
-                        <label for="title_field" class="required"><em>*</em><?php echo $this->__('Comment title') ?></label>
+                        <label for="title_field" class="required"><?php echo $this->__('Comment title') ?><span class="has-span">*</span></label>
                         <div class="input-box">
-                            <input type="text" name="title" id="title_field" class="input-text required-entry" value="<?php echo $this->escapeHtml($data->getTitle()) ?>" />
+                            <input type="text" name="title" id="title_field" class="form-control radius-none input-text required-entry" value="<?php echo $this->escapeHtml($data->getTitle()) ?>" />
                         </div>
                     </li>
                     <li>
-                        <label for="review_field" class="required"><em>*</em><?php echo $this->__('Comment') ?></label>
+                        <label for="review_field" class="required"><?php echo $this->__('Comment') ?><span class="has-span">*</span></label>
                         <div class="input-box">
                             <textarea name="comment" id="comment_field" cols="5" rows="3" class="required-entry"><?php echo $this->escapeHtml($data->getComment()) ?></textarea>
                         </div>
