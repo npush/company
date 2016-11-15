@@ -3129,6 +3129,36 @@ input[type="checkbox"], input[type="radio"] {
 
 }
 
+.cbp img {
+    display: block;
+    border: 0;
+    width: 100%;
+    height: auto;
+}
+.cbp-l-grid-projects-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: 20px;
+    line-height: 14px;
+}
+.cb-min-height {
+    min-height: 210px;
+}
+.txt-question {
+    color: #595959;
+    margin: 7px 0;
+}
+.margin-cbp {
+    margin-bottom: 13px;
+}
+.cbp-min {
+    font-size: 13px;
+}
+.txt-data {
+    font-size: 12px;
+    color: #8f8f8f;
+}
+
 /* /portfolio */
 
 
