@@ -2926,6 +2926,7 @@ input[type="checkbox"], input[type="radio"] {
 
 .col-label {
   min-width:130px;
+  width: 190px;
   display:inline-block;
   vertical-align:top;
   padding: 8px 0;
@@ -3024,6 +3025,11 @@ input[type="checkbox"], input[type="radio"] {
   .col-form {
     width:100%;
   }
+
+  .col-label {
+    width: auto;
+  }
+
 
 }
 

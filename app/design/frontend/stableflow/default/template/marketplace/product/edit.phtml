@@ -30,7 +30,7 @@
         <ul class="form-list">
             <li>
                 <div class="field">
-                    <label for="category" class="required"><em>*</em><?php echo $this->__('Product Category') ?></label>
+                    <label for="category" class="required"><?php echo $this->__('Product Category') ?><span class="has-span">*</span></label>
                     <div class="input-box">
                         <select name="product[category_ids][]" id="category" class="required-entry select multiselect" multiple="multiple">
                             <option value=""><?php echo $this->__('Please Select Category--'); ?></option>  
@@ -49,25 +49,25 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label for="name" class="required"><em>*</em><?php echo $this->__('Product Name') ?></label>
+                    <label for="name" class="required"><?php echo $this->__('Product Name') ?><span class="has-span">*</span></label>
                     <div class="input-box">
-                        <input type="text" name="product[name]" id="name" value="<?php echo $this->getFormData()->getName(); ?>" title="<?php echo $this->__('Product Name') ?>" class="input-text required-entry" />
+                        <input type="text" name="product[name]" id="name" value="<?php echo $this->getFormData()->getName(); ?>" title="<?php echo $this->__('Product Name') ?>" class="form-control radius-none input-text required-entry" />
                     </div>
                 </div>
             </li>  
             <li>
                 <div class="field">
-                    <label for="description" class="required"><em>*</em><?php echo $this->__('Description') ?></label>
+                    <label for="description" class="required"><?php echo $this->__('Description') ?><span class="has-span">*</span></label>
                     <div class="input-box">
-                        <textarea name="product[description]" id="description" class="input-text required-entry" title="<?php echo $this->__('Description') ?>" rows="4" ><?php echo $this->getFormData()->getDescription(); ?></textarea>
+                        <textarea name="product[description]" id="description" class="form-control radius-none input-text required-entry" title="<?php echo $this->__('Description') ?>" rows="4" ><?php echo $this->getFormData()->getDescription(); ?></textarea>
                     </div>
                 </div> 
             </li>  
             <li> 
                 <div class="field">
-                    <label for="short_description" class="required"><em>*</em><?php echo $this->__('Short Description') ?></label>
+                    <label for="short_description" class="required"><?php echo $this->__('Short Description') ?><span class="has-span">*</span></label>
                     <div class="input-box">
-                        <textarea name="product[short_description]" id="short_description" class="input-text required-entry" title="<?php echo $this->__('Short Description') ?>" rows="4" ><?php echo $this->getFormData()->getDescription(); ?></textarea>
+                        <textarea name="product[short_description]" id="short_description" class="form-control radius-none input-text required-entry" title="<?php echo $this->__('Short Description') ?>" rows="4" ><?php echo $this->getFormData()->getDescription(); ?></textarea>
                     </div>
                 </div>
             </li>
@@ -75,7 +75,7 @@
                 <div class="field">
                     <label for="delivery_time"><?php echo $this->__('Delivery Time') ?></label>
                     <div class="input-box">
-                        <input type="text" name="product[delivery_time]" id="delivery_time" value="<?php echo $this->getFormData()->getDeliveryTime(); ?>" title="<?php echo $this->__('Delivery Time') ?>" class="input-text" />
+                        <input type="text" name="product[delivery_time]" id="delivery_time" value="<?php echo $this->getFormData()->getDeliveryTime(); ?>" title="<?php echo $this->__('Delivery Time') ?>" class="form-control radius-none input-text" />
                     </div>
                 </div>
                 <!--<div class="field">
@@ -87,29 +87,29 @@
             </li>
             <li> 
                 <div class="field">
-                    <label for="sku" class="required"><em>*</em><?php echo $this->__('SKU') ?></label>
+                    <label for="sku" class="required"><?php echo $this->__('SKU') ?><span class="has-span">*</span></label>
                     <div class="input-box">
-                        <input type="text" name="product[sku]" id="sku" value="<?php echo $this->getFormData()->getSku(); ?>" title="<?php echo $this->__('SKU') ?>" class="input-text required-entry" />
+                        <input type="text" name="product[sku]" id="sku" value="<?php echo $this->getFormData()->getSku(); ?>" title="<?php echo $this->__('SKU') ?>" class="form-control radius-none input-text required-entry" />
                     </div>
                 </div>
                 <div class="field">
-                    <label for="price" class="required"><em>*</em><?php echo $this->__('Price') ?></label>
+                    <label for="price" class="required"><?php echo $this->__('Price') ?><span class="has-span">*</span></label>
                     <div class="input-box">
-                        <input type="text" name="product[price]" id="price" value="<?php echo $this->getFormData()->getPrice(); ?>" title="<?php echo $this->__('Price') ?>" class="input-text required-entry" />
+                        <input type="text" name="product[price]" id="price" value="<?php echo $this->getFormData()->getPrice(); ?>" title="<?php echo $this->__('Price') ?>" class="form-control radius-none input-text required-entry" />
                     </div>
                 </div>
             </li>
             <li> 
                 <div class="field">
-                    <label for="stock" class="required"><em>*</em><?php echo $this->__('Stock') ?></label>
+                    <label for="stock" class="required"><?php echo $this->__('Stock') ?><span class="has-span">*</span></label>
                     <div class="input-box">
-                        <input type="text" name="product[qty]" id="qty" value="<?php echo round($this->getFormData()->getStockItem()->getQty()); ?>" title="<?php echo $this->__('Stock') ?>" class="input-text required-entry" />
+                        <input type="text" name="product[qty]" id="qty" value="<?php echo round($this->getFormData()->getStockItem()->getQty()); ?>" title="<?php echo $this->__('Stock') ?>" class="form-control radius-none input-text required-entry" />
                     </div>
                 </div>
                 <div class="field">
-                    <label for="weight" class="required"><em>*</em><?php echo $this->__('Weight') ?></label>
+                    <label for="weight" class="required"><?php echo $this->__('Weight') ?><span class="has-span">*</span></label>
                     <div class="input-box">
-                        <input type="text" name="product[weight]" id="weight" value="<?php echo $this->getFormData()->getWeight(); ?>" title="<?php echo $this->__('Weight') ?>" class="input-text required-entry" />
+                        <input type="text" name="product[weight]" id="weight" value="<?php echo $this->getFormData()->getWeight(); ?>" title="<?php echo $this->__('Weight') ?>" class="form-control radius-none input-text required-entry" />
                     </div>
                 </div>
             </li>
@@ -132,7 +132,7 @@
                         <td><img src="<?php echo $mediaUrl . "catalog/product" . $product->getImage(); ?>" width="75"/></td>                                    
                         <td><a style="margin: 10px;" href="<?php echo $this->getImageDeleteUrl('image') ?>" title="<?php echo $this->__('Remove This Base Image') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you want to delete this image?') ?>');" class="btn-remove"><?php echo $this->__('Remove This Base Image') ?></a></td> 
                     <?php else: ?>
-                        <td colspan="2" ><input type="file" id="product-image" name="image"  title="<?php echo $this->__('Image') ?>" class="input-text" /></td>
+                        <td colspan="2" ><input type="file" id="product-image" name="image"  title="<?php echo $this->__('Image') ?>" class="form-control radius-none input-text" /></td>
                        
                     <?php endif; ?>
                 </tr>
@@ -143,7 +143,7 @@
                         <td><img src="<?php echo $mediaUrl . "catalog/product" . $product->getSmallImage(); ?>" width="75"/></td>  
                         <td><a style="margin: 10px;" href="<?php echo $this->getImageDeleteUrl('small_image') ?>" title="<?php echo $this->__('Remove This Small Image') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you want to delete this image?') ?>');" class="btn-remove"><?php echo $this->__('Remove This Small Image') ?></a></td> 
                     <?php else: ?>
-                        <td colspan="2" ><input type="file" id="product-image" name="small_image"  title="<?php echo $this->__('Image') ?>" class="input-text" /></td>
+                        <td colspan="2" ><input type="file" id="product-image" name="small_image"  title="<?php echo $this->__('Image') ?>" class="form-control radius-none input-text" /></td>
                         
                     <?php endif; ?>    
                 </tr>
@@ -154,7 +154,7 @@
                     <td><img src="<?php echo $mediaUrl . "catalog/product" . $product->getThumbnail(); ?>" width="75"/></td>
                      <td><a style="margin: 10px;" href="<?php echo $this->getImageDeleteUrl('thumbnail') ?>" title="<?php echo $this->__('Remove This Thumbnail Image') ?>" onclick="return confirm('<?php echo $this->__('Are you sure you want to delete this image?') ?>');" class="btn-remove"><?php echo $this->__('Remove This Thumbnail Image') ?></a></td> 
                 <?php else: ?>
-                    <td colspan="2" ><input type="file" id="product-image" name="thumbnail"  title="<?php echo $this->__('Image') ?>" class="input-text" /></td>
+                    <td colspan="2" ><input type="file" id="product-image" name="thumbnail"  title="<?php echo $this->__('Image') ?>" class="form-control radius-none input-text" /></td>
                    
                 <?php endif; ?>    
                 </tr>                            
