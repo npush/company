@@ -89,6 +89,21 @@ b, strong, .bold {
     left: 0;
     z-index: 9999;
 }
+@media (max-width: 767px) { 
+
+  .global-site-notice {
+      font-size: 11px;
+  }
+
+}
+@media (max-width: 480px) { 
+
+  .global-site-notice {
+      font-size: 7px;
+  }
+
+}
+
 .global-site-notice p {
     margin:0;
 }
@@ -2396,6 +2411,10 @@ input[type="checkbox"], input[type="radio"] {
 .stars-sm {
   margin: 10px 0 5px;
 }
+
+.stars-rating.tars-rating-edit .radio-label:hover:before {
+    content: "\f005";
+}
 /* /stars */
 
 
@@ -2410,6 +2429,15 @@ input[type="checkbox"], input[type="radio"] {
 .tab-content {
   padding: 35px 30px;
 }
+
+@media (max-width: 900px) { 
+
+  .tab-content {
+    padding: 20px 15px;
+  }
+
+}
+
 
 .nav-tabs {
     border: 0;
@@ -3169,7 +3197,7 @@ input[type="checkbox"], input[type="radio"] {
 @media (max-width: 1500px) { 
 
   .portfolio-article .cbp-item {
-    width: 50%;
+    width: 49%;
   }
 
 }
