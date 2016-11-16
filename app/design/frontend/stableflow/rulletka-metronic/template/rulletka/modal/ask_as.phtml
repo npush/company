@@ -12,36 +12,45 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
-                <h4 class="modal-title text-center">Написать нам</h4>
+                <h4 class="modal-title text-center"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h4>
             </div>
-            <div class="modal-body modal-body-form">
-                <div class="form-group">
-                    <label class="control-label">Ваше имя:</label>
-                    <input type="text" class="form-control radius-none">
+            <form action="<?php echo Mage::getBaseUrl(); ?>contacts/index/post" id="contactForm" method="post" class="scaffold-form">
+                <div class="modal-body modal-body-form">
+                    <div class="form-group">
+                        <label class="control-label"><?php echo Mage::helper('contacts')->__('Name') ?><span class="has-span">*</span></label>
+                        <input name="name" id="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry form-control radius-none" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo Mage::helper('contacts')->__('Telephone') ?></label>
+                        <input name="telephone" id="telephone" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Telephone')) ?>" value="" class="form-control radius-none input-text" type="tel" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo Mage::helper('contacts')->__('Email') ?><span class="has-span">*</span> </label>
+                        <input name="email" id="email" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Email')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="form-control radius-none input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo Mage::helper('contacts')->__('Comment') ?><span class="has-span">*</span> </label>
+                        <textarea name="comment" id="comment" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" class="form-control radius-none required-entry input-text" cols="5" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <p class="txt-sm">
+                            <?php echo Mage::helper('contacts')->__('* Required Fields') ?>
+                        </p>
+                    </div>
+                    <?php echo $this->getChildHtml('recaptcha'); ?>
+                    <div class="form-group text-center">
+                        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+                        <button type="submit" class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min"><?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Submit')) ?></button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Номер телефона:</label>
-                    <input type="text" placeholder="+38 ( _ _ _ ) _ _ - _ _ - _ _" class="form-control radius-none">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">E-mail:<span class="has-span">*</span> </label>
-                    <input type="text" class="form-control radius-none">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Сообщение:<span class="has-span">*</span> </label>
-                    <textarea rows="3" class="form-control radius-none"></textarea>
-                </div>
-                <div class="form-group">
-                    <p class="txt-sm">
-                        Поля, обозначенные <span class="has-span">*</span> обязательны для заполнения
-                    </p>
-                </div>
-                <div class="form-group text-center">
-                    <button type="submit" class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min">Отправить</button>
-                </div>
-            </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
 </div>
+<script type="text/javascript">
+    //<![CDATA[
+    var contactForm = new VarienForm('contactForm', true);
+    //]]>
+</script>

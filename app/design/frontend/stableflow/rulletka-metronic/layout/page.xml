@@ -137,7 +137,9 @@ Default layout, loads most of the pages
 
             <block type="core/text_list" name="modal_popup" as="modal_popup">
                 <block type="core/template" name="modal_success" output="toHtml"  template="rulletka/modal/login.phtml"/>
-                <block type="core/template" name="modal_ask_as" output="toHtml"  template="rulletka/modal/ask_as.phtml"/>
+                <block type="core/template" name="modal_ask_as" output="toHtml"  template="rulletka/modal/ask_as.phtml">
+                    <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit"  as="recaptcha" template="studioforty9/recaptcha/explicit.phtml"/>
+                </block>
                 <block type="core/template" name="modal_register" output="toHtml"  template="rulletka/modal/register.phtml"/>
                 <block type="core/template" name="modal_review" output="toHtml"  template="rulletka/modal/review.phtml"/>
             </block>
