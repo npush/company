@@ -47,14 +47,4 @@
             </p>
         <?php endforeach; ?>
 <?php endif;?>
-        <div class="row row-margin">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <a class="btn btn-sm yellow btn-width" href="<?php echo Mage::getModel('catalog/category')->load($_product->getCategoryIds()[0])->getUrl();?>">
-                        <i class="icon icon-arrows_left left-pull"></i>
-                        <?php echo $this->__('Back to catalog');?>
-                     </a>
-                </div>
-            </div>
-        </div>
     </div>
