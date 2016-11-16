@@ -2412,9 +2412,9 @@ input[type="checkbox"], input[type="radio"] {
   margin: 10px 0 5px;
 }
 
-/*.stars-rating-edit {
+.stars-rating-edit {
   display: none;
-}*/
+}
 .stars-rating-edit  label.radio-label {
   height: 40px;
   width: 43px;
