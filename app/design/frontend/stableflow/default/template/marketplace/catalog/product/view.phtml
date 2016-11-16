@@ -20,8 +20,7 @@
 </script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
 <div class="portlet light portlet-fit bordered">
-    <div class="portlet-title">
-    </div>
+    <div class="portlet-title"></div>
     <div class="portlet-body ">
         <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
             <div class="no-display">
