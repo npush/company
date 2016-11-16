@@ -9,6 +9,7 @@
 <?php $_items = $this->getReviewsCollection()->getItems();?>
 <div class="comment-content">
     <div class="c-comment-list">
+        <h1>Review</h1>
         <!-- Review text content -->
         <?php if (count($_items)):?>
             <?php foreach ($_items as $_review):?>
@@ -43,13 +44,4 @@
         <!-- End Review text content -->
     </div>
 </div>
-<div class="row row-margin">
-    <div class="col-md-12">
-        <div class="form-group">
-            <a class="btn btn-sm yellow btn-width" href="catalog.html">
-                <i class="icon icon-arrows_left left-pull"></i>
-                вернуться в каталог
-            </a>
-        </div>
-    </div>
-</div>
+
