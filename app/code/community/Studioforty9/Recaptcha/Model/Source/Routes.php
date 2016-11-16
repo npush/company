@@ -32,6 +32,7 @@ class Studioforty9_Recaptcha_Model_Source_Routes
         
         $routes->add('contacts_index', Mage::helper('studioforty9_recaptcha')->__('Contact Form'));
         $routes->add('review_product', Mage::helper('studioforty9_recaptcha')->__('Product Review Form'));
+        $routes->add('product_view', Mage::helper('studioforty9_recaptcha')->__('Product View Page'));
         $routes->add('customer_account_create', Mage::helper('studioforty9_recaptcha')->__('Account Registration Form'));
         $routes->add('sendfriend_product_send', Mage::helper('studioforty9_recaptcha')->__('Send to Friend Form'));
         $routes->add('customer_account_login', Mage::helper('studioforty9_recaptcha')->__('Login Form'));
