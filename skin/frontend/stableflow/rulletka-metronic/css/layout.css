@@ -2414,7 +2414,7 @@ input[type="checkbox"], input[type="radio"] {
 
 .stars-rating.stars-rating-edit  input:checked ~ label:before, 
 .stars-rating.stars-rating-edit label:before:hover, 
-.stars-rating.stars-rating-edit  label:before:hover  ~ labele {
+.stars-rating.stars-rating-edit  label:before:hover  ~ label:before {
     content: "\f005";
 }
 
