@@ -12,7 +12,7 @@
         <h1>Review</h1>
         <!-- Review text content -->
         <?php if (count($_items)) { ?>
-            <?php foreach ($_items as $_review): ?>
+            <?php foreach ($_items as $_review){ ?>
                 <div class="media">
                     <div class="media-body">
                         <h4 class="media-heading">
@@ -38,7 +38,7 @@
                         <?php echo nl2br($this->escapeHtml($_review->getDetail())); ?>
                     </div>
                 </div>
-            <? endforeach; ?>
+            <? } ?>
         <?php } ?>
         <!-- End Review text content -->
     </div>
