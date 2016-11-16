@@ -84,14 +84,14 @@
                     <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $groupTab => $html):?>
                         <li>
                             <?php if ($title = $this->getChildData($groupTab, 'title')):?>
-
+                                <?php ?>
                             <?php else: ?>
                                 <?php $title = $groupTab; ?>
-                            <?php endif;?>
+                            <?php endif; ?>
                             <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($title); ?></a>
                             <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
                         </li>
-                    <?php endforeach;?>
+                    <?php endforeach; ?>
                 </ul>
                 <div class="tab-content">
                     <?php echo $html_render; ?>
