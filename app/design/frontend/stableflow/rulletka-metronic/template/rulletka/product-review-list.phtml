@@ -11,8 +11,8 @@
     <div class="c-comment-list">
         <h1>Review</h1>
         <!-- Review text content -->
-        <?php if (count($_items)):?>
-            <?php foreach ($_items as $_review):?>
+        <?php if (count($_items)): ?>
+            <?php foreach ($_items as $_review): ?>
                 <div class="media">
                     <div class="media-body">
                         <h4 class="media-heading">
@@ -22,18 +22,18 @@
                         <?php echo $_votes = $_review->getRatingVotes(); ?>
                         <!-- Rating stars -->
                         <?php if (count($_votes)): ?>
-                        <div class="stars-rating stars-sm">
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-5">
-                            <label for="star-rating-11-5" class="radio-label"></label>
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-4">
-                            <label for="star-rating-11-4" class="radio-label"></label>
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-3">
-                            <label for="star-rating-11-3" class="radio-label"></label>
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-2">
-                            <label for="star-rating-11-2" class="radio-label"></label>
-                            <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-1">
-                            <label for="star-rating-11-1" class="radio-label"></label>
-                        </div>
+                            <div class="stars-rating stars-sm">
+                                <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-5">
+                                <label for="star-rating-11-5" class="radio-label"></label>
+                                <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-4">
+                                <label for="star-rating-11-4" class="radio-label"></label>
+                                <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-3">
+                                <label for="star-rating-11-3" class="radio-label"></label>
+                                <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-2">
+                                <label for="star-rating-11-2" class="radio-label"></label>
+                                <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-1">
+                                <label for="star-rating-11-1" class="radio-label"></label>
+                            </div>
                         <?php endif;?>
                         <!-- End Rating stars -->
                         <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?>
