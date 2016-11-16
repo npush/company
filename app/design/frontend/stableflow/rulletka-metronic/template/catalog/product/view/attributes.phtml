@@ -36,15 +36,13 @@
 ?>
 <?php if($_additional = $this->getAdditionalData()): ?>
     <div class="content-text ">
-
-        <p class="text-margin">
-            <?php echo $_helper->productAttribute($this->getProduct(), $_product->getDescription(), 'description') ?>
-        </p>
+        <p class="text-margin"><?php echo $_helper->productAttribute($this->getProduct(), $_product->getDescription(), 'description') ?></p>
         <?php foreach ($_additional as $_data): ?>
             <p class="line-dashed"><span class="dashed-style">
-                    <b><?php echo $this->escapeHtml($this->__($_data['label'])) ?></b> </span>
+                <b><?php echo $this->escapeHtml($this->__($_data['label'])) ?></b>
                 <?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?>
             </p>
         <?php endforeach; ?>
-<?php endif;?>
     </div>
+<?php endif;?>
+

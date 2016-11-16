@@ -17,10 +17,10 @@
         <form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
             <?php echo $this->getBlockHtml('formkey'); ?>
             <?php echo $this->getChildHtml('form_fields_before')?>
-            <h3><?php echo $this->__("You're reviewing:"); ?>
-                <span><?php echo $this->escapeHtml($this->getProductInfo()->getName()) ?></span>
-            </h3>
-            <div id="collapse_3_1" class="panel-collapse in">
+            <div id="collapse_3_1" class="panel-collapse collapse">
+                <h3><?php echo $this->__("You're reviewing:"); ?>
+                    <span><?php echo $this->escapeHtml($this->getProductInfo()->getName()) ?></span>
+                </h3>
                 <div class="panel-body">
                     <div class="form-group">
                         <label for="nickname_field" class="required col-label control-label"><?php echo $this->__("What's your nickname?") ?><span class="has-span">*</span></label>
@@ -64,15 +64,15 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <?php echo $this->getChildHtml('recaptcha') ?>
-            <div class="row row-margin">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit Review')) ?>" class="btn btn-sm yellow btn-width">
-                            <i class="icon submit"></i>
-                            <?php echo $this->__('Submit Review') ?>
-                        </button>
+                <?php echo $this->getChildHtml('recaptcha') ?>
+                <div class="row row-margin">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit Review')) ?>" class="btn btn-sm yellow btn-width">
+                                <i class="icon submit"></i>
+                                <?php echo $this->__('Submit Review') ?>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
