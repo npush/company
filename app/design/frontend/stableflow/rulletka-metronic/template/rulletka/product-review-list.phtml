@@ -16,10 +16,10 @@
                 <div class="media">
                     <div class="media-body">
                         <h4 class="media-heading">
-                            <a href="#"><?php echo $this->escapeHtml($_review->getNickname())?></a>
-                            <span class="c-date">08.04.2016 12:16</span>
+                            <span><?php echo $this->escapeHtml($_review->getNickname())?></span>
+                            <span class="c-date"><?php echo $this->escapeHtml($_review->getCreatedAt())?></span>
                         </h4>
-                        <?php $_votes = $_review->getRatingVotes(); ?>
+                        <?php echo $_votes = $_review->getRatingVotes(); ?>
                         <!-- Rating stars -->
                         <?php if (count($_votes)): ?>
                         <div class="stars-rating stars-sm">
