@@ -11,7 +11,7 @@
     <div class="c-comment-list">
         <h1>Review</h1>
         <!-- Review text content -->
-        <?php if (count($_items)) {?>
+        <?php if (count($_items)): ?>
             <?php foreach ($_items as $_review): ?>
                 <div class="media">
                     <div class="media-body">
@@ -33,13 +33,13 @@
                                 <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-1">
                                 <label for="star-rating-11-1" class="radio-label"></label>
                             </div>
-                        <?php endif; ?>
+                        <?php endif ?>
                         <!-- End Rating stars -->
                         <?php echo nl2br($this->escapeHtml($_review->getDetail())); ?>
                     </div>
                 </div>
             <? endforeach; ?>
-        <?php } ?>
+        <?php endif ?>
         <!-- End Review text content -->
     </div>
 </div>
