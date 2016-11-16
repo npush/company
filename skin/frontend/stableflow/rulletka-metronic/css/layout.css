@@ -2412,7 +2412,9 @@ input[type="checkbox"], input[type="radio"] {
   margin: 10px 0 5px;
 }
 
-
+.stars-rating-edit {
+  display: none;
+}
 .stars-rating-edit  label.radio-label {
   height: 40px;
   width: 43px;
@@ -2437,17 +2439,19 @@ input[type="checkbox"], input[type="radio"] {
     z-index: 0;
 
 }
+.stars-rating-edit label.radio-label:hover {
+    background-color: black;
+}
 
-.stars-rating-edit  input[type="radio"]:checked ~ label.radio-label:before, 
+/*.stars-rating-edit  input[type="radio"]:checked ~ label.radio-label:before, 
 .stars-rating-edit label.radio-label:before:hover, 
 .stars-rating-edit  label.radio-label:before:hover  ~ label.radio-label:before,
 
 .stars-rating-edit  input[type="radio"]:checked ~ label.radio-label,
 .stars-rating-edit label.radio-label:hover, 
-.stars-rating-edit  label.radio-label:hover  ~ label.radio-label{
-    content: "\f005";
+.stars-rating-edit  label.radio-label:hover  ~ label.radio-label {
     background-color: black;
-}
+}*/
 
 
 /* /stars */
