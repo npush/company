@@ -205,7 +205,7 @@ Product view
 
                 <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
                 <!-- TABS  -->
-                <block type="catalog/product_view_attributes" name="product.attributes" as="additional" template="catalog/product/view/attributes.phtml">
+                <block type="catalog/product_view_attributes" name="product.attributes" as="attributes" template="catalog/product/view/attributes.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                     <action method="setTitle" translate="value"><value>Additional info</value></action>
                 </block>
