@@ -2412,10 +2412,31 @@ input[type="checkbox"], input[type="radio"] {
   margin: 10px 0 5px;
 }
 
-.stars-rating.stars-rating-edit  input:checked ~ label:before, 
-.stars-rating.stars-rating-edit label:before:hover, 
-.stars-rating.stars-rating-edit  label:before:hover  ~ labele {
+.stars-rating.stars-rating-edit  input[type="radio"]:checked ~ label.radio-label:before, 
+.stars-rating.stars-rating-edit label.radio-label:before:hover, 
+.stars-rating.stars-rating-edit  label.radio-label:before:hover  ~ label.radio-label:before,
+
+.stars-rating.stars-rating-edit label.radio-label:hover:before, 
+.stars-rating.stars-rating-edit  label.radio-label:hover:before  ~ label.radio-label:before {
     content: "\f005";
+}
+.stars-rating.stars-rating-edit  label.radio-label {
+    z-index: 1;  
+}
+.stars-rating.stars-rating-edit  input[type="radio"] {
+    display: inline-block;
+    position: absolute;
+    z-index: 21;
+    height: 23px;
+    width: 23px;
+    line-height: 12px;
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    -khtml-opacity: 0;
+    -moz-opacity: 0;
+    opacity: 0;
+    z-index: 0;
+
 }
 
 

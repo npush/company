@@ -38,12 +38,6 @@
                         <label class="col-label control-label">Оценка:</label>
                         <div class="col-form">
                             <div class="stars-rating stars-rating-edit">
-                                <?php foreach ($this->getRatings() as $_rating): ?>
-                                    <sapn><?php echo $this->escapeHtml($_rating->getRatingCode()) ?></sapn>
-                                    <?php foreach ($_rating->getOptions() as $_option): ?>
-                                        <span class="value"><label for="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>"><input type="radio" name="ratings[<?php echo $_rating->getId() ?>]" id="<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue() ?>" value="<?php echo $_option->getId() ?>" class="radio" /></label></span>
-                                    <?php endforeach; ?>
-                                <?php endforeach; ?>
                                 <input type="radio"  name="star-rating-1-5">
                                 <label for="star-rating-1-5" class="radio-label"></label>
                                 <input type="radio"  name="star-rating-1-4">
