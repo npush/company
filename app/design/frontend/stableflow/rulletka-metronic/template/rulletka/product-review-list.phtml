@@ -11,7 +11,7 @@
     <div class="c-comment-list">
         <h1>Review</h1>
         <!-- Review text content -->
-        <?php if (count($_items)): ?>
+        <?php if (count($_items)) {?>
             <?php foreach ($_items as $_review): ?>
                 <div class="media">
                     <div class="media-body">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             <? endforeach; ?>
-        <?php endif; ?>
+        <?php } ?>
         <!-- End Review text content -->
     </div>
 </div>
