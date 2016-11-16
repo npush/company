@@ -13,7 +13,7 @@
                 <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_1"><?php echo $this->__('Write Your Own Review') ?></a>
             </h4>
         </div>
-        <?php if (/*$this->getAllowWriteReviewFlag()*/ true): ?>
+        <?php if (/*$this->getAllowWriteReviewFlag()*/ 1): ?>
         <form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
             <?php echo $this->getBlockHtml('formkey'); ?>
             <?php echo $this->getChildHtml('form_fields_before')?>
