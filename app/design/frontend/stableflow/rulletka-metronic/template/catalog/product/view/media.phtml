@@ -109,13 +109,17 @@
 </div>
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        jQuery('.pgwSlider').pgwSlider({
-            autoSlide: false,
-            displayControls: true
+        var modalProduct = jQuery('#modal_product');
+        modalProduct.on('shown.bs.modal', function() {
+            jQuery('.pgwSlider').pgwSlider({
+                autoSlide: false,
+                displayControls: true,
+                adaptiveHeight : true
+            });
         });
-        /*jQuery('#modal_product').on('shown.bs.modal', function() {
-
-        })*/
+        modalProduct.on('hidden.bs.modal', function() {
+            jQuery('.pgwSlider').pgwSlider().destroy(true);
+        });
 
     });
 </script>
