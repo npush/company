@@ -11,17 +11,17 @@
     <div class="c-comment-list">
         <h1>Review</h1>
         <!-- Review text content -->
-        <?php /*if (count($_items)): */?><!--
-            <?php /*foreach ($_items as $_review): */?>
+        <?php if (count($_items)): ?>
+            <?php foreach ($_items as $_review): ?>
                 <div class="media">
                     <div class="media-body">
                         <h4 class="media-heading">
-                            <span><?php /*echo $this->escapeHtml($_review->getNickname());*/?></span>
-                            <span class="c-date"><?php /*echo $this->escapeHtml($_review->getCreatedAt());*/?></span>
+                            <span><?php echo $this->escapeHtml($_review->getNickname());?></span>
+                            <span class="c-date"><?php echo $this->escapeHtml($_review->getCreatedAt());?></span>
                         </h4>
-                        <?php /*echo $_votes = $_review->getRatingVotes(); */?>
+                        <?php echo $_votes = $_review->getRatingVotes(); ?>
                         <!-- Rating stars -->
-                        <?php /*if (count($_votes)): */?>
+                        <?php if (count($_votes)): ?>
                             <div class="stars-rating stars-sm">
                                 <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-5">
                                 <label for="star-rating-11-5" class="radio-label"></label>
@@ -34,13 +34,13 @@
                                 <input type="radio" disabled="disabled" checked="checked" name="star-rating-11-1">
                                 <label for="star-rating-11-1" class="radio-label"></label>
                             </div>
-                        <?php /*endif; */?>
+                        <?php endif; ?>
                         <!-- End Rating stars -->
-                        <?php /*echo nl2br($this->escapeHtml($_review->getDetail())) */?>
+                        <?php echo nl2br($this->escapeHtml($_review->getDetail())) ?>
                     </div>
                 </div>
-            <?/* endforeach; */?>
-        --><?php /*endif; */?>
+            <? endforeach; ?>
+        <?php endif; ?>
         <!-- End Review text content -->
     </div>
 </div>
