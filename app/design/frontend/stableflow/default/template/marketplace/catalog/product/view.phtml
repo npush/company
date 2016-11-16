@@ -84,10 +84,9 @@
                     <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $groupTab => $html):?>
                         <li>
                             <?php
-                            if ($title = $this->getChildData($groupTab, 'title')){}
-                            else {
+                            if ($title = $this->getChildData($groupTab, 'title'));
+                            else
                                 $title = $groupTab;
-                            }
                             ?>
                             <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($title); ?></a>
                             <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
