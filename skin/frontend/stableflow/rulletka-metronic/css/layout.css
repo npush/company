@@ -2417,8 +2417,8 @@ input[type="checkbox"], input[type="radio"] {
   position: relative;
 }
 .stars-rating-edit  label.radio-label {
-  height: 40px;
-  width: 43px;
+  height: 22px;
+  width: 22px;
   background-color: red;
   float: left;
   cursor: pointer;
@@ -2446,18 +2446,19 @@ input[type="checkbox"], input[type="radio"] {
 .stars-rating-edit  input[type="radio"]:nth-child(1) {
     left: 0px;
 }
-.stars-rating-edit  input[type="radio"]:nth-child(2) {
+.stars-rating-edit  input[type="radio"]:nth-child(3) {
     left: 32px;
 }
-.stars-rating-edit  input[type="radio"]:nth-child(3) {
+.stars-rating-edit  input[type="radio"]:nth-child(5) {
     left: 64px;
 }
-.stars-rating-edit  input[type="radio"]:nth-child(4) {
+.stars-rating-edit  input[type="radio"]:nth-child(7) {
     left: 96px;
 }
-.stars-rating-edit  input[type="radio"]:nth-child(5) {
+.stars-rating-edit  input[type="radio"]:nth-child(9) {
     left: 128px;
 }
+
 .stars-rating-edit label.radio-label:hover,
 .stars-rating-edit label.radio-label:hover ~ label.radio-label,
 .stars-rating-edit input[type="radio"]:checked ~ label.radio-label {
