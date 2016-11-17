@@ -1818,7 +1818,7 @@ label.control-label {
 .input-number-less {
   position: absolute;
   right: 8px;
-  border-width: 5px;
+  border-width: 6px;
   border-style: solid;
   cursor: pointer;
 }
