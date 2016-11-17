@@ -1801,34 +1801,31 @@ label.control-label {
    height: 37px;
    font-size:13px;
 }
-.input-number-box {
+.input-number-box{
   display: inline-block;
   position: relative;
 }
 
-.input-number {
+.input-number{
+  line-height: 25px;
+  height:25px;
   padding-right: 25px;
-  width: 70px;
-  text-align: center;
-  font-size: 18px;
-  margin-top: 5px;
-  height: 46px;
 }
 .input-number-more,
-.input-number-less {
+.input-number-less{
   position: absolute;
   right: 8px;
   border-width: 5px;
   border-style: solid;
   cursor: pointer;
 }
-.input-number-more {
-  top: 12px;
-  border-color: transparent transparent #255e95 transparent;
+.input-number-more{
+  top: 2px;
+  border-color: transparent transparent gray transparent;
 }
-.input-number-less {
-  bottom: 7px;
-  border-color: #255e95 transparent transparent transparent;
+.input-number-less{
+  bottom: 2px;
+  border-color: gray transparent transparent transparent;
 }
 
 .contact-panel {
