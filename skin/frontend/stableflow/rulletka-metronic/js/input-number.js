@@ -1,8 +1,8 @@
 
 
-jQuery(document).on('ready', function ($ = jQuery) {
+jQuery(document).on('ready', function () {
 
-    $.fn.iLightInputNumber = function (options) {
+    jQuery.fn.iLightInputNumber = function (options) {
 
         var inBox = '.input-number-box',
                 newInput = '.input-number',
@@ -11,8 +11,8 @@ jQuery(document).on('ready', function ($ = jQuery) {
 
         this.each(function () {
 
-            var el = $(this);
-            $('<div class="' + inBox.substr(1) + '"></div>').insertAfter(el);
+            var el = jQuery(this);
+            jQuery('<div class="' + inBox.substr(1) + '"></div>').insertAfter(el);
             var parent = el.find('+ ' + inBox);
             parent.append(el);
             var classes = el.attr('class');
@@ -51,8 +51,8 @@ jQuery(document).on('ready', function ($ = jQuery) {
             console.log(input);
         }
 
-        $('body').on('mousedown', moreVal, function () {
-            var el = $(this);
+        jQuery('body').on('mousedown', moreVal, function () {
+            var el = jQuery(this);
             var input = el.siblings(newInput);
             moreValFn(input);
             timeout = setTimeout(function () {
@@ -63,8 +63,8 @@ jQuery(document).on('ready', function ($ = jQuery) {
 
         });
 
-        $('body').on('mousedown', lessVal, function () {
-            var el = $(this);
+        jQuery('body').on('mousedown', lessVal, function () {
+            var el = jQuery(this);
             var input = el.siblings(newInput);
             lessValFn(input);
             timeout = setTimeout(function () {
@@ -74,7 +74,7 @@ jQuery(document).on('ready', function ($ = jQuery) {
             }, 200);
         });
 
-        $(moreVal + ', ' + lessVal).on("mouseup mouseout", function () {
+        jQuery(moreVal + ', ' + lessVal).on("mouseup mouseout", function () {
             clearTimeout(timeout);
             clearInterval(interval);
         });
@@ -111,7 +111,7 @@ jQuery(document).on('ready', function ($ = jQuery) {
             } else if (input.attr('placeholder')) {
                 value = parseFloat(input.attr('placeholder'));
             }
-            if (!($.isNumeric(value))) {
+            if (!(jQuery.isNumeric(value))) {
                 value = 0;
             }
             if (input.attr('step')) {
@@ -121,8 +121,8 @@ jQuery(document).on('ready', function ($ = jQuery) {
             }
         }
 
-        $(newInput).change(function () {
-            var input = $(this);
+        jQuery(newInput).change(function () {
+            var input = jQuery(this);
             var value = parseFloat(input.val());
             var min = input.attr('min');
             var max = input.attr('max');
@@ -131,15 +131,15 @@ jQuery(document).on('ready', function ($ = jQuery) {
             } else if (value > max) {
                 value = max;
             }
-            if (!($.isNumeric(value))) {
+            if (!(jQuery.isNumeric(value))) {
                 value = '';
             }
             input.val(value);
             input.siblings(this).val(value);
         });
 
-        $(newInput).keydown(function (e) {
-            var input = $(this);
+        jQuery(newInput).keydown(function (e) {
+            var input = jQuery(this);
             var k = e.keyCode;
             if (k == 38) {
                 moreValFn(input);
@@ -149,7 +149,7 @@ jQuery(document).on('ready', function ($ = jQuery) {
         });
     };
 
-    $('input[type=number]').iLightInputNumber({
+    jQuery('input[type=number]').iLightInputNumber({
         mobile: false
     });
 
