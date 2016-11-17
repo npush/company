@@ -1765,11 +1765,14 @@ button.btn.grey:hover {
   font-family: 'OpenSansSemiboldRegular';
 }
 
-.btn-default-none, .basket-number-lg.basket-number span.availability-txt {
-    border-color: transparent;
+.btn-default-none, .availability span.availability-txt {
     color: #255e95;
     font-size: 13px;
-    background-color:transparent;
+    padding: 10px 16px;
+}
+
+.availability  {
+    display: inline-block;
 }
 
 @media (max-width: 1400px) {
