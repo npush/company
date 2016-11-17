@@ -2439,7 +2439,9 @@ input[type="checkbox"], input[type="radio"] {
     z-index: 0;
 
 }
-.stars-rating-edit label.radio-label:hover {
+.stars-rating-edit label.radio-label:hover,
+.stars-rating-edit label.radio-label:hover ~ label.radio-label,
+.stars-rating-edit input[type="radio"]:checked ~ label.radio-label {
     background-color: black;
 }
 
