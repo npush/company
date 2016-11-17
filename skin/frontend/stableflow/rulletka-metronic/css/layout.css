@@ -2414,6 +2414,7 @@ input[type="checkbox"], input[type="radio"] {
 
 .stars-rating-edit {
   display: none;
+  position: relative;
 }
 .stars-rating-edit  label.radio-label {
   height: 40px;
@@ -2439,27 +2440,23 @@ input[type="checkbox"], input[type="radio"] {
     height: 23px;
     width: 23px;
     line-height: 12px;
--ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    -khtml-opacity: 0;
-    -moz-opacity: 0;
-
+    z-index: 2;
 }
 
 .stars-rating-edit  input[type="radio"]:nth-child(1) {
     left: 0px;
 }
 .stars-rating-edit  input[type="radio"]:nth-child(2) {
-    left: 20px;
+    left: 32px;
 }
 .stars-rating-edit  input[type="radio"]:nth-child(3) {
-    left: 40px;
+    left: 64px;
 }
 .stars-rating-edit  input[type="radio"]:nth-child(4) {
-    left: 60px;
+    left: 96px;
 }
 .stars-rating-edit  input[type="radio"]:nth-child(5) {
-    left: 80px;
+    left: 128px;
 }
 .stars-rating-edit label.radio-label:hover,
 .stars-rating-edit label.radio-label:hover ~ label.radio-label,
@@ -2473,7 +2470,13 @@ input[type="checkbox"], input[type="radio"] {
   content: "\f005";
 }
 
+.stars-rating-edit  input[type="radio"] {
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    -khtml-opacity: 0;
+    -moz-opacity: 0;
 
+}
 /*.stars-rating-edit  input[type="radio"]:checked ~ label.radio-label:before, 
 .stars-rating-edit label.radio-label:before:hover, 
 .stars-rating-edit  label.radio-label:before:hover  ~ label.radio-label:before,
