@@ -28,9 +28,9 @@
 
 <?php if ($this->displayProductStockStatus()): ?>
     <?php if ($_product->isAvailable()): ?>
-        <p class="availability in-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('In stock') ?></span></p>
+        <div class="availability in-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('In stock') ?></span></div>
     <?php else: ?>
-        <p class="availability out-of-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('Out of stock') ?></span></p>
+        <div class="availability out-of-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('Out of stock') ?></span></div>
     <?php endif; ?>
 <?php endif; ?>
 
