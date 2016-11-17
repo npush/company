@@ -1808,8 +1808,11 @@ label.control-label {
 
 .input-number{
   padding-right: 25px;
-  width: 60px;
+  width: 70px;
   text-align: center;
+  font-size: 18px;
+  margin-top: 5px;
+  height: 46px;
 }
 .input-number-more,
 .input-number-less{
@@ -1820,11 +1823,11 @@ label.control-label {
   cursor: pointer;
 }
 .input-number-more{
-  top: 2px;
+  top: 12px;
   border-color: transparent transparent #255e95 transparent;
 }
 .input-number-less{
-  bottom: 2px;
+  bottom: 7px;
   border-color: #255e95 transparent transparent transparent;
 }
 
