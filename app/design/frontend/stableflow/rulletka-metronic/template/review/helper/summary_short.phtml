@@ -24,10 +24,16 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php /* @var $this Mage_Catalog_Block_Product_View_Abstract */?>
-<?php $_product = $this->getProduct() ?>
+<?php if ($this->getReviewsCount()): ?>
 
-<?php echo $this->getChildHtml('product_type_data_extra') ?>
-<?php echo $this->getPriceHtml($_product) ?>
+    <?php if ($this->getRatingSummary()):?>
+        <?php $rating = $this->getRatingSummary()?>
+        <?php //print_r($summaryData);?>
+        <?php $numOfStar = intval($rating * 5 / 100);?>
+        <?php for($i = 5; $i != 0; $i--):?>
+            <input type="radio" disabled="disabled" <?php echo $numOfStar-- > 0 ?  'checked="checked"' : '' ?> name="star-rating-<?php echo $i;?>">
+            <label for="star-rating-<?php echo $i;?>" class="radio-label"></label>
+        <?php endfor;?>
+    <?php endif;?>
 
-
+<?php endif; ?>
