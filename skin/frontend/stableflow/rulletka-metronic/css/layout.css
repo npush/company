@@ -2395,7 +2395,6 @@ input[type="checkbox"], input[type="radio"] {
     content: "\f005";
 }
 .stars-rating .radio-label {
-    cursor: pointer;
     margin-bottom: 0;
     padding: 11px 12px;
     position: relative;
