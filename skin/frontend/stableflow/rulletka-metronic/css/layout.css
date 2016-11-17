@@ -2419,7 +2419,7 @@ input[type="checkbox"], input[type="radio"] {
   height: 40px;
   width: 43px;
   background-color: red;
-  float: right;
+  float: left;
   cursor: pointer;
   margin-right: 10px;
   position: relative;
@@ -2438,6 +2438,22 @@ input[type="checkbox"], input[type="radio"] {
     opacity: 0;
     z-index: 0;
 
+}
+
+.stars-rating-edit  input[type="radio"]:nth-child(1) {
+    left: 0px;
+}
+.stars-rating-edit  input[type="radio"]:nth-child(2) {
+    left: 20px;
+}
+.stars-rating-edit  input[type="radio"]:nth-child(3) {
+    left: 40px;
+}
+.stars-rating-edit  input[type="radio"]:nth-child(4) {
+    left: 60px;
+}
+.stars-rating-edit  input[type="radio"]:nth-child(5) {
+    left: 80px;
 }
 .stars-rating-edit label.radio-label:hover,
 .stars-rating-edit label.radio-label:hover ~ label.radio-label,
