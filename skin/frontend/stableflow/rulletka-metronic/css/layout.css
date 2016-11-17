@@ -2415,12 +2415,13 @@ input[type="checkbox"], input[type="radio"] {
 .stars-rating-edit {
   display: none;
   position: relative;
+  float: left;
 }
 .stars-rating-edit  label.radio-label {
   height: 22px;
   width: 22px;
   background-color: red;
-  float: left;
+  float: right;
   cursor: pointer;
   margin-right: 10px;
   position: relative;
@@ -2443,19 +2444,19 @@ input[type="checkbox"], input[type="radio"] {
     z-index: 2;
 }
 
-.stars-rating-edit  input[type="radio"]:nth-child(1) {
+.stars-rating-edit  input[type="radio"]:nth-child(9) {
     left: 0px;
 }
-.stars-rating-edit  input[type="radio"]:nth-child(3) {
+.stars-rating-edit  input[type="radio"]:nth-child(7) {
     left: 32px;
 }
 .stars-rating-edit  input[type="radio"]:nth-child(5) {
     left: 64px;
 }
-.stars-rating-edit  input[type="radio"]:nth-child(7) {
+.stars-rating-edit  input[type="radio"]:nth-child(3) {
     left: 96px;
 }
-.stars-rating-edit  input[type="radio"]:nth-child(9) {
+.stars-rating-edit  input[type="radio"]:nth-child(1) {
     left: 128px;
 }
 
@@ -2467,9 +2468,9 @@ input[type="checkbox"], input[type="radio"] {
     background-color: black;
 }
 
-.stars-rating-edit label.radio-label:hover:before,
-.stars-rating-edit label.radio-label:hover:before ~ label.radio-label:before,
-.stars-rating-edit input[type="radio"]:checked ~ label.radio-label:before {
+.stars-rating-edit input[type="radio"]:checked ~ label.radio-label:before,
+.stars-rating-edit input[type="radio"]:hover ~ label.radio-label:before,
+.stars-rating-edit input[type="radio"]:hover ~ label.radio-label ~ label.radio-label:before {
   content: "\f005";
 }
 
