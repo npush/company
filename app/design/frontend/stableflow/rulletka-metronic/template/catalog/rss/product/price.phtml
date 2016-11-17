@@ -169,12 +169,12 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
             <?php else: ?>
                 <?php if ($_weeeTaxAmount && Mage::helper('weee')->typeOfDisplay($_product, 0)): // including ?>
                     <?php $weeeAmountToDisplay = $_taxHelper->displayPriceIncludingTax() ? $_weeeTaxAmountInclTaxes : $_weeeTaxAmount ?>
-                    <span class="regular-price"
-                          id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price + $weeeAmountToDisplay, true, true) ?></span>
+                    <div class="basket-number basket-number-lg regular-price"
+                          id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price + $weeeAmountToDisplay, true, true) ?></div>
                 <?php elseif ($_weeeTaxAmount && Mage::helper('weee')->typeOfDisplay($_product, 1)): // incl. + weee ?>
                     <?php $weeeAmountToDisplay = $_taxHelper->displayPriceIncludingTax() ? $_weeeTaxAmountInclTaxes : $_weeeTaxAmount ?>
-                    <span class="regular-price"
-                          id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price + $weeeAmountToDisplay, true, true) ?></span>
+                    <div class="basket-number basket-number-lg regular-price"
+                          id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price + $weeeAmountToDisplay, true, true) ?></div>
                     <br/>
                     <span class="weee">(<small>
                             <?php foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
@@ -184,8 +184,8 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                             <?php endforeach; ?>
                         </small>)</span>
                 <?php elseif ($_weeeTaxAmount && Mage::helper('weee')->typeOfDisplay($_product, 4)): // incl. + weee ?>
-                    <span class="regular-price"
-                          id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price + $_weeeTaxAmount, true, true) ?></span>
+                    <div class="basket-number basket-number-lg regular-price"
+                          id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price + $_weeeTaxAmount, true, true) ?></div>
                     <br/>
                     <span class="weee">(<small>
                             <?php foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
@@ -196,7 +196,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                         </small>)</span>
                 <?php elseif ($_weeeTaxAmount && Mage::helper('weee')->typeOfDisplay($_product, 2)): // excl. + weee + final ?>
                     <?php $weeeAmountToDisplay = $_taxHelper->displayPriceIncludingTax() ? $_weeeTaxAmountInclTaxes : $_weeeTaxAmount ?>
-                    <span class="regular-price"><?php echo Mage::helper('core')->currency($_price, true, true) ?></span>
+                    <div class="basket-number basket-number-lg regular-price"><?php echo Mage::helper('core')->currency($_price, true, true) ?></div>
                     <br/>
                     <?php foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
                         <span class="weee">
@@ -207,16 +207,16 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                     </span>
                         <br/>
                     <?php endforeach; ?>
-                    <span class="regular-price"
-                          id="product-price-weee-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price + $weeeAmountToDisplay, true, true) ?></span>
+                    <div class="basket-number basket-number-lg regular-price"
+                          id="product-price-weee-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>"><?php echo Mage::helper('core')->currency($_price + $weeeAmountToDisplay, true, true) ?></div>
                 <?php else: ?>
-                    <span class="regular-price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
+                    <div class="basket-number basket-number-lg regular-price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                     <?php if ($_finalPrice == $_price): ?>
                         <?php echo $_coreHelper->formatPrice($_price, true) ?>
                     <?php else: ?>
                         <?php echo $_coreHelper->formatPrice($_finalPrice, true) ?>
                     <?php endif; ?>
-                </span>
+                </div>
                 <?php endif; ?>
             <?php endif; ?>
         <?php else: /* if ($_finalPrice == $_price): */ ?>
