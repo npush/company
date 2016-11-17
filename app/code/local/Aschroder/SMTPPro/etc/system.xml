@@ -280,7 +280,7 @@
             </test>
           </fields>
         </debug>
-        <esp module="smtppro" translate="label">
+        <!--<esp module="smtppro" translate="label">
               <label>Compatible Email Services</label>
               <frontend_type>text</frontend_type>
               <sort_order>70</sort_order>
@@ -297,7 +297,7 @@
                       <show_in_store>1</show_in_store>
                   </logenabled>
               </fields>
-          </esp>
+          </esp>-->
       </groups>
     </smtppro>
   </sections>
