@@ -1801,12 +1801,12 @@ label.control-label {
    height: 37px;
    font-size:13px;
 }
-.input-number-box{
+.input-number-box {
   display: inline-block;
   position: relative;
 }
 
-.input-number{
+.input-number {
   padding-right: 25px;
   width: 70px;
   text-align: center;
@@ -1815,18 +1815,18 @@ label.control-label {
   height: 46px;
 }
 .input-number-more,
-.input-number-less{
+.input-number-less {
   position: absolute;
   right: 8px;
   border-width: 5px;
   border-style: solid;
   cursor: pointer;
 }
-.input-number-more{
+.input-number-more {
   top: 12px;
   border-color: transparent transparent #255e95 transparent;
 }
-.input-number-less{
+.input-number-less {
   bottom: 7px;
   border-color: #255e95 transparent transparent transparent;
 }
