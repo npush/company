@@ -1,18 +1,16 @@
+;(function ($) {
 
-
-jQuery(document).on('ready', function () {
-
-    jQuery.fn.iLightInputNumber = function (options) {
+    $.fn.iLightInputNumber = function (options) {
 
         var inBox = '.input-number-box',
-                newInput = '.input-number',
-                moreVal = '.input-number-more',
-                lessVal = '.input-number-less';
+            newInput = '.input-number',
+            moreVal = '.input-number-more',
+            lessVal = '.input-number-less';
 
         this.each(function () {
 
-            var el = jQuery(this);
-            jQuery('<div class="' + inBox.substr(1) + '"></div>').insertAfter(el);
+            var el = $(this);
+            $('<div class="' + inBox.substr(1) + '"></div>').insertAfter(el);
             var parent = el.find('+ ' + inBox);
             parent.append(el);
             var classes = el.attr('class');
@@ -41,45 +39,41 @@ jQuery(document).on('ready', function () {
         }); //end each
 
         var value,
-                step;
+            step;
 
         var interval = null,
-                timeout = null;
+            timeout = null;
 
         function ToggleValue(input) {
             input.val(parseInt(input.val(), 10) + d);
             console.log(input);
         }
 
-        jQuery('body').on('mousedown', moreVal, function () {
-            var el = jQuery(this);
+        $('add-to-box').on('mousedown', moreVal, function () {
+            var el = $(this);
             var input = el.siblings(newInput);
             moreValFn(input);
-            timeout = setTimeout(function () {
-                interval = setInterval(function () {
-                    moreValFn(input);
-                }, 50);
+            timeout = setTimeout(function(){
+                interval = setInterval(function(){ moreValFn(input); }, 50);
             }, 200);
 
         });
 
-        jQuery('body').on('mousedown', lessVal, function () {
-            var el = jQuery(this);
+        $('add-to-box').on('mousedown', lessVal, function () {
+            var el = $(this);
             var input = el.siblings(newInput);
             lessValFn(input);
-            timeout = setTimeout(function () {
-                interval = setInterval(function () {
-                    lessValFn(input);
-                }, 50);
+            timeout = setTimeout(function(){
+                interval = setInterval(function(){ lessValFn(input); }, 50);
             }, 200);
         });
 
-        jQuery(moreVal + ', ' + lessVal).on("mouseup mouseout", function () {
+        $(moreVal +', '+ lessVal).on("mouseup mouseout", function() {
             clearTimeout(timeout);
             clearInterval(interval);
         });
 
-        function moreValFn(input) {
+        function moreValFn(input){
             var max = input.attr('max');
             checkInputAttr(input);
             var newValue = value + step;
@@ -89,7 +83,7 @@ jQuery(document).on('ready', function () {
             changeInputsVal(input, newValue);
         }
 
-        function lessValFn(input) {
+        function lessValFn(input){
             var min = input.attr('min');
             checkInputAttr(input);
             var newValue = value - step;
@@ -99,7 +93,7 @@ jQuery(document).on('ready', function () {
             changeInputsVal(input, newValue);
         }
 
-        function changeInputsVal(input, newValue) {
+        function changeInputsVal(input, newValue){
             input.val(newValue);
             var inputNumber = input.siblings(this);
             inputNumber.val(newValue);
@@ -111,7 +105,7 @@ jQuery(document).on('ready', function () {
             } else if (input.attr('placeholder')) {
                 value = parseFloat(input.attr('placeholder'));
             }
-            if (!(jQuery.isNumeric(value))) {
+            if (!( $.isNumeric(value) )) {
                 value = 0;
             }
             if (input.attr('step')) {
@@ -121,8 +115,8 @@ jQuery(document).on('ready', function () {
             }
         }
 
-        jQuery(newInput).change(function () {
-            var input = jQuery(this);
+        $(newInput).change(function () {
+            var input = $(this);
             var value = parseFloat(input.val());
             var min = input.attr('min');
             var max = input.attr('max');
@@ -131,28 +125,21 @@ jQuery(document).on('ready', function () {
             } else if (value > max) {
                 value = max;
             }
-            if (!(jQuery.isNumeric(value))) {
+            if (!( $.isNumeric(value) )) {
                 value = '';
             }
             input.val(value);
             input.siblings(this).val(value);
         });
 
-        jQuery(newInput).keydown(function (e) {
-            var input = jQuery(this);
+        $(newInput).keydown(function(e){
+            var input = $(this);
             var k = e.keyCode;
-            if (k == 38) {
+            if( k == 38 ){
                 moreValFn(input);
-            } else if (k == 40) {
+            }else if( k == 40){
                 lessValFn(input);
             }
         });
     };
-
-    jQuery('input[type=number]').iLightInputNumber({
-        mobile: false
-    });
-
-});
-
-
+})(jQuery);

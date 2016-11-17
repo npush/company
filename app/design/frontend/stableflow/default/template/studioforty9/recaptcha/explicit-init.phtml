@@ -1,0 +1,37 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 11/17/16
+ * Time: 4:23 PM
+ */
+?>
+<script type="text/javascript">
+    var CaptchaCallback = function(){
+        jQuery('.g-recaptcha').each(function(index, el) {
+            grecaptcha.render(el, {
+                'sitekey': "<?php echo $this->getSiteKey(); ?>",
+                'theme': "<?php echo $this->getTheme(); ?>",
+                'type': "<?php echo $this->getType(); ?>",
+                'size': "<?php echo $this->getSize(); ?>"
+                );
+        });
+    };
+    /*onloadCallback_
+    var el<?php echo $id ?> = function() {
+        grecaptcha.render('el-<?php echo $id ?>', {
+            'sitekey': "<?php echo $this->getSiteKey(); ?>",
+            'theme': "<?php echo $this->getTheme(); ?>",
+            'type': "<?php echo $this->getType(); ?>",
+            'size': "<?php echo $this->getSize(); ?>",
+            'callback': function(response) {
+                if (response.length > 0) {
+                    $('cb-<?php echo $id ?>').writeAttribute('value', 'checked');
+                    $('cb-<?php echo $id ?>').checked = true;
+                }
+            }
+        });
+    };*/
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
+<?php //echo $this->getRecaptchaScript('el-'.$id); ?>
