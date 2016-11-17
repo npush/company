@@ -1,6 +1,6 @@
 
 
-$(document).on('ready', function () {
+;(function($) {
 
     $.fn.iLightInputNumber = function (options) {
 
