@@ -2413,17 +2413,25 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .stars-rating-edit {
-  display: none;
+  position: relative;
+  float: left;
 }
 .stars-rating-edit  label.radio-label {
-  height: 40px;
-  width: 43px;
-  background-color: red;
+  height: 22px;
+  width: 22px;
   float: right;
   cursor: pointer;
   margin-right: 10px;
   position: relative;
   z-index: 1;
+}
+.stars-rating-edit  label.radio-label:before {
+    color: #fdcf09;
+    content: "\f006";
+    font: 24px FontAwesome;
+    left: 0;
+    position: absolute;
+    top: 0;
 }
 .stars-rating-edit  input[type="radio"] {
     display: inline-block;
@@ -2431,18 +2439,39 @@ input[type="checkbox"], input[type="radio"] {
     height: 23px;
     width: 23px;
     line-height: 12px;
+    z-index: 2;
+}
+
+.stars-rating-edit  input[type="radio"]:nth-child(9) {
+    left: 0px;
+}
+.stars-rating-edit  input[type="radio"]:nth-child(7) {
+    left: 32px;
+}
+.stars-rating-edit  input[type="radio"]:nth-child(5) {
+    left: 64px;
+}
+.stars-rating-edit  input[type="radio"]:nth-child(3) {
+    left: 96px;
+}
+.stars-rating-edit  input[type="radio"]:nth-child(1) {
+    left: 128px;
+}
+
+.stars-rating-edit input[type="radio"]:checked ~ label.radio-label:before,
+.stars-rating-edit input[type="radio"]:hover ~ label.radio-label:before,
+.stars-rating-edit input[type="radio"]:hover ~ label.radio-label ~ label.radio-label:before {
+  content: "\f005";
+}
+
+.stars-rating-edit  input[type="radio"] {
 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);
     -khtml-opacity: 0;
     -moz-opacity: 0;
     opacity: 0;
-    z-index: 0;
 
 }
-.stars-rating-edit label.radio-label:hover {
-    background-color: black;
-}
-
 /*.stars-rating-edit  input[type="radio"]:checked ~ label.radio-label:before, 
 .stars-rating-edit label.radio-label:before:hover, 
 .stars-rating-edit  label.radio-label:before:hover  ~ label.radio-label:before,
