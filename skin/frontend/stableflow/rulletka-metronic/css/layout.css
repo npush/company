@@ -1765,7 +1765,7 @@ button.btn.grey:hover {
   font-family: 'OpenSansSemiboldRegular';
 }
 
-.btn-default-none {
+.btn-default-none, .basket-number-lg.basket-number span.availability-txt {
     border-color: transparent;
     color: #255e95;
     font-size: 13px;
