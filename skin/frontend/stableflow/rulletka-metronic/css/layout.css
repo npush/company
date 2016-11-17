@@ -2413,14 +2413,12 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .stars-rating-edit {
-  display: none;
   position: relative;
   float: left;
 }
 .stars-rating-edit  label.radio-label {
   height: 22px;
   width: 22px;
-  background-color: red;
   float: right;
   cursor: pointer;
   margin-right: 10px;
@@ -2458,14 +2456,6 @@ input[type="checkbox"], input[type="radio"] {
 }
 .stars-rating-edit  input[type="radio"]:nth-child(1) {
     left: 128px;
-}
-
-.stars-rating-edit label.radio-label:hover,
-.stars-rating-edit label.radio-label:hover ~ label.radio-label,
-.stars-rating-edit input[type="radio"]:checked ~ label.radio-label,
-.stars-rating-edit input[type="radio"]:hover ~ label.radio-label,
-.stars-rating-edit input[type="radio"]:hover ~ label.radio-label ~ label.radio-label {
-    background-color: black;
 }
 
 .stars-rating-edit input[type="radio"]:checked ~ label.radio-label:before,
