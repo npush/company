@@ -1765,14 +1765,24 @@ button.btn.grey:hover {
   font-family: 'OpenSansSemiboldRegular';
 }
 
-.btn-default-none, .availability span.availability-txt {
+.btn-default-none{
+    border-color: transparent;
+    color: #255e95;
+    font-size: 13px;
+    background-color:transparent;
+}
+
+.availability span.availability-txt {
     color: #255e95;
     font-size: 13px;
     padding: 10px 16px;
+    display: block;
 }
 
 .availability  {
-    display: inline-block;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 5px;
 }
 
 @media (max-width: 1400px) {
