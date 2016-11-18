@@ -9,7 +9,7 @@
         <reference name="checkout.cart.methods">
             <block type="smasoft_oneclickorder/form" name="checkout.cart.methods.oneclickorder" template="smasoft/oneclickorder/form.phtml"/>
         </reference>
-        <reference name="checkout.cart.totals">
+        <reference name="checkout.cart">
             <block type="checkout/agreements" name="checkout.cart.agreements" as="agreements" template="smasoft/oneclickorder/agreements.phtml"/>
         </reference>
     </checkout_cart_index>
