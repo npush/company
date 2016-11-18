@@ -26,14 +26,6 @@
 ?>
 <?php $_product = $this->getProduct(); ?>
 
-<?php if ($this->displayProductStockStatus()): ?>
-    <?php if ($_product->isAvailable()): ?>
-        <div class="availability in-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('In stock') ?></span></div>
-    <?php else: ?>
-        <div class="availability out-of-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('Out of stock') ?></span></div>
-    <?php endif; ?>
-<?php endif; ?>
-
 <?php if($_product->isSaleable()): ?>
     <?php if(!$_product->isGrouped()): ?>
         <label for="qty"><?php echo $this->__('') ?></label>
@@ -44,6 +36,15 @@
         </div>
 
     <?php endif; ?>
+
+	<?php if ($this->displayProductStockStatus()): ?>
+	    <?php if ($_product->isAvailable()): ?>
+	        <div class="availability in-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('In stock') ?></span></div>
+	    <?php else: ?>
+	        <div class="availability out-of-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('Out of stock') ?></span></div>
+	    <?php endif; ?>
+	<?php endif; ?>
+	
     <button class="button btn-cart btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button" title="<?php echo $buttonTitle ?>" id="product-addtocart-button" onclick="productAddToCartForm.submit(this)"><i class="icon icon-shopping-cart"></i></button>
     <button class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button"><?php echo $this->__('Buy it now') ?></button>
     <?php echo $this->getChildHtml('', true, true) ?>
