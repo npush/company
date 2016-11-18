@@ -4030,6 +4030,13 @@ input[type="checkbox"], input[type="radio"] {
 /* /list */
 
 /* popup-slider */
+
+.validation-advice {
+  color: #b81010;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
 .pgwSlider {
     width: 100%;
     color: #fff;
