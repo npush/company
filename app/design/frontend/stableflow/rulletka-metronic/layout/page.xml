@@ -149,7 +149,7 @@ Default layout, loads most of the pages
                 <label>Page Bottom</label>
                 <block type="page/html_cookieNotice" name="global_cookie_notice" as ="global_cookie_notice" template="page/html/cookienotice.phtml" before="-" />
 
-                <block type="dioforty9_recaptcha/explicit" name="recaptcha.init" template="studioforty9/recaptcha/explicit-init.phtml"/>
+                <block type="studioforty9_recaptcha/explicit" name="recaptcha.init" template="studioforty9/recaptcha/explicit-init.phtml"/>
             </block>
         </block>
 
