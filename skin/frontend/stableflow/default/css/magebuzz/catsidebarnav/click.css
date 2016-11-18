@@ -10,6 +10,7 @@
 /* Level 0 */
 #category-sidebar-nav li.level-top{line-height:25px; padding: 14px 25px;}
 #category-sidebar-nav li.level-top a.level-top{ font-size: 17px; text-transform: uppercase;}
+
 #category-sidebar-nav li ul.level0{padding:0 10px; display:none;}
 #category-sidebar-nav li ul.level0 a {font-size:16px;}
 #category-sidebar-nav li ul.level0 li a.show-cat {font-size:13px;}
@@ -42,3 +43,5 @@ li.level0:after {
   background-color:#535353;
   position:absolute;
 } 
+
+#category-sidebar-nav .active { color:#f7931d;}
