@@ -23,12 +23,12 @@
  */
 ?>
 <?php $_posts = $this->getPosts(); ?>
-<div class="page-title post-title">
+<h3 class="page-title post-title">
     <?php if (Mage::helper('mageplaza_betterblog/post')->isRssEnabled()) : ?>
         <a href="<?php echo Mage::helper('mageplaza_betterblog/post')->getRssUrl();?>" class="link-rss"><?php echo Mage::helper('mageplaza_betterblog')->__('Subscribe to RSS Feed')?></a>
     <?php endif;?>
-    <h1><?php echo Mage::helper('mageplaza_betterblog')->__('Posts') ?></h1>
-</div>
+    <?php echo Mage::helper('mageplaza_betterblog')->__('Posts') ?>
+</h3>
 <?php if ($_posts->getSize() > 0) :?>
     <?php //echo $this->getPagerHtml(); ?>
     <div class="post-list-container">

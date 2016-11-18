@@ -20,9 +20,9 @@
     $collection = Mage::getModel("marketplace/buyerseller")->getColection();
 ?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<div class="page-title">
-    <h1><?php echo $this->__('Marketplace Orders') ?></h1>
-</div>
+<h3 class="page-title">
+    <?php echo $this->__('Marketplace Orders') ?>
+</h3>
 <?php // echo $this->getPagerHtml(); ?>
 <?php if(count($collection)): ?>
 <table class="data-table" id="my-orders-table">

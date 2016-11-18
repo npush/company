@@ -20,9 +20,9 @@
     $parent_id = $this->getRequest()->getParam('q_id');
     $data = $this->displayThread($parent_id);
 ?>
-<div class="page-title">
-    <h1><?php echo $this->__('Send Reply') ?></h1>
-</div>
+<h3 class="page-title">
+   <?php echo $this->__('Send Reply') ?>
+</h3>
 <form id="quest" method="post" action="<?php echo $this->getBaseUrl(); ?>marketplace/productquestion/replied" >
     <h8 class="legend">    <?php echo $this->__('Question : ') ?></h8>
     <?php

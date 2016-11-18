@@ -18,9 +18,9 @@
  * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
  */
 ?>
-<div class="page-title">
-    <h1><?php echo $this->__('Ask Question') ?></h1>
-</div>
+<h3 class="page-title">
+    <?php echo $this->__('Ask Question') ?>
+</h3>
 <?php if(Mage::getSingleton('customer/session')->isLoggedIn()){ ?>
 <?php echo $this->getChildHtml('global_messages'); ?>
 <form id="product_ask_question_form" method="post" action="<?php echo $this->getUrl("marketplace/productquestion/submit"); ?>" >

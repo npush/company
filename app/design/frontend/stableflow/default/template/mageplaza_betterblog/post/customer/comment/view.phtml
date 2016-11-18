@@ -22,9 +22,9 @@
  */
 ?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<div class="page-title">
-    <h1><?php echo $this->getComment()->getTitle() ?></h1>
-</div>
+<h3 class="page-title">
+    <?php echo $this->getComment()->getTitle() ?>
+</h3>
 <div class="comment-view">
     <h2>
         <a class="product-name" href="<?php echo $this->getPost()->getPostUrl()?>">
