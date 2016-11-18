@@ -91,7 +91,7 @@
                     <p><span class="vertical-bottom line-height-md">Ориентироваочная стоимость:</span> <span class="basket-number basket-number-lg"><?php echo $this->getChildHtml('totals');?></span></p>
                     <?php if(!$this->hasError()): ?>
                         <ul class="checkout-types">
-                            <?php foreach ($this->getMethods('top_methods') as $method): ?>
+                            <?php foreach ($this->getMethods('methods') as $method): ?>
                                 <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
                                     <li><?php echo $methodHtml; ?></li>
                                 <?php endif; ?>
