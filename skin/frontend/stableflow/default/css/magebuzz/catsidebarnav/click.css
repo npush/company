@@ -45,3 +45,10 @@ li.level0:after {
 } 
 
 #category-sidebar-nav .active { color:#f7931d;}
+
+.page-sidebar-closed #category-sidebar-nav .level-top span, 
+.page-sidebar-closed #category-sidebar-nav .icon-arrow-point-to-right,
+.page-sidebar-closed #category-sidebar-nav ul {
+  display: none !important;
+
+}
