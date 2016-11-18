@@ -24,6 +24,6 @@
 ?>
 <?php $_category = $this->getCurrentCategory();?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<div class="page-title category-title">
-    <h1><?php echo $_category->getName(); ?></h1>
-</div>
+<h3 class="page-title category-title">
+    <?php echo $_category->getName(); ?>
+</h3>

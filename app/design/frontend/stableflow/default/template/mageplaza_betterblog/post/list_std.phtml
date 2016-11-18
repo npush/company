@@ -31,14 +31,14 @@
 ?>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php $_posts = $this->getPosts(); ?>
-<div class="page-title">
+<h3 class="page-title">
     <?php if (Mage::helper('mageplaza_betterblog/post')->isRssEnabled()) : ?>
         <div class="betterblog-rss">
             <a href="<?php echo Mage::helper('mageplaza_betterblog/post')->getRssUrl(); ?>" class="bb-rss-icon"><img
                     src="<?php echo $this->getSkinUrl('images/mageplaza_betterblog/rss.png') ?>" width="16px"/> </a>
         </div>
     <?php endif; ?>
-</div>
+</h3>
 <?php if ($_posts->getSize() > 0) : ?>
     <?php //echo $this->getPagerHtml(); ?>
     <div class="post-list-container">
