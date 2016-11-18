@@ -49,6 +49,6 @@ li.level0:after {
 .page-sidebar-closed #category-sidebar-nav .level-top span, 
 .page-sidebar-closed #category-sidebar-nav .icon-arrow-point-to-right,
 .page-sidebar-closed #category-sidebar-nav ul {
-  display: none;
+  display: none !important;
 
 }
