@@ -72,21 +72,7 @@
             </div>
         </div>
         <div class="row row-margin">
-            <?php echo $this->getChilhdHtml('agreements');?>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <p class="txt-link">После оформления заказа наш менеджер свяжется с Вами и уточнит стоимость заказа с учетом места доставки и время, наиболее удобное для Вас</p>
-                    <p>
-                        Оформляя заказ, вы автоматически принимаете  <a href="" class="link-underline">КЛИЕНТСКОЕ СОГЛАШЕНИЕ</a>
-                    </p>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="checkbox2" checked="">
-                        <label for="checkbox2" class="checkbox-label">
-                            принимаю
-                        </label>
-                    </div>
-                </div>
-            </div>
+            <?php echo $this->getChildHtml('agreements');?>
             <div class="col-md-6">
                 <div class="form-group text-right">
                     <p><span class="vertical-bottom line-height-md">Ориентироваочная стоимость:</span> <span class="basket-number basket-number-lg"><?php echo $this->getChildHtml('totals');?></span></p>
