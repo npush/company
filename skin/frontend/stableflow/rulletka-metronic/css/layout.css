@@ -2569,9 +2569,9 @@ input[type="checkbox"], input[type="radio"] {
     padding: 18px 15px;
 }
 
-.nav-tabs > li.active > a, 
-.nav-tabs > li.active > a:focus,
-.nav-tabs > li.active > a:hover,
+.nav-tabs > li.ui-state-active > a, 
+.nav-tabs > li.ui-state-active > a:focus,
+.nav-tabs > li.ui-state-active > a:hover,
 .nav-tabs > li > a:focus, 
 .nav-tabs > li > a:hover  {
     background-color: #fdbb09;

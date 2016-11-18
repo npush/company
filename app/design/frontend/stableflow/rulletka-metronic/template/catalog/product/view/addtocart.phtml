@@ -37,7 +37,7 @@
 <?php if($_product->isSaleable()): ?>
     <?php if(!$_product->isGrouped()): ?>
         <label for="qty"><?php echo $this->__('') ?></label>
-        <input type="hidden" name="qty" id="qty" min="0" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="form-control form-control-number radius-none input-text qty" />
+        <input type="hidden" name="qty" id="qty" min="0" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
     <?php endif; ?>
     <button class="button btn-cart btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button" title="<?php echo $buttonTitle ?>" id="product-addtocart-button" onclick="productAddToCartForm.submit(this)"><i class="icon icon-shopping-cart"></i></button>
     <button class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button"><?php echo $this->__('Buy it now') ?></button>
