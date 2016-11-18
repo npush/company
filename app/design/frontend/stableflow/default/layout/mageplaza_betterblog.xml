@@ -24,7 +24,7 @@
             </action>
         </reference>
 
-        <reference name="top.links">
+        <!-- <reference name="top.links">
             <action method="addLink" translate="label title" ifconfig="mageplaza_betterblog/general/toplinks" >
                 <label>Blog</label>
                 <url helper="mageplaza_betterblog/config/getBlogUrl"/>
@@ -33,7 +33,7 @@
                 <urlParams/>
                 <position>600</position>
             </action>
-        </reference>
+        </reference> -->
 
 
         <reference name="right">
