@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Stableflow_CustomMenu>
+            <version>0.1.0</version>
+        </Stableflow_CustomMenu>
+    </modules>
+    <global>
+        <helpers>
+            <custommenu>
+                <class>Stableflow_CustomMenu_Helper</class>
+            </custommenu>
+        </helpers>
+        <resources>
+            <custommenu_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </custommenu_write>
+            <custommenu_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </custommenu_read>
+            <custommenu_setup>
+                <setup>
+                    <module>Stableflow_CustomMenu</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </custommenu_setup>
+        </resources>
+    </global>
+</config>

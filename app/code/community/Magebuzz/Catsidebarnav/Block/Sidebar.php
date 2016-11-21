@@ -104,10 +104,13 @@ class Magebuzz_Catsidebarnav_Block_Sidebar extends Magebuzz_Catsidebarnav_Block_
       $htmlLi .= ' ' . $attrName . '="' . str_replace('"', '\"', $attrValue) . '"';
     }
     $htmlLi .= '>';
+    $_icon = Mage::getResourceModel('catalog/category')
+        ->getAttributeRawValue($category->getId(), "category_icon", Mage::app()->getStore()->getId());
     $html[] = $htmlLi;
     if ($hasActiveChildren) {
       if($showType == 'click-2-click'){
         $html[] = '<a href="'.$this->getCategoryUrl($category).'"'.$linkClass.'>';
+        $html[] = '<i class="icon ' . $_icon . '"></i>';
         $html[] = '<span>' . $this->escapeHtml($category->getName()) . '</span>';
         $html[] = '</a>';
         $html[] = '<a href="javascript://" class="pull-right show-cat icon icon-arrow-point-to-right">&nbsp;';
@@ -115,12 +118,14 @@ class Magebuzz_Catsidebarnav_Block_Sidebar extends Magebuzz_Catsidebarnav_Block_
       }
       else{
         $html[] = '<a href="'.$this->getCategoryUrl($category).'"'.$linkClass.'>';
+        $html[] = '<i class="icon ' . $_icon . '"></i>';
         $html[] = '<span>' . $this->escapeHtml($category->getName()) . '</span>';
         $html[] = '</a>';
       }
     }
     else{
       $html[] = '<a href="'.$this->getCategoryUrl($category).'"'.$linkClass.'>';
+      $html[] = '<i class="icon ' .$_icon . '"></i>';
       $html[] = '<span>' . $this->escapeHtml($category->getName()) . '</span>';
       $html[] = '</a>';
     }
