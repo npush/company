@@ -39,7 +39,7 @@ class Magebuzz_Catsidebarnav_Block_Sidebar extends Magebuzz_Catsidebarnav_Block_
     $helper = Mage::helper('catsidebarnav/category');
     return $helper->getAllCategories();
   }
-  protected function _renderCategoryMenuItemHtml($category, $level = 0, $isLast = false, $isFirst = false,$isOutermost = false, $outermostItemClass = '', $childrenWrapClass = '', $noEventAttributes = false) {
+  /*protected function _renderCategoryMenuItemHtml($category, $level = 0, $isLast = false, $isFirst = false,$isOutermost = false, $outermostItemClass = '', $childrenWrapClass = '', $noEventAttributes = false) {
     $showType=Mage::getStoreConfig('catsidebarnav/display_settings/show_type');
     if (!$category->getIsActive()) {
       return '';
@@ -161,7 +161,7 @@ class Magebuzz_Catsidebarnav_Block_Sidebar extends Magebuzz_Catsidebarnav_Block_
 
     $html = implode("\n", $html);
     return $html;
-  }
+  }*/
   
   public function addCssJsHead() {
     return $this;
