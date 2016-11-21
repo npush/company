@@ -44,16 +44,18 @@
                             <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
                         </div>
                         <?php foreach ($this->getAgreements() as $_a): ?>
-                            <div class="modal-body modal-body-form"<?php echo ($_a->getContentHeight() ? ' style="height:' . $_a->getContentHeight() . '"' : '')?>>
+                            <div class="modal-body ">
                                 <?php if ($_a->getIsHtml()):?>
                                     <?php echo $_a->getContent() ?>
                                 <?php else:?>
                                     <?php echo nl2br($this->escapeHtml($_a->getContent())) ?>
                                 <?php endif; ?>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="agreement-<?php echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox" />
-                                <label for="agreement-<?php echo $_a->getId()?>" class="checkbox-label"><?php echo $_a->getIsHtml() ? $_a->getCheckboxText() : $this->escapeHtml($_a->getCheckboxText()) ?></label>
+
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="agreement-<?php echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox" />
+                                    <label for="agreement-<?php echo $_a->getId()?>" class="checkbox-label"><?php echo $_a->getIsHtml() ? $_a->getCheckboxText() : $this->escapeHtml($_a->getCheckboxText()) ?></label>
+                                </div>
+
                             </div>
                         <?php endforeach ?>
                     </div>
