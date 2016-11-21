@@ -16,15 +16,16 @@ $action = $this->getAction()->getFullActionName();
                 </div>
                 <div class="modal-body modal-body-form">
                     <div class="descr">
-                        <p><?php echo $this->__('1 Click Order')?></p>
-                        <p><?php echo $this->__('Manager will call you, knows all details and will help place your order.')?></p>
+                        <p class="txt-sm"><?php echo $this->__('1 Click Order')?></p>
+                        <p class="txt-sm"><?php echo $this->__('Manager will call you, knows all details and will help place your order.')?></p>
                     </div>
                     <form id="oneclickorder-form" action="<?php echo $this->getUrl('oneclickorder/index/saveOrder')?>" method="post">
                         <div class="oneclickorder-fields">
-                            <img class="phone-icon" src="<?php echo $this->getSkinUrl('images/oneclickorder/telephone.png') ?>"/>
-                            <?php echo $this->getPhoneCodeHtml('oneclickorder[country]', 'validate-select oneclickorder-country', true, $helper->__('Code'))?>
-                            <input type="text" name="oneclickorder[phone]" class="form-control radius-none  required-entry oneclickorder-phone"  placeholder="<?php echo $this->__('phone number')?>"/>
-
+                            <div class="form-group">
+                                <img class="phone-icon" src="<?php echo $this->getSkinUrl('images/oneclickorder/telephone.png') ?>"/>
+                                <?php echo $this->getPhoneCodeHtml('oneclickorder[country]', 'form-control radius-none validate-select oneclickorder-country', true, $helper->__('Code'))?>
+                                <input type="text" name="oneclickorder[phone]" class="form-control radius-none  required-entry oneclickorder-phone"  placeholder="<?php echo $this->__('phone number')?>"/>
+                            </div>
                             <div class="form-group">
                                 <?php if ($this->isShowEmailField()): ?>
                                 <input type="text" name="oneclickorder[email]" class="form-control radius-none required-entry validate-email oneclickorder-email"  placeholder="<?php echo $this->__('email')?>"/>
