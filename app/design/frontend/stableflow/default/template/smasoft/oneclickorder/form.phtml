@@ -14,11 +14,11 @@ $action = $this->getAction()->getFullActionName();
                 <div class="modal-header">
                     <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
                 </div>
-                <div class="descr">
-                    <p><?php echo $this->__('1 Click Order')?></p>
-                    <p><?php echo $this->__('Manager will call you, knows all details and will help place your order.')?></p>
-                </div>
                 <div class="modal-body modal-body-form">
+                    <div class="descr">
+                        <p><?php echo $this->__('1 Click Order')?></p>
+                        <p><?php echo $this->__('Manager will call you, knows all details and will help place your order.')?></p>
+                    </div>
                     <form id="oneclickorder-form" action="<?php echo $this->getUrl('oneclickorder/index/saveOrder')?>" method="post">
                         <div class="oneclickorder-fields">
                             <img class="phone-icon" src="<?php echo $this->getSkinUrl('images/oneclickorder/telephone.png') ?>"/>
