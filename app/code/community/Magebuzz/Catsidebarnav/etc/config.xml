@@ -24,11 +24,11 @@
             <catsidebarnav>
                <class>Magebuzz_Catsidebarnav_Block</class>
             </catsidebarnav>
-            <catalog>
+            <!--<catalog>
                 <rewrite>
                       <navigation>Magebuzz_Catsidebarnav_Block_Catsidebarnav</navigation>
                 </rewrite>
-            </catalog>
+            </catalog>-->
         </blocks>
         <helpers>
             <catsidebarnav>

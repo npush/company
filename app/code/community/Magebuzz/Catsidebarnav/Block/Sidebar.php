@@ -9,7 +9,7 @@ class Magebuzz_Catsidebarnav_Block_Sidebar extends Magebuzz_Catsidebarnav_Block_
     return parent::_construct();
   }
   public function _prepareLayout() {
-    if (Mage::helper('catsidebarnav')->isEnabled()) {
+    /*if (Mage::helper('catsidebarnav')->isEnabled()) {
       $headBlock = $this->getLayout()->getBlock('head');
       if ($headBlock) {
         $type = Mage::helper('catsidebarnav')->getShowType();
@@ -32,13 +32,18 @@ class Magebuzz_Catsidebarnav_Block_Sidebar extends Magebuzz_Catsidebarnav_Block_
             break;
         }
       }
+    }*/
+    $headBlock = $this->getLayout()->getBlock('head');
+    if ($headBlock) {
+      $headBlock->addCss('css/magebuzz/catsidebarnav/click.css');
+      $headBlock->addItem('skin_js','js/magebuzz/catsidebarnav/click2click.js');
     }
     return parent::_prepareLayout();
   }
-  public function getStoreCategories() {
+  /*public function getStoreCategories() {
     $helper = Mage::helper('catsidebarnav/category');
     return $helper->getAllCategories();
-  }
+  }*/
   protected function _renderCategoryMenuItemHtml($category, $level = 0, $isLast = false, $isFirst = false,$isOutermost = false, $outermostItemClass = '', $childrenWrapClass = '', $noEventAttributes = false) {
     $showType=Mage::getStoreConfig('catsidebarnav/display_settings/show_type');
     if (!$category->getIsActive()) {
