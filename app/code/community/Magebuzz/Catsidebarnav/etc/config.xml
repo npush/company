@@ -24,21 +24,21 @@
             <catsidebarnav>
                <class>Magebuzz_Catsidebarnav_Block</class>
             </catsidebarnav>
-            <catalog>
+            <!--<catalog>
                 <rewrite>
                       <navigation>Magebuzz_Catsidebarnav_Block_Catsidebarnav</navigation>
                 </rewrite>
-            </catalog>
+            </catalog>-->
         </blocks>
         <helpers>
             <catsidebarnav>
                 <class>Magebuzz_Catsidebarnav_Helper</class>
             </catsidebarnav>
-            <catalog>
+            <!--<catalog>
                 <rewrite>
                       <category>Magebuzz_Catsidebarnav_Helper_Category</category>
                 </rewrite>
-            </catalog>
+            </catalog>-->
         </helpers>
     </global>
   <!--Set Default Value For Setting Options-->
