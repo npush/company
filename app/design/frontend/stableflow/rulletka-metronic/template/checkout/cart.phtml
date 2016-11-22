@@ -32,12 +32,13 @@
  */
 ?>
 <div class="portlet light portlet-fit bordered">
-    <div class="portlet-title">
-        <h1><?php echo $this->__('Shopping Cart') ?></h1>
+    <h3 class="portlet-title">
+        <?php echo $this->__('Shopping Cart') ?>
+    </h3>
+    
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <?php echo $this->getChildHtml('form_before') ?>
 
-        <?php echo $this->getMessagesBlock()->toHtml() ?>
-        <?php echo $this->getChildHtml('form_before') ?>
-    </div>
     <div class="portlet-body form">
         <div class="row">
             <div class="col-md-12">

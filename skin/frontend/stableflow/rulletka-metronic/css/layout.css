@@ -2812,7 +2812,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .table-bordered-light > tbody > tr > td:first-child {
-  border-left: 1px solid #ddd;
+  border-left:2px solid #ddd;
 }
 .table-bordered-light > tbody > tr > td:last-child {
   border-right: 1px solid #ddd;
