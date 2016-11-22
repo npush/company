@@ -22,20 +22,25 @@
  * @author      Sam
  */
 ?>
-<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php //echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php $_categories = $this->getCategories(); ?>
-<div class="block">
+
+
+<div class="block block-category-nav">
     <!--<div class="block-title tag-title">
         <strong><span><?php /*echo Mage::helper('mageplaza_betterblog')->__('Categories') */?></span></strong>
     </div>-->
     <?php if ($_categories->getSize() > 0) : ?>
-        <div class="block-content category-list-container">
-            <ul>
+        <div class="block-content">
+            <ul class="category-sidebar-nav" id="article-sidebar-nav">
                 <?php foreach ($_categories as $_category) : ?>
-                    <li>
+                    <li class="level0 nav-1 level-top">
                         <a href="<?php echo $_category->getCategoryUrl() ?>">
-                            <?php echo $_category->getName(); ?>
+                            <i class="icon icon-business"></i>
+                            <span><?php echo $_category->getName(); ?></span>
                         </a>
+
+
                     </li>
                 <?php endforeach; ?>
             </ul>
