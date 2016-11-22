@@ -22,8 +22,7 @@ $action = $this->getAction()->getFullActionName();
                     <form id="oneclickorder-form" action="<?php echo $this->getUrl('oneclickorder/index/saveOrder')?>" method="post">
                         <div class="oneclickorder-fields">
                             <div class="form-group">
-                                <img class="phone-icon" src="<?php echo $this->getSkinUrl('images/oneclickorder/telephone.png') ?>"/>
-                                <?php echo $this->getPhoneCodeHtml('oneclickorder[country]', 'form-control radius-none validate-select oneclickorder-country', true, $helper->__('Code'))?>
+                                 <?php echo $this->getPhoneCodeHtml('oneclickorder[country]', 'form-control radius-none validate-select oneclickorder-country', true, $helper->__('Code'))?>
                                 <input type="text" name="oneclickorder[phone]" class="form-control radius-none  required-entry oneclickorder-phone"  placeholder="<?php echo $this->__('phone number')?>"/>
                             </div>
                             <div class="form-group">
