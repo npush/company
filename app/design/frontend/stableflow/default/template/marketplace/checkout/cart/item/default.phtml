@@ -142,10 +142,10 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     <?php endif; ?>
     <td>
-        <div class="pagination-panel pagination-panel-table">
-            <a href="#" class="btn icon-default prev"><i class="icon icon-arrow-point-to-left"></i></a>
-            <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty pagination-panel-input form-control input-inline input-default input-mini" maxlength="5" />
-            <a href="#" class="btn icon-default next"><i class="icon icon-arrow-point-to-right"></i></a>
+        <div class="pagination-panel pagination-panel-table qty_td">
+            <a href="javascript:" class="btn icon-default prev" id="decrQty_<?php echo $_item->getId() ?>"><i class="icon icon-arrow-point-to-left"></i></a>
+            <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty pagination-panel-input form-control input-inline input-default input-mini" maxlength="5"/>
+            <a href="javascript:" class="btn icon-default next" id="incrQty_<?php echo $_item->getId() ?>"><i class="icon icon-arrow-point-to-right"></i></a>
         </div>
     </td>
     <td class="basket-number basket-number-lg">

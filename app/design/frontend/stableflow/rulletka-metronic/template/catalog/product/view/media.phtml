@@ -61,11 +61,11 @@
         <?php echo $_helper->productAttribute($_product, $_img, 'image'); ?>
     </a>
     <ul class="icon-characteristic">
-        <?php $tooltips = explode(',',$_product->getTooltops());?>
+        <?php $tooltips = explode(',',$_product->getData('tooltips'));?>
         <?php foreach($tooltips as $_tooltipId) :?>
-            <?php //$_img = $this->helper('attributeimage')->resizeImg($this->helper('attributeimage')->getAttributeImage($_tooltipId), 100, 100); ?>
+            <?php $_img = $this->helper('attributeimage')->resizeImg($this->helper('attributeimage')->getAttributeImage($_tooltipId), 100, 100); ?>
             <?php $_img = $this->helper('attributeimage')->getAttributeImage($_tooltipId); ?>
-            <?php $_hint = $this->helper('attributeimage')->getAttributeHint($_tooltipId); ?>
+            <?php $_hint = 'No data'//$this->helper('attributeimage')->getAttributeHint($_tooltipId); ?>
             <?php if ($_img ): ?>
                 <li>
                     <a href="" data-content="<?php echo $this->escapeHtml($_hint); ?>" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
