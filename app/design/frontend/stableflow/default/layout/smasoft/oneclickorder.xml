@@ -27,9 +27,9 @@
 
     <smasoft_oneclickorder_index_success translate="label">
         <label>One Click Order Checkout Success</label>
-        <reference name="root">
+        <!--<reference name="root">
             <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
-        </reference>
+        </reference>-->
         <reference name="content">
             <block type="smasoft_oneclickorder/success" name="checkout.success" template="smasoft/oneclickorder/success.phtml">
                 <block type="checkout/onepage_success" name="checkout.magento.success" as="magento_order_success" template="checkout/success.phtml"/>
