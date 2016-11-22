@@ -47,9 +47,9 @@
     <div class="portlet light portlet-fit bordered portlet-full">
         <div class="portlet-body">
             <div class="product-content clearfix">
-    <?php $_collectionSize = $_productCollection->count() ?>
-    <?php $_columnCount = $this->getColumnCount(); ?>
-    <?php $i=0; foreach ($_productCollection as $_product): ?>
+            <?php $_collectionSize = $_productCollection->count() ?>
+            <?php $_columnCount = $this->getColumnCount(); ?>
+            <?php $i=0; foreach ($_productCollection as $_product): ?>
                 <div class="product-wrap">
                     <div class="col-product">
                         <div class="header-product">
@@ -70,13 +70,28 @@
                             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
                                 <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
                             <div class="body-product-txt">
-                                <?php $attributes = []; //$_product->getAttributes();?>
+                                <?php
+                                $setId = $_product->getAttributeSetId(); // Attribute set Id
+                                $groups = Mage::getModel('eav/entity_attribute_group')
+                                    ->getResourceCollection()
+                                    ->setAttributeSetFilter($setId)
+                                    ->setSortOrder()
+                                    ->load();
+                                foreach ($groups as $group) {
+                                    if($group->getAttributeGroupName() == 'Rulletka'){
+                                        $attributeGroupId = $group->getId();
+                                    }
+                                }
+                                ?>
+                                <?php $attributes = $_product->getAttributes($attributeGroupId);?>
                                 <?php foreach ($attributes as $attribute) :?>
                                     <?php $group = $attribute->getAttributeGroupId();?>
                                     <?php $attributeCode = $attribute->getAttributeCode();?>
                                     <?php $label = $attribute->getStoreLabel();?>
                                     <?php $value = $attribute->getFrontend()->getValue($_product);?>
-                                    <?php echo $group. "<p>{$label}<span class=\"bold\">{$value}</span></p>";?>
+                                    <?php if($value): ?>
+                                        <?php echo "<p>{$label}:&nbsp<span class=\"bold\">{$value}</span></p>";?>
+                                    <?php endif;?>
                                 <?php endforeach ?>
                             </div>
                         </div>
@@ -97,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-        <?php endforeach ?>
+            <?php endforeach ?>
             </div>
         </div>
     </div>

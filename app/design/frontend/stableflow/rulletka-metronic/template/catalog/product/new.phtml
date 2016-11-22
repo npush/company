@@ -55,15 +55,29 @@
                                     <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
                                 <div class="body-product-txt">
                                     <?php
-                                    $attributes = $_product->getAttributes();
-                                    foreach ($attributes as $attribute) {
-                                        $group = $attribute->getAttributeGroupId();
-                                        $attributeCode = $attribute->getAttributeCode();
-                                        $label = $attribute->getStoreLabel();
-                                        $value = $attribute->getFrontend()->getValue($_product);
-                                        echo $group. "<p>{$label}<span class=\"bold\">{$value}</span></p>";
+                                    $attributeGroupId = null;
+                                    $setId = $_product->getAttributeSetId(); // Attribute set Id
+                                    $groups = Mage::getModel('eav/entity_attribute_group')
+                                        ->getResourceCollection()
+                                        ->setAttributeSetFilter($setId)
+                                        ->setSortOrder()
+                                        ->load();
+                                    foreach ($groups as $group) {
+                                        if($group->getAttributeGroupName() == 'Rulletka'){
+                                            $attributeGroupId = $group->getId();
+                                        }
                                     }
                                     ?>
+                                    <?php $attributes = $_product->getAttributes($attributeGroupId);?>
+                                    <?php foreach ($attributes as $attribute) :?>
+                                        <?php $group = $attribute->getAttributeGroupId();?>
+                                        <?php $attributeCode = $attribute->getAttributeCode();?>
+                                        <?php $label = $attribute->getStoreLabel();?>
+                                        <?php $value = $attribute->getFrontend()->getValue($_product);?>
+                                        <?php if($value): ?>
+                                            <?php echo "<p>{$label}:&nbsp<span class=\"bold\">{$value}</span></p>";?>
+                                        <?php endif;?>
+                                    <?php endforeach ?>
                                 </div>
                             </div>
                             <div class="footer-product clearfix">
