@@ -59,7 +59,7 @@ class Mage_Shell_FixProductDescription extends Mage_Shell_Abstract{
             $writeConnection->query($query);
             $query = "UPDATE `catalog_product_entity_text` SET VALUE = '{$description}' WHERE entity_id = '{$productId}' AND attribute_id = 72";
             $writeConnection->query($query);
-            printf("Product : %S", $productId);
+            printf("Product : %s \n", $productId);
         }
     }
 
