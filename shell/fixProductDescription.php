@@ -49,7 +49,6 @@ class Mage_Shell_FixProductDescription extends Mage_Shell_Abstract{
         $collection = Mage::getResourceModel('catalog/product_collection')->addAttributeToSelect('description');
         foreach($collection as $item) {
             $productId = (int)$item->getId();
-            if($productId <= 25975)continue;
             $description = $item->getDescription();
             $description = preg_replace('/<p><\/p>/u', '', $description);
             $description = preg_replace('/[\n\r]{2,}/u', '', $description);
