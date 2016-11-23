@@ -15,7 +15,7 @@ class Mage_Shell_AddAttrToSet extends Mage_Shell_Abstract{
      *
      */
     public function run(){
-        $this->addAttrToSet('tooltops', 'Rulletka');
+        $this->addAttrToSet('tooltips', 'Rulletka');
         //$this->addAttrToSet('tooltops', 'General');
     }
 
