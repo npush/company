@@ -48,9 +48,13 @@ class Mage_Shell_FixProductDescription extends Mage_Shell_Abstract{
     public function fixDescriptionR(){
         $collection = Mage::getResourceModel('catalog/product_collection')->addAttributeToSelect('description');
         foreach($collection as $item) {
+            $productId = (int)$item->getId();
+            if($productId <= 25975)continue;
             $description = $item->getDescription();
             $description = preg_replace('/<p><\/p>/u', '', $description);
-            $productId = (int)$item->getId();
+            $description = preg_replace('/[\n\r]{2,}/u', '', $description);
+
+            $description = addslashes($description);
 
             $resource = Mage::getSingleton('core/resource');
             $writeConnection = $resource->getConnection('core_write');
