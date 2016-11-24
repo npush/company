@@ -32,7 +32,7 @@
  */
 ?>
 <?php if($this->getCollection()->getSize()): ?>
-<div class="toolbar">
+<div class="type-content toolbar">
     <div class="pager">
         <p class="amount">
             <?php if($this->getLastPageNum()>1): ?>
@@ -56,7 +56,7 @@
     <?php if( $this->isExpanded() ): ?>
     <div class="sorter">
         <div class="type-radio">
-            <span class="type-title"><?php echo $this->__('Sort By') ?></span>
+            <span class="type-title"><?php echo $this->__('Sort By') ?>:</span>
             <div class="left-content">
                 <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
                     <div class="radio-group">
