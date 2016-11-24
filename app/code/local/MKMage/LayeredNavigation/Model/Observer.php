@@ -40,47 +40,6 @@ class MKMage_LayeredNavigation_Model_Observer {
         
 	}
 
-	public function validateSystemSettings(Varien_Event_Observer $observer) {
-		
-		/*if (Mage::getStoreConfig('mkmage_layerednavigation/mkmage_layerednavigation_general/email') != '') {
-		
-			if (Mage::getStoreConfig('mkmage_layerednavigation/mkmage_layerednavigation_general/email_sent') != 1) {
-
-				$body = '<p>Layered Navigation registration for ' . Mage::getBaseUrl() . '</p>';
-		
-				$email = Mage::getModel('core/email');
-				$email->setToName('MkMage');
-				$email->setToEmail('igor@mkmage.com');
-				$email->setBody($body);
-				$email->setSubject('Layered Navigation Customer Registration');
-				$email->setFromEmail(Mage::getStoreConfig('mkmage_layerednavigation/mkmage_layerednavigation_general/email'));
-				$email->setFromName(Mage::getBaseUrl());
-				$email->setType('html');
-
-				try {
-					$email->send();
-					Mage::getSingleton('core/session')->addSuccess('Thank you for registering with us.');
-				}
-				catch (Exception $e) {
-					Zend_Debug::dump($e->getMessage());
-					Mage::getSingleton('core/session')->addError('Could not proccess your request.');
-				}
-		
-				Mage::getConfig()->saveConfig('mkmage_layerednavigation/mkmage_layerednavigation_general/email_sent', 1);
-				Mage::getConfig()->saveConfig('mkmage_layerednavigation/mkmage_layerednavigation_general/layerednavigation_enabled', 1);
-		
-			}
-		
-		} else {*/
-		Mage::getSingleton('core/session')->addSuccess('Thank you for registering with us.');
-			Mage::getConfig()->saveConfig('mkmage_layerednavigation/mkmage_layerednavigation_general/layerednavigation_enabled', 1);
-			Mage::getConfig()->saveConfig('mkmage_layerednavigation/mkmage_layerednavigation_general/email_sent', 1);
-			//Mage::getSingleton('core/session')->addWarning('Please enter email address to register the extension.');
-			
-		/*}*/
-	
-	}
-
 	public function initCategoryAjax($event) {
 		
 		$layout = Mage::getSingleton('core/layout');

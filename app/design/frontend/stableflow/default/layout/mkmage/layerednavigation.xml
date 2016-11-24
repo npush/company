@@ -9,31 +9,31 @@
 				<type>skin_js</type>
 				<name>js/mkmage/layerednavigation/jquery.min.js</name>
 				<params><![CDATA[data-group="js001"]]></params>			
-			</action>-->
+			</action>
 			<action method="addItem">
 				<type>skin_js</type>
 				<name>js/mkmage/layerednavigation/jquery-ui.min.js</name>
 				<params><![CDATA[data-group="js001"]]></params>
-			</action>
+			</action>-->
 			<action method="addItem">
             	<type>skin_js</type>
             	<name>js/mkmage/layerednavigation/layered.js</name>
             	<params><![CDATA[data-group="js002" defer]]></params>
 			</action>
-			<action method="addItem">
+			<!--<action method="addItem">
             	<type>skin_css</type>
             	<name>css/mkmage/layerednavigation/jquery-ui.css</name>
-			</action>
+			</action>-->
 			<action method="addItem">
             	<type>skin_css</type>
             	<name>css/mkmage/layerednavigation/layerednavigation.css</name>
 			</action>
-			<block type="core/text" name="jquery.noconflict">
+			<!--<block type="core/text" name="jquery.noconflict">
 				<action method="setText">
 					<text><![CDATA[<script type="text/javascript">var $jq = jQuery.noConflict();</script>]]>
 					</text>
 				</action>
-			</block>
+			</block>-->
 		</reference>
 		
 		<reference name="catalog.leftnav">
@@ -52,32 +52,32 @@
 			<!--<action method="addItem" ifconfig="mkmage_layerednavigation/mkmage_layerednavigation_display/catalogsearch_enable">
 				<type>skin_js</type>
 				<name>js/mkmage/layerednavigation/jquery.min.js</name>
-				<params><![CDATA[data-group="js001"]]></params>			
+				<params><![CDATA[data-group="js001"]]></params>
 			</action>-->
-			<action method="addItem" ifconfig="mkmage_layerednavigation/mkmage_layerednavigation_display/catalogsearch_enable">
+			<!--<action method="addItem" ifconfig="mkmage_layerednavigation/mkmage_layerednavigation_display/catalogsearch_enable">
 				<type>skin_js</type>
 				<name>js/mkmage/layerednavigation/jquery-ui.min.js</name>
 				<params><![CDATA[data-group="js001"]]></params>
-			</action>
+			</action>-->
 			<action method="addItem" ifconfig="mkmage_layerednavigation/mkmage_layerednavigation_display/catalogsearch_enable">
             	<type>skin_js</type>
             	<name>js/mkmage/layerednavigation/layered.js</name>
             	<params><![CDATA[data-group="js002" defer]]></params>
 			</action>
-			<action method="addItem" ifconfig="mkmage_layerednavigation/mkmage_layerednavigation_display/catalogsearch_enable">
+			<!--<action method="addItem" ifconfig="mkmage_layerednavigation/mkmage_layerednavigation_display/catalogsearch_enable">
             	<type>skin_css</type>
             	<name>css/mkmage/layerednavigation/jquery-ui.css</name>
-			</action>
+			</action>-->
 			<action method="addItem" ifconfig="mkmage_layerednavigation/mkmage_layerednavigation_display/catalogsearch_enable">
             	<type>skin_css</type>
             	<name>css/mkmage/layerednavigation/layerednavigation.css</name>
 			</action>
-			<block type="core/text" name="jquery.noconflict">
+			<!--<block type="core/text" name="jquery.noconflict">
 				<action method="setText">
 					<text><![CDATA[<script type="text/javascript">var $jq = jQuery.noConflict();</script>]]>
 					</text>
 				</action>
-			</block>
+			</block>-->
 		</reference>
 		
 		<reference name="catalogsearch.leftnav">
