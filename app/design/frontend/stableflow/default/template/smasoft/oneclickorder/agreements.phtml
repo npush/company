@@ -33,34 +33,30 @@
 <?php if (!$this->getAgreements()) return; ?>
     <form action="" id="checkout-agreements" onsubmit="return false;">
         <div class="checkout-agreements form-group">
-            <p class="txt-link">После оформления заказа наш менеджер свяжется с Вами и уточнит стоимость заказа с учетом места доставки и время, наиболее удобное для Вас</p>
-            <p>
-                Оформляя заказ, вы автоматически принимаете  <span class="txt-link link-underline" data-toggle="modal" href="#agreements">КЛИЕНТСКОЕ СОГЛАШЕНИЕ</span>
-            </p>
+            <div class="txt-link"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('agreements_title')->toHtml(); ?></div>
+            <div><span class="txt-link link-underline" data-toggle="modal" href="#agreements"><?php echo $this->__('Terms and Conditions') ?></span></div>
+
+            <?php foreach ($this->getAgreements() as $_a): ?>
             <div class="modal fade draggable-modal" id="agreements" tabindex="-1" role="basic" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
-                        </div>
-                        <?php foreach ($this->getAgreements() as $_a): ?>
+                        <div class="modal-header"><button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button></div>
                             <div class="modal-body ">
                                 <?php if ($_a->getIsHtml()):?>
                                     <?php echo $_a->getContent() ?>
                                 <?php else:?>
                                     <?php echo nl2br($this->escapeHtml($_a->getContent())) ?>
                                 <?php endif; ?>
-
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="agreement-<?php echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox" />
-                                    <label for="agreement-<?php echo $_a->getId()?>" class="checkbox-label"><?php echo $_a->getIsHtml() ? $_a->getCheckboxText() : $this->escapeHtml($_a->getCheckboxText()) ?></label>
-                                </div>
-
                             </div>
-                        <?php endforeach ?>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreement-<?php echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox" />
+                    <label for="agreement-<?php echo $_a->getId()?>" class="checkbox-label"><?php echo $_a->getIsHtml() ? $_a->getCheckboxText() : $this->escapeHtml($_a->getCheckboxText()) ?></label>
+                </div>
+            <?php endforeach; ?>
         </div>
     </form>
 </div>
