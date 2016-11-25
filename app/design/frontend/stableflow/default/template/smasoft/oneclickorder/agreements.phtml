@@ -34,7 +34,7 @@
     <form action="" id="checkout-agreements" onsubmit="return false;">
         <div class="checkout-agreements form-group">
             <div class="txt-link"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('agreements_title')->toHtml(); ?></div>
-            <p><span class="txt-link link-underline text-upp" data-toggle="modal" href="#agreements"><?php echo $this->__('Terms and Conditions') ?></span></p>
+            <div><span class="txt-link link-underline" data-toggle="modal" href="#agreements"><?php echo $this->__('Terms and Conditions') ?></span></div>
 
             <?php foreach ($this->getAgreements() as $_a): ?>
             <div class="modal fade draggable-modal" id="agreements" tabindex="-1" role="basic" aria-hidden="true">
