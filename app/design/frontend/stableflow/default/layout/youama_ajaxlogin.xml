@@ -36,7 +36,7 @@
             </action>
             <action ifconfig="youamaajaxlogin/settings/power" method="addItem">
                 <type>skin_js</type>
-                <script>js/youama/ajaxlogin/ajaxlogin.js</script>
+                <script>js/youama/ajaxlogin/ajaxlogin_std.js</script>
             </action>
         </reference>
 

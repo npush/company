@@ -32,13 +32,9 @@
  */
 ?>
 <div class="portlet light portlet-fit bordered">
-    <h3 class="page-title">
-        <?php echo $this->__('Shopping Cart') ?>
-    </h3>
-    
+    <h3 class="page-title"><?php echo $this->__('Shopping Cart') ?></h3>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php echo $this->getChildHtml('form_before') ?>
-
     <div class="portlet-body form">
         <div class="row">
             <div class="col-md-12">
@@ -58,7 +54,6 @@
                                         <th></th>
                                     </tr>
                                     </thead>
-
                                     <tbody>
                                     <?php foreach($this->getItems() as $_item): ?>
                                         <?php echo $this->getItemHtml($_item) ?>
@@ -104,8 +99,6 @@
                             <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>
-
-
                 </div>
             </div>
         </div>
@@ -120,4 +113,3 @@
         </div>
     </div>
 </div>
-
