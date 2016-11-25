@@ -36,11 +36,11 @@
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php echo $this->getChildHtml('form_before') ?>
     <div class="portlet-body form">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <div class="table-responsive">
-                        <form action="<?php echo $this->getFormActionUrl() ?>" method="post">
+        <form action="<?php echo $this->getFormActionUrl() ?>" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="table-responsive">
                             <?php echo $this->getBlockHtml('formkey'); ?>
                             <fieldset>
                                 <table class="table table-panel table-bordered-light ">
@@ -61,30 +61,40 @@
                                     </tbody>
                                 </table>
                             </fieldset>
-                        </form>
-                        <script type="text/javascript">
-                            //<![CDATA[
-                            jQuery(document).ready(function () {
-                                jQuery(".qty_td").each(function (index, element) {
-                                    var input = jQuery(element).find(':input');
-                                    var elemetIncr = jQuery(element).find("a[id ^= 'incrQty_']");
-                                    var elemetDecr = jQuery(element).find("a[id ^= 'decrQty_']");
-                                    jQuery(elemetIncr).click(function () {
-                                        var value = parseInt(jQuery(input).val()) + parseInt(1);
-                                        jQuery(input).val(value);
-                                    });
-                                    jQuery(elemetDecr).click(function () {
-                                        var value = parseInt(jQuery(input).val()) - parseInt(1);
-                                        if(value >= 1) jQuery(input).val(value);
+
+                            <script type="text/javascript">
+                                //<![CDATA[
+                                jQuery(document).ready(function () {
+                                    jQuery(".qty_td").each(function (index, element) {
+                                        var input = jQuery(element).find(':input');
+                                        var elemetIncr = jQuery(element).find("a[id ^= 'incrQty_']");
+                                        var elemetDecr = jQuery(element).find("a[id ^= 'decrQty_']");
+                                        jQuery(elemetIncr).click(function () {
+                                            var value = parseInt(jQuery(input).val()) + parseInt(1);
+                                            jQuery(input).val(value);
+                                        });
+                                        jQuery(elemetDecr).click(function () {
+                                            var value = parseInt(jQuery(input).val()) - parseInt(1);
+                                            if(value >= 1) jQuery(input).val(value);
+                                        });
                                     });
                                 });
-                            });
-                            //]]>
-                        </script>
+                                //]]>
+                            </script>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-md-offset-9 col-md-3 col-sm-offset-8 col-sm-4">
+                    <div class="form-group">
+
+                        <button type="submit" name="update_cart_action" data-cart-empty value="empty_cart" title="<?php echo $this->quoteEscape($this->__('Empty Cart')); ?>" class="btn btn-sm yellow btn-width" id="empty_cart_button"><span><span><?php echo $this->__('Empty Cart'); ?></span></span></button>
+
+                        <button type="submit" name="update_cart_action" data-cart-item-update value="update_qty" title="<?php echo $this->quoteEscape($this->__('Update Shopping Cart')); ?>" class="btn btn-sm yellow btn-width"><span><span><?php echo $this->__('Update Shopping Cart'); ?></span></span></button>
+                    </div>
+            </div>
+        </form>
         <div class="row row-margin">
             <?php echo $this->getChildHtml('agreements');?>
             <div class="col-md-6">

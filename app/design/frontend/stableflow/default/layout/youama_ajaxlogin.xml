@@ -41,12 +41,8 @@
         </reference>
 
         <reference name="content">
-            <block ifconfig="youamaajaxlogin/settings/power"
-                   type="youama_ajaxlogin/ajaxlogin"
-                   name="youamaajaxlogin"
-                   as="youamaajaxlogin">
-                <action ifconfig="youamaajaxlogin/settings/power"
-                        method="setTemplate">
+            <block ifconfig="youamaajaxlogin/settings/power" type="youama_ajaxlogin/ajaxlogin" name="youamaajaxlogin" as="youamaajaxlogin">
+                <action ifconfig="youamaajaxlogin/settings/power" method="setTemplate">
                     <template>youama/ajaxlogin/ajaxlogin.phtml</template>
                 </action>
             </block>
