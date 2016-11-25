@@ -4539,10 +4539,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     text-align: center;
 }
 
-.pagination > li, .pagination > ol  {
+.pagination > li {
     display: inline-block;
 }
-.pagination > li > a, .pagination > ol > a {
+.pagination > li > a {
     background-color: transparent;
     border-color: transparent;
     color:#4e4f53;
@@ -4550,25 +4550,25 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     padding: 4px 10px;
 }
 .pagination > li > a:hover,
-.pagination > li > a:focus,
-.pagination > ol > a:hover,
-.pagination > ol > a:focus {
+.pagination > li > a:focus {
     border-color: #fdbb09;
     background-color: transparent;
 }
-.pagination > .active > a, 
-.pagination > .active > a:focus, 
-.pagination > .active > a:hover, 
-.pagination > .active > span, 
-.pagination > .active > span:focus, 
-.pagination > .active > span:hover {
+.pagination > .current > a, 
+.pagination > .current > a:focus, 
+.pagination > .current > a:hover, 
+.pagination > .current > span, 
+.pagination > .current > span:focus, 
+.pagination > .current > span:hover,
+.pagination > .current, 
+.pagination > .current:focus, 
+.pagination > .current:hover {
     background-color: #fdbb09;
     border-color: #fdbb09;
     color: #fff;
 }
 
-.pagination > li > a .icon, 
-.pagination > ol > a .icon  {
+.pagination > li > a .icon {
     color:#8f8f8f;
     top: -1px;
 } 
