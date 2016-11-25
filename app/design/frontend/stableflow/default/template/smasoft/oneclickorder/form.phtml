@@ -13,7 +13,7 @@ $action = $this->getAction()->getFullActionName();
             <div id="oneclickorder-form-wrapper" class="<?php echo $this->getAction()->getFullActionName()?>">
                 <div class="modal-header">
                     <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
-                    <h4 class="modal-title text-center">Оформления заказа</h4>
+                    <h4 class="modal-title text-center"><?php echo $this->__('Place Order')?></h4>
                 </div>
                 <div class="modal-body modal-body-form text-left">
                     <form id="oneclickorder-form" action="<?php echo $this->getUrl('oneclickorder/index/saveOrder')?>" method="post">
