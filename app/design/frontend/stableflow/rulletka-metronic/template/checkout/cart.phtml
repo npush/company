@@ -67,7 +67,26 @@
                                 </table>
                             </fieldset>
                         </form>
-
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            jQuery(document).ready(function () {
+                                jQuery(".qty_td").each(function (index, element) {
+                                    var input = jQuery(element).find(':input');
+                                    var elemetIncr = jQuery(element).find("a[id ^= 'incrQty_']");
+                                    var elemetDecr = jQuery(element).find("a[id ^= 'decrQty_']");
+                                    console.log(elemetDecr, elemetIncr);
+                                    jQuery(elemetIncr).click(function () {
+                                        var value = parseInt(jQuery(input).val()) + parseInt(1);
+                                        jQuery(input).val(value);
+                                    });
+                                    jQuery(elemetDecr).click(function () {
+                                        var value = parseInt(jQuery(input).val()) - parseInt(1);
+                                        if(value >= 1) jQuery(input).val(value);
+                                    });
+                                });
+                            });
+                            //]]>
+                        </script>
                     </div>
                 </div>
             </div>
@@ -76,9 +95,9 @@
             <?php echo $this->getChildHtml('agreements');?>
             <div class="col-md-6">
                 <div class="form-group text-right">
-                    <p><span class="vertical-bottom line-height-md">Ориентироваочная стоимость:</span> <span class="basket-number basket-number-lg"><?php echo $this->getChildHtml('totals');?></span></p>
+                    <?php echo $this->getChildHtml('totals');?>
                     <?php if(!$this->hasError()): ?>
-                        <ul class="checkout-types">
+                        <ul class="checkout-types clearfix">
                             <?php foreach ($this->getMethods('methods') as $method): ?>
                                 <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
                                     <li><?php echo $methodHtml; ?></li>
