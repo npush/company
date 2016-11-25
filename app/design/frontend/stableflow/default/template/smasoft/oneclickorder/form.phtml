@@ -5,7 +5,7 @@ $helper = Mage::helper('smasoft_oneclickorder');
 $action = $this->getAction()->getFullActionName();
 
 ?>
-<div class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" data-toggle="modal" href="#one_click_order">Оформить заказ</div>
+<div class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" data-toggle="modal" href="#one_click_order"><?php echo $this->__('Proceed to Checkout')?></div>
 
 <div class="modal fade draggable-modal" id="one_click_order" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog  modal-sm">
@@ -30,13 +30,12 @@ $action = $this->getAction()->getFullActionName();
                                 <input type="text" name="oneclickorder[email]" class="form-control radius-none required-entry validate-email oneclickorder-email"  placeholder="<?php echo $this->__('email')?>"/>
                                 <?php endif; ?>
                             </div>
-                            <div class="form-group comment-wrapper" id="oneclickorder-comment-wrapper" style="display: none;">
+                            <div class="form-group">
                                 <label class="control-label"><?php echo $helper->__('Comment:')?></label>
                                 <textarea class="form-control radius-none" name="oneclickorder[comment]"></textarea>
                             </div>
                         </div>
                         <div class="button-wrapper" id="oneclickorder-buttons-container">
-                            <div class="comment-toggle" title="<?php echo $this->__('Add comment')?>">&nbsp;</div>
                             <button type="button" class="btn yellow margin-top-min min-width <?php echo $action=='checkout_cart_index' ? 'btn-proceed-checkout btn-checkout' : ''?>" name="submitOneclickOrder" onclick="oneClickOrder.saveOrder()"/>
                                 <span><span><?php echo $this->__('Order Now')?></span></span>
                             </button>
@@ -104,14 +103,7 @@ $action = $this->getAction()->getFullActionName();
                     }
                 });
             }
-        },
-        toggleCommentBlock:function (event) {
-            Element.toggle('oneclickorder-comment-wrapper');
         }
     };
-
-    $$("#oneclickorder-form-wrapper .comment-toggle").invoke('observe', 'click', function () {
-        oneClickOrder.toggleCommentBlock(this)
-    });
 
 </script>
