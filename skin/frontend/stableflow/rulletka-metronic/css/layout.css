@@ -4573,14 +4573,19 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 .pager-inline .amount {
   text-align: left;
   display: inline-block;
+  float: left;
 }
 
 .pager-inline .limiter {
   text-align: right;
   display: inline-block;
+  float: right;  
 }
 .pager-inline .pages {
    display: inline-block; 
+}
+.pager-inline .pages .pagination {
+  margin: 0px auto;
 }
 /* /.pagination */
 
