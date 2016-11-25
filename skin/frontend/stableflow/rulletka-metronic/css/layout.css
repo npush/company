@@ -4542,20 +4542,18 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 .pagination > li {
     display: inline-block;
 }
-.pagination > li > a {
+.pagination > li > a, .pagination > .current > span  {
     background-color: transparent;
     border-color: transparent;
     color:#4e4f53;
     font-size:13px;
     padding: 4px 10px;
+    border-radius: 0px;
 }
 .pagination > li > a:hover,
 .pagination > li > a:focus {
     border-color: #fdbb09;
     background-color: transparent;
-}
-.pagination > .current > span {
-    padding: 4px 10px;
 }
 
 .pagination > .current > span:focus, 
@@ -4564,6 +4562,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     background-color: #fdbb09;
     border-color: #fdbb09;
     color: #fff;
+    border-radius: 0px;
 }
 
 .pagination > li > a .icon {
