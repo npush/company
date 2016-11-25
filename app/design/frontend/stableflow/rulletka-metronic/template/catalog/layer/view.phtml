@@ -31,7 +31,7 @@
  * @see Mage_Catalog_Block_Layer_View
  */
 ?>
-<?php if(Mage::registry('current_category')->getLevel() >= 4): ?>
+<?php if(!Mage::registry('current_category')->hasChildren()): ?>
     <?php if($this->canShowBlock()): ?>
     <div class="block-layered-nav type-content">
 
