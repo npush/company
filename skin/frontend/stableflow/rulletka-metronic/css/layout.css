@@ -186,6 +186,10 @@ b, strong, .bold {
   display: inline-block;
   width: 73%; 
 }
+#shopping-cart-totals-table td {
+  padding: 0 10px;
+}
+
 /***
 Page Header
 ***/
