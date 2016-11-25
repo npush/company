@@ -33,7 +33,7 @@
 ?>
 <?php if($this->getCollection()->getSize()): ?>
 <div class="type-content toolbar">
-    <div class="pager">
+    <div class="pager pager-inline">
         <p class="amount">
             <?php if($this->getLastPageNum()>1): ?>
                 <?php echo $this->__('Items %s to %s of %s total', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
@@ -41,6 +41,7 @@
                 <strong><?php echo $this->__('%s Item(s)', $this->getTotalNum()) ?></strong>
             <?php endif; ?>
         </p>
+        <?php echo $this->getPagerHtml() ?>
         <div class="limiter">
             <label><?php echo $this->__('Show') ?></label>
             <select onchange="setLocation(this.value)">
@@ -51,7 +52,6 @@
             <?php endforeach; ?>
             </select> <?php echo $this->__('per page') ?>
         </div>
-        <?php echo $this->getPagerHtml() ?>
     </div>
     <?php if( $this->isExpanded() ): ?>
     <div class="sorter">

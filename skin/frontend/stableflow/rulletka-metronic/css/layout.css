@@ -4570,8 +4570,18 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     top: -1px;
 } 
 
+.pager-inline .amount {
+  text-align: left;
+  display: inline-block;
+}
 
-
+.pager-inline .limiter {
+  text-align: right;
+  display: inline-block;
+}
+.pager-inline .pages {
+   display: inline-block; 
+}
 /* /.pagination */
 
 /* const */
