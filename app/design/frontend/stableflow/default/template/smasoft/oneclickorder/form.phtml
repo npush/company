@@ -40,7 +40,7 @@ $action = $this->getAction()->getFullActionName();
                             </div>
                         </div>
                         <div class="form-group">
-                            <p class="txt-sm"><span class="has-span">*</span><?php echo $this->__('Manager will call you, knows all details and will help place your order.')?></p>
+                            <p class="txt-sm"><span class="has-span">*</span><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('one_click_order_notice')->toHtml();?></p>
                         </div>
                         <span class="please-wait" id="oneclickorder-please-wait" style="display:none;">
                             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $helper->__('Submit Order...') ?>" title="<?php echo $helper->__('Submit Order...') ?>" class="v-middle" /> <?php echo $helper->__('Submit Order...') ?>

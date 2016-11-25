@@ -74,7 +74,6 @@
                                     var input = jQuery(element).find(':input');
                                     var elemetIncr = jQuery(element).find("a[id ^= 'incrQty_']");
                                     var elemetDecr = jQuery(element).find("a[id ^= 'decrQty_']");
-                                    console.log(elemetDecr, elemetIncr);
                                     jQuery(elemetIncr).click(function () {
                                         var value = parseInt(jQuery(input).val()) + parseInt(1);
                                         jQuery(input).val(value);
