@@ -18,7 +18,7 @@ $action = $this->getAction()->getFullActionName();
                 <div class="modal-body modal-body-form text-left">
                     <form id="oneclickorder-form" action="<?php echo $this->getUrl('oneclickorder/index/saveOrder')?>" method="post">
                         <div class="oneclickorder-fields">
-                            <div class="form-group">
+                            <div class="form-group select-content">
                                  <?php echo $this->getPhoneCodeHtml('oneclickorder[country]', 'form-control radius-none validate-select oneclickorder-country', true, $helper->__('Code'))?>
                                 <input type="text" name="oneclickorder[phone]" class="form-control radius-none  required-entry oneclickorder-phone"  placeholder="<?php echo $this->__('phone number')?>"/>
                             </div>
@@ -28,7 +28,7 @@ $action = $this->getAction()->getFullActionName();
                                 <?php endif; ?>
                             </div>
                             <div class="form-group">
-                                <label class="control-label"><?php echo $helper->__('Comment:')?></label>
+                                <label class="control-label"><?php echo $helper->__('Comment:')?>:</label>
                                 <textarea class="form-control radius-none" name="oneclickorder[comment]"></textarea>
                             </div>
                         </div>
