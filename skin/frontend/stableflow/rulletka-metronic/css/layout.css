@@ -175,6 +175,14 @@ b, strong, .bold {
     color: #a6a39f;
 }
 
+.select-content select {
+  width: 25%;
+  display: inline-block;
+}
+.select-content input.form-control {
+  display: inline-block;
+  width: 73%; 
+}
 /***
 Page Header
 ***/
