@@ -17,49 +17,41 @@
     <div class="modal fade draggable-modal" id="login" tabindex="-1" role="basic" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
-                    <h4 class="modal-title text-center">вход</h4>
-                </div>
-                <div class="modal-body modal-body-form">
-                    <div class="youama-window-box first">
-                        <div class="youama-window-content">
-                            <div class="input-fly youama-showhideme">
-                                <label for="youama-email"><?php echo $this->__('E-mail address') ?> <span>*</span></label>
-                                <input type="text" placeholder="<?php echo $this->__('E-mail address') ?>" id="youama-email" name="youama-email" value="" />
-                                <div class="youama-ajaxlogin-error err-email err-noemail err-wrongemail err-wronglogin"></div>
-                            </div>
-                            <div class="input-fly youama-showhideme">
-                                <label for="youama-password"><?php echo $this->__('Password') ?> <span>*</span></label>
-                                <input type="password" placeholder="<?php echo $this->__('Password') ?>" id="youama-password" name="youama-password" value="" />
-                                <div class="youama-ajaxlogin-error err-password err-dirtypassword err-nopassword err-longpassword"></div>
-                            </div>
-                        </div>
+                <form id="login-form-ajax" action="" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
+                        <h4 class="modal-title text-center">вход</h4>
                     </div>
-
-                    <div class="youama-window-box last">
-                        <div class="youama-window-content box-contents box-contents-button youama-showhideme">
-                    <span class="youama-forgot-password">
-                        <a href="<?php echo Mage::getBaseUrl() ?>customer/account/forgotpassword/"><?php echo $this->__('Forgot Password') ?></a>
-                    </span>
-                            <button type="button" class="button btn-proceed-checkout btn-checkout youama-ajaxlogin-button">
-                        <span>
-                            <span>
-                                <?php echo $this->__('Login') ?>
-                            </span>
-                        </span>
-                            </button>
-                            <p id="y-to-register" class="yoauam-switch-window">
-                                <?php echo $this->__('or registration') ?>
+                    <div class="modal-body modal-body-form">
+                        <div class="form-group">
+                            <label class="control-label required" aria-required="true">E-mail:<span class="has-span">*</span> </label>
+                            <input name="email" type="text" class="form-control radius-none required-entry validate-email" aria-describedby="email-error" aria-invalid="true" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Пароль:</label>
+                            <input name="password" type="password" class="form-control radius-none required-entry">
+                        </div>
+                        <div class="form-group">
+                            <p class="txt-sm">
+                                Поля, обозначенные <span class="has-span">*</span> обязательны для заполнения
                             </p>
                         </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn yellow margin-top-min min-width">Вход</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <script type="text/javascript">
+        //< ![CDATA[
+        var customForm = new VarienForm('login-form-ajax');
+        //]]>
+    </script>
 
     <?php // Youama jQuery plugin for ajax call and windows ?>
     <script type="text/javascript">
