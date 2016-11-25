@@ -4539,10 +4539,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     text-align: center;
 }
 
-.pagination > li {
+.pagination > li, .pagination > ol  {
     display: inline-block;
 }
-.pagination > li > a {
+.pagination > li > a, .pagination > ol > a {
     background-color: transparent;
     border-color: transparent;
     color:#4e4f53;
@@ -4550,7 +4550,9 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     padding: 4px 10px;
 }
 .pagination > li > a:hover,
-.pagination > li > a:focus {
+.pagination > li > a:focus,
+.pagination > ol > a:hover,
+.pagination > ol > a:focus {
     border-color: #fdbb09;
     background-color: transparent;
 }
@@ -4565,7 +4567,8 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     color: #fff;
 }
 
-.pagination > li > a .icon {
+.pagination > li > a .icon, 
+.pagination > ol > a .icon  {
     color:#8f8f8f;
     top: -1px;
 } 
