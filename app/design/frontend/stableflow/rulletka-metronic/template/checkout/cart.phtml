@@ -95,11 +95,9 @@
             <?php echo $this->getChildHtml('agreements');?>
             <div class="col-md-6">
                 <div class="form-group text-right">
-                    <p><span class="vertical-bottom line-height-md">Ориентироваочная стоимость:</span>
-                        <span class="basket-number basket-number-lg"><?php echo $this->getChildHtml('totals');?></span>
-                    </p>
+
                     <?php if(!$this->hasError()): ?>
-                        <ul class="checkout-types">
+                        <ul class="checkout-types clearfix">
                             <?php foreach ($this->getMethods('methods') as $method): ?>
                                 <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
                                     <li><?php echo $methodHtml; ?></li>
