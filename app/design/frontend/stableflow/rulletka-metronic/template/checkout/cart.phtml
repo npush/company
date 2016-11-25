@@ -95,7 +95,9 @@
             <?php echo $this->getChildHtml('agreements');?>
             <div class="col-md-6">
                 <div class="form-group text-right">
-
+                    <p>
+                        <span class="basket-number basket-number-lg"><?php echo $this->getChildHtml('totals');?></span>
+                    </p>
                     <?php if(!$this->hasError()): ?>
                         <ul class="checkout-types clearfix">
                             <?php foreach ($this->getMethods('methods') as $method): ?>
