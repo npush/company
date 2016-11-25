@@ -186,6 +186,10 @@ b, strong, .bold {
   display: inline-block;
   width: 73%; 
 }
+#shopping-cart-totals-table td {
+  padding: 0 10px;
+}
+
 /***
 Page Header
 ***/
@@ -4538,27 +4542,27 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 .pagination > li {
     display: inline-block;
 }
-.pagination > li > a {
+.pagination > li > a, .pagination > .current > span  {
     background-color: transparent;
     border-color: transparent;
     color:#4e4f53;
     font-size:13px;
     padding: 4px 10px;
+    border-radius: 0px;
 }
 .pagination > li > a:hover,
 .pagination > li > a:focus {
     border-color: #fdbb09;
     background-color: transparent;
 }
-.pagination > .active > a, 
-.pagination > .active > a:focus, 
-.pagination > .active > a:hover, 
-.pagination > .active > span, 
-.pagination > .active > span:focus, 
-.pagination > .active > span:hover {
+
+.pagination > .current > span:focus, 
+.pagination > .current > span:hover,
+.pagination > .current > span {
     background-color: #fdbb09;
     border-color: #fdbb09;
     color: #fff;
+    border-radius: 0px;
 }
 
 .pagination > li > a .icon {
@@ -4566,8 +4570,18 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     top: -1px;
 } 
 
+.pager-inline .amount {
+  text-align: left;
+  display: inline-block;
+}
 
-
+.pager-inline .limiter {
+  text-align: right;
+  display: inline-block;
+}
+.pager-inline .pages {
+   display: inline-block; 
+}
 /* /.pagination */
 
 /* const */
