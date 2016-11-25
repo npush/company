@@ -4554,15 +4554,13 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     border-color: #fdbb09;
     background-color: transparent;
 }
-.pagination > .current > a, 
-.pagination > .current > a:focus, 
-.pagination > .current > a:hover, 
-.pagination > .current > span, 
+.pagination > .current > span {
+    padding: 4px 10px;
+}
+
 .pagination > .current > span:focus, 
 .pagination > .current > span:hover,
-.pagination > .current, 
-.pagination > .current:focus, 
-.pagination > .current:hover {
+.pagination > .current > span {
     background-color: #fdbb09;
     border-color: #fdbb09;
     color: #fff;
