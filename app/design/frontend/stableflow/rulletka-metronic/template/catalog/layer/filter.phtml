@@ -37,7 +37,7 @@
     <div class="checkbox-group">
     	
 	        <?php if ($_item->getCount() > 0): ?>
-	        <a class="checkbox-label"> href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
+	        <a class="checkbox-label" href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
 	        <?php else: echo $_item->getLabel() ?>
 	        <?php endif; ?>
 	        <?php if ($this->shouldDisplayProductCount()): ?>
