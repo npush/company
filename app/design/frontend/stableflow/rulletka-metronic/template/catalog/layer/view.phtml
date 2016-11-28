@@ -46,7 +46,7 @@
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
                         <label><?php echo $this->__($_filter->getName()) ?>:</label>
-                        <?php echo $_filter->getHtml() ?>
+                        <div class="checkbox-group"><?php echo $_filter->getHtml() ?></div>
                 <?php endif; ?>
                 <?php endforeach; ?>
             </div>
