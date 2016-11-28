@@ -2051,10 +2051,12 @@ label.control-label {
   text-transform:uppercase;
 }
 
+.type-radio .actions, .type-checkbox .actions {
+   margin-bottom: 17px;
+}
 .type-radio, .type-checkbox  {
    margin-bottom: 17px;
 }
-
 .type-all-company .type-title {
   color:#595959;
 }
