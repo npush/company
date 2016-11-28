@@ -137,6 +137,7 @@ b, strong, .bold {
   vertical-align: top;
   position: absolute;
   left: 34px;
+  top: 1px;
   font-family: 'OpenSansRegular';
 }
 
