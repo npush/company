@@ -35,14 +35,14 @@
 
 <?php foreach ($this->getItems() as $_item): ?>
     <div class="checkbox-group">
-    	<label class="checkbox-label">
+    	
 	        <?php if ($_item->getCount() > 0): ?>
-	        <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
+	        <label class="checkbox-label"><a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a></label>
 	        <?php else: echo $_item->getLabel() ?>
 	        <?php endif; ?>
 	        <?php if ($this->shouldDisplayProductCount()): ?>
 	        (<?php echo $_item->getCount() ?>)
 	        <?php endif; ?>
-    	</label>
+    	
     </div>
 <?php endforeach ?>
