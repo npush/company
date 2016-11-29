@@ -115,11 +115,11 @@ Default layout, loads most of the pages
                     </action>
                 </block>
                 <block type="page/template_links" name="menu_links" as="menu_links" template="rulletka/links.phtml">
-                    <action method="addLink">
+                    <!--<action method="addLink">
                         <label>Site Map</label>
                         <url helper="catalog/map/getCategoryUrl" />
                         <title>Site Map</title>
-                    </action>
+                    </action>-->
                 </block>
             </block>
 
