@@ -241,5 +241,5 @@
 "Please <a href=""%s"">continue shopping</a>.","Please <a href=""%s"">continue shopping</a>."
 "View cart & checkout","Перейти к оформлению заказа"
 "Update Cart","Обновить"
-"Click here to continue shopping","Продолжить покупки"
-"You have no items in your shopping cart","У вас нет товаров в корзине"
+"Click %s to continue shopping","Нажмите %s чтобы продолжить покупки"
+"You have no items in your shopping cart.","У вас нет товаров в корзине"
