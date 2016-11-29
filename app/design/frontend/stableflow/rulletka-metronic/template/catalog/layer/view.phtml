@@ -45,8 +45,10 @@
                 <?php $_filters = $this->getFilters() ?>
                 <?php foreach ($_filters as $_filter): ?>
                 <?php if($_filter->getItemsCount()): ?>
+                    <div class="checkbox-filter">
                         <label><?php echo $this->__($_filter->getName()) ?>:</label>
                         <?php echo $_filter->getHtml() ?>
+                    </div>
                 <?php endif; ?>
                 <?php endforeach; ?>
             </div>
