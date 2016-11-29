@@ -2088,6 +2088,14 @@ input[type="checkbox"], input[type="radio"] {
     box-sizing: border-box;
 }
 
+.checkbox-filter {
+  margin: 10px 0;
+}
+
+.checkbox-filter > label {
+  margin-right: 15px;
+}
+
 .type-radio .radio-label, .type-radio  .filter-group {
     cursor: pointer;
     display: inline-block;
