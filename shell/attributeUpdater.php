@@ -8,7 +8,7 @@
  */
 
 require_once 'abstract.php';
-
+ini_set('memory_limit', '4096M');
 class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
 
     /**
@@ -60,7 +60,8 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
         }catch (Mage_Core_Exception $e){
             Mage::logException($e->getMessage());
         }
-        $product = null;
+        //unset($product);
+        echo memory_get_usage() . "\n";
     }
 
     private function _attributeUpdate1($attrCode){
