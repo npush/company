@@ -103,10 +103,7 @@ class Mageplaza_BetterBlog_Block_Category_List extends Mage_Core_Block_Template
         if ($recursion !== '0' && $level >= $recursion) {
             return '';
         }
-        $storeIds = Mage::getResourceSingleton(
-            'mageplaza_betterblog/category'
-        )
-        ->lookupStoreIds($category->getId());
+        $storeIds = Mage::getResourceSingleton('mageplaza_betterblog/category')->lookupStoreIds($category->getId());
         $validStoreIds = array(0, Mage::app()->getStore()->getId());
         if (!array_intersect($storeIds, $validStoreIds)) {
             return '';
@@ -116,12 +113,9 @@ class Mageplaza_BetterBlog_Block_Category_List extends Mage_Core_Block_Template
         }
         $children = $category->getChildrenCategories();
         $activeChildren = array();
-        if ($recursion == 0 || $level < $recursion-1) {
+        if ($recursion == 0 || $level < $recursion - 1) {
             foreach ($children as $child) {
-                $childStoreIds = Mage::getResourceSingleton(
-                    'mageplaza_betterblog/category'
-                )
-                ->lookupStoreIds($child->getId());
+                $childStoreIds = Mage::getResourceSingleton('mageplaza_betterblog/category')->lookupStoreIds($child->getId());
                 $validStoreIds = array(0, Mage::app()->getStore()->getId());
                 if (!array_intersect($childStoreIds, $validStoreIds)) {
                     continue;
@@ -131,10 +125,10 @@ class Mageplaza_BetterBlog_Block_Category_List extends Mage_Core_Block_Template
                 }
             }
         }
-        $html .= '<li>';
-        $html .= '<a href="'.$category->getCategoryUrl().'">'.$category->getName().'</a>';
+        $html .= '<li class="level-top first parent">';
+        $html .= '<a href="'.$category->getCategoryUrl().'" class="level-top show-cat">'.$category->getName().'</a>';
         if (count($activeChildren) > 0) {
-            $html .= '<ul>';
+            $html .= '<ul class="category-sidebar-nav">';
             foreach ($children as $child) {
                 $html .= $this->drawCategory($child, $level+1);
             }

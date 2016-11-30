@@ -33,9 +33,29 @@
 ?>
 <?php $_menu = $this->getHtml('level-top') ?>
 <?php if($_menu): ?>
-<div class="nav-container">
-    <ul  class="page-sidebar-menu  page-header-fixed page-sidebar-menu-closed " data-keep-expanded="true" data-auto-scroll="true" data-slide-speed="200">
-        <?php echo $_menu ?>
-    </ul>
+<div class="block block-category-nav">
+    <div class="block-content">
+        <ul  id="category-sidebar-nav" class="category-sidebar-nav">
+            <?php echo $_menu ?>
+        </ul>
+    </div>
 </div>
 <?php endif ?>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('#category-sidebar-nav li a.show-cat').click(function() {
+            jQuery(this).children('ul').slideUp();
+
+            if (!jQuery(this).hasClass('active')) {
+                jQuery(this).next().slideToggle();
+                jQuery(this).addClass('active');
+                jQuery(this).prev('a').addClass('active');
+            }
+            else if (jQuery(this).hasClass('active')) {
+                jQuery(this).next().slideToggle();
+                jQuery(this).removeClass('active');
+                jQuery(this).prev('a').removeClass('active');
+            }
+        });
+    });
+</script>

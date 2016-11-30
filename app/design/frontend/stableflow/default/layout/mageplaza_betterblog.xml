@@ -35,7 +35,6 @@
             </action>
         </reference> -->
 
-
         <reference name="right">
             <block type="mageplaza_betterblog/sidebar" name="post.list.right" as="post_list_right" before="-">
                 <action method="setTemplate" ifconfig="mageplaza_betterblog/general/sidebar_right">
@@ -44,33 +43,8 @@
             </block>
         </reference>
 
-        <reference name="left">
-            <block type="mageplaza_betterblog/sidebar" name="post.list.left" as="post_list_left" before="-">
-                <action method="setTemplate" ifconfig="mageplaza_betterblog/general/sidebar_left">
-                    <template>mageplaza_betterblog/sidebar.phtml</template>
-                </action>
-            </block>
-        </reference>
-
-
-        <reference name="footer_links">
-
-            <action method="addLink" translate="label title" ifconfig="mageplaza_betterblog/general/footer">
-                <label>Blog</label>
-                <url helper="mageplaza_betterblog/config/getBlogUrl"/>
-                <title>Blog</title>
-                <prepare/>
-                <urlParams/>
-                <position>120</position>
-            </action>
-        </reference>
-
-        <reference name="footer" >
-            <!--<remove name="mp-copyright" />-->
-            <block type="core/template" name="mp-copyright" template="mageplaza_betterblog/blog/copyright.phtml" />
-        </reference>
-
     </default>
+
     <customer_account>
         <reference name="customer_account_navigation">
             <action method="addLink" translate="label" module="mageplaza_betterblog">
