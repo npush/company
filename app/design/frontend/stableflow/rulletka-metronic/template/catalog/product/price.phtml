@@ -205,10 +205,16 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                 </div>
             <?php else: ?>
                 <div class="basket-number basket-number-lg regular-price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
-                    <?php if ($_finalPrice == $_price): ?>
-                        <?php echo $_coreHelper->formatPrice($_price, true) ?>
+                    <?php $attribute = $_product->getResource()->getAttribute('ask_4_price'); ?>
+                    <?php $attribute_value = $attribute ->getFrontend()->getValue($_product); ?>
+                    <?php if ($attribute_value == 'Yes'): ?>
+                        <span class="price"><?php echo $this->__('Ask for price'); ?></span>
                     <?php else: ?>
-                        <?php echo $_coreHelper->formatPrice($_finalPrice, true) ?>
+                        <?php if ($_finalPrice == $_price): ?>
+                            <?php echo $_coreHelper->formatPrice($_price, true) ?>
+                        <?php else: ?>
+                            <?php echo $_coreHelper->formatPrice($_finalPrice, true) ?>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>

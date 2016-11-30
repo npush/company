@@ -38,7 +38,7 @@ class Mage_Shell_FixProductDescription extends Mage_Shell_Abstract{
                 $product->save();
                 printf("Saved modified product: %s \n", $product->getSku());
                 $count++;
-            }catch (Exeption $e){
+            }catch (Mage_Core_Exception $e){
                 Mage::logException($e->getMessage());
             }
         }
