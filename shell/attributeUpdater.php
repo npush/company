@@ -31,14 +31,13 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
     }
 
     private function _attributeUpdate($data){
-
+        $product = Mage::getModel('catalog/product');
+        /** @var $product Mage_Catalog_Model_Product */
 
         //$productIds = $product->getCollection()->getAllIds();
 
         try {
             $time_start = microtime();
-            $product = Mage::getModel('catalog/product');
-            /** @var $product Mage_Catalog_Model_Product */
             $productId = $product->getIdBySku($data[0]);
             if($product->load($productId)) {
                 if ($data[3] != '\N') {
@@ -58,11 +57,10 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
             }
             $time_end = microtime();
             printf("%f sec from query. \n\n ", $time_end - $time_start);
-            unset($product);
-
         }catch (Mage_Core_Exception $e){
             Mage::logException($e->getMessage());
         }
+        $product = null;
     }
 
     private function _attributeUpdate1($attrCode){
