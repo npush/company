@@ -54,7 +54,7 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
                 }
                 $product->setData('manufacturer_number', $data[1]);
                 $product->getResource()->saveAttribute($product, 'manufacturer_number');
-                printf("Saved modified product: %s \n", $product->getSku());
+                printf("Saved modified product: Sku: %s ; Id: %s\n", $product->getSku(), $product->getId());
             }
             $time_end = microtime();
             printf("%f sec from query. \n\n ", $time_end - $time_start);
