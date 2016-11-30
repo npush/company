@@ -8,7 +8,7 @@
  */
 
 require_once 'abstract.php';
-ini_set('memory_limit', '4096M');
+
 class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
 
     /**
@@ -16,12 +16,14 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
      *
      */
     public function run(){
+        ini_set('memory_limit', '4096M');
         if ($this->getArg('file')) {
             $path = $this->getArg('file');
             printf("reading data from %S \n", $path);
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
                     $this->_attributeUpdate($data);
+                    gc_collect_cycles();
                 }
                 fclose($file);
             }
@@ -60,7 +62,9 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
         }catch (Mage_Core_Exception $e){
             Mage::logException($e->getMessage());
         }
-        //unset($product);
+        $product->getOptionInstance()->unsetOptions()->clearInstance();
+	    unset($product);
+        $product = null;
         echo memory_get_usage() . "\n";
     }
 
