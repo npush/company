@@ -207,7 +207,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
                 <div class="basket-number basket-number-lg regular-price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                     <?php $attribute = $_product->getResource()->getAttribute('ask_4_price'); ?>
                     <?php $attribute_value = $attribute ->getFrontend()->getValue($_product); ?>
-                    <?php if ($attribute_value == 'Yes'): ?>
+                    <?php if ($attribute_value == 'Yes' || $attribute_value == 'Да'): ?>
                         <span class="price"><?php echo $this->__('Ask for price'); ?></span>
                     <?php else: ?>
                         <?php if ($_finalPrice == $_price): ?>
