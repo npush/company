@@ -23,7 +23,7 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
                     $this->_attributeUpdate($data);
-                    gc_collect_cycles();
+                    //gc_collect_cycles();
                 }
                 fclose($file);
             }
@@ -40,8 +40,8 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
 
         try {
             $time_start = microtime();
-            $productId = $product->getIdBySku($data[0]);
-            if($product->load($productId)) {
+            //$productId = $product->getIdBySku($data[0]);
+            if($product->load($product->getIdBySku($data[0]))) {
                 if ($data[3] != '\N') {
                     $product->setData('ask_4_price', false);
                     $product->getResource()->saveAttribute($product, 'ask_4_price');
@@ -62,9 +62,9 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
         }catch (Mage_Core_Exception $e){
             Mage::logException($e->getMessage());
         }
-        $product->getOptionInstance()->unsetOptions()->clearInstance();
+        //$product->getOptionInstance()->unsetOptions()->clearInstance();
 	    unset($product);
-        $product = null;
+        //$product = null;
         echo memory_get_usage() . "\n";
     }
 
@@ -138,7 +138,7 @@ class Mage_Shell_AttributeUpdater extends Mage_Shell_Abstract{
     private function _updatePrices($data){
         $connection     = $this->_getConnection('core_write');
         $sku            = $data[0];
-        $newPrice       = $data[1];
+        $newPrice       = $data[3];
         $productId      = $this->_getIdFromSku($sku);
         $attributeId    = $this->_getAttributeId();
 
