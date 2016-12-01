@@ -179,6 +179,7 @@
                     <mageplaza_betterblog>
                         <class>mageplaza_betterblog/observer</class>
                         <method>addMenuItems</method>
+                        <!--<method>addItemsToTopmenu</method>-->
                     </mageplaza_betterblog>
                 </observers>
             </page_block_html_topmenu_gethtml_before>

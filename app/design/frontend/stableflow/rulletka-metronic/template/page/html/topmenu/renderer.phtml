@@ -48,14 +48,14 @@ foreach ($children as $child) {
 
     /*$_icon = Mage::getResourceModel('catalog/category')
         ->getAttributeRawValue($child->getId(), "category_icon", Mage::app()->getStore()->getId());*/
-
+    $_icon = '';
     $outermostClassCode = 'level'. $childLevel;
     $_hasChildren = ($child->hasChildren()) ? 'has-children show-cat' : '';
 
     $html .= '<li '. $this->_getRenderedMenuItemAttributes($child) .'>';
 
     $html .= '<a href="'. $child->getUrl() .'" class="'. $outermostClassCode .' '. $_hasChildren .'">';
-    $html .=    ($childLevel == 0) ? '<i class="icon icon-business ' . $_icon . '"></i>': '';
+    $html .=    ($childLevel == 0) ? '<i class="icon ' . $_icon . '"></i>': '';
     $html .=    '<span>'. $this->escapeHtml($this->__($child->getName())) .'</span>';
     $html .= '</a>';
     $html .= (!empty($_hasChildren)) ? '<a href="javascript://" class="pull-right show-cat icon icon-arrow-point-to-right">&nbsp;</a>' : '';
