@@ -825,11 +825,14 @@ li .sub-menu .title {
         margin-right: 0px;
     }
 
+    .category-sidebar-nav .level0 a.level0  {
+        padding-left: 0px;
+    }
     .page-sidebar-closed .category-sidebar-nav .level0 a.level0  {
         text-align: center;
         display: block;
+        padding-left: 0px;
     }
-
     .arrow .icon-arrow-point-down {
       display:none;
     }
