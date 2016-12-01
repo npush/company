@@ -820,7 +820,8 @@ li .sub-menu .title {
     .page-sidebar-closed  .contact-menu span, 
     .page-sidebar-closed .contact-menu .icon,
     .page-sidebar-closed .page-sidebar .page-sidebar-menu > li > a > i, 
-    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i {
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i,
+    .category-sidebar-nav a.level0 > .icon {
         margin-right: 0px;
     }
 
