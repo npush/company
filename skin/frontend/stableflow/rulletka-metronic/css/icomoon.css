@@ -59,7 +59,7 @@
 .icon-avatar:before {
     content: "\e906";
 }
-.icon-business:before, .level0.nav-1 > .level0 .icon:before {
+.icon-business:before, .level0.nav-1 > .level0 > i.icon:before {
     content: "\e907";
 }
 .icon-cancel-music:before {
@@ -86,13 +86,13 @@
 .icon-email-filled-closed-envelope:before {
     content: "\e90f";
 }
-.icon-excavator:before, .level0.nav-2 > .level0 .icon:before {
+.icon-excavator:before, .level0.nav-2 > .level0 > i.icon:before {
     content: "\e910";
 }
 .icon-home:before {
     content: "\e911";
 }
-.icon-interface:before, .level0.nav-3 > .level0 .icon:before {
+.icon-interface:before, .level0.nav-3 > .level0 > i.icon:before {
     content: "\e912";
 }
 .icon-left-arrow:before {
@@ -101,7 +101,7 @@
 .icon-multimedia:before {
     content: "\e914";
 }
-.icon-newspaper:before, .level0.nav-4 > .level0 .icon:before {
+.icon-newspaper:before, .level0.nav-4 > .level0 > i.icon:before {
     content: "\e915";
 }
 .icon-phone-auricular-and-clock-delivery-symbol:before {
