@@ -97,17 +97,10 @@ Default layout, loads most of the pages
             <block type="core/messages" name="global_messages" as="global_messages"/>
             <block type="core/messages" name="messages" as="messages"/>
 
-            <block type="core/template" name="left-menu" as="left-menu" template="rulletka/left-menu.phtml">
+            <block type="core/template" name="left.menu" as="left_menu" template="rulletka/left-menu.phtml">
                 <block type="checkout/cart_sidebar" name="mini.cart" as="mini.cart" template="checkout/cart/minicart.phtml"/>
                 <block type="page/html_topmenu" name="top.menu" as="top.menu" template="page/html/topmenu.phtml">
                     <block type="page/html_topmenu_renderer" name="catalog.topnav.renderer" template="page/html/topmenu/renderer.phtml"/>
-                </block>
-                <!--<block type="core/text_list" name="top.menu" as="top.menu"/>-->
-
-                <block type="mageplaza_betterblog/category_list" name="post.menu" as="post_menu">
-                    <action method="setTemplate">
-                        <template>mageplaza_betterblog/category/list.phtml</template>
-                    </action>
                 </block>
                 <block type="page/template_links" name="menu_links" as="menu_links" template="rulletka/links.phtml">
                     <!--<action method="addLink">

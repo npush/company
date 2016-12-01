@@ -56,6 +56,54 @@ class Mageplaza_BetterBlog_Model_Observer
             );
             $io->streamWrite($xml);
         }
+    }
 
+    public function addMenuItems($observer){
+
+        /**
+         *  Add elements to Topmenu tree
+         */
+
+        $menu = $observer->getMenu();
+        /** @var $tree Varien_Data_Tree*/
+        $tree = $menu->getTree();
+        /*$categoryCollection = Mage::getResourceModel('mageplaza_betterblog/category_collection')
+            ->addStoreFilter(Mage::app()->getStore())
+            ->addFieldToFilter('status', 1);*/
+        $categoryCollection=Mage::getModel('mageplaza_betterblog/category')
+            ->getCollection()
+            ->addStoreFilter(Mage::app()->getStore())
+            ->addFieldToFilter('status', 1);
+        $menuelementNodeId = 'article';
+        foreach($categoryCollection as $menuItem) {
+            if($menuItem->getLevel()=='1'){
+                $node = new Varien_Data_Tree_Node(array(
+                    'name'   => $menuItem->getName(),
+                    'id'     => $menuelementNodeId.'_'.$menuItem->getId(),
+                    'url'    => $menuItem->getUrl(), // point somewhere
+                ), 'id', $tree, $menu);
+
+                $menu->addChild($node);
+
+                $parent_id = $menuItem->getEntity_id();
+
+
+                $action = Mage::app()->getFrontController()->getAction()->getFullActionName();
+                foreach ($categoryCollection as $_menuItem){
+                    if(isset($parent_id) && $_menuItem->getParent_id() == $parent_id) {
+                        $tree = $node->getTree();
+                        $data = array(
+                            'name' => $_menuItem->getName(),
+                            'id' => $menuelementNodeId.'_'.$menuItem->getId(),
+                            'url' => $_menuItem->getUrl(),
+                            'is_active' => ($action == 'sean_menucreator_menuelement_index' || $action == 'sean_menucreator_menuelement_view')
+                        );
+
+                        $menuelementNode = new Varien_Data_Tree_Node($data, 'id', $tree, $node);
+                        $node->addChild($menuelementNode);
+                    }
+                }
+            }
+        }
     }
 }
