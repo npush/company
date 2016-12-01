@@ -820,10 +820,19 @@ li .sub-menu .title {
     .page-sidebar-closed  .contact-menu span, 
     .page-sidebar-closed .contact-menu .icon,
     .page-sidebar-closed .page-sidebar .page-sidebar-menu > li > a > i, 
-    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i {
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i,
+    .page-sidebar-closed .category-sidebar-nav .level0 a.level0 > .icon {
         margin-right: 0px;
     }
 
+    .category-sidebar-nav .level0 a.level0  {
+        padding-left: 0px;
+    }
+    .page-sidebar-closed .category-sidebar-nav .level0 a.level0  {
+        text-align: center;
+        display: block;
+        padding-left: 0px;
+    }
     .arrow .icon-arrow-point-down {
       display:none;
     }
@@ -4701,10 +4710,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 #category-sidebar-nav li.last{border:0 none;}
 /* #sidenav li:hover{background:#d9ecf2} */
 #category-sidebar-nav li a{font-size:18px; font-weight:normal; color:#fff; text-decoration:none; padding-left:10px;line-height: 25px;}
-#category-sidebar-nav li a:hover{color:#f7931d;/*  text-decoration:underline; */}
+#category-sidebar-nav li a:hover{color:#fdbb09;/*  text-decoration:underline; */}
 /* Level 0 */
 #category-sidebar-nav li.level0{line-height:25px; padding: 14px 25px;}
-#category-sidebar-nav li.level0 a.level-top{ font-size: 17px; text-transform: uppercase;}
+#category-sidebar-nav li.level0 a.level0{ font-size: 17px; text-transform: uppercase;}
 
 #category-sidebar-nav li ul.level0{padding:0 10px; display:none;}
 #category-sidebar-nav li ul.level0 a {font-size:16px;}
@@ -4739,11 +4748,20 @@ li.level0:after {
     position:absolute;
 }
 
-#category-sidebar-nav .active { color:#f7931d;}
+#category-sidebar-nav .active { color:#fdbb09;}
 
 .page-sidebar-closed #category-sidebar-nav .level0 span,
 .page-sidebar-closed #category-sidebar-nav .icon-arrow-point-to-right,
 .page-sidebar-closed #category-sidebar-nav ul {
     display: none !important;
 
+}
+
+.category-sidebar-nav a.level0 > .icon {
+  font-size: 24px;
+  margin-right: 25px;
+}
+
+.category-sidebar-nav a.level0 > .icon ~ span {
+  text-transform: uppercase;
 }
