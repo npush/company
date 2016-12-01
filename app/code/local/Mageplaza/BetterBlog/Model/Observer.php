@@ -58,17 +58,19 @@ class Mageplaza_BetterBlog_Model_Observer
         }
     }
 
+
+    /**
+     * Add elements to Topmenu tree
+     *
+     * @param Varien_Event_Observer $observer
+     */
+
     public function addMenuItems($observer){
-
-        /**
-         *  Add elements to Topmenu tree
-         */
-
         $menu = $observer->getMenu();
         /** @var $tree Varien_Data_Tree*/
         $tree = $menu->getTree();
         /** @var $categoryCollection Mageplaza_BetterBlog_Model_Category*/
-        $categoryCollection=Mage::getModel('mageplaza_betterblog/category')
+        $categoryCollection = Mage::getModel('mageplaza_betterblog/category')
             ->getCollection()
             ->addStoreFilter(Mage::app()->getStore())
             ->addFieldToFilter('status', 1);
@@ -102,6 +104,64 @@ class Mageplaza_BetterBlog_Model_Observer
                     }
                 }
             }
+        }
+    }
+
+    protected function _addMenuItems(){
+
+    }
+
+    /**
+     * Adds items to top menu
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function addItemsToTopmenu(Varien_Event_Observer $observer){
+        $block = $observer->getEvent()->getBlock();
+        $block->addCacheTag(Mageplaza_BetterBlog_Model_Category::CACHE_TAG);
+        $categoryCollection = Mage::getModel('mageplaza_betterblog/category')
+            ->getCollection()
+            ->addStoreFilter(Mage::app()->getStore())
+            ->addFieldToFilter('status', 1);
+        $this->_addItemsToMenu($categoryCollection, $observer->getMenu(), $block);
+    }
+
+    /**
+     * Recursively adds categories to top menu
+     *
+     * @param Varien_Data_Tree_Node_Collection|array $categories
+     * @param Varien_Data_Tree_Node $parentCategoryNode
+     * @param Mage_Page_Block_Html_Topmenu $menuBlock
+     * @param bool $addTags
+     */
+    protected function _addItemsToMenu($categories, $parentCategoryNode, $menuBlock, $addTags = false)
+    {
+        $categoryModel = Mage::getModel('mageplaza_betterblog/category');
+        foreach ($categories as $category) {
+            if (!$category->getStatus()) {
+                continue;
+            }
+
+            $nodeId = 'article-node-' . $category->getId();
+
+            $categoryModel->setId($category->getId());
+            if ($addTags) {
+                $menuBlock->addModelTags($categoryModel);
+            }
+
+            $tree = $parentCategoryNode->getTree();
+            $categoryData = array(
+                'name' => $category->getName(),
+                'id' => $nodeId,
+                'url' => $category->getCategoryUrl(),
+                'is_active' => false//$this->_isActiveMenuCategory($category)
+            );
+            $categoryNode = new Varien_Data_Tree_Node($categoryData, 'id', $tree, $parentCategoryNode);
+            $parentCategoryNode->addChild($categoryNode);
+
+            $subcategories = $category->getChildrenCategories();
+
+            $this->_addItemsToMenu($subcategories, $categoryNode, $menuBlock, $addTags);
         }
     }
 }
