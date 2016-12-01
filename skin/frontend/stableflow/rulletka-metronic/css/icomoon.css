@@ -19,7 +19,7 @@
     vertical-align: middle;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"], [class*=" icon-"], .category-sidebar-nav a.level0 > .icon {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'icomoon' !important;
     speak: none;
@@ -59,7 +59,7 @@
 .icon-avatar:before {
     content: "\e906";
 }
-.icon-business:before {
+.icon-business:before, .level0.nav-1 > .level0 .icon:before {
     content: "\e907";
 }
 .icon-cancel-music:before {
@@ -86,13 +86,13 @@
 .icon-email-filled-closed-envelope:before {
     content: "\e90f";
 }
-.icon-excavator:before {
+.icon-excavator:before, .level0.nav-2 > .level0 .icon:before {
     content: "\e910";
 }
 .icon-home:before {
     content: "\e911";
 }
-.icon-interface:before {
+.icon-interface:before, .level0.nav-3 > .level0 .icon:before {
     content: "\e912";
 }
 .icon-left-arrow:before {
@@ -101,7 +101,7 @@
 .icon-multimedia:before {
     content: "\e914";
 }
-.icon-newspaper:before {
+.icon-newspaper:before, .level0.nav-4 > .level0 .icon:before {
     content: "\e915";
 }
 .icon-phone-auricular-and-clock-delivery-symbol:before {
@@ -140,4 +140,6 @@
 .icon-tool:before {
     content: "\e921";
 }
+
+
 
