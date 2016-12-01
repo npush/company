@@ -164,4 +164,26 @@ class Mageplaza_BetterBlog_Model_Observer
             $this->_addItemsToMenu($subcategories, $categoryNode, $menuBlock, $addTags);
         }
     }
+
+    /**
+     * Checks whether category belongs to active category's path
+     *
+     * @param Varien_Data_Tree_Node $category
+     * @return bool
+     */
+    protected function _isActiveMenuCategory($category)
+    {
+        $catalogLayer = Mage::getSingleton('catalog/layer');
+        if (!$catalogLayer) {
+            return false;
+        }
+
+        $currentCategory = $catalogLayer->getCurrentCategory();
+        if (!$currentCategory) {
+            return false;
+        }
+
+        $categoryPathIds = explode(',', $currentCategory->getPathInStore());
+        return in_array($category->getId(), $categoryPathIds);
+    }
 }
