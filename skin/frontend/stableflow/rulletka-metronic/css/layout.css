@@ -4748,12 +4748,12 @@ li.level0:after {
 
 }
 
-.category-sidebar-nav .nav-link > .icon {
+.category-sidebar-nav a.level0 > .icon {
   font-size: 24px;
   color: #fff;
   margin-right: 25px;
 }
 
-.category-sidebar-nav .nav-link > .icon ~ span {
+.category-sidebar-nav a.level0 > .icon ~ span {
   text-transform: uppercase;
 }
