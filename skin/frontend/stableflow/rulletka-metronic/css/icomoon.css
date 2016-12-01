@@ -19,7 +19,7 @@
     vertical-align: middle;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"], [class*=" icon-"], .category-sidebar-nav a.level0 > .icon {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'icomoon' !important;
     speak: none;
@@ -101,7 +101,7 @@
 .icon-multimedia:before {
     content: "\e914";
 }
-.icon-newspaper:before, .level0.nav-3 > .level0 .icon:before {
+.icon-newspaper:before, .level0.nav-4 > .level0 .icon:before {
     content: "\e915";
 }
 .icon-phone-auricular-and-clock-delivery-symbol:before {
