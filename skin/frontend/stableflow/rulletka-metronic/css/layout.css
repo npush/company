@@ -4692,22 +4692,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 
-/********Css For Category Sidebar Navigation ************/
-.block-category-nav{}
-.block-category-nav .block-content{padding:10px;}
-#category-sidebar-nav{}
-#category-sidebar-nav li{border-bottom:1px solid #cacaca; padding:3px 0;}
-#category-sidebar-nav li.last{border:0 none;}
-#category-sidebar-nav li a{font-size:13px; font-weight:normal; color:#333333; text-decoration:none;}
-#category-sidebar-nav li a:hover{color:#f7931d;/*  text-decoration:underline; */}
-/* Level 0 */
-#category-sidebar-nav li.level-top a.level-top{ font-weight:bold;}
-#category-sidebar-nav li ul.level0{padding-left:10px;}
-#category-sidebar-nav li ul.level0 li{border-bottom:1px dotted #cacaca;}
-#category-sidebar-nav li ul.level0 li.last{border:0 none;}
-/* Level 1 */
-#category-sidebar-nav li ul li ul{padding-left:10px;}
-#category-sidebar-nav li ul li ul li a{color:#5a5a5a;}
+
 /********Css For Category Sidebar Navigation ************/
 .block-category-nav{}
 .block-category-nav .block-content{}
@@ -4718,8 +4703,8 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 #category-sidebar-nav li a{font-size:18px; font-weight:normal; color:#fff; text-decoration:none; padding-left:10px;line-height: 25px;}
 #category-sidebar-nav li a:hover{color:#f7931d;/*  text-decoration:underline; */}
 /* Level 0 */
-#category-sidebar-nav li.level-top{line-height:25px; padding: 14px 25px;}
-#category-sidebar-nav li.level-top a.level-top{ font-size: 17px; text-transform: uppercase;}
+#category-sidebar-nav li.level0{line-height:25px; padding: 14px 25px;}
+#category-sidebar-nav li.level0 a.level-top{ font-size: 17px; text-transform: uppercase;}
 
 #category-sidebar-nav li ul.level0{padding:0 10px; display:none;}
 #category-sidebar-nav li ul.level0 a {font-size:16px;}
@@ -4756,7 +4741,7 @@ li.level0:after {
 
 #category-sidebar-nav .active { color:#f7931d;}
 
-.page-sidebar-closed #category-sidebar-nav .level-top span,
+.page-sidebar-closed #category-sidebar-nav .level0 span,
 .page-sidebar-closed #category-sidebar-nav .icon-arrow-point-to-right,
 .page-sidebar-closed #category-sidebar-nav ul {
     display: none !important;
