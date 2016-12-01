@@ -59,7 +59,7 @@
 .icon-avatar:before {
     content: "\e906";
 }
-.icon-business:before {
+.icon-business:before, .level0.nav-1 > .level0 .icon {
     content: "\e907";
 }
 .icon-cancel-music:before {
@@ -140,4 +140,6 @@
 .icon-tool:before {
     content: "\e921";
 }
+
+
 
