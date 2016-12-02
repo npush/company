@@ -32,11 +32,13 @@ $category = Mage::getModel('catalog/category');
                                     <div class="img-catalog">
                                         <img class="img-responsive"  src="<?php echo $_category->getImageUrl()?>" alt="">
                                     </div>
-                                    <p class="text-transform"><?php echo $this->htmlEscape($_category->getName()); ?> (<?php echo $_category->getProductCount()?>):</p>
+                                    <p class="text-transform"><a href="<?php echo $_category->getUrl()?>"> <?php echo $this->htmlEscape($_category->getName()); ?></a> (<?php echo $_category->getProductCount()?>):</p>
                                     <ul class="ul-outside display-inline">
                                         <?php foreach($childrenCategoryIds as $_childId): ?>
                                             <?php $childCategory = $category->load($_childId); ?>
-                                            <li><a href="<?php echo $childCategory->getUrlPath()?>"><?php echo $this->htmlEscape($childCategory->getName()) ?></a></li>
+                                            <?php if($childCategory->getIsActive()): ?>
+                                                <li><a href="<?php echo $childCategory->getUrlPath()?>"><?php echo $this->htmlEscape($childCategory->getName()) ?></a></li>
+                                            <?php endif ?>
                                         <?php endforeach; ?>
                                     </ul>
                                 </div>
