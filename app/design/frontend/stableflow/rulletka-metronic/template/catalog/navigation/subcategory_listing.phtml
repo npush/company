@@ -9,6 +9,7 @@
 // add static block  {{block type="catalog/navigation" template="catalog/navigation/subcategory_listing.phtml"}}
 
 $helper = Mage::helper('catalog/category');
+$category = Mage::getModel('catalog/category');
 ?>
 <div class="portlet light portlet-fit bordered">
     <div class="portlet-body form">
@@ -24,19 +25,17 @@ $helper = Mage::helper('catalog/category');
                                 </h4>
                             </div>
                             <div id="collapse_3_<?php echo $_category->getId()?>" class="panel-collapse in">
-                                <?php $category = Mage::getModel('catalog/category'); ?>
-                                <?php $currentCategory = $category->load($_category->getId());?>
-                                <?php $childrenCategoryIds = explode(',', $currentCategory->getChildren()) ;?>
+                                <?php $childrenCategoryIds = explode(',', $_category->getChildren()); ?>
                                 <div class="panel-body">
                                     <!-- Show Catalog image-->
                                     <div class="img-catalog">
-                                        <img class="img-responsive"  src="<?php echo $currentCategory->getImageUrl()?>" alt="">
+                                        <img class="img-responsive"  src="<?php echo $_category->getImageUrl()?>" alt="">
                                     </div>
-                                    <p class="text-transform"><?php echo $this->htmlEscape($currentCategory->getName()) ?> (15):</p>
+                                    <p class="text-transform"><?php echo $this->htmlEscape($_category->getName()); ?> (<?php echo $_category->getProductCount()?>):</p>
                                     <ul class="ul-outside display-inline">
                                         <?php foreach($childrenCategoryIds as $_childId): ?>
                                             <?php $childCategory = $category->load($_childId); ?>
-                                            <li><a href="<?php echo $helper->getCategoryUrl($childCategory)?>"><?php echo $this->htmlEscape($childCategory->getName()) ?></a></li>
+                                            <li><a href="<?php echo $childCategory->getUrlPath()?>"><?php echo $this->htmlEscape($childCategory->getName()) ?></a></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 </div>
