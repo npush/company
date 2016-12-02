@@ -9,7 +9,7 @@
 // add static block  {{block type="catalog/navigation" template="catalog/navigation/subcategory_listing.phtml"}}
 //   System->Permissions->Blocks and add your block catalog/navigation in that list.
 
-$helper = Mage::helper('catalog/category');
+$_helper    = $this->helper('catalog/output');
 $category = Mage::getModel('catalog/category');
 ?>
 <div class="portlet light portlet-fit bordered">
@@ -25,15 +25,20 @@ $category = Mage::getModel('catalog/category');
                                     <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_<?php echo $_category->getId()?>"> <?php echo $this->htmlEscape($_category->getName()) ?> </a>
                                 </h4>
                             </div>
-                            <div id="collapse_3_<?php echo $_category->getId()?>" class="panel-collapse <?php echo $i ? 'in' : 'collapse'; ?>">
-                                <?php $childrenCategoryIds = explode(',', $_category->getChildren()); ?>
+                            <div id="collapse_3_<?php echo $_category->getId()?>" class="panel-collapse <?php echo $i ? ' in' : ' collapse'; ?>">
                                 <div class="panel-body">
-                                    <!-- Show Catalog image-->
                                     <div class="img-catalog">
-                                        <img class="img-responsive"  src="<?php echo $_category->getImageUrl()?>" alt="">
+                                        <!--<img class="img-responsive" src="<?php /*echo $_category->getImageUrl()*/?>" alt="<?php /*$this->htmlEscape($_category->getName());*/?>" title="<?php /*$this->htmlEscape($_category->getName());*/?>"/>-->
+                                        <?php if ($_imgUrl = $category->load($_category->getId())->getImageUrl()): ?>
+                                            <?php $_imgHtml   = '';?>
+                                            <?php $_imgHtml = '<img class="img-responsive" src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" />';?>
+                                            <?php $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');?>
+                                            <?php echo $_imgHtml;?>
+                                        <? endif ?>
                                     </div>
                                     <p class="text-transform"><a href="<?php echo $_category->getUrl()?>"> <?php echo $this->htmlEscape($_category->getName()); ?></a> (<?php echo $_category->getProductCount()?>):</p>
                                     <ul class="ul-outside display-inline">
+                                        <?php $childrenCategoryIds = explode(',', $_category->getChildren()); ?>
                                         <?php foreach($childrenCategoryIds as $_childId): ?>
                                             <?php $childCategory = $category->load($_childId); ?>
                                             <?php if($childCategory->getIsActive()): ?>
