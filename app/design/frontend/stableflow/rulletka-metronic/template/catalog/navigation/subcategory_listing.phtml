@@ -15,7 +15,7 @@ $helper = Mage::helper('catalog/category');
         <div class="panel-group accordion" id="accordion3">
             <?php $_categories = $this->getCurrentChildCategories();?>
             <?php if($_categories->count()): ?>
-                <?foreach ($_categories as $_category): ?>
+                <?php foreach ($_categories as $_category): ?>
                     <?php if($_category->getIsActive()): ?>
                         <div class="panel panel-list">
                             <div class="panel-heading">
