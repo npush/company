@@ -1,20 +1,8 @@
 <?php if($this->canShowBlock()): ?>
-<style>
-.catalog-category-view #narrow-by-list li span.filter-label,
-.catalog-category-view #narrow-by-list li span.filter-count,
-.catalog-category-view #narrow-by-list .pfilter #slider-range-vals{
-	color: #<?php echo Mage::getStoreConfig('mkmage_layerednavigation/mkmage_layerednavigation_display/filter_color',Mage::app()->getStore()) ?>;
-}
-.catalog-category-view #narrow-by-list li.filter-active span.filter-label,
-.catalog-category-view #narrow-by-list li.filter-active span.filter-count{
-	color: #<?php echo Mage::getStoreConfig('mkmage_layerednavigation/mkmage_layerednavigation_display/filter_color_active',Mage::app()->getStore()) ?>;
-}
-</style>
+
 <div class="block block-layered-nav<?php if (!$this->getLayer()->getState()->getFilters()): ?> block-layered-nav--no-filters<?php endif; ?>">
 <?php if(Mage::registry('current_category')->getLevel() == 3): ?>
-    <div class="block-title">
-        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
-    </div>
+
     <div class="block-content">
         <?php echo $this->getStateHtml() ?>
         <?php if ($this->getLayer()->getState()->getFilters()): ?>

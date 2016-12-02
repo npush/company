@@ -37,15 +37,6 @@
         			</layerednavigation>
         		</observers>
         	</controller_front_init_before>
-            <admin_system_config_changed_section_mkmage_layerednavigation>
-                <observers>
-                    <layerednavigation>
-                        <type>singleton</type>
-                        <class>MKMage_LayeredNavigation_Model_Observer</class>
-                        <method>validateSystemSettings</method>
-                    </layerednavigation>
-                </observers>
-            </admin_system_config_changed_section_mkmage_layerednavigation>
         	<controller_action_layout_render_before_catalog_category_view>
         		<observers>
 					<mkmage_layerednavigation_ajax_filters>
@@ -66,41 +57,10 @@
         	</controller_action_layout_render_before_catalogsearch_result_index>        	
         </events>
     </global>
-    <adminhtml>
-		<layout>
-			<updates>
-				<layerednavigation>
-					<file>mkmage/layerednavigation.xml</file>
-				</layerednavigation>
-			</updates>
-		</layout>  
-    	<acl>
-        	<resources>
-            	<all>
-                	<title>Allow Everything</title>
-            	</all>
-            	<admin>
-                	<children>
-                 		<system>
-                     		<children>
-                         		<config>
-                             		<children>
-                                 		<mkmage_layerednavigation>
-                                     		<title>Layered Navigation</title>
-                                 		</mkmage_layerednavigation>
-                             		</children>
-                         		</config>
-                     		</children>
-                 		</system>
-                	</children>
-            	</admin>
-        	</resources>        	
-    	</acl>
-    </adminhtml>
 	<default>
 		<mkmage_layerednavigation>
 			<mkmage_layerednavigation_general>
-				<email_sent>0</email_sent>
+				<email_sent>1</email_sent>
 			</mkmage_layerednavigation_general>
 			<mkmage_layerednavigation_display>
 				<filter_color>7f7f7f</filter_color>

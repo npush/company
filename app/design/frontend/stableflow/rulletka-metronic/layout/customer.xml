@@ -49,8 +49,6 @@ Default layout, loads most of the pages
     <default>
         <!-- Mage_Customer -->
         <reference name="top.links">
-
-
             <action method="addLink" translate="label title before_text" module="customer">
                 <label>Register Company</label>
                 <url helper="customer/getRegisterUrl" />
@@ -187,7 +185,7 @@ New customer registration
             <action method="setTitle" translate="title" module="customer"><title>Forgot Your Password</title></action>
         </reference>
         <reference name="root">
-            <action method="setTemplate"><template>page/1column.phtml</template></action>
+            <action method="setTemplate"><template>page/1column-left-menu.phtml</template></action>
             <action method="setHeaderTitle" translate="title" module="customer"><title>Password forgotten</title></action>
         </reference>
         <reference name="content">

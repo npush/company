@@ -31,18 +31,18 @@
  * @see Mage_Catalog_Block_Layer_Filter
  */
 ?>
-<?php if(Mage::registry('current_category')->getLevel() == 3): ?>
-    <ul class="inline-block">
-    <?php foreach ($this->getItems() as $_item): ?>
-        <li>
-            <?php if ($_item->getCount() > 0): ?>
-            <a href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
-            <?php else: echo $_item->getLabel() ?>
-            <?php endif; ?>
-            <?php if ($this->shouldDisplayProductCount()): ?>
-            (<?php echo $_item->getCount() ?>)
-            <?php endif; ?>
-        </li>
-    <?php endforeach ?>
-</ul>
-<?php endif ?>
+
+
+<?php foreach ($this->getItems() as $_item): ?>
+    <div class="checkbox-group">
+    	
+	        <?php if ($_item->getCount() > 0): ?>
+	        <a class="checkbox-label" href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
+	        <?php else: echo $_item->getLabel() ?>
+	        <?php endif; ?>
+	        <?php if ($this->shouldDisplayProductCount()): ?>
+	        (<?php echo $_item->getCount() ?>)
+	        <?php endif; ?>
+    	
+    </div>
+<?php endforeach ?>

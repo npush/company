@@ -38,7 +38,7 @@ $counter = 1;
 $childrenCount = $children->count();
 
 $parentPositionClass = $menuTree->getPositionClass();
-$itemPositionClassPrefix = $parentPositionClass ? $parentPositionClass . '-' : 'nav-item nav-';
+$itemPositionClassPrefix = $parentPositionClass ? $parentPositionClass . '-' : 'nav-';
 
 foreach ($children as $child) {
     $child->setLevel($childLevel);
@@ -46,19 +46,19 @@ foreach ($children as $child) {
     $child->setIsLast($counter == $childrenCount);
     $child->setPositionClass($itemPositionClassPrefix . $counter);
 
+    /*$_icon = Mage::getResourceModel('catalog/category')
+        ->getAttributeRawValue($child->getId(), "category_icon", Mage::app()->getStore()->getId());*/
+    $_icon = '';
     $outermostClassCode = 'level'. $childLevel;
-    $_hasChildren = ($child->hasChildren()) ? 'has-children ' : '';
+    $_hasChildren = ($child->hasChildren()) ? 'has-children show-cat' : '';
 
     $html .= '<li '. $this->_getRenderedMenuItemAttributes($child) .'>';
 
-    $html .= '<a href="'. $child->getUrl() .'" class="'. $outermostClassCode .' '. $_hasChildren .'nav-link nav-toggle underline">'.
-            '<span class="title">'. $this->escapeHtml($this->__($child->getName())) .'</span>'.
-            '<span class="arrow"><i class="icon icon-arrow-point-to-right"></i><i class="icon icon-arrow-point-down"></i></span>'.
-        '</a>';
-
-    if (!empty($childrenWrapClass)) {
-        $html .= '<div class="'. $childrenWrapClass .'">';
-    }
+    $html .= '<a href="'. $child->getUrl() .'" class="'. $outermostClassCode .' '. $_hasChildren .'">';
+    $html .=    ($childLevel == 0) ? '<i class="icon ' . $_icon . '"></i>': '';
+    $html .=    '<span>'. $this->escapeHtml($this->__($child->getName())) .'</span>';
+    $html .= '</a>';
+    $html .= (!empty($_hasChildren)) ? '<a href="javascript://" class="pull-right show-cat icon icon-arrow-point-to-right">&nbsp;</a>' : '';
 
     $nextChildLevel = $childLevel + 1;
 
@@ -66,10 +66,6 @@ foreach ($children as $child) {
         $html .= '<ul class="level'. $childLevel .' sub-menu">';
         $html .=     $this->render($child, $childrenWrapClass);
         $html .= '</ul>';
-    }
-
-    if (!empty($childrenWrapClass)) {
-        $html .= '</div>';
     }
 
     $html .= '</li>';

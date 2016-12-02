@@ -37,8 +37,8 @@
 <?php else: ?>
 
     <?php //print_r($this->getTotals())?>
-
-    <table id="shopping-cart-totals-table">
+<div class="clearfix margin-cbp">  
+    <table id="shopping-cart-totals-table" align="right">
         <col />
         <col width="1" />
         <tfoot>
@@ -48,4 +48,5 @@
             <?php echo $this->renderTotals(); ?>
         </tbody>
     </table>
+</div>
 <?php endif; ?>
