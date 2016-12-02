@@ -16,7 +16,7 @@ $category = Mage::getModel('catalog/category');
         <div class="panel-group accordion" id="accordion3">
             <?php $_categories = $this->getCurrentChildCategories();?>
             <?php if($_categories->count()): ?>
-                <?php foreach ($_categories as $_category): ?>
+                <?php $i = true; foreach ($_categories as $_category): ?>
                     <?php if($_category->getIsActive()): ?>
                         <div class="panel panel-list">
                             <div class="panel-heading">
@@ -24,7 +24,7 @@ $category = Mage::getModel('catalog/category');
                                     <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_<?php echo $_category->getId()?>"> <?php echo $this->htmlEscape($_category->getName()) ?> </a>
                                 </h4>
                             </div>
-                            <div id="collapse_3_<?php echo $_category->getId()?>" class="panel-collapse in">
+                            <div id="collapse_3_<?php echo $_category->getId()?>" class="panel-collapse <?php echo $i ? 'in' : 'collapse'; ?>">
                                 <?php $childrenCategoryIds = explode(',', $_category->getChildren()); ?>
                                 <div class="panel-body">
                                     <!-- Show Catalog image-->
@@ -42,7 +42,7 @@ $category = Mage::getModel('catalog/category');
                             </div>
                         </div>
                      <?php endif; ?>
-                <?php endforeach; ?>
+                <?php $i = false; endforeach; ?>
             <?php endif; ?>
          </div>
     </div>
