@@ -34,7 +34,7 @@ $category = Mage::getModel('catalog/category');
                                             <?php $_imgHtml = '<img class="img-responsive" src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" />';?>
                                             <?php $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');?>
                                             <?php echo $_imgHtml;?>
-                                        <? endif ?>
+                                        <?php endif ?>
                                     </div>
                                     <p class="text-transform"><a href="<?php echo $_category->getUrl()?>"> <?php echo $this->htmlEscape($_category->getName()); ?></a> (<?php echo $_category->getProductCount()?>):</p>
                                     <ul class="ul-outside display-inline">
