@@ -30,7 +30,7 @@ $category = Mage::getModel('catalog/category');
                                     <div class="img-catalog">
                                         <!--<img class="img-responsive" src="<?php /*echo $_category->getImageUrl()*/?>" alt="<?php /*$this->htmlEscape($_category->getName());*/?>" title="<?php /*$this->htmlEscape($_category->getName());*/?>"/>-->
                                         <?php $_imgHtml   = '';?>
-                                        <?php if ($_imgUrl = $category->load($_category->getId())->getImageUrl()): ?>
+                                        <?php if ($_imgUrl = $_category->getImageUrl()): ?>
                                             <?php $_imgHtml = '<img class="img-responsive" src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" />';?>
                                             <?php $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');?>
                                             <?php echo $_imgHtml;?>
