@@ -71,10 +71,9 @@
                                     <?php $attributes = $_product->getAttributes($attributeGroupId);?>
                                     <?php foreach ($attributes as $attribute) :?>
                                         <?php $group = $attribute->getAttributeGroupId();?>
-                                        <?php $attributeCode = $attribute->getAttributeCode();?>
                                         <?php $label = $attribute->getStoreLabel();?>
                                         <?php $value = $attribute->getFrontend()->getValue($_product);?>
-                                        <?php if($value): ?>
+                                        <?php if($value && $label): ?>
                                             <?php echo "<p>{$label}:&nbsp<span class=\"bold\">{$value}</span></p>";?>
                                         <?php endif;?>
                                     <?php endforeach ?>
