@@ -1,0 +1,89 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: nick
+ * Date: 12/2/16
+ * Time: 8:35 PM
+ */
+
+// add static block  {{block type="catalog/navigation" template="catalog/navigation/subcategory_listing.phtml"}}
+
+$helper = Mage::helper('catalog/category');
+?>
+<div class="portlet light portlet-fit bordered">
+    <div class="portlet-body form">
+        <div class="panel-group accordion" id="accordion3">
+            <?php $_categories = $this->getCurrentChildCategories();?>
+            <?php if($_categories->count()): ?>
+                <?foreach ($_categories as $_category): ?>
+                    <?php if($_category->getIsActive()): ?>
+                        <div class="panel panel-list">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_<?php echo $_category->getId()?>"> <?php echo $this->htmlEscape($_category->getName()) ?> </a>
+                                </h4>
+                            </div>
+                            <div id="collapse_3_<?php echo $_category->getId()?>" class="panel-collapse in">
+                                <?php $category = Mage::getModel('catalog/category'); ?>
+                                <?php $currentCategory = $category->load($_category->getId());?>
+                                <?php $childrenCategoryIds = explode(',', $currentCategory->getChildren()) ;?>
+                                <div class="panel-body">
+                                    <!-- Show Catalog image-->
+                                    <div class="img-catalog">
+                                        <img class="img-responsive"  src="<?php echo $currentCategory->getImageUrl()?>" alt="">
+                                    </div>
+                                    <p class="text-transform"><?php echo $this->htmlEscape($currentCategory->getName()) ?> (15):</p>
+                                    <ul class="ul-outside display-inline">
+                                        <?php foreach($childrenCategoryIds as $_childId): ?>
+                                            <?php $childCategory = $category->load($_childId); ?>
+                                            <li><a href="<?php echo $helper->getCategoryUrl($childCategory)?>"><?php echo $this->htmlEscape($childCategory->getName()) ?></a></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                     <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+         </div>
+    </div>
+</div>
+
+
+       <!-- <?php
+/*        $_categories=$this->getCurrentChildCategories();
+        if($_categories->count()):
+            $categorycount = 0;
+            foreach ($_categories as $_category):
+                if($_category->getIsActive()):
+                    $cur_category=Mage::getModel('catalog/category')->load($_category->getId());
+                    $layer = Mage::getSingleton('catalog/layer');
+                    $layer->setCurrentCategory($cur_category);
+                    $catName = $this->getCurrentCategory()->getName();
+                    if ($categorycount == 0){
+                        $class = "first";
+                    }
+                    elseif ($categorycount == 3){
+                        $class = "last";
+                    }
+                    else{
+                        $class = "";
+                    }
+                    */?>
+                    <li class="item <?/*=$class*/?>">
+                        <a href="<?php /*echo $_category->getURL() */?>" title="<?php /*echo $this->htmlEscape($_category->getName()) */?>"><img src="<?php /*echo $_category->getImageUrl() */?>" width="100" alt="<?php /*echo $this->htmlEscape($_category->getName()) */?>" /></a>
+                        <h2><a href="<?php /*echo $_category->getURL() */?>" title="<?php /*echo $this->htmlEscape($_category->getName()) */?>"><?php /*echo $this->htmlEscape($_category->getName()) */?></a></h2>
+                    </li>
+                    --><?php
+/*                endif;
+                if($categorycount == 3){
+                    $categorycount = 0;
+                    echo "</ul>\n\n<ul class=\"products-grid\">";
+                }
+                else{
+                    $categorycount++;
+                }
+            endforeach;
+        endif;
+        */?>
+
