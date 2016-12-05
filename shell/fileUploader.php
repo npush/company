@@ -77,7 +77,7 @@ class Mage_Shell_fileUploader{
     }
 
     /**
-     * @param $dir directory relative media dir.
+     * @param $dir string directory relative media dir.
      */
     public function setSourceDir($dir){
         $this->_sourceDir = Mage::getBaseDir('media') . DS . $dir;
