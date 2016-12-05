@@ -9,7 +9,8 @@
 class Mage_Shell_fileUploader{
     protected $_sourceDir;
 
-    public function uploadFile($fileName, $destinationFolder){
+    public function uploadFile($fileName, $destinationFolder, $sourceDir){
+        $this->_sourceDir = $sourceDir;
         $this->_createDestinationFolder($destinationFolder);
         $destinationFile = $destinationFolder;
         $fileName = $this->getCorrectFileName($fileName);

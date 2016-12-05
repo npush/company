@@ -56,7 +56,7 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
             'post_title' => $_post[self::TITLE],
             'post_content' => $_post[self::POST_CONTENT],
             'post_excerpt' => $_post[self::SHORT_CONTENT],
-            'image' => '/'.$this->fileUploader->uploadFile($_post[self::POST_IMAGE], Mage::getBaseDir('media') . '/post/image'),
+            'image' => '/'.$this->fileUploader->uploadFile($_post[self::POST_IMAGE], Mage::getBaseDir('media') . '/post/image',  Mage::getBaseDir('media') . '/import/'),
             'status' => 1,
             'views' => $_post[self::VIEWS],
             'entity_id' => $_post[self::POST_ID],
