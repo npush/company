@@ -42,7 +42,7 @@
                                             <a href="<?php echo $_post->getPostUrl() ?>">
                                                 <?php echo $_post->getPostTitle(); ?>
                                             </a>
-                                            <span class="media-date">15.03.2016</span>
+                                            <span class="media-date"><?php echo $_post->getDate('created_at')?></span>
                                         </h4>
                                         <?php echo $_post->getPostExcerpt(); ?><?php echo $this->__('[...]'); ?>
                                     </div>

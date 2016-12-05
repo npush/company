@@ -22,6 +22,7 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
     const CATEGORY_NAME = 5;
     const POST_IMAGE = 6;
     const POST_ID = 7;
+    const POST_DATE = 8;
 
     /**
      * Run script
@@ -58,7 +59,9 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
             'image' => $this->fileUploader->uploadFile($_post[self::POST_IMAGE], Mage::getBaseDir('media') . '/post/image/'),
             'status' => 1,
             'views' => $_post[self::VIEWS],
-            'entity_id' => $_post[self::POST_ID]
+            'entity_id' => $_post[self::POST_ID],
+            'created_at' => $_post[self::POST_DATE],
+            'updated_at' => $_post[self::POST_DATE]
         );
 
         $model->setData($_postData);
