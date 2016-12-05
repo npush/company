@@ -56,7 +56,7 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
             'post_title' => $_post[self::TITLE],
             'post_content' => $_post[self::POST_CONTENT],
             'post_excerpt' => $_post[self::SHORT_CONTENT],
-            'image' => $this->fileUploader->uploadFile($_post[self::POST_IMAGE], Mage::getBaseDir('media') . '/post/image/'),
+            'image' => '/'.$this->fileUploader->uploadFile($_post[self::POST_IMAGE], Mage::getBaseDir('media') . '/post/image'),
             'status' => 1,
             'views' => $_post[self::VIEWS],
             'entity_id' => $_post[self::POST_ID],
@@ -112,11 +112,13 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
     }
 
     private function _savePostImage($_post){
-        preg_match('/"wysiwyg\/post\/(\w+\.\w{3,4})"/', $_post, $imageName);
-        foreach($imageName as $_img){
-            copy(Mage::getBaseDir('media') . '/import/' . $_img, Mage::getBaseDir('media').'/wysiwyg/post/' . $_img);
+        if (preg_match_all('/"wysiwyg\/post\/(\w+\.\w{3,4})"/', $_post, $out,PREG_SET_ORDER)) {
+            foreach ($out as $_foundTypes) {
+                $_img = $_foundTypes[1];
+                copy(Mage::getBaseDir('media') . '/import/' . $_img, Mage::getBaseDir('media') . '/wysiwyg/post/' . $_img);
+            }
+            //$fileName = $this->uploadFile($_data[self::MANUAL_FILE_NAME], Mage::getBaseDir('media') . '/post/image');
         }
-        //$fileName = $this->uploadFile($_data[self::MANUAL_FILE_NAME], Mage::getBaseDir('media') . '/post/image');
     }
 
     private function _parseArticle($_post){
