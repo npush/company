@@ -1,6 +1,18 @@
 <?xml version="1.0"?>
 <config>
+    <modules>
+        <Stableflow_AdditionalCmsPageLayouts>
+            <version>0.1.0</version>
+        </Stableflow_AdditionalCmsPageLayouts>
+    </modules>
     <global>
+        <blocks>
+            <catalog>
+                <rewrite>
+                    <navigation>Stableflow_AdditionalCmsPageLayouts_Block_Navigation</navigation>
+                </rewrite>
+            </catalog>
+        </blocks>
         <page>
             <layouts>
                 <page_left_menu>
