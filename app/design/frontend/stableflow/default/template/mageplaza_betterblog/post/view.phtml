@@ -79,7 +79,7 @@
         <?php $similarPosts = $this->getPostTopics(); ?>
         <?php if ($similarPosts): ?>
             <h2><?php echo $this->__('Topic'); ?>: <?php echo $this->getTopicLabel(); ?></h2>
-            <ul class="ul-outside display-inline margin-top-md">
+            <ul class="ul-outside margin-top-md">
                 <?php foreach ($similarPosts as $post): ?>
                     <li>
                         <a href="<?php echo $post->getPostUrl() ?>"><?php echo $post->getPostTitle(); ?></a>
@@ -97,7 +97,7 @@
         <?php $posts = $this->getPostsInCategory(); ?>
         <?php if ($posts && $posts->count()): ?>
             <h3 class="page-title"><?php echo $this->__('Category'); ?>: <?php echo $this->getCategoryName(); ?></h3>
-            <ul class="ul-outside display-inline margin-top-md">
+            <ul class="ul-outside margin-top-md">
                 <?php foreach ($posts as $post): ?>
                     <li>
                         <a href="<?php echo $post->getPostUrl() ?>"><?php echo $post->getPostTitle(); ?></a>

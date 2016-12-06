@@ -26,7 +26,7 @@
 <?php if ($_tags->getSize() > 0) : ?>
     <div class="block">
         <p class="text-transform"><?php echo Mage::helper('mageplaza_betterblog')->__('Tags') ?></p>
-        <div class="tags-list-container ul-outside display-inline">
+        <ul class="tags-list-container ul-outside">
             <?php foreach ($_tags as $_tag) : ?>
                 <li>              
                     <a href="<?php echo $_tag->getTagUrl() ?>">
@@ -34,6 +34,6 @@
                     </a>
                 </li> 
             <?php endforeach; ?>
-        </div>
+        </ul>
     </div>
 <?php endif; ?>

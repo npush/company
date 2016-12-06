@@ -3519,6 +3519,11 @@ input[type="checkbox"], input[type="radio"] {
   max-width: 400px;
 }
 
+.post-list ul.ul-outside {
+  list-style-type: none;
+  margin-left: 0px;
+}
+
 @media (max-width: 680px) { 
 
   .post-image {
