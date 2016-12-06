@@ -96,7 +96,7 @@
     <div class="post-list posts-in-category">
         <?php $posts = $this->getPostsInCategory(); ?>
         <?php if ($posts && $posts->count()): ?>
-            <h2><?php echo $this->__('Category'); ?>: <?php echo $this->getCategoryName(); ?></h2>
+            <h3 class="page-title"><?php echo $this->__('Category'); ?>: <?php echo $this->getCategoryName(); ?></h3>
             <ul>
                 <?php foreach ($posts as $post): ?>
                     <li>

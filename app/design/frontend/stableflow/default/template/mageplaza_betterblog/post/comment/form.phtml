@@ -24,7 +24,7 @@
 ?>
 <?php $data = $this->getCommentData();?>
 <div class="form-add min-wh">
-    <h2><?php echo $this->__('Write Your Comment') ?></h2>
+    <h3 class="page-title"><?php echo $this->__('Write Your Comment') ?></h3>
     <?php if ($this->getAllowWriteCommentFlag()): ?>
         <form action="<?php echo $this->getAction() ?>" method="post" id="comment-form">
             <fieldset>
