@@ -50,13 +50,13 @@
                     <li>
                         <label for="review_field" class="required"><?php echo $this->__('Comment') ?><span class="has-span">*</span></label>
                         <div class="input-box">
-                            <textarea name="comment" id="comment_field" cols="5" rows="3" class="required-entry"><?php echo $this->escapeHtml($data->getComment()) ?></textarea>
+                            <textarea name="comment" id="comment_field" cols="5" rows="3" class="form-control required-entry"><?php echo $this->escapeHtml($data->getComment()) ?></textarea>
                         </div>
                     </li>
                 </ul>
             </fieldset>
             <div class="buttons-set">
-                <button type="submit" title="<?php echo $this->__('Submit Comment') ?>" class="button"><span><span><?php echo $this->__('Submit Comment') ?></span></span></button>
+                <button type="submit" title="<?php echo $this->__('Submit Comment') ?>" class="btn btn-sm yellow btn-width"><span><span><?php echo $this->__('Submit Comment') ?></span></span></button>
             </div>
         </form>
         <script type="text/javascript">var commentForm = new VarienForm('comment-form');</script>

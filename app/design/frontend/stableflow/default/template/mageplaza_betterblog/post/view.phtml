@@ -38,7 +38,7 @@
     <h3 class="page-title post-title">
         <?php echo $_post->getPostTitle(); ?>
     </h3>
-    <div class="post-view">
+    <div class="post-view clearfix">
 
         <div class="mc-post-info">
             <?php echo $this->__('Posted on'); ?> <?php echo Mage::helper('core')->formatDate($_post->getCreatedAt(), 'medium', false) ?>
