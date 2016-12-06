@@ -3504,6 +3504,26 @@ input[type="checkbox"], input[type="radio"] {
     margin-bottom: 20px;
 }
 
+.post-image {
+    width: 100%;
+    max-width: 300px;
+    float: right;
+    margin: 0 auto;
+}
+
+.post-post_content img  {
+  float: left;
+  max-width: 100%; 
+}
+
+@media (max-width: 680px) { 
+
+  .post-image {
+      float: none;
+  }
+
+}
+
 
 /* /media */
 
