@@ -3501,9 +3501,6 @@ input[type="checkbox"], input[type="radio"] {
   margin: 0 auto;
 }
 
-.media-list .media {
-    margin-bottom: 20px;
-}
 
 .post-image {
     width: 100%;
@@ -3515,6 +3512,10 @@ input[type="checkbox"], input[type="radio"] {
 .post-post_content img  {
   float: left;
   max-width: 100%; 
+}
+
+.min-wh {
+  max-width: 400px;
 }
 
 @media (max-width: 680px) { 

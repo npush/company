@@ -23,31 +23,31 @@
  */
 ?>
 <?php $data = $this->getCommentData();?>
-<div class="form-add">
+<div class="form-add min-wh">
     <h2><?php echo $this->__('Write Your Comment') ?></h2>
     <?php if ($this->getAllowWriteCommentFlag()): ?>
         <form action="<?php echo $this->getAction() ?>" method="post" id="comment-form">
             <fieldset>
                 <ul class="form-list">
-                    <li>
+                    <li class="form-group">
                         <label for="nickname_field" class="required"><?php echo $this->__('Nickname') ?><span class="has-span">*</span></label>
                         <div class="input-box">
                             <input type="text" name="name" id="name_field" class="form-control radius-none input-text required-entry" value="<?php echo $this->escapeHtml($data->getName()) ?>" />
                         </div>
                     </li>
-                    <li>
+                    <li class="form-group">
                         <label for="nickname_field" class="required"><?php echo $this->__('E-mail') ?><span class="has-span">*</span></label>
                         <div class="input-box">
                             <input type="text" name="email" id="email_field" class="form-control radius-none input-text required-entry validate-email" value="<?php echo $this->escapeHtml($data->getEmail()) ?>" />
                         </div>
                     </li>
-                    <li>
+                    <li class="form-group">
                         <label for="title_field" class="required"><?php echo $this->__('Comment title') ?><span class="has-span">*</span></label>
                         <div class="input-box">
                             <input type="text" name="title" id="title_field" class="form-control radius-none input-text required-entry" value="<?php echo $this->escapeHtml($data->getTitle()) ?>" />
                         </div>
                     </li>
-                    <li>
+                    <li class="form-group">
                         <label for="review_field" class="required"><?php echo $this->__('Comment') ?><span class="has-span">*</span></label>
                         <div class="input-box">
                             <textarea name="comment" id="comment_field" cols="5" rows="3" class="form-control required-entry"><?php echo $this->escapeHtml($data->getComment()) ?></textarea>
