@@ -23,6 +23,7 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
     const POST_IMAGE = 6;
     const POST_ID = 7;
     const POST_DATE = 8;
+    const POST_TAG = 9;
 
     /**
      * Run script
@@ -72,6 +73,7 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
                 ->getFirstItem()
                 ->getId();
         }
+        $this->_insertTags($_post[self::POST_TAG],$model);
         $model->save();
         $category = Mage::getResourceModel('mageplaza_betterblog/category_collection')
             ->addFieldToFilter('entity_id', $categoryIds[0])
@@ -79,6 +81,8 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
         $categoryIds[] = $category->getParentId();
         $model->setCategoriesData($categoryIds);
         $model->getCategoryInstance()->savePostRelation($model);
+
+
 
         $this->_savePostImage($_post[self::POST_CONTENT]);
     }
@@ -119,6 +123,48 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
             }
             //$fileName = $this->uploadFile($_data[self::MANUAL_FILE_NAME], Mage::getBaseDir('media') . '/post/image');
         }
+    }
+
+
+    /**
+     * Insert tags
+     * @param $tags string
+     * @param $post
+     */
+    protected function _insertTags($tags, $post){
+        $tagArray = array();
+        $tags = explode('|', $tags);
+        foreach ($tags as $_tag) {
+            $model = Mage::getModel('mageplaza_betterblog/tag')->getCollection()
+                ->addFieldToFilter('name', $_tag)
+                ->getFirstItem();
+            if ($model && $model->getId()) {
+                $tagArray[$model->getId()] = array(
+                    'position' => ''
+                );
+            } else {
+                $model->setData(
+                    array(
+                        'name' => $_tag,
+                        'status' => 1,
+                        'created_at' => Mage::helper('core')->formatDate(now())
+                    )
+                );
+                $model->save();
+                if ($model && $model->getId()) {
+                    $tagArray[$model->getId()] = array(
+                        'position' => ''
+                    );
+                }
+            }
+
+        }
+        $post->setTagsData($tagArray);
+        /*try {
+            $post->save();
+        } catch (Exception $e) {
+        }*/
+
     }
 
     private function _parseArticle($_post){
