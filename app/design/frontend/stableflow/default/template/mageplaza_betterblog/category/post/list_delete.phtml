@@ -2,23 +2,12 @@
 /**
  * Created by nick
  * Project magento1.dev
- * Date: 8/15/16
- * Time: 5:19 PM
+ * Date: 8/16/16
+ * Time: 3:15 PM
  */
 ?>
-<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <?php $_posts = $this->getPosts(); ?>
-<h3 class="page-title">
-    <?php if (Mage::helper('mageplaza_betterblog/post')->isRssEnabled()) : ?>
-        <div class="betterblog-rss">
-            <a href="<?php echo Mage::helper('mageplaza_betterblog/post')->getRssUrl(); ?>" class="bb-rss-icon"><img
-                    src="<?php echo $this->getSkinUrl('images/mageplaza_betterblog/rss.png') ?>" width="16px"/> </a>
-        </div>
-    <?php else : ?>
-        <?php echo $this->__('News / Article');?>
-    <?php endif; ?>
-</h3>
-<?php if ($_posts->getSize() > 0) : ?>
+<?php if ($_posts->getSize() > 0) :?>
     <?php echo $this->getPagerHtml(); ?>
     <div class="portlet light portlet-fit bordered">
         <div class="portlet-body">
@@ -66,4 +55,3 @@
         <?php echo Mage::helper('mageplaza_betterblog')->__('There are no posts at this moment'); ?>
     </div>
 <?php endif; ?>
-
