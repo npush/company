@@ -3492,6 +3492,7 @@ input[type="checkbox"], input[type="radio"] {
   display: block;
   text-align: center;
   width: 100px;
+  max-height: 70px;
 }
 
 .media-list .media-left img {
@@ -3500,7 +3501,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .media-list .media {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 
