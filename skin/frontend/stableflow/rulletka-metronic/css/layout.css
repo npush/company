@@ -3506,7 +3506,7 @@ input[type="checkbox"], input[type="radio"] {
     width: 100%;
     max-width: 300px;
     float: right;
-    margin: 0 auto;
+    margin: 0 20px;
 }
 
 .post-post_content img  {
@@ -3528,6 +3528,11 @@ input[type="checkbox"], input[type="radio"] {
 
   .post-image {
       float: none;
+
+  }
+
+  .post-post_content img  {
+        margin: 10px auto;
   }
 
 }
