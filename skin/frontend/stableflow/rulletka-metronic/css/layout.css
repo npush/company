@@ -3512,6 +3512,7 @@ input[type="checkbox"], input[type="radio"] {
 .post-post_content img  {
   float: left;
   max-width: 100%; 
+  margin: 10px 20px;
 }
 
 .min-wh {
