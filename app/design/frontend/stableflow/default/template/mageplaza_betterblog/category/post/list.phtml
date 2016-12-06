@@ -13,8 +13,9 @@
         <div class="portlet-body">
             <div class="row">
                 <div class="col-md-9 col-sm-9 col-news">
-                    <div class="row media-list">
-                        <?php foreach($_posts as $_post):?>
+                    <?php $postColumn = 2 ; $i = 1; ?>
+                    <?php foreach($_posts as $_post):?>
+                        <?php echo ($i == 1) ? '<div class="row media-list">' : ''?>
                             <div class="col-md-6 col-sm-6">
                                 <div class="media">
                                     <div class="media-left">
@@ -37,8 +38,11 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach ?>
-                    </div>
+                        <?php if (++$i == $postColumn + 1): ?>
+                            </div>
+                            <?php $i = 1; ?>
+                        <?php endif?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
