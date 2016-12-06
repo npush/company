@@ -40,7 +40,7 @@ $_helper    = $this->helper('catalog/output');
                                     <?php if($_childCategory->hasChildren()): ?>
                                         <?php foreach($_childCategory->getChildrenCategories() as $_category): ?>
                                             <?php if($_category->hasChildren()): ?>
-                                                <p class="text-transform"><a href="<?php echo $_category->getUrl()?>"> <?php echo $this->htmlEscape($_category->getName()); ?></a> (<?php echo $_category->getProductCount()?>):</p>
+                                                <p class="text-transform"><?php echo $this->htmlEscape($_category->getName()); ?> (<?php echo $_category->getProductCount()?>):</p>
                                                 <ul class="ul-outside display-inline">
                                                     <?php $childrenCategoryIds = explode(',', $_category->getChildren()); ?>
                                                     <?php foreach($childrenCategoryIds as $_childId): ?>
