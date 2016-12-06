@@ -2050,7 +2050,7 @@ label.control-label {
 }
 
 .type-content {
-  background-color:#f5f5f5;
+/*  background-color:#f5f5f5;*/
   margin: -5px -20px 0;
   font-size:15px;
   padding: 20px 15px 25px;
@@ -3522,6 +3522,10 @@ input[type="checkbox"], input[type="radio"] {
 .post-list ul.ul-outside {
   list-style-type: none;
   margin-left: 0px;
+}
+
+.category-description {
+  margin:20px 0 25px;
 }
 
 @media (max-width: 680px) { 
