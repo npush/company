@@ -79,7 +79,7 @@
         <?php $similarPosts = $this->getPostTopics(); ?>
         <?php if ($similarPosts): ?>
             <h2><?php echo $this->__('Topic'); ?>: <?php echo $this->getTopicLabel(); ?></h2>
-            <ul>
+            <ul class="ul-outside display-inline">
                 <?php foreach ($similarPosts as $post): ?>
                     <li>
                         <a href="<?php echo $post->getPostUrl() ?>"><?php echo $post->getPostTitle(); ?></a>
