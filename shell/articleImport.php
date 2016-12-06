@@ -147,7 +147,8 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
                     array(
                         'name' => $_tag,
                         'status' => 1,
-                        'created_at' => Mage::helper('core')->formatDate(now())
+                        'created_at' => Mage::helper('core')->formatDate(now()),
+                        'store_id' => 1
                     )
                 );
                 $model->save();
