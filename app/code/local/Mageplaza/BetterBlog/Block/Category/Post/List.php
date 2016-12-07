@@ -49,6 +49,7 @@ class Mageplaza_BetterBlog_Block_Category_Post_List extends Mageplaza_BetterBlog
      */
     protected function _prepareLayout()
     {
+        parent::_prepareLayout();
         return $this;
     }
 

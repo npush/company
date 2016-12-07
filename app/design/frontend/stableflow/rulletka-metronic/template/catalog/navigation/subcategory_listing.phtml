@@ -10,7 +10,6 @@
 //   System->Permissions->Blocks and add your block catalog/navigation in that list.
 
 $_helper    = $this->helper('catalog/output');
-$category = Mage::getModel('catalog/category');
 ?>
 <?php //var_dump($this->getCacheLifetime())?>
 <div class="portlet light portlet-fit bordered">
@@ -20,6 +19,7 @@ $category = Mage::getModel('catalog/category');
             <?php if($_topCategories->count()): ?>
                 <?php $i = true; foreach ($_topCategories as $_childCategory): ?>
                     <?php if($_childCategory->getIsActive()): ?>
+                        <?php $_childCategory = Mage::getModel('catalog/category')->load($_childCategory->getId()); ?>
                         <div class="panel panel-list">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -37,18 +37,28 @@ $category = Mage::getModel('catalog/category');
                                             <?php echo $_imgHtml;?>
                                         <?php endif ?>
                                     </div>
-                                    <?php foreach($_childCategory->getChildrenCategories() as $_category): ?>
-                                        <p class="text-transform"><a href="<?php echo $_category->getUrl()?>"> <?php echo $this->htmlEscape($_category->getName()); ?></a> (<?php echo $_category->getProductCount()?>):</p>
-                                        <ul class="ul-outside display-inline">
-                                            <?php $childrenCategoryIds = explode(',', $_category->getChildren()); ?>
-                                            <?php foreach($childrenCategoryIds as $_childId): ?>
-                                                <?php $childCategory = $category->load($_childId); ?>
-                                                <?php if($childCategory->getIsActive()): ?>
-                                                    <li><a href="<?php echo $childCategory->getUrlPath()?>"><?php echo $this->htmlEscape($childCategory->getName()) ?></a></li>
-                                                <?php endif ?>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php endforeach ;?>
+                                    <?php if($_childCategory->hasChildren()): ?>
+                                        <?php foreach($_childCategory->getChildrenCategories() as $_category): ?>
+                                            <?php if($_category->hasChildren()): ?>
+                                                <p class="text-transform"><?php echo $this->htmlEscape($_category->getName()); ?> (<?php echo $_category->getProductCount()?>):</p>
+                                                <ul class="ul-outside display-inline">
+                                                    <?php $childrenCategoryIds = explode(',', $_category->getChildren()); ?>
+                                                    <?php foreach($childrenCategoryIds as $_childId): ?>
+                                                        <?php $childCategory = Mage::getModel('catalog/category')->load($_childId); ?>
+                                                        <?php if($childCategory->getIsActive()): ?>
+                                                            <li><a href="<?php echo $childCategory->getUrlPath()?>"><?php echo $this->htmlEscape($childCategory->getName()) ?></a></li>
+                                                        <?php endif ?>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            <?php else: ?>
+                                                <ul class="display-inline">
+                                                    <li><a href="<?php echo $_category->getUrl()?>"><?php echo $this->htmlEscape($_category->getName()) ?></a> (<?php echo $_category->getProductCount()?>)</li>
+                                                </ul>
+                                            <?php endif; ?>
+                                        <?php endforeach ;?>
+                                    <?php else: ?>
+                                        <p class="text-transform"><a href="<?php echo $_childCategory->getUrl()?>"> <?php echo $this->htmlEscape($_childCategory->getName()); ?></a> (<?php echo $_childCategory->getProductCount()?>)</p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>

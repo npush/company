@@ -25,6 +25,7 @@
 <?php $_posts = $this->getPosts(); ?>
 <?php if ($_posts->getSize() > 0) :?>
 <div class="posts-list-container">
+    <?php echo $this->getPagerHtml();?>
     <?php foreach ($_posts as $_post) : ?>
         <div class="post-list-item">
             <h3>

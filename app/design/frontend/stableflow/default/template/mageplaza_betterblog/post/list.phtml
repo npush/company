@@ -19,13 +19,14 @@
     <?php endif; ?>
 </h3>
 <?php if ($_posts->getSize() > 0) : ?>
-    <?php //echo $this->getPagerHtml(); ?>
+    <?php echo $this->getPagerHtml(); ?>
     <div class="portlet light portlet-fit bordered">
         <div class="portlet-body">
             <div class="row">
                 <div class="col-md-9 col-sm-9 col-news">
-                    <div class="row media-list">
-                        <?php foreach($_posts as $_post):?>
+                    <?php $postColumn = 2 ; $i = 1; ?>
+                    <?php foreach($_posts as $_post):?>
+                        <?php echo ($i == 1) ? '<div class="row media-list">' : ''?>
                             <div class="col-md-6 col-sm-6">
                                 <div class="media">
                                     <div class="media-left">
@@ -42,14 +43,17 @@
                                             <a href="<?php echo $_post->getPostUrl() ?>">
                                                 <?php echo $_post->getPostTitle(); ?>
                                             </a>
-                                            <span class="media-date"><?php echo $_post->getDate('created_at')?></span>
+                                            <span class="media-date"><?php echo $_post->getData('created_at')?></span>
                                         </h4>
-                                        <?php echo $_post->getPostExcerpt(); ?><?php echo $this->__('[...]'); ?>
+                                        <?php echo $_post->getPostExcerpt(); ?><a href="<?php echo $_post->getPostUrl() ?>"> <?php echo $this->__('[...]'); ?></a>
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach ?>
-                    </div>
+                        <?php if ($i++ == $postColumn): ?>
+                            </div>
+                            <?php $i = 1; ?>
+                        <?php endif?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
