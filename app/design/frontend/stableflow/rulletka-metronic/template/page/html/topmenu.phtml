@@ -37,6 +37,7 @@
     <div class="block-content">
         <ul  id="category-sidebar-nav" class="category-sidebar-nav">
             <?php echo $_menu ?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top_menu_links')->toHtml() ?>
         </ul>
     </div>
 </div>
