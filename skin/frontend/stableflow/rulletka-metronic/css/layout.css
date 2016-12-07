@@ -4478,6 +4478,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     padding: 7px 16px;
 }
 
+.basket-number .footer-product .btn-lg {
+    padding: 0px;
+}
+
 .footer-product .stars-rating {
   margin: 20px 0 0 17px;
 }
