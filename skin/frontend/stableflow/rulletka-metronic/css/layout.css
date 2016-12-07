@@ -2761,7 +2761,7 @@ input[type="checkbox"], input[type="radio"] {
 
 .basket-number-lg.basket-number span {
     color: #595959;
-    font-size: 17px;
+/*    font-size: 17px;*/
 }
 
 .txt-link {
@@ -4470,7 +4470,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .footer-product .basket-number-lg.basket-number span {
-    font-size: 15px;
+/*    font-size: 15px;*/
     color: #3f3f3f;
 }
 
