@@ -3513,6 +3513,7 @@ input[type="checkbox"], input[type="radio"] {
   float: left;
   max-width:300px; 
   margin: 10px 20px;
+  clear: both;
 
 }
 
