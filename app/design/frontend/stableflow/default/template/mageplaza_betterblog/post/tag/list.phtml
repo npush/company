@@ -24,16 +24,8 @@
 ?>
 <?php $_tags = $this->getTags(); ?>
 <?php if ($_tags->getSize() > 0) : ?>
-    <div class="block">
-        <p class="text-transform"><?php echo Mage::helper('mageplaza_betterblog')->__('Tags') ?></p>
-        <ul class="ul-outside">
+        <span class=""><?php echo Mage::helper('mageplaza_betterblog')->__('Tags') ?>:</span>
             <?php foreach ($_tags as $_tag) : ?>
-                <li>              
-                    <a href="<?php echo $_tag->getTagUrl() ?>">
-                        <?php echo $_tag->getName(); ?>
-                    </a>
-                </li> 
+                <a href="<?php echo $_tag->getTagUrl() ?>"><?php echo $_tag->getName(); ?>&nbsp</a>
             <?php endforeach; ?>
-        </ul>
-    </div>
 <?php endif; ?>

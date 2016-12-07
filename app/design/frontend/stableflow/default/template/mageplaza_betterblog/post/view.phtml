@@ -41,10 +41,10 @@
     <div class="post-view clearfix">
 
         <div class="mc-post-info">
-            <?php echo $this->__('Posted on'); ?> <?php echo Mage::helper('core')->formatDate($_post->getCreatedAt(), 'medium', false) ?>
-            |
+            <?php echo $this->__('Posted on'); ?> <?php echo Mage::helper('core')->formatDate($_post->getCreatedAt(), 'medium', false) ?> |
             <?php echo $this->__('Posted in'); ?> <?php echo $_post->getPostCategoryHtml(); ?> |
-            <?php if (Mage::helper('mageplaza_betterblog')->canShowCommentCount()) echo Mage::helper('mageplaza_betterblog')->formatCommentCount($_post->getCommentCount()); ?>
+            <?php if (Mage::helper('mageplaza_betterblog')->canShowCommentCount()) echo Mage::helper('mageplaza_betterblog')->formatCommentCount($_post->getCommentCount()); ?> |
+            <?php echo $this->getChildHtml(); ?>
         </div>
 
         <div class="post-post_excerpt">
