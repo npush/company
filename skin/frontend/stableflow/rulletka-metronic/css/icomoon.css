@@ -71,7 +71,7 @@
 .icon-cinema:before {
     content: "\e90a";
 }
-.icon-command:before {
+.icon-command:before , .level0.nav-6 > .level0 > i.icon:before{
     content: "\e90b";
 }
 .icon-comments:before {
