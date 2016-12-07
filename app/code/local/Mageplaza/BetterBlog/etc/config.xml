@@ -228,9 +228,9 @@
                 <allow_comment>1</allow_comment>
                 <rss>1</rss>
                 <meta_title>Blog</meta_title>
-                <number_recent_posts>5</number_recent_posts>
+                <number_recent_posts>4</number_recent_posts>
                 <show_post_same_category>1</show_post_same_category>
-                <post_same_category_count>5</post_same_category_count>
+                <post_same_category_count>4</post_same_category_count>
             </post>
             <comment>
                 <type>disqus</type>
