@@ -4827,7 +4827,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 #category-sidebar-nav li.last{border:0 none;}
 /* #sidenav li:hover{background:#d9ecf2} */
 #category-sidebar-nav li a{font-size:18px; font-weight:normal; color:#fff; text-decoration:none; padding-left:10px;line-height: 25px;}
-#category-sidebar-nav li a:hover{color:#fdbb09; background-color: #353535;/*  text-decoration:underline; */}
+#category-sidebar-nav li a:hover{color:#fdbb09;/*  text-decoration:underline; */}
 /* Level 0 */
 #category-sidebar-nav li.level0{line-height:25px; padding: 14px 25px;}
 #category-sidebar-nav li.level0 a.level0{ font-size: 17px; text-transform: uppercase;}
@@ -4865,7 +4865,7 @@ li.level0:after {
     position:absolute;
 }
 
-#category-sidebar-nav .active { color:#fdbb09; }
+#category-sidebar-nav .active { color:#fdbb09;}
 
 .category-sidebar-nav a.level0 > .icon {
   font-size: 24px;
