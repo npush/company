@@ -288,6 +288,25 @@ Page Header
   background-color:#535353;
   position:absolute;
 } 
+
+.page-logo.underline:before {
+  left: 15px;
+  width: 435px;
+} 
+.page-sidebar-closed .page-logo.underline:before {
+  left: 15px;
+  width: 77px;
+} 
+
+.page-logo.underline:after {
+  left: 15px;
+  width: 435px;
+} 
+.page-sidebar-closed .page-logo.underline:after {
+  left: 15px;
+  width: 77px;
+} 
+
 .page-header.navbar .page-logo p {
     color:#fff;
     font-size:15px;
