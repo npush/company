@@ -839,7 +839,7 @@ li .sub-menu .title {
     }
     .page-sidebar {
       float: left;
-      position: relative;
+      position: fixed;
       margin-right: -100%; 
     }
     .page-full-width .page-sidebar {
@@ -4824,3 +4824,180 @@ li.level0:after {
 .category-sidebar-nav a.level0 > .icon ~ span {
   text-transform: uppercase;
 }
+
+
+
+/* baron */
+
+.main__clipper {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.main__scroller {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 100%;
+    white-space: nowrap;
+}
+.main__scroller::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* node that hides system scrollbar by overflow: hidden; */
+.baron {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 700px;
+    text-align: left;
+    white-space: normal;
+}
+
+.header__title_state_fixed {
+    position: absolute;
+    z-index: 1; /* Removing flicker effect */
+}
+
+.load {
+    background: yellow;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+}
+.load__value {
+    background: green;
+    width: 0%;
+    height: 100%;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+
+/* BASE */
+.baron__clipper {
+    position: relative;
+    overflow: hidden;
+}
+.baron__scroller {
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    /* remove line to customize scrollbar in iOs */
+}
+.baron__scroller::-webkit-scrollbar {
+    width: 0;
+}
+.baron__track {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+.baron__free {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+.baron__bar {
+    position: absolute;
+    right: 0px;    
+    z-index: 1;
+    width: 10px;
+    height: 60px !important;
+
+}
+.baron__control {
+    display: none;
+}
+
+/* SIMPLE */
+.baron._simple .baron__track {
+    opacity: 0;
+    position: absolute;
+    z-index: 3;
+    top: 10px;
+    bottom: 10px;
+    right: 5px;
+    width: 3px;
+    pointer-events: none;
+    }
+.baron._simple.baron .baron__track {
+    opacity: 1;
+    }
+    .baron._simple .baron__bar {
+        position: absolute;
+        z-index: 1;
+        width: 3px;
+        border-radius: 3px;
+        background: #5e5e5e;
+        opacity: 0;
+        -webkit-transition: opacity .2s linear;
+        transition: opacity .2s linear;
+        pointer-events: auto;
+        }
+    .baron._simple .baron__bar:hover {
+        opacity: .8;
+        }
+    .baron._simple.baron .baron__bar {
+        opacity: .6;
+        }
+
+/* Mac OS X */
+.baron._macosx .baron__track {
+    opacity: 0;
+    position: absolute;
+    z-index: 3;
+    top: 2px;
+    bottom: 2px;
+    right: 2px;
+    width: 5px;
+    background-color: #2c2c2c;
+    border-radius: 3px;
+         box-shadow: 0 0 1px 0px #000 inset;
+        -webkit-box-shadow: 0 0 1px 0px #000 inset;
+          -moz-box-shadow: 0 0 1px 0px #000 inset;
+          -khtml-box-shadow:0 0 1px 0px #000 inset;      
+    
+    }
+.baron._macosx._scrollbar .baron__track {
+    opacity: 1;
+    }
+    .baron._macosx .baron__bar {
+        position: absolute;
+        z-index: 1;
+        width: 5px;
+        border-radius: 3px;
+        background: #595959;
+        transition: .1s opacity .4s linear;
+        pointer-events: auto;
+         box-shadow: 0 0 2px 0px #000;
+        -webkit-box-shadow: 0 0 2px 0px #000;
+          -moz-box-shadow: 0 0 2px 0px #000;
+          -khtml-box-shadow:0 0 2px 0px #000;    
+        }
+    .baron__bar._dragging {
+        /*opacity: 1;*/
+        }
+    .baron._macosx .baron__bar:hover,
+    .baron._scrolling .baron__bar {
+        transition-duration: 0s;
+        transition-delay: 0s;
+        }
+
+/* Windows XP */
+
+
+/* /baron */
