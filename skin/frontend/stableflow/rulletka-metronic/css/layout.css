@@ -4875,6 +4875,8 @@ li.level0:after {
 
 
 
+
+@media (min-width: 992px)  { 
 /* baron */
 
 .main__clipper {
@@ -5056,3 +5058,15 @@ li.level0:after {
 
 
 /* /baron */
+
+}
+
+@media (max-width: 991px)  { 
+  .page-sidebar {
+      position: relative;
+  }
+
+  .baron__scroller {
+      overflow: hidden;
+  }
+}
