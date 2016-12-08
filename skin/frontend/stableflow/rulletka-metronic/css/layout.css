@@ -792,8 +792,10 @@ li .sub-menu .title {
   opacity: 1; 
 }
 
-.page-sidebar-closed .min-sidebar {
-  display:none;
+@media (min-width: 992px) {
+  .page-sidebar-closed .min-sidebar {
+    display:none;
+  }
 }
 
 
@@ -1377,10 +1379,12 @@ Page footer
   margin-left: 0 !important; 
 }
 
-.page-sidebar-closed .max-footer {
-  width: 80px;
-  overflow: hidden;
-  height: 15px;
+@media (min-width: 992px) {
+  .page-sidebar-closed .max-footer {
+    width: 65px;
+    overflow: hidden;
+    height: 15px;
+  }
 }
 
 .page-sidebar-closed .page-footer {
@@ -2003,8 +2007,11 @@ label.control-label {
   font-family: 'OpenSansBold';
   font-size:17px;
 }
-.page-sidebar-closed .page-sidebar .basket-number {
-  display:none;
+
+@media (min-width: 992px) {
+  .page-sidebar-closed .page-sidebar .basket-number {
+    display:none;
+  }
 }
 .basket-number span {
   font-family: 'OpenSansSemiboldRegular';
@@ -2084,9 +2091,12 @@ label.control-label {
 .basket:hover .basket-number {
   text-decoration:underline;
 }
-.page-sidebar-closed .basket {
-    margin-top: 65px;
-    padding: 0 11px;
+
+@media (min-width: 992px) {
+  .page-sidebar-closed .basket {
+      margin-top: 65px;
+      padding: 0 11px;
+  }
 }
 
 .page-sidebar-closed .basket li {
@@ -4857,13 +4867,6 @@ li.level0:after {
 
 #category-sidebar-nav .active { color:#fdbb09;}
 
-.page-sidebar-closed #category-sidebar-nav .level0 span,
-.page-sidebar-closed #category-sidebar-nav .icon-arrow-point-to-right,
-.page-sidebar-closed #category-sidebar-nav ul {
-    display: none !important;
-
-}
-
 .category-sidebar-nav a.level0 > .icon {
   font-size: 24px;
   margin-right: 25px;
@@ -4877,6 +4880,13 @@ li.level0:after {
 
 
 @media (min-width: 992px)  { 
+  .page-sidebar-closed #category-sidebar-nav .level0 span,
+  .page-sidebar-closed #category-sidebar-nav .icon-arrow-point-to-right,
+  .page-sidebar-closed #category-sidebar-nav ul {
+      display: none !important;
+
+  }
+
 /* baron */
 
 .main__clipper {
@@ -5069,4 +5079,13 @@ li.level0:after {
   .baron__scroller {
       overflow: hidden;
   }
+  .baron__track {
+    display: none;
+  }
+
+  .page-footer {
+      margin-left: 0px;
+      margin-right:0px;
+  }
+
 }
