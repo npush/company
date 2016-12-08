@@ -2045,8 +2045,17 @@ label.control-label {
 .basket:hover .basket-number {
   text-decoration:underline;
 }
-.page-sidebar-closed  .basket {
+.page-sidebar-closed .basket {
     margin-top: 65px;
+    padding: 0 11px;
+}
+
+.page-sidebar-closed .basket li {
+    padding: 0;
+}
+
+.page-sidebar-closed #category-sidebar-nav li a {
+  padding-left: 10px;
 }
 
 .type-content {
