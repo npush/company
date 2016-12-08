@@ -2,34 +2,51 @@
 <div class="page-sidebar-wrapper">
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar navbar-collapse collapse">
-        <!-- Contact menu -->
-        <div class="contact-menu text-center underline">
-            <span class="phone-number"><i class="icon icon-phone-auricular-and-clock-delivery-symbol"></i><span class="min-sidebar"><?php echo Mage::getStoreConfig('general/store_information/phone');?></span></span>
-            <div data-toggle="modal" href="#draggable" class="btn yellow-mint btn-outline min-sidebar"><?php echo $this->__('Ask question')?></div>
-            <?php echo $this->getChildHtml('mini.cart'); ?>
-        </div>
-        <!-- End contact menu -->
-        <?php echo $this->getChildHtml('top.menu'); ?>
-        <div class="contact-panel">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact_panel_left_menu')->toHtml(); ?>
-        </div>
-        <div class="bnt-block clearfix">
-            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_menu_links')->toHtml(); ?>
-        </div>
-        <?php echo $this->getChildHtml('menu_links');?>
-        <!-- END SIDEBAR MENU -->
-        <!-- BEGIN FOOTER -->
-        <div class="page-footer">
-            <div class="page-footer-inner">
-                <div class="max-footer">
-                    <address class="copyright"><?php echo Mage::getStoreConfig('design/footer/copyright'); ?></address>
+            <div class="baron baron__root baron__clipper _macosx _scrollbar" data-baron-v-id="1">
+                <div class="baron__scroller">
+                    <div class="container-baron">
+                        <!-- Contact menu -->
+                        <div class="contact-menu text-center underline">
+                            <span class="phone-number"><i class="icon icon-phone-auricular-and-clock-delivery-symbol"></i><span class="min-sidebar"><?php echo Mage::getStoreConfig('general/store_information/phone');?></span></span>
+                            <div data-toggle="modal" href="#draggable" class="btn yellow-mint btn-outline min-sidebar"><?php echo $this->__('Ask question')?></div>
+                            <?php echo $this->getChildHtml('mini.cart'); ?>
+                        </div>
+                        <!-- End contact menu -->
+                        <?php echo $this->getChildHtml('top.menu'); ?>
+                        <div class="contact-panel">
+                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact_panel_left_menu')->toHtml(); ?>
+                        </div>
+                        <div class="bnt-block clearfix">
+                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('left_menu_links')->toHtml(); ?>
+                        </div>
+                        <?php echo $this->getChildHtml('menu_links');?>
+                        <!-- END SIDEBAR MENU -->
+                        <!-- BEGIN FOOTER -->
+                        <div class="page-footer">
+                            <div class="page-footer-inner">
+                                <div class="max-footer">
+                                    <address class="copyright"><?php echo Mage::getStoreConfig('design/footer/copyright'); ?></address>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END FOOTER -->
+                       <div class="load">
+                            <div class="load__value"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="baron__track">
+                    <div class="baron__control baron__up">▲</div>
+                    <div class="baron__free">
+                        <div class="baron__bar" style="height: 20px; top: 0px;"></div>
+                    </div>
+                    <div class="baron__control baron__down">▼</div>
                 </div>
             </div>
-        </div>
-        <!-- END FOOTER -->
     </div>
     <!-- END SIDEBAR -->
 </div>
 <!-- END SIDEBAR -->
+
 
 
