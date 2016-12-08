@@ -3,7 +3,7 @@
 
     if (!window) return; // Server side
 
-    var $ = window.$;
+    var $ = window.jQuery;
     var _baron = baron; // Stored baron value for noConflict usage
     var pos = ['left', 'top', 'right', 'bottom', 'width', 'height'];
     // Global store for all baron instances (to be able to dispose them on html-nodes)
