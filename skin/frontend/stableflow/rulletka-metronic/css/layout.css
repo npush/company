@@ -832,6 +832,24 @@ li .sub-menu .title {
     margin-top: 129px;
   }
 
+  .page-logo.underline:before {
+    width: 305px;
+  } 
+  .page-sidebar-closed .page-logo.underline:before {
+    left: 15px;
+    width: 77px;
+  } 
+
+  .page-logo.underline:after {
+    width: 305px;
+  } 
+  .page-sidebar-closed .page-logo.underline:after {
+    left: 15px;
+    width: 77px;
+  } 
+
+
+
 }
 
 @media (min-width: 992px) {
