@@ -1313,6 +1313,8 @@ Page footer
   padding: 8px 28px 5px 20px;
   font-size: 13px;
   min-height: 30px; 
+  margin-left: -15px;
+  margin-right: -15px;
 }
 .page-footer:before,
 .page-footer:after {
@@ -2055,7 +2057,7 @@ label.control-label {
 }
 
 .page-sidebar-closed #category-sidebar-nav li a {
-  padding-left: 10px;
+  padding-left: 0px;
 }
 
 .type-content {
@@ -4903,6 +4905,7 @@ li.level0:after {
     width: 100%;
     height: 100%;
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
     /* remove line to customize scrollbar in iOs */
 }
 .baron__scroller::-webkit-scrollbar {
