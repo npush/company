@@ -1906,7 +1906,7 @@ label.control-label {
     width: 100%;
 }
 .page-sidebar-closed .contact-panel {
-    margin-bottom: 110px;
+    margin-bottom: 60px;
 }
 
 .bnt-block {
@@ -1992,7 +1992,7 @@ label.control-label {
   border-radius:  50%;
 }
 .contact-menu {
-    padding: 45px 0 30px 0;
+    padding: 35px 0 30px 0;
 }
 
 .contact-menu .phone-number {
@@ -4868,6 +4868,7 @@ li.level0:after {
     height: 700px;
     text-align: left;
     white-space: normal;
+    margin-top: 10px;
 }
 
 .header__title_state_fixed {
