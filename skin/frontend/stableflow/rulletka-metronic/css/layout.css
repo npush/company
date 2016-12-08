@@ -839,7 +839,7 @@ li .sub-menu .title {
     }
     .page-sidebar {
       float: left;
-      position: relative;
+      position: fixed;
       margin-right: -100%; 
     }
     .page-full-width .page-sidebar {
@@ -4854,7 +4854,7 @@ li.level0:after {
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 70%;
+    height: 700px;
     text-align: left;
     white-space: normal;
 }
