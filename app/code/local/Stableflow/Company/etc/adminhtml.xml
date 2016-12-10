@@ -28,6 +28,13 @@
             </children>
         </company>
     </menu>
+    <layout>
+        <updates>
+            <company>
+                <file>stableflow_company.xml</file>
+            </company>
+        </updates>
+    </layout>
     <acl>
         <resources>
             <admin>

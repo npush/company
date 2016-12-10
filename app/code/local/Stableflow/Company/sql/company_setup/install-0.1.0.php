@@ -21,9 +21,9 @@ $installer->createEntityTables(
  */
 $installer->addEntityType('company_company',Array(
     'entity_model'          =>'company/company',
-    'attribute_model'       =>'',
+    'attribute_model'       =>'company/attribute',
     'table'                 =>'company/company_entity',
-    'increment_model'       =>'',
+    'increment_model'       =>'eav/entity_increment_numeric',
     'increment_per_store'   =>'0'
 ));
 
@@ -39,9 +39,27 @@ $installer->createEntityTables(
  */
 $installer->addEntityType('company_address',Array(
     'entity_model'          =>'company/address',
-    'attribute_model'       =>'',
+    'attribute_model'       =>'company/attribute',
     'table'                 =>'company/address_entity',
-    'increment_model'       =>'',
+    'increment_model'       =>'eav/entity_increment_numeric',
+    'increment_per_store'   =>'0'
+));
+
+/**
+ * Create all entity tables
+ */
+$installer->createEntityTables(
+    $this->getTable('company/price_entity')
+);
+
+/**
+ * Add Entity type
+ */
+$installer->addEntityType('company_price',Array(
+    'entity_model'          =>'company/price',
+    'attribute_model'       =>'company/attribute',
+    'table'                 =>'company/price_entity',
+    'increment_model'       =>'eav/entity_increment_numeric',
     'increment_per_store'   =>'0'
 ));
 

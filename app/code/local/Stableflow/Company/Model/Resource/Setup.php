@@ -12,8 +12,10 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
         $entities = array(
             'company_company' => array(
                 'entity_model' => 'company/company',
-                'attribute_model' => '',
+                'attribute_model' => 'company/attribute',
                 'table' => 'company/company_entity',
+                'additional_attribute_table'     => 'company/eav_attribute',
+                'entity_attribute_collection'    => 'company/attribute_collection',
                 'attributes' => array(
                     'name' => array(
                         'type' => 'varchar',
@@ -34,7 +36,7 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'visible_on_front' => true,
                         'unique' => false,
                     ),
-                    'site' => array(
+                    'url' => array(
                         'type' => 'varchar',
                         'backend' => '',
                         'frontend' => '',
@@ -91,14 +93,16 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
             ),
             'company_address' => array(
                 'entity_model' => 'company/address',
-                'attribute_model' => '',
+                'attribute_model' => 'company/attribute',
                 'table' => 'company/address_entity',
+                'additional_attribute_table'     => 'company/eav_attribute',
+                'entity_attribute_collection'    => 'company/attribute_collection',
                 'attributes' => array(
                     'street'             => array(
                         'type'               => 'text',
                         'label'              => 'Street Address',
                         'input'              => 'multiline',
-                        'backend'            => 'customer/entity_address_attribute_backend_street',
+                        'backend'            => 'company/entity_address_attribute_backend_street',
                         'sort_order'         => 70,
                         'multiline_count'    => 2,
                         'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
@@ -116,7 +120,7 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'type'               => 'varchar',
                         'label'              => 'Country',
                         'input'              => 'select',
-                        'source'             => 'customer/entity_address_attribute_source_country',
+                        'source'             => 'company/entity_address_attribute_source_country',
                         'sort_order'         => 90,
                         'position'           => 90,
                     ),
@@ -135,7 +139,7 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'input'              => 'text',
                         'sort_order'         => 110,
                         'validate_rules'     => 'a:0:{}',
-                        'data'               => 'customer/attribute_data_postcode',
+                        'data'               => 'company/attribute_data_postcode',
                         'position'           => 110,
                     ),
                     'telephone'          => array(
@@ -159,8 +163,10 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
             ),
             'company_prices' => array(
                 'entity_model' => 'company/prices',
-                'attribute_model' => '',
+                'attribute_model' => 'company/attribute',
                 'table' => 'company/prices_entity',
+                'additional_attribute_table'     => 'company/eav_attribute',
+                'entity_attribute_collection'    => 'company/attribute_collection',
                 'attributes' => array(
                     'name' => array(
                         'type' => 'varchar',
