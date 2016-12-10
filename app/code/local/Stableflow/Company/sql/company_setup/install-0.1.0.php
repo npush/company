@@ -24,7 +24,7 @@ $installer->addEntityType('company_company',Array(
     'attribute_model'       =>'company/attribute',
     'table'                 =>'company/company_entity',
     'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>'0'
+    //'increment_per_store'   =>'0'
 ));
 
 /**
@@ -42,7 +42,7 @@ $installer->addEntityType('company_address',Array(
     'attribute_model'       =>'company/attribute',
     'table'                 =>'company/address_entity',
     'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>'0'
+    //'increment_per_store'   =>'0'
 ));
 
 /**
@@ -60,14 +60,14 @@ $installer->addEntityType('company_price',Array(
     'attribute_model'       =>'company/attribute',
     'table'                 =>'company/price_entity',
     'increment_model'       =>'eav/entity_increment_numeric',
-    'increment_per_store'   =>'0'
+    //'increment_per_store'   =>'0'
 ));
 
 /**
- * Create table 'customer/eav_attribute'
+ * Create table 'company/eav_attribute'
  */
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('customer/eav_attribute'))
+    ->newTable($installer->getTable('company/eav_attribute'))
     ->addColumn('attribute_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'identity'  => false,
         'unsigned'  => true,
@@ -100,96 +100,75 @@ $table = $installer->getConnection()
     ), 'Sort Order')
     ->addColumn('data_model', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
     ), 'Data Model')
-    ->addForeignKey($installer->getFkName('customer/eav_attribute', 'attribute_id', 'eav/attribute', 'attribute_id'),
+    ->addForeignKey($installer->getFkName('company/eav_attribute', 'attribute_id', 'eav/attribute', 'attribute_id'),
         'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->setComment('Customer Eav Attribute');
+    ->setComment('company Eav Attribute');
 $installer->getConnection()->createTable($table);
 
-
 /**
- * Create table 'customer/eav_attribute_website'
+ * Create table 'company_type'
  */
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('customer/eav_attribute_website'))
-    ->addColumn('attribute_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-        'unsigned'  => true,
-        'nullable'  => false,
-        'primary'   => true,
-    ), 'Attribute Id')
-    ->addColumn('website_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-        'unsigned'  => true,
-        'nullable'  => false,
-        'primary'   => true,
-    ), 'Website Id')
-    ->addColumn('is_visible', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-        'unsigned'  => true,
-    ), 'Is Visible')
-    ->addColumn('is_required', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-        'unsigned'  => true,
-    ), 'Is Required')
-    ->addColumn('default_value', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
-    ), 'Default Value')
-    ->addColumn('multiline_count', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-        'unsigned'  => true,
-    ), 'Multiline Count')
-    ->addIndex($installer->getIdxName('customer/eav_attribute_website', array('website_id')),
-        array('website_id'))
-    ->addForeignKey(
-        $installer->getFkName('customer/eav_attribute_website', 'attribute_id', 'eav/attribute', 'attribute_id'),
-        'attribute_id', $installer->getTable('eav/attribute'), 'attribute_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->addForeignKey($installer->getFkName('customer/eav_attribute_website', 'website_id', 'core/website', 'website_id'),
-        'website_id', $installer->getTable('core/website'), 'website_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->setComment('Customer Eav Attribute Website');
-$installer->getConnection()->createTable($table);
-
-
-/**
- * Create table 'customer_group'
- */
-$table = $installer->getConnection()
-    ->newTable($installer->getTable('customer/customer_group'))
-    ->addColumn('customer_group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ->newTable($installer->getTable('company/company_type'))
+    ->addColumn('company_type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-    ), 'Customer Group Id')
-    ->addColumn('customer_group_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
+    ), 'Company Type Id')
+    ->addColumn('company_type_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
         'nullable'  => false,
-    ), 'Customer Group Code')
-    ->addColumn('tax_class_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-        'unsigned'  => true,
-        'nullable'  => false,
-        'default'   => '0',
-    ), 'Tax Class Id')
-    ->setComment('Customer Group');
+    ), 'Company Type Code')
+    ->setComment('Company Type');
 $installer->getConnection()->createTable($table);
 
 
 // insert default customer groups
-$installer->getConnection()->insertForce($installer->getTable('customer/customer_group'), array(
-    'customer_group_id'     => 0,
-    'customer_group_code'   => 'NOT LOGGED IN',
-    'tax_class_id'          => 3
-));
-$installer->getConnection()->insertForce($installer->getTable('customer/customer_group'), array(
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
     'customer_group_id'     => 1,
-    'customer_group_code'   => 'General',
-    'tax_class_id'          => 3
+    'customer_group_code'   => 'Seller',
 ));
-$installer->getConnection()->insertForce($installer->getTable('customer/customer_group'), array(
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
     'customer_group_id'     => 2,
-    'customer_group_code'   => 'Wholesale',
-    'tax_class_id'          => 3
+    'customer_group_code'   => 'Producer',
 ));
-$installer->getConnection()->insertForce($installer->getTable('customer/customer_group'), array(
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
     'customer_group_id'     => 3,
-    'customer_group_code'   => 'Retailer',
-    'tax_class_id'          => 3
+    'customer_group_code'   => 'Corporation',
 ));
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
+    'customer_group_id'     => 4,
+    'customer_group_code'   => 'Shop',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
+    'customer_group_id'     => 5,
+    'customer_group_code'   => 'Entrepreneur',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
+    'customer_group_id'     => 6,
+    'customer_group_code'   => 'Mixed',
+));
+
+
+/**
+ * Create table 'company_products'
+ */
+$table = $installer->getConnection()
+    ->newTable($installer->getTable('company/company_products'))
+    ->addColumn('company_type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+        'identity'  => true,
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => true,
+    ), 'Company Type Id')
+    ->addColumn('company_type_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
+        'nullable'  => false,
+    ), 'Company Type Code')
+    ->setComment('Company Type');
+$installer->getConnection()->createTable($table);
+
+
 $installer->installEntities();
 
 $installer->endSetup();

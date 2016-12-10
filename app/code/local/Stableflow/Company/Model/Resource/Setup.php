@@ -74,6 +74,25 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'visible_on_front' => false,
                         'unique' => false,
                     ),
+                    'company_code' => array(
+                        'type' => 'text',
+                        'backend' => '',
+                        'frontend' => '',
+                        'label' => 'Company Code',
+                        'input' => 'text',
+                        'class' => '',
+                        'source' => '',
+                        'global' => 0,
+                        'visible' => true,
+                        'required' => false,
+                        'user_defined' => true,
+                        'default' => '',
+                        'searchable' => false,
+                        'filterable' => false,
+                        'comparable' => false,
+                        'visible_on_front' => false,
+                        'unique' => false,
+                    ),
                     'email'              => array(
                         'type'               => 'static',
                         'label'              => 'Email',
@@ -84,10 +103,42 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'admin_checkout'    => 1
                     ),
                     'type_id'   =>  array(
-
+                        'type'               => 'static',
+                        'label'              => 'Company Type',
+                        'input'              => 'select',
+                        'source'             => 'company/company_attribute_source_type',
+                        'backend'            => 'company/company_attribute_backend_type',
+                        'sort_order'         => 10,
+                        'position'           => 10,
+                        'adminhtml_only'     => 1,
                     ),
                     'customer_id'   =>  array(
-
+                        'type'               => 'static',
+                        'label'              => 'Associate to Customer',
+                        'input'              => 'select',
+                        'source'             => 'company/company_attribute_source_customer',
+                        'backend'            => 'company/company_attribute_backend_customer',
+                        'sort_order'         => 20,
+                        'position'           => 20,
+                        'adminhtml_only'     => 1,
+                    ),
+                    'Address'    => array(
+                        'type'               => 'int',
+                        'label'              => 'Address',
+                        'input'              => 'text',
+                        'backend'            => 'customer/company_attribute_backend_address',
+                        'required'           => false,
+                        'sort_order'         => 82,
+                        'visible'            => false,
+                    ),
+                    'Price'    => array(
+                        'type'               => 'int',
+                        'label'              => 'Price',
+                        'input'              => 'text',
+                        'backend'            => 'customer/company_attribute_backend_price',
+                        'required'           => false,
+                        'sort_order'         => 82,
+                        'visible'            => false,
                     ),
                 ),
             ),
@@ -187,7 +238,15 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'visible_on_front' => true,
                         'unique' => false,
                     ),
+                    'price' => array(
 
+                    ),
+                    'price_int' => array(
+
+                    ),
+                    'price_wholesale' => array(
+
+                    ),
                 ),
             ),
         );
