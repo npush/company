@@ -109,6 +109,7 @@ $installer->getConnection()->createTable($table);
 /**
  * Create table 'company_type'
  */
+/*
 $table = $installer->getConnection()
     ->newTable($installer->getTable('company/company_type'))
     ->addColumn('company_type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
@@ -122,34 +123,53 @@ $table = $installer->getConnection()
     ), 'Company Type Code')
     ->setComment('Company Type');
 $installer->getConnection()->createTable($table);
+*/
 
+/*
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
+    'company_type_id'     => 1,
+    'company_type_code'   => 'Seller',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
+    'company_type_id'     => 2,
+    'company_type_code'   => 'Producer',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
+    'company_type_id'     => 3,
+    'company_type_code'   => 'Corporation',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
+    'company_type_id'     => 4,
+    'company_type_code'   => 'Shop',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
+    'company_type_id'     => 5,
+    'company_type_code'   => 'Entrepreneur',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
+    'company_type_id'     => 6,
+    'company_type_code'   => 'Mixed',
+));
+*/
 
-// insert default customer groups
-$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'customer_group_id'     => 1,
-    'customer_group_code'   => 'Seller',
-));
-$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'customer_group_id'     => 2,
-    'customer_group_code'   => 'Producer',
-));
-$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'customer_group_id'     => 3,
-    'customer_group_code'   => 'Corporation',
-));
-$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'customer_group_id'     => 4,
-    'customer_group_code'   => 'Shop',
-));
-$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'customer_group_id'     => 5,
-    'customer_group_code'   => 'Entrepreneur',
-));
-$installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'customer_group_id'     => 6,
-    'customer_group_code'   => 'Mixed',
-));
-
+/**
+ * Create table 'company_activity'
+ */
+/*
+$table = $installer->getConnection()
+    ->newTable($installer->getTable('company/company_activity'))
+    ->addColumn('company_activity_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+        'identity'  => true,
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => true,
+    ), 'Company Type Id')
+    ->addColumn('company_activity_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
+        'nullable'  => false,
+    ), 'Company Type Code')
+    ->setComment('Company Type');
+$installer->getConnection()->createTable($table);
+*/
 
 /**
  * Create table 'company_products'

@@ -74,6 +74,14 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'visible_on_front' => false,
                         'unique' => false,
                     ),
+                    'image'              => array(
+                        'type'                       => 'varchar',
+                        'label'                      => 'Image',
+                        'input'                      => 'image',
+                        'backend'                    => 'company/company_attribute_backend_image',
+                        'required'                   => false,
+                        'sort_order'                 => 5,
+                    ),
                     'company_code' => array(
                         'type' => 'text',
                         'backend' => '',
@@ -101,6 +109,16 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'validate_rules'     => 'a:1:{s:16:"input_validation";s:5:"email";}',
                         'position'           => 80,
                         'admin_checkout'    => 1
+                    ),
+                    'activity_id' => array(
+                        'type'               => 'static',
+                        'label'              => 'Company Activity',
+                        'input'              => 'select',
+                        'source'             => 'company/company_attribute_source_activity',
+                        'backend'            => 'company/company_attribute_backend_activity',
+                        'sort_order'         => 10,
+                        'position'           => 10,
+                        'adminhtml_only'     => 1,
                     ),
                     'type_id'   =>  array(
                         'type'               => 'static',
