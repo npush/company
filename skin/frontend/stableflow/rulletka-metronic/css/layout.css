@@ -2705,6 +2705,10 @@ input[type="checkbox"], input[type="radio"] {
 
 /* .content-text  */
 
+.middle-width-content {
+  max-width: 770px;
+}
+
 .content-text p {
   line-height: 25px;
   margin-bottom:0;
