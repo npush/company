@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <stableflow translate="label" module="stableflow_company">
+            <label>Companies</label>
+            <sort_order>2</sort_order>
+        </stableflow>
+    </tabs>
+    <sections>
+        <company translate="label" module="stableflow_company">
+            <class>separator-top</class>
+            <label>Settings</label>
+            <tab>stableflow</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label comment">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <name translate="label comment">
+                            <label>name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>name</comment>
+                        </name>
+                    </fields>
+                </general>
+            </groups>
+        </company>
+    </sections>
+</config>

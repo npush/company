@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <js>css/stableflow_company/style.css</js>
+            </action>
+        </reference>
+    </default>
+
+    <stableflow_company_index_index translate="label" module="stableflow_company">
+        <label>Company list</label>
+        <update handle="page_left_menu"/>
+        <reference name="content">
+            <block type="stableflow_company/company_list" name="company_list" template="stableflow_company/company/list.phtml">
+                <block type="stableflow/toolbar" name="toolbar" template="stableflow_company/toolbar.phtml">
+                    <block type="page/html_pager" name="pager"/>
+                </block>
+            </block>
+        </reference>
+    </stableflow_company_index_index>
+</layout>

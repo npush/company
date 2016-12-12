@@ -54,7 +54,8 @@ class Mageplaza_BetterBlog_Block_Post_List extends Mage_Core_Block_Template
             'page/html_pager',
             'mageplaza_betterblog.post.html.pager'
         )
-        ->setCollection($this->getPosts());
+            ->setLimit(20)
+            ->setCollection($this->getPosts());
         $this->setChild('pager', $pager);
         $this->getPosts()->load();
         return $this;

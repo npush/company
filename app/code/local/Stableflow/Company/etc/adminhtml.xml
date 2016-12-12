@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <company translate="title" module="stableflow_company">
+            <title>Companies</title>
+            <sort_order>65</sort_order>
+            <children>
+                <new_company translate="title" module="stableflow_company">
+                    <title>Add New Company</title>
+                    <action>adminhtml/company_company/new</action>
+                    <sort_order>0</sort_order>
+                </new_company>
+                <company translate="title" module="stableflow_company">
+                    <title>Manage Company</title>
+                    <action>adminhtml/company_company/index</action>
+                    <sort_order>2</sort_order>
+                </company>
+                <company_attributes translate="title" module="stableflow_company">
+                    <title>Company Attributes</title>
+                    <action>adminhtml/company_company_attribute</action>
+                    <sort_order>7</sort_order>
+                </company_attributes>
+                <settings module="stableflow_company" translate="title">
+                    <title>Settings</title>
+                    <sort_order>1000</sort_order>
+                    <action>adminhtml/system_config/edit/section/company</action>
+                </settings>
+            </children>
+        </company>
+    </menu>
+    <layout>
+        <updates>
+            <company>
+                <file>stableflow_company.xml</file>
+            </company>
+        </updates>
+    </layout>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <company translate="title" module="stableflow_company">
+                                        <title>Companies</title>
+                                    </company>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <company translate="title" module="stableflow_company">
+                        <title>Blog</title>
+                        <children>
+                            <new_company translate="title" module="stableflow_company">
+                                <title>Add New company</title>
+                                <action>adminhtml/betterblog_post/new</action>
+                                <sort_order>0</sort_order>
+                            </new_company>
+                            <company translate="title" module="stableflow_company">
+                                <title>Manage Company</title>
+                                <sort_order>2</sort_order>
+                            </company>
+                            <company_attributes translate="title" module="stableflow_company">
+                                <title>Manage Company attributes</title>
+                                <sort_order>7</sort_order>
+                            </company_attributes>
+                        </children>
+                    </company>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
