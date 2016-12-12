@@ -206,7 +206,7 @@ $_specialPriceStoreLabel = $this->getProductAttribute('special_price')->getStore
             <?php else: ?>
                 <div class="basket-number basket-number-lg regular-price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                     <?php if ($_product->getData('ask_4_price')): ?>
-                        <div class="btn btn-default-none btn-lg  border-radius-none margin-top-min"><?php echo $this->__('Ask for price'); ?></div>
+                        <a data-toggle="modal" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="btn btn-default-none btn-lg  border-radius-none margin-top-min"><?php echo $this->__('Ask for price'); ?></a>
                     <?php else: ?>
                         <?php if ($_finalPrice == $_price): ?>
                             <?php echo $_coreHelper->formatPrice($_price, true) ?>

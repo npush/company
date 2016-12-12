@@ -48,5 +48,18 @@
 </div>
 <!-- END SIDEBAR -->
 
+<script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function(){
+        var $block = jQuery('.page-logo');
+        var $window = jQuery(window);
+        jQuery('.baron__root').height($window.height() - $block.height() + 35);
+        console.log($window.height() - $block.height() + 35);
+        jQuery(window).resize(function(){
+            console.log($window.height() - $block.height() + 35);
+            jQuery('.baron__root').height($window.height() - $block.height() + 35);
+        });
 
-
+        });
+    //]]>
+</script>
