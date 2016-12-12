@@ -18,7 +18,7 @@
                 <div class="modal-body modal-body-form">
                     <div class="form-group" style="display: none">
                         <label class="control-label"><?php echo Mage::helper('contacts')->__('Product Name') ?><span class="has-span">*</span></label>
-                        <input name="product_name" id="product_name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Product Name')) ?>" value="" class="input-text required-entry form-control radius-none" type="text" />
+                        <input name="product_name" id="product_name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Product Name')) ?>" value="" class="input-text required-entry form-control radius-none" type="text" readonly/>
                     </div>
                     <div class="form-group">
                         <label class="control-label"><?php echo Mage::helper('contacts')->__('Name') ?><span class="has-span">*</span></label>
@@ -64,14 +64,14 @@
 
         //get data-id attribute of the clicked element
         var productName = jQuery(e.relatedTarget).data('product-name');
-        var nameBlock = jQuery(e.currentTarget).find('input[name="product_name"]')
+        var productNameBlock = jQuery(e.currentTarget).find('input[name="product_name"]');
         if(productName) {
-            nameBlock.prop('enabled', true);
-            nameBlock.val(productName);
-            nameBlock.parent(".form-group").css("display", "block");
+            productNameBlock.prop('enabled', true);
+            productNameBlock.val(productName);
+            productNameBlock.parent(".form-group").css("display", "block");
         }else{
-            nameBlock.parent(".form-group").css("display", "none");
-            nameBlock.prop('disabled', true);
+            productNameBlock.parent(".form-group").css("display", "none");
+            productNameBlock.prop('disabled', true);
         }
     });
     //]]>

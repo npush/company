@@ -98,6 +98,8 @@ Category default layout
                     <action method="addColumnCountLayoutDepend"><layout>two_columns_right</layout><count>4</count></action>
                     <action method="addColumnCountLayoutDepend"><layout>three_columns</layout><count>3</count></action>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+
+                    <block type="core/template" name="product-rating" template="catalog/product/view/rating.phtml"/>
                 </block>
             </block>
         </reference>
@@ -198,7 +200,7 @@ Product view
                     <label>Alert Urls</label>
                 </block>
 
-                <block type="core/template" name="product-rating" template="rulletka/product-rating.phtml"/>
+                <block type="core/template" name="product-rating" template="catalog/product/view/rating.phtml"/>
 
                 <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
 

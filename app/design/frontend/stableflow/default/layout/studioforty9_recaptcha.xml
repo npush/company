@@ -14,26 +14,24 @@
 -->
 <layout version="0.1.0">
 
-<!--    <contacts_index_index>
+    <default>
+        <reference name="modal_popup">
+            <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit" template="studioforty9/recaptcha/explicit.phtml"/>
+        </reference>
+    </default>
+    <contacts_index_index>
         <reference name="contactForm">
             <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit" template="studioforty9/recaptcha/explicit.phtml"/>
         </reference>
     </contacts_index_index>
-
-    <review_product_list>
-        <reference name="product.review.form">
-            <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit" template="studioforty9/recaptcha/explicit.phtml"/>
-        </reference>
-    </review_product_list>
-
     <customer_account_login>
         <reference name="customer_form_login">
             <block type="core/text_list" name="form.additional.info">
                 <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit" template="studioforty9/recaptcha/explicit.phtml"/>
             </block>
-        </reference>  
+        </reference>
     </customer_account_login>
-    
+
     <customer_account_forgotpassword>
         <reference name="forgotPassword">
             <block type="core/text_list" name="form.additional.info">
@@ -41,7 +39,7 @@
             </block>
         </reference>
     </customer_account_forgotpassword>
-    
+
     <customer_account_create>
         <reference name="customer_form_register">
             <block type="core/text_list" name="form.additional.info">
@@ -50,12 +48,6 @@
         </reference>
     </customer_account_create>
 
-    <sendfriend_product_send>
-        <reference name="sendfriend.send">
-            <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit" template="studioforty9/recaptcha/explicit.phtml"/>
-        </reference>
-    </sendfriend_product_send>-->
-
     <catalog_product_view>
         <reference name="product.reviews_2">
             <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit" after="+" template="studioforty9/recaptcha/explicit.phtml">
@@ -63,5 +55,22 @@
             </block>
         </reference>
     </catalog_product_view>
+
+    <!--
+    <review_product_list>
+        <reference name="product.review.form">
+            <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit" template="studioforty9/recaptcha/explicit.phtml"/>
+        </reference>
+    </review_product_list>
+
+
+
+    <sendfriend_product_send>
+        <reference name="sendfriend.send">
+            <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit" template="studioforty9/recaptcha/explicit.phtml"/>
+        </reference>
+    </sendfriend_product_send>-->
+
+
 
 </layout>
