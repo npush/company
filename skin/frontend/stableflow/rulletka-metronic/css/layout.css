@@ -4505,6 +4505,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   overflow: hidden;
 }
 
+.body-product a:first-letter {
+    text-transform: uppercase;
+}
+
 .body-product-txt {
   max-height: 55px;
   overflow: hidden;
