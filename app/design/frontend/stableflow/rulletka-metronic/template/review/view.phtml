@@ -26,9 +26,9 @@
 ?>
 <?php if($this->getProductData()->getId()): ?>
 <div class="product-review">
-    <div class="page-title">
-        <h1><?php echo $this->__('Review Details') ?></h1>
-    </div>
+    <h3 class="page-title">
+        <?php echo $this->__('Review Details') ?>
+    </h3>
     <div class="product-img-box">
         <a href="<?php echo $this->getProductData()->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductData()->getName()) ?>">
             <img src="<?php echo $this->helper('catalog/image')->init($this->getProductData(), 'small_image')->resize(450, 450)->keepFrame(false); ?>"
