@@ -1,0 +1,30 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 12/13/16
+ * Time: 12:23 PM
+ */
+
+$_product = Mage::registry('current_product');
+$_helper = $this->helper('catalog/output');
+?>
+<div class="label-product clearfix">
+    <?php $stats = explode(',', $_product->getResource()->getAttribute('product_state')->getFrontend()->getValue($_product)); ?>
+    <?php foreach($stats as $_state) :?>
+        <?php switch(trim($_state)):
+            case 'New': ?>
+                <span type="button" class="label-span label-yellow"><?php echo $this->__('New');?></span>
+                <?php break;?>
+            <?php case 'Sale': ?>
+                <span type="button" class="label-span label-primary"><?php echo $this->__('Sale');?></span>
+                <?php break; ?>
+            <?php case 'Promo': ?>
+                <span type="button" class="label-span label-yellow-light"><?php echo $this->__('Promo');?></span>
+                <?php break;?>
+            <?php case 'Out of production': ?>
+                <span type="button" class="label-span label-grey"><?php echo $this->__('Out of production');?></span>
+                <?php break;?>
+            <?php endswitch ;?>
+    <?php endforeach ;?>
+</div>

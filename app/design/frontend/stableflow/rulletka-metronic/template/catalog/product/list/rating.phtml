@@ -2,12 +2,10 @@
 /**
  * Created by nick
  * Project magento1.dev
- * Date: 10/27/16
- * Time: 3:26 PM
+ * Date: 12/13/16
+ * Time: 12:23 PM
  */
 
-?>
-<?php
 $product_id = Mage::registry('current_product')->getId();
 $storeId = Mage::app()->getStore()->getId();
 $summaryData = Mage::getModel('review/review_summary')
@@ -24,4 +22,3 @@ $summaryData = Mage::getModel('review/review_summary')
         <label for="star-rating-<?php echo $i;?>" class="radio-label"></label>
     <?php endfor;?>
 </div>
-

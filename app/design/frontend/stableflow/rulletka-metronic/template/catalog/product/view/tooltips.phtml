@@ -1,0 +1,25 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 12/13/16
+ * Time: 12:47 PM
+ */
+?>
+
+<ul class="icon-characteristic">
+    <?php $tooltips = explode(',',$_product->getData('tooltips'));?>
+    <?php foreach($tooltips as $_tooltipId) :?>
+        <?php $_img = $this->helper('attributeimage')->resizeImg($this->helper('attributeimage')->getAttributeImage($_tooltipId), 100, 100); ?>
+        <?php $_img = $this->helper('attributeimage')->getAttributeImage($_tooltipId); ?>
+        <?php $_hint = 'No data'//$this->helper('attributeimage')->getAttributeHint($_tooltipId); ?>
+        <?php if ($_img ): ?>
+            <li>
+                <a href="" data-content="<?php echo $this->escapeHtml($_hint); ?>" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
+                    <img src="<?php echo $this->escapeHtml($_img); ?>" alt="">
+                    <span><?php echo $this->escapeHtml(Mage::getModel('catalog/resource_eav_attribute')->load($_tooltipId)->getFrontendLabel()); ?></span>
+                </a>
+            </li>
+        <?php endif; ?>
+    <?php endforeach ;?>
+</ul>

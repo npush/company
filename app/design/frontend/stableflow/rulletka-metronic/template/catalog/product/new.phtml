@@ -42,13 +42,24 @@
                                     <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" class="timeline-badge-userpic"
                                          alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
                                 <div class="label-product clearfix">
-                                    <?php foreach($_product->getAttributeText('product_state') as $_state):?>
-                                        <span class="label-span label-yellow"><?php echo $_state?></span>
-                                    <?php endforeach?>
-                                    <!--<span class="label-span label-yellow">Новинка</span>
-                                    <span class="label-span label-primary">Распродажа</span>
-                                    <span class="label-span label-yellow-light">Акция</span>
-                                    <span class="label-span label-grey">Снят с производства</span>-->
+                                    <?php $stats = explode(',', $_product->getResource()->getAttribute('product_state')->getFrontend()->getValue($_product)); ?>
+                                    <?php foreach($stats as $_state) :?>
+                                        <?php switch(trim($_state)):
+                                            case 'New': ?>
+                                                <span class="label-span label-yellow"><?php echo $this->__('New');?></span>
+                                                <?php break;?>
+                                            <?php case 'Sale': ?>
+                                                <span class="label-span label-primary"><?php echo $this->__('Sale');?></span>
+                                                <?php break; ?>
+                                            <?php case 'Promo': ?>
+                                                <span class="label-span label-yellow-light"><?php echo $this->__('Promo');?></span>
+                                                <?php break;?>
+                                            <?php case 'Out of production': ?>
+                                                <span class="label-span label-grey"><?php echo $this->__('Out of production');?></span>
+                                                <?php break;?>
+                                            <?php endswitch ;?>
+                                    <?php endforeach ;?>
+                                </div> class="label-span label-grey">Снят с производства</span>-->
                                 </div>
                             </div>
                             <div class="body-product">
@@ -82,9 +93,14 @@
                             </div>
                             <div class="footer-product clearfix">
                                 <div class="stars-rating stars-sm pull-left">
-                                    <?php if($_product->getRatingSummary()): ?>
-                                        <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
-                                    <?php endif; ?>
+                                    <?php $summaryData = Mage::getModel('review/review_summary')->setStoreId(Mage::app()->getStore()->getId())->load($_product->getId()); ?>
+                                    <?php $rating = $summaryData['rating_summary'] ? $summaryData['rating_summary'] : 0?>
+                                    <?php //print_r($summaryData);?>
+                                    <?php $numOfStar = intval($rating * 5 / 100);?>
+                                    <?php for($i = 5; $i != 0; $i--):?>
+                                        <input type="radio" disabled="disabled" <?php echo $numOfStar-- > 0 ?  'checked="checked"' : '' ?> name="star-rating-<?php echo $i;?>">
+                                        <label for="star-rating-<?php echo $i;?>" class="radio-label"></label>
+                                    <?php endfor;?>
                                 </div>
                                 <div class="display-inline pull-right">
                                     <div class="basket-number basket-number-lg"><?php echo $this->getPriceHtml($_product, true) ?></div>

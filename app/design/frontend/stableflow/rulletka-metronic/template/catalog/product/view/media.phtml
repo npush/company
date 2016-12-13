@@ -38,44 +38,11 @@
 
 <div class="timeline-badge">
     <a href="#modal_product"  data-toggle="modal" class="company-link">
-        <div class="label-product clearfix">
-            <?php $stats = explode(',', $_product->getResource()->getAttribute('product_state')->getFrontend()->getValue($_product)); ?>
-            <?php foreach($stats as $_state) :?>
-                <?php switch(trim($_state)):
-                    case 'New': ?>
-                        <span type="button" class="label-span label-yellow"><?php echo $this->__('New');?></span>
-                        <?php break;?>
-                    <?php case 'Sale': ?>
-                        <span type="button" class="label-span label-primary"><?php echo $this->__('Sale');?></span>
-                        <?php break; ?>
-                    <?php case 'Promo': ?>
-                        <span type="button" class="label-span label-yellow-light"><?php echo $this->__('Promo');?></span>
-                        <?php break;?>
-                    <?php case 'Out of production': ?>
-                        <span type="button" class="label-span label-grey"><?php echo $this->__('Out of production');?></span>
-                        <?php break;?>
-                <?php endswitch ;?>
-            <?php endforeach ;?>
-        </div>
+        <?php echo $this->getChildHtml('product-status')?>
         <?php $_img = '<img id="image" class="timeline-badge-userpic" src="'. $this->helper('catalog/image')->init($_product, 'image').'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';?>
         <?php echo $_helper->productAttribute($_product, $_img, 'image'); ?>
     </a>
-    <ul class="icon-characteristic">
-        <?php $tooltips = explode(',',$_product->getData('tooltips'));?>
-        <?php foreach($tooltips as $_tooltipId) :?>
-            <?php $_img = $this->helper('attributeimage')->resizeImg($this->helper('attributeimage')->getAttributeImage($_tooltipId), 100, 100); ?>
-            <?php $_img = $this->helper('attributeimage')->getAttributeImage($_tooltipId); ?>
-            <?php $_hint = 'No data'//$this->helper('attributeimage')->getAttributeHint($_tooltipId); ?>
-            <?php if ($_img ): ?>
-                <li>
-                    <a href="" data-content="<?php echo $this->escapeHtml($_hint); ?>" data-placement="top" data-trigger="hover" data-container="body" class="popovers">
-                        <img src="<?php echo $this->escapeHtml($_img); ?>" alt="">
-                        <span><?php echo $this->escapeHtml(Mage::getModel('catalog/resource_eav_attribute')->load($_tooltipId)->getFrontendLabel()); ?></span>
-                    </a>
-                </li>
-            <?php endif; ?>
-        <?php endforeach ;?>
-    </ul>
+    <?php echo $this->getChilHtml('tooltips');?>
 </div>
 
 <!-- Modal window -->
