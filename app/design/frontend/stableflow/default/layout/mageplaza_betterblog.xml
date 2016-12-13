@@ -111,7 +111,10 @@
 
                 <!--1. Blog comment-->
                 <block type="mageplaza_betterblog/post_comment_list" template="mageplaza_betterblog/post/comment/list.phtml" name="post.comments_list" as="default_comment">
-                    <block type="mageplaza_betterblog/post_comment_form" template="mageplaza_betterblog/post/comment/form.phtml" name="comment_form" as="comment_form" />
+                    <block type="mageplaza_betterblog/post_comment_form" template="mageplaza_betterblog/post/comment/form.phtml" name="comment_form" as="comment_form">
+
+                        <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit"  as="recaptcha" template="studioforty9/recaptcha/explicit.phtml"/>
+                    </block>
                 </block>
 
                 <!--2. Disqus-->
@@ -119,6 +122,7 @@
 
                 <!--3. Facebook comment-->
                 <block type="mageplaza_betterblog/post_comment_facebook" template="mageplaza_betterblog/post/comment/facebook.phtml" name="post.comments_facebook" as="facebook_comment" />
+
 
 
             </block>
