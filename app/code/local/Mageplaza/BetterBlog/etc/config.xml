@@ -26,7 +26,7 @@
 <config>
     <modules>
         <Mageplaza_BetterBlog>
-            <version>1.0.4</version>
+            <version>1.1.1</version>
         </Mageplaza_BetterBlog>
     </modules>
     <global>
@@ -92,6 +92,9 @@
                     <eav_attribute>
                         <table>mageplaza_betterblog_eav_attribute</table>
                     </eav_attribute>
+                    <post_product_category>
+                        <table>mageplaza_betterblog_post_product_category</table>
+                    </post_product_category>
                 </entities>
             </mageplaza_betterblog_resource>
             <sitemap>
@@ -157,7 +160,14 @@
                     </adminnotification>
                 </observers>
             </betterblog_sitemap_products_generating_before>
-
+            <betterblog_post_save_after>
+                <observers>
+                    <mageplaza_betterblog>
+                    <class>mageplaza_betterblog/observer</class>
+                    <method>parsePost</method>
+                </mageplaza_betterblog>
+                </observers>
+            </betterblog_post_save_after>
         </events>
 
     </adminhtml>

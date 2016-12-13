@@ -142,6 +142,13 @@ class Mageplaza_BetterBlog_Model_Post extends Mage_Catalog_Model_Abstract
     {
         $this->getCategoryInstance()->savePostRelation($this);
         $this->getTagInstance()->savePostRelation($this);
+        Mage::dispatchEvent(
+            'betterblog_post_save_after',
+            array(
+                'postContent' => $this->getData('post_content'),
+                'postId' => $this->getId(),
+            )
+        );
         return parent::_afterSave();
     }
 

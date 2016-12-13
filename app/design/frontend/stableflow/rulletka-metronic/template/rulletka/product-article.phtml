@@ -6,7 +6,14 @@
  * Time: 2:57 PM
  */
 ?>
-
+<?php
+$_product = Mage::registry('current_product');
+$_categoryIds = $_product->getCategoryIds();
+foreach($_categoryIds as $_categoryId) {
+    $postIds[$_categoryId] = Mage::getResourceModel('mageplaza_betterblog/post_relation')->getRelatedPost($_categoryId);
+}
+print_r($postIds);
+?>
 <div class="portfolio-article">
         <div class="cbp-item ">
             <div class="cbp-caption">
