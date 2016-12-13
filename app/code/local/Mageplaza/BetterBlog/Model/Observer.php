@@ -189,9 +189,10 @@ class Mageplaza_BetterBlog_Model_Observer
 
     public function parsePost($event){
         preg_match_all('~title="(.+?)".*?path="\w+/(\d+)"~ui', $event->getData('postContent'), $matches);
-        $result = array_combine($matches[1], $matches[2]);
+        //$result = array_combine($matches[1], $matches[2]);
+        $result = array_unique($matches[2]);
         if($result) {
-            $result = array_unique($result);
+            //$result = array_unique($result);
             Mage::getResourceModel('mageplaza_betterblog/post_relation')->savePostRelation($event->getData('postId'), $result);
         }
         return $event;

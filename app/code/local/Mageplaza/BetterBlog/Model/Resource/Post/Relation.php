@@ -22,7 +22,8 @@ class Mageplaza_BetterBlog_Model_Resource_Post_Relation extends Mage_Core_Model_
         if (!is_array($data)) {
             $data = array();
         }
-
+echo $postId;
+print_r($data);
         $adapter = $this->_getWriteAdapter();
         $bind    = array(
             ':post_id'    => $postId,
@@ -34,8 +35,8 @@ class Mageplaza_BetterBlog_Model_Resource_Post_Relation extends Mage_Core_Model_
         $related   = $adapter->fetchPairs($select, $bind);
         $deleteIds = array();
 
-        foreach ($related as $relId => $tagId) {
-            if (!isset($data[$tagId])) {
+        foreach ($related as $relId => $categoryId) {
+            if (!isset($data[$categoryId])) {
                 $deleteIds[] = (int)$relId;
             }
         }
@@ -46,14 +47,13 @@ class Mageplaza_BetterBlog_Model_Resource_Post_Relation extends Mage_Core_Model_
             );
         }
 
-        foreach ($data as $categoryName => $categoryId) {
+        foreach ($data as $categoryId) {
             $adapter->insertOnDuplicate(
                 $this->getMainTable(),
                 array(
                     'post_id'      => $postId,
-                    'category_id'     => $categoryId,
-                ),
-                array()
+                    'category_id'  => $categoryId,
+                )
             );
         }
     }

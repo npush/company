@@ -112,6 +112,14 @@
                     </mageplaza_betterblog>
                 </observers>
             </controller_front_init_routers>
+            <betterblog_post_save_after>
+                <observers>
+                    <mageplaza_betterblog>
+                        <class>mageplaza_betterblog/observer</class>
+                        <method>parsePost</method>
+                    </mageplaza_betterblog>
+                </observers>
+            </betterblog_post_save_after>
         </events>
     </global>
     <adminhtml>
@@ -160,14 +168,14 @@
                     </adminnotification>
                 </observers>
             </betterblog_sitemap_products_generating_before>
-            <betterblog_post_save_after>
+            <!--<betterblog_post_save_after>
                 <observers>
                     <mageplaza_betterblog>
                     <class>mageplaza_betterblog/observer</class>
                     <method>parsePost</method>
                 </mageplaza_betterblog>
                 </observers>
-            </betterblog_post_save_after>
+            </betterblog_post_save_after>-->
         </events>
 
     </adminhtml>
