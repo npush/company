@@ -37,9 +37,11 @@
                         </div>
                     </div>
                     <!-- product-view-rating.phtml -->
-                    <div class="btn yellow-mint btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask about product')?></div>
-                    <?php echo $this->getChildHtml('product-rating') ?>
-                    <div class="timeline-body-content">
+                    <div class="timeline-btn-product display-inline">
+                        <div class="btn yellow-mint btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask about product')?></div>
+                        <?php echo $this->getChildHtml('product-rating') ?>
+                    </div>
+                        <div class="timeline-body-content">
                         <div class="timeline-conten-min-width txt-link margin-bottom-lg"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_view_notice')->toHtml();?> </div>
                         <?php if ($_product->getShortDescription()):?>
                             <div class="short-description">

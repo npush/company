@@ -16,7 +16,7 @@ $summaryData = Mage::getModel('review/review_summary')
 ?>
 
 
-<div class="timeline-btn-product display-inline">
+
     <div class="stars-rating">
         <?php $rating = $summaryData['rating_summary'] ? $summaryData['rating_summary'] : 0?>
         <?php //print_r($summaryData);?>
@@ -26,4 +26,4 @@ $summaryData = Mage::getModel('review/review_summary')
             <label for="star-rating-<?php echo $i;?>" class="radio-label"></label>
         <?php endfor;?>
     </div>
-</div>
+
