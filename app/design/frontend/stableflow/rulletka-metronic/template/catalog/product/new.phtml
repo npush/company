@@ -37,7 +37,7 @@
                 <?php $i=0; foreach ($_products->getItems() as $_product): ?>
                     <div class="product-wrap">
                         <div class="col-product">
-                            <div class="header-product">
+                            < class="header-product">
                                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                                     <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" class="timeline-badge-userpic"
                                          alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
@@ -59,7 +59,6 @@
                                                 <?php break;?>
                                             <?php endswitch ;?>
                                     <?php endforeach ;?>
-                                </div>
                                 </div>
                             </div>
                             <div class="body-product">
