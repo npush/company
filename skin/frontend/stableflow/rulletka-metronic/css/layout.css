@@ -4922,6 +4922,7 @@ li.level0:after {
     position: relative;
     overflow: hidden;
     width: 100%;
+    min-width: 107px;
     height: 700px;
     text-align: left;
     white-space: normal;
