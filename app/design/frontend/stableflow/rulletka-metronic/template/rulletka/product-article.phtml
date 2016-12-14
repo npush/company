@@ -10,176 +10,46 @@
 $_product = Mage::registry('current_product');
 $_categoryIds = $_product->getCategoryIds();
 foreach($_categoryIds as $_categoryId) {
-    $postIds[$_categoryId] = Mage::getResourceModel('mageplaza_betterblog/post_relation')->getRelatedPost($_categoryId);
+    //$postIds[$_categoryId] = $this->getPostModel()->getRelatedPost($_categoryId);
+    $postIds = $this->getPostm()->getRelatedPostIds($_categoryId);
 }
-print_r($postIds);
+//Zend_Debug::dump($postIds);
+
+//Zend_Debug::dump($this->getPosts($postIds));
 ?>
+<?php $_posts = $this->getPosts($postIds); ?>
+
 <div class="portfolio-article">
+    <?php foreach($_posts as $_post):?>
         <div class="cbp-item ">
             <div class="cbp-caption">
                 <div class="cbp-caption-defaultWrap">
-                    <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)?>tmp/images/galery-img-1.jpg" alt="">
+                    <?php if ($_post->getImage()) : ?>
+                        <img src="<<?php echo Mage::helper('mageplaza_betterblog/post_image')->init($_post, 'image')->resize(200); ?>"
+                             alt="<?php echo $this->escapeHtml($_post->getPostTitle()); ?>">
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="cb-min-height">
                 <div class="cbp-l-grid-projects-title">
-                    <a href="">Косметический ремонт квартиры: основные правила</a>
+                    <a href="<?php echo $_post->getPostUrl() ?>"><?php echo $_post->getPostTitle(); ?></a>
                 </div>
                 <div class="cbp-l-grid-projects-desc txt-data">
-                    08.04.2016
+                    <?php echo $_post->getData('created_at')?>
                 </div>
                 <div class="txt-question">
-                    Как сделать ремонт недорого?
+                    <?php echo $_post->getPostExcerpt(); ?>
                 </div>
                 <div class="margin-cbp">
                     <span class="bold">Источник:</span> <a href="http://gost.kiev.ua/">http://gost.kiev.ua/</a>
                 </div>
                 <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Просмотров:</span> 265
+                    <span class="bold">Просмотров:</span> <?php echo $_post->getViews(); ?>
                 </div>
                 <div class="cbp-l-grid-projects-desc cbp-min">
                     <span class="bold">Комментариев:</span> 0
                 </div>
             </div>
         </div>
-
-        <div class="cbp-item">
-            <div class="cbp-caption">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)?>tmp/images/galery-img-2.jpg" alt="">
-                </div>
-            </div>
-            <div class="cb-min-height">
-                <div class="cbp-l-grid-projects-title">
-                    <a href="">недорогой качественный ремонт</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc txt-data">
-                    08.04.2016
-                </div>
-                <div class="txt-question">
-                    Как сделать недорогой и красивый ремонт?
-                </div>
-                <div class="margin-cbp">
-                    <span class="bold">Источник:</span> <a href="http://vopros-remont.ru/">http://vopros-remont.ru/</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Просмотров:</span> 265
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Комментариев:</span> 0
-                </div>
-            </div>
-        </div>
-
-        <div class="cbp-item">
-            <div class="cbp-caption">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)?>tmp/images/galery-img-3.jpg" alt="">
-                </div>
-            </div>
-            <div class="cb-min-height">
-                <div class="cbp-l-grid-projects-title">
-                    <a href="">Освещение для магазина</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc txt-data">
-                    08.04.2016
-                </div>
-                <div class="txt-question">
-                    Торговое освещение помогает увеличить продажи: выбирайте правильное освещение для магазина
-                </div>
-                <div class="margin-cbp">
-                    <span class="bold">Источник:</span> <a href="http://www.merchandising.by/articles/articles-01.html">http://www.merchandising.by/articles/articles-01.html</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Просмотров:</span> 265
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Комментариев:</span> 0
-                </div>
-            </div>
-        </div>
-
-        <div class="cbp-item">
-            <div class="cbp-caption">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)?>tmp/images/galery-img-4.jpg" alt="">
-                </div>
-            </div>
-            <div class="cb-min-height">
-                <div class="cbp-l-grid-projects-title">
-                    <a href="">дизайн комнаты для подростка</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc txt-data">
-                    08.04.2016
-                </div>
-                <div class="txt-question">
-                    Как сделать ремонт недорого?
-                </div>
-                <div class="margin-cbp">
-                    <span class="bold">Источник:</span> <a href="http://gost.kiev.ua/">http://gost.kiev.ua/</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Просмотров:</span> 265
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Комментариев:</span> 0
-                </div>
-            </div>
-        </div>
-
-        <div class="cbp-item">
-            <div class="cbp-caption">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)?>tmp/images/galery-img-5.jpg" alt="">
-                </div>
-            </div>
-            <div class="cb-min-height">
-                <div class="cbp-l-grid-projects-title">
-                    <a href="">дизайн комнаты маленького размера</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc txt-data">
-                    08.04.2016
-                </div>
-                <div class="txt-question">
-                    Как сделать недорогой и красивый ремонт?
-                </div>
-                <div class="margin-cbp">
-                    <span class="bold">Источник:</span> <a href="http://vopros-remont.ru/">http://vopros-remont.ru/</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Просмотров:</span> 265
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Комментариев:</span> 0
-                </div>
-            </div>
-        </div>
-
-        <div class="cbp-item">
-            <div class="cbp-caption">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)?>tmp/images/galery-img-6.jpg" alt="">
-                </div>
-            </div>
-            <div class="cb-min-height">
-                <div class="cbp-l-grid-projects-title">
-                    <a href="">экоомия энергоресурсов</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc txt-data">
-                    08.04.2016
-                </div>
-                <div class="txt-question">
-                    Торговое освещение помогает увеличить продажи: выбирайте правильное освещение для магазина
-                </div>
-                <div class="margin-cbp">
-                    <span class="bold">Источник:</span> <a href="http://www.merchandising.by/articles/articles-01.html">http://www.merchandising.by/articles/articles-01.html</a>
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Просмотров:</span> 265
-                </div>
-                <div class="cbp-l-grid-projects-desc cbp-min">
-                    <span class="bold">Комментариев:</span> 0
-                </div>
-            </div>
-        </div>
+    <?php endforeach; ?>
 </div>

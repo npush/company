@@ -188,10 +188,12 @@ class Mageplaza_BetterBlog_Model_Observer
     }
 
     public function parsePost($event){
-        preg_match_all('~title="(.+?)".*?path="\w+/(\d+)"~ui', $event->getData('postContent'), $matches);
+        preg_match_all('/catalog\/category_widget_link.*?title="(.+?)".*?path="\w+\/(\d+)/u', $event->getData('postContent'), $matches);
         //$result = array_combine($matches[1], $matches[2]);
         $result = array_unique($matches[2]);
         if($result) {
+            printf("observer\n\r");
+            print_r($result);
             //$result = array_unique($result);
             Mage::getResourceModel('mageplaza_betterblog/post_relation')->savePostRelation($event->getData('postId'), $result);
         }

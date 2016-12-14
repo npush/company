@@ -22,8 +22,7 @@ class Mageplaza_BetterBlog_Model_Resource_Post_Relation extends Mage_Core_Model_
         if (!is_array($data)) {
             $data = array();
         }
-echo $postId;
-print_r($data);
+
         $adapter = $this->_getWriteAdapter();
         $bind    = array(
             ':post_id'    => $postId,
@@ -58,7 +57,7 @@ print_r($data);
         }
     }
 
-    public function getRelatedPost($categoryId){
+    public function getRelatedPostIds($categoryId){
         $adapter = $this->_getWriteAdapter();
         $bind    = array(
             ':category_id'    => $categoryId,
@@ -69,4 +68,5 @@ print_r($data);
         $related   = $adapter->fetchPairs($select, $bind);
         return $related;
     }
+
 }

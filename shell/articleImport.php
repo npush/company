@@ -49,6 +49,7 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
     }
 
     public function createPost($_post){
+        var_dump($_post);
         /** @var  $model Mageplaza_BetterBlog_Model_Post  */
         $model = Mage::getModel('mageplaza_betterblog/post');
         $categoryIds = array();
