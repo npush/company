@@ -40,7 +40,7 @@ foreach($_categoryIds as $_categoryId) {
                         <?php echo $_post->getData('created_at')?>
                     </div>
                     <div class="txt-question">
-                        <?php echo $_post->getPostExcerpt(); ?>
+                        <?php echo $_post->getPostExcerpt(); ?><a href="<?php echo $_post->getPostUrl() ?>"> <?php echo $this->__('[...]'); ?></a>
                     </div>
                     <div class="margin-cbp">
                         <!--<span class="bold">Источник:</span> <a href="http://gost.kiev.ua/">http://gost.kiev.ua/</a>-->
