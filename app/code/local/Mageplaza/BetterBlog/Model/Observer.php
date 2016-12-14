@@ -192,8 +192,8 @@ class Mageplaza_BetterBlog_Model_Observer
         //$result = array_combine($matches[1], $matches[2]);
         $result = array_unique($matches[2]);
         if($result) {
-            printf("observer\n\r");
-            print_r($result);
+            //printf("observer\n\r");
+            //print_r($result);
             //$result = array_unique($result);
             Mage::getResourceModel('mageplaza_betterblog/post_relation')->savePostRelation($event->getData('postId'), $result);
         }

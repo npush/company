@@ -19,41 +19,45 @@ class Mageplaza_BetterBlog_Model_Resource_Post_Relation extends Mage_Core_Model_
 
     public function savePostRelation($postId, $data)
     {
-        if (!is_array($data)) {
-            $data = array();
-        }
-
-        $adapter = $this->_getWriteAdapter();
-        $bind    = array(
-            ':post_id'    => $postId,
-        );
-        $select = $adapter->select()
-            ->from($this->getMainTable(), array('rel_id', 'category_id'))
-            ->where('post_id = :post_id');
-
-        $related   = $adapter->fetchPairs($select, $bind);
-        $deleteIds = array();
-
-        foreach ($related as $relId => $categoryId) {
-            if (!isset($data[$categoryId])) {
-                $deleteIds[] = (int)$relId;
+        try {
+            if (!is_array($data)) {
+                $data = array();
             }
-        }
-        if (!empty($deleteIds)) {
-            $adapter->delete(
-                $this->getMainTable(),
-                array('rel_id IN (?)' => $deleteIds)
-            );
-        }
 
-        foreach ($data as $categoryId) {
-            $adapter->insertOnDuplicate(
-                $this->getMainTable(),
-                array(
-                    'post_id'      => $postId,
-                    'category_id'  => $categoryId,
-                )
+            $adapter = $this->_getWriteAdapter();
+            $bind = array(
+                ':post_id' => $postId,
             );
+            $select = $adapter->select()
+                ->from($this->getMainTable(), array('rel_id', 'category_id'))
+                ->where('post_id = :post_id');
+
+            $related = $adapter->fetchPairs($select, $bind);
+            $deleteIds = array();
+
+            foreach ($related as $relId => $categoryId) {
+                if (!isset($data[$categoryId])) {
+                    $deleteIds[] = (int)$relId;
+                }
+            }
+            if (!empty($deleteIds)) {
+                $adapter->delete(
+                    $this->getMainTable(),
+                    array('rel_id IN (?)' => $deleteIds)
+                );
+            }
+
+            foreach ($data as $categoryId) {
+                $adapter->insertOnDuplicate(
+                    $this->getMainTable(),
+                    array(
+                        'post_id' => $postId,
+                        'category_id' => $categoryId,
+                    )
+                );
+            }
+        }catch (Exception $e){
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
     }
 
