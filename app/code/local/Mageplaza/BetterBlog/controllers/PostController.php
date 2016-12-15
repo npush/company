@@ -47,13 +47,13 @@ class Mageplaza_BetterBlog_PostController extends Mage_Core_Controller_Front_Act
                         'link' => Mage::getUrl(),
                     )
                 );
-                $breadcrumbBlock->addCrumb(
+                /*$breadcrumbBlock->addCrumb(
                     'posts',
                     array(
                         'label' => Mage::helper('mageplaza_betterblog')->__('Blog'),
                         'link' => '',
                     )
-                );
+                );*/
             }
         }
         $headBlock = $this->getLayout()->getBlock('head');
@@ -123,13 +123,13 @@ class Mageplaza_BetterBlog_PostController extends Mage_Core_Controller_Front_Act
                         'link' => Mage::getUrl(),
                     )
                 );
-                $breadcrumbBlock->addCrumb(
+                /*$breadcrumbBlock->addCrumb(
                     'posts',
                     array(
                         'label' => Mage::helper('mageplaza_betterblog')->__('Blog'),
                         'link' => Mage::helper('mageplaza_betterblog/post')->getPostsUrl(),
                     )
-                );
+                );*/
                 $categories = $post->getSelectedCategoriesCollection();
                 foreach ($categories as $_category) {
                     $breadcrumbBlock->addCrumb(

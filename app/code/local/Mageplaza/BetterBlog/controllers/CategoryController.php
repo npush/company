@@ -123,13 +123,13 @@ class Mageplaza_BetterBlog_CategoryController extends Mage_Core_Controller_Front
                         'link'     => Mage::getUrl(),
                     )
                 );
-                $breadcrumbBlock->addCrumb(
+                /*$breadcrumbBlock->addCrumb(
                     'posts',
                     array(
                         'label' => Mage::helper('mageplaza_betterblog')->__('Blog'),
                         'link'  => Mage::helper('mageplaza_betterblog/post')->getPostsUrl(),
                     )
-                );
+                );*/
                 $parents = $category->getParentCategories();
                 foreach ($parents as $parent) {
                     if ($parent->getId() != Mage::helper('mageplaza_betterblog/category')->getRootCategoryId() &&
