@@ -27,7 +27,7 @@ class Mageplaza_BetterBlog_Block_Post_Relation extends Mage_Core_Block_Template{
     }
 
     public function getPosts(){
-        if(is_null($this->_posts) && $this->_postIds) {
+        if(!$this->_posts && $this->_postIds) {
             $this->_posts = Mage::getResourceModel('mageplaza_betterblog/post_collection')
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->addAttributeToSelect('*')
@@ -38,7 +38,7 @@ class Mageplaza_BetterBlog_Block_Post_Relation extends Mage_Core_Block_Template{
     }
 
     public function getProduct(){
-        if(is_null($this->_product)) {
+        if(!$this->_product) {
             $this->_product = Mage::registry('current_product');
         }
         return $this->_product;
