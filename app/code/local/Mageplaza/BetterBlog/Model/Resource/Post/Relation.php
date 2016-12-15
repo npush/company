@@ -62,7 +62,7 @@ class Mageplaza_BetterBlog_Model_Resource_Post_Relation extends Mage_Core_Model_
     }
 
     public function getRelatedPostIds($categoryId){
-        $adapter = $this->_getWriteAdapter();
+        $adapter = $this->_getReadAdapter();
         $bind    = array(
             ':category_id'    => $categoryId,
         );
