@@ -6,18 +6,8 @@
  * Time: 2:57 PM
  */
 ?>
-<?php
-$_product = Mage::registry('current_product');
-$_categoryIds = $_product->getCategoryIds();
-foreach($_categoryIds as $_categoryId) {
-    //$postIds[$_categoryId] = $this->getPostModel()->getRelatedPost($_categoryId);
-    $postIds = $this->getPostm()->getRelatedPostIds($_categoryId);
-}
-//Zend_Debug::dump($postIds);
 
-//Zend_Debug::dump($this->getPosts($postIds));
-?>
-<?php $_posts = $this->getPosts($postIds); ?>
+<?php $_posts = $this->getPosts(); ?>
 <?php if ($_posts->getSize() > 0) :?>
     <div class="portfolio-article">
         <?php foreach($_posts as $_post):?>

@@ -10,9 +10,6 @@ class Mageplaza_BetterBlog_Block_Post_Relation extends Mage_Core_Block_Template{
 
     public function _construct(){
         parent::_construct();
-        $posts = Mage::getResourceModel('mageplaza_betterblog/post_relation');
-            //->addStoreFilter(Mage::app()->getStore());
-        $this->setPostm($posts);
     }
 
     protected function _prepareLayout(){
@@ -20,16 +17,18 @@ class Mageplaza_BetterBlog_Block_Post_Relation extends Mage_Core_Block_Template{
         return $this;
     }
 
-
-    public function getPosts($postIds){
-        if(!is_array($postIds) || !count($postIds)){
-            return false;
-        }
+    public function getPosts(){
+        $_categoryId = $this->getProduct()->getCategoryId();
+        $postIds = Mage::getResourceModel('mageplaza_betterblog/post_relation')->getRelatedPostIds($_categoryId);
         $posts = Mage::getResourceModel('mageplaza_betterblog/post_collection')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->addAttributeToSelect('*')
             ->addAttributeToFilter('status', 1)
             ->addAttributeToFilter('entity_id',$postIds);
         return $posts;
+    }
+
+    public function getProduct(){
+        return Mage::registry('current_product');
     }
 }
