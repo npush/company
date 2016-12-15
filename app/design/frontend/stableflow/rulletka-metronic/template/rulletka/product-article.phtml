@@ -36,10 +36,10 @@
                         <!--<span class="bold">Источник:</span> <a href="http://gost.kiev.ua/">http://gost.kiev.ua/</a>-->
                     </div>
                     <div class="cbp-l-grid-projects-desc cbp-min">
-                        <span class="bold">Просмотров:</span> <?php echo $_post->getViews(); ?>
+                        <span class="bold"><?php echo $this->__('Views')?>:</span> <?php echo $_post->getViews(); ?>
                     </div>
                     <div class="cbp-l-grid-projects-desc cbp-min">
-                        <span class="bold">Комментариев:</span> 0
+                        <span class="bold"><?php echo $this->__('Comments')?>:</span> <?php echo $this->getCommetCount($_post->getId());?>
                     </div>
                 </div>
             </div>

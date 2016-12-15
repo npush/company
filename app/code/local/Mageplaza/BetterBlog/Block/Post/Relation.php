@@ -43,4 +43,12 @@ class Mageplaza_BetterBlog_Block_Post_Relation extends Mage_Core_Block_Template{
         }
         return $this->_product;
     }
+
+    public function getCommetCount($postId){
+        $count = Mage::getModel('mageplaza_betterblog/post_comment')->getCollection()
+            ->addFieldToFilter('post_id', $postId)
+            ->addFieldToFilter('status', Mageplaza_BetterBlog_Model_Post_Comment::STATUS_APPROVED)
+            ->count();
+        return $count ? $count : 0;
+    }
 }
