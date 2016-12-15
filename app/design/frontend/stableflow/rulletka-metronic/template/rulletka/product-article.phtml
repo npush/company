@@ -8,7 +8,7 @@
 ?>
 
 <?php $_posts = $this->getPosts(); ?>
-<?php if ($_posts->getSize() > 0) :?>
+<?php if ($_posts && $_posts->getSize() > 0) :?>
     <div class="portfolio-article">
         <?php foreach($_posts as $_post):?>
             <div class="cbp-item ">

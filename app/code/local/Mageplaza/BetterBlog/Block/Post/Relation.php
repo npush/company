@@ -27,7 +27,7 @@ class Mageplaza_BetterBlog_Block_Post_Relation extends Mage_Core_Block_Template{
     }
 
     public function getPosts(){
-        if(is_null($this->_posts)) {
+        if(is_null($this->_posts) && $this->_postIds) {
             $this->_posts = Mage::getResourceModel('mageplaza_betterblog/post_collection')
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->addAttributeToSelect('*')
