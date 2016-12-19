@@ -21,19 +21,15 @@ array_multisort($files, SORT_NATURAL);
 
 try {
     foreach ($files as $_file){
-        $api = Mage::getModel('api_import/import_api');
-
         $file = fopen('var/importexport/products_small/' . $_file, 'r');
         printf("Importing: %s \n", $_file);
         $entities = array();
-        print_r($entities);
         $header = fgetcsv($file);
         while ($row = fgetcsv($file)) {
             $entities[] = array_combine($header, $row);
         }
-        $api->importEntities($entities);
+        Mage::getModel('api_import/import_api')->importEntities($entities);
         fclose($file);
-        unset($api);
     }
 } catch (Mage_Api_Exception $e) {
     printf("%s: %s\n", $e->getMessage(), $e->getCustomMessage());
