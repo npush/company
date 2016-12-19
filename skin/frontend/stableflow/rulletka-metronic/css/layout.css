@@ -903,6 +903,7 @@ li .sub-menu .title {
       /* Sidebar Closed */
     .page-sidebar-closed .page-sidebar {
       width: 107px !important; 
+      min-width: 107px !important;
     }
 
     .nav-link {
@@ -1953,6 +1954,16 @@ label.control-label {
 .bnt-block {
   padding:0 28px;
   margin-bottom: 40px;
+}
+
+
+.bnt-block .btn.default a {
+  color: #c4c4c4;
+}
+
+.bnt-block .btn.default a:hover, .bnt-block .btn.default a:focus {
+  color: #fff;
+  text-decoration: none;
 }
 .page-sidebar-closed .bnt-block  {
   display:none;
