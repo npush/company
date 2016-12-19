@@ -1954,6 +1954,14 @@ label.control-label {
   padding:0 28px;
   margin-bottom: 40px;
 }
+
+
+.bnt-block .btn.default {
+  color: #c4c4c4;
+}
+.bnt-block .btn.default:hover, .bnt-block .btn.default:focus {
+  color: #c4c4c4;
+}
 .page-sidebar-closed .bnt-block  {
   display:none;
 }
