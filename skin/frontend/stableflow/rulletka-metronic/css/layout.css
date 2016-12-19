@@ -1956,11 +1956,12 @@ label.control-label {
 }
 
 
-.bnt-block .btn.default {
+.bnt-block .btn.default a {
   color: #c4c4c4;
 }
-.bnt-block .btn.default:hover, .bnt-block .btn.default:focus {
-  color: #c4c4c4;
+.bnt-block .btn.default a:hover, .bnt-block .btn.default a:focus {
+  color: #fff;
+  text-decoration: none;
 }
 .page-sidebar-closed .bnt-block  {
   display:none;
