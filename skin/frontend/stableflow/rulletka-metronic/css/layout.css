@@ -4981,7 +4981,7 @@ li.level0:after {
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     /* remove line to customize scrollbar in iOs */
-    width:auto !important;
+
     min-width: 107px !important;
     max-width: 465px !important;
 
