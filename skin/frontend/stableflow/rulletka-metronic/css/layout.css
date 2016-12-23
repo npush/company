@@ -793,7 +793,7 @@ li .sub-menu .title {
 }
 
 @media (min-width: 992px) {
-  .page-sidebar-closed .min-sidebar {
+  .page-sidebar-closed .min-sidebar, .page-sidebar-closed .phone-number {
     display:none;
   }
 }
@@ -2105,7 +2105,7 @@ label.control-label {
 
 @media (min-width: 992px) {
   .page-sidebar-closed .basket {
-      margin-top: 65px;
+      margin-top:0px;
       padding: 0 11px;
   }
 }
