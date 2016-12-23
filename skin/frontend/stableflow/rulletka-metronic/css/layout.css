@@ -846,13 +846,13 @@ li .sub-menu .title {
 }
 
 @media (min-width: 992px) {
-  
+
   .page-sidebar-closed .min-sidebar, .page-sidebar-closed .phone-number {
     display:none !important;
   }
 
   .page-sidebar-closed .contact-menu {
-    padding: 5px 0 30px 0;
+    padding: 20px 0 30px 0;
   }
 
   .page-sidebar-closed .page-sidebar.collapse {
