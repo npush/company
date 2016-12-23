@@ -794,8 +794,13 @@ li .sub-menu .title {
 
 @media (min-width: 992px) {
   .page-sidebar-closed .min-sidebar, .page-sidebar-closed .phone-number {
-    display:none;
+    display:none !important;
   }
+
+  .contact-menu {
+    padding: 5px 0 30px 0;
+  }
+
 }
 
 
@@ -831,7 +836,7 @@ li .sub-menu .title {
     margin-top: 172px;
   }
   .page-sidebar-closed .page-sidebar.collapse {
-    margin-top: 129px;
+    margin-top: 50px;
   }
 
   .page-logo.underline:before {
@@ -2060,7 +2065,7 @@ label.control-label {
     min-width: 160px;
 }
 .page-sidebar-closed .page-header.navbar .page-logo {
-    height: 208px;
+    height: 120px;
 }
 
 .contact-menu .icon {
