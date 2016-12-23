@@ -792,17 +792,6 @@ li .sub-menu .title {
   opacity: 1; 
 }
 
-@media (min-width: 992px) {
-  .page-sidebar-closed .min-sidebar, .page-sidebar-closed .phone-number {
-    display:none !important;
-  }
-
-  .contact-menu {
-    padding: 5px 0 30px 0;
-  }
-
-}
-
 
 @media (min-width: 1401px) {
   .page-sidebar {
@@ -835,9 +824,6 @@ li .sub-menu .title {
   .page-sidebar.collapse {
     margin-top: 172px;
   }
-  .page-sidebar-closed .page-sidebar.collapse {
-    margin-top: 50px;
-  }
 
   .page-logo.underline:before {
     width: 305px;
@@ -860,7 +846,20 @@ li .sub-menu .title {
 }
 
 @media (min-width: 992px) {
-  /* 992px */
+  
+  .page-sidebar-closed .min-sidebar, .page-sidebar-closed .phone-number {
+    display:none !important;
+  }
+
+  .page-sidebar-closed .contact-menu {
+    padding: 5px 0 30px 0;
+  }
+
+  .page-sidebar-closed .page-sidebar.collapse {
+    margin-top: 50px;
+  }
+
+   /* 992px */
 
     .page-sidebar-closed  .contact-menu span, 
     .page-sidebar-closed .contact-menu .icon,
