@@ -3479,6 +3479,20 @@ input[type="checkbox"], input[type="radio"] {
   font-size: 11px;  
 }
 
+.link-sm {
+  cursor: pointer;
+  color: #255e95;
+  font-weight: bold;
+  padding: 2px 7px;
+  font-size: 11px;
+}
+
+.link-sm i {
+  font-size: 9px;
+  padding: 0 5px;
+  font-weight: bold;
+}
+
 .modal .checkbox-group {
   white-space: nowrap;
   font-size: 13px;
