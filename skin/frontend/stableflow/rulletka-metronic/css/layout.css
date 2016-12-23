@@ -4982,9 +4982,6 @@ li.level0:after {
     overflow-x: hidden;
     /* remove line to customize scrollbar in iOs */
 
-    min-width: 107px !important;
-    max-width: 465px !important;
-
 }
 .baron__scroller::-webkit-scrollbar {
     width: 0;
