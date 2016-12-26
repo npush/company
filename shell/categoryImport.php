@@ -24,7 +24,6 @@ class Mage_Shell_CategoryImport extends Mage_Shell_Abstract{
         if ($this->getArg('file')) {
             $path = $this->getArg('file');
             echo 'reading data from ' . $path . PHP_EOL;
-            $file = fopen($path, 'r');
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
                     $this->createCategory($data);
@@ -80,6 +79,7 @@ class Mage_Shell_CategoryImport extends Mage_Shell_Abstract{
             $category->setIncludeInMenu(1);
             $category->setStoreId(Mage::app()->getStore()->getId());
             $category->setAttributeSetId($this->_getAttributeSetId());
+            $category->setCreatedAt(Varien_Date::now());
             $category->save();
         } catch(Exception $e) {
             var_dump($e);
