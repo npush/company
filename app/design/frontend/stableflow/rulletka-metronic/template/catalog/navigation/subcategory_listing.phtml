@@ -40,19 +40,12 @@ $_helper    = $this->helper('catalog/output');
                                     <?php if($_childCategory->hasChildren()): ?>
                                         <?php foreach($_childCategory->getChildrenCategories() as $_category): ?>
                                             <?php if($_category->hasChildren()): ?>
-                                                <p class="text-transform"><?php echo $this->htmlEscape($_category->getName()); ?> (<?php echo $_category->getProductCount()?>):</p>
-                                                <ul class="ul-outside display-inline">
-                                                    <?php $childrenCategoryIds = explode(',', $_category->getChildren()); ?>
-                                                    <?php foreach($childrenCategoryIds as $_childId): ?>
-                                                        <?php $childCategory = Mage::getModel('catalog/category')->load($_childId); ?>
-                                                        <?php if($childCategory->getIsActive()): ?>
-                                                            <li><a href="<?php echo $childCategory->getUrlPath()?>"><?php echo $this->htmlEscape($childCategory->getName()) ?></a></li>
-                                                        <?php endif ?>
-                                                    <?php endforeach; ?>
-                                                </ul>
+                                                <p class="text-transform"><a href="<?php echo $_category->getUrl();?>"><?php echo $this->htmlEscape($_category->getName()); ?></a> (<?php echo $_category->getProductCount()?>):</p>
+                                                <!-- print recursion -->
+                                                <?php echo $this->getRecursionChild($_category);?>
                                             <?php else: ?>
                                                 <ul class="display-inline">
-                                                    <li><a href="<?php echo $_category->getUrl()?>"><?php echo $this->htmlEscape($_category->getName()) ?></a> (<?php echo $_category->getProductCount()?>)</li>
+                                                    <li><p class="text-transform"><a href="<?php echo $_category->getUrl()?>"><?php echo $this->htmlEscape($_category->getName()) ?></a> (<?php echo $_category->getProductCount()?>)</p></li>
                                                 </ul>
                                             <?php endif; ?>
                                         <?php endforeach ;?>

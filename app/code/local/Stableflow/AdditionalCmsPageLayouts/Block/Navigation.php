@@ -14,4 +14,20 @@ class Stableflow_AdditionalCmsPageLayouts_Block_Navigation extends Mage_Catalog_
     protected function _construct(){
 
     }
+
+    public function getRecursionChild($_category){
+        $text = '<ul class="ul-outside">';
+        $childrenCategoryIds = explode(',', $_category->getChildren());
+        foreach($childrenCategoryIds as $_childId) {
+            $childCategory = Mage::getModel('catalog/category')->load($_childId);
+            if ($childCategory->getIsActive()) {
+                $text .= '<li><a href="' . $childCategory->getUrlPath() . '">' . $this->htmlEscape($childCategory->getName()) . '</a></li>';
+            }
+            if($childCategory->hasChildren()){
+                $text .= '<li class="list-unstyled">' . $this->getRecursionChild($childCategory) . '</li>';
+            }
+        }
+        $text .= '</ul>';
+        return $text;
+    }
 }

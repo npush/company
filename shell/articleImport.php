@@ -36,9 +36,12 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
             echo 'reading data from ' . $path . PHP_EOL;
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
-                    $this->createPost($data);
-                    //$this->createCategory($data[1]);
-                    //print_r($this->_parseArticle($data[2]));
+                    if((int)$data[self::POST_ID]){
+                        printf("Create post ID: %d \n", $data[self::POST_ID]);
+                        $this->createPost($data);
+                        //$this->createCategory($data[1]);
+                        //print_r($this->_parseArticle($data[2]));
+                    }
                 }
                 fclose($file);
             }
@@ -49,7 +52,7 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
     }
 
     public function createPost($_post){
-        var_dump($_post);
+        //var_dump($_post);
         /** @var  $model Mageplaza_BetterBlog_Model_Post  */
         $model = Mage::getModel('mageplaza_betterblog/post');
         $categoryIds = array();
