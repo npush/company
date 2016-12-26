@@ -33,16 +33,28 @@
 ?>
 
 
-<?php foreach ($this->getItems() as $_item): ?>
-    <div class="checkbox-group">
-    	
-	        <?php if ($_item->getCount() > 0): ?>
-	        <a class="checkbox-label" href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
-	        <?php else: echo $_item->getLabel() ?>
-	        <?php endif; ?>
-	        <?php if ($this->shouldDisplayProductCount()): ?>
-	        (<?php echo $_item->getCount() ?>)
-	        <?php endif; ?>
-    	
+<?php
+$i = 0;
+foreach ($this->getItems() as $_item):
+    ?>
+    <div class="checkbox-group <?= $i < 5 ? '' : 'hidden' ?>">
+        <?php if ($_item->getCount() > 0): ?>
+            <a class="checkbox-label" href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
+        <?php else: echo $_item->getLabel() ?>
+        <?php endif; ?>
+        <?php if ($this->shouldDisplayProductCount()): ?>
+            (<?php echo $_item->getCount() ?>)
+        <?php endif; ?>
     </div>
-<?php endforeach ?>
+    <?php
+    $i++;
+endforeach
+?>
+<?php if ($i > 4) {
+    ?>
+    <span style="cursor:pointer" class="js-show-more-filters link-sm">Показать еще <i class="icon icon-arrow-point-down"></i></span>
+    <span style="cursor:pointer" class="js-hide-more-filters hidden link-sm">Скрыть</span>
+    <?php
+}
+?>
+
