@@ -19,7 +19,6 @@ if ($handle = opendir('var/importexport/products')) {
 }
 array_multisort($files, SORT_NATURAL);
 
-try {
     foreach ($files as $_file){
         $file = fopen('var/importexport/products/' . $_file, 'r');
         printf("Importing: %s \n", $_file);
@@ -28,9 +27,11 @@ try {
         while ($row = fgetcsv($file)) {
             $entities[] = array_combine($header, $row);
         }
-        Mage::getModel('api_import/import_api')->importEntities($entities);
-        fclose($file);
+        try {
+            Mage::getModel('api_import/import_api')->importEntities($entities);
+            fclose($file);
+        }catch (Mage_Api_Exception $e) {
+            printf("%s: %s\n", $e->getMessage(), $e->getCustomMessage());
+        }
     }
-} catch (Mage_Api_Exception $e) {
-    printf("%s: %s\n", $e->getMessage(), $e->getCustomMessage());
-}
+
