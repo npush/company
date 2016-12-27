@@ -33,6 +33,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
 <head>
 <?php echo $this->getChildHtml('head') ?>
+
+<!--[if gt IE 7]>
+  <style type="text/css">
+  p {
+    color:red;  
+  }
+  body {
+    display:none;
+
+  }
+   #old {
+  display: block !important;
+   }
+  </style>
+<![endif]-->
+
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
 
