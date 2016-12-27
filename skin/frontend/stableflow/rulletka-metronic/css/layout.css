@@ -2947,7 +2947,7 @@ input[type="checkbox"], input[type="radio"] {
   min-width:125px;
 }
 
-.ul-outside li {
+.ul-outside  li {
   position:relative;
   color:#595959;
   margin-right: 7px;
@@ -2973,6 +2973,9 @@ input[type="checkbox"], input[type="radio"] {
   -o-border-radius: 50%;
   border-radius: 50%; 
   background-color:#255e95;
+}
+.ul-outside .ul-outside li:before {
+  display: none;
 }
 
 .ul-dashed li {
