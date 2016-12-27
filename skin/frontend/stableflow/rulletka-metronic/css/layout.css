@@ -3153,8 +3153,8 @@ input[type="checkbox"], input[type="radio"] {
   color: #333;
 }
 .panel-list .accordion-toggle.text-transform::before {
-    top: -3px;
-    font: 21px FontAwesome;
+    top: 0px;
+    font: 19px FontAwesome;
 }
 
 .panel-list .panel-heading {
