@@ -81,7 +81,7 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_css</type><name>css/portfolio.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/layout.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/darkblue.css</name></action>
-                <!--[if lte IE 9]> Для просмотра сайта Rulletka используйте. пожалуйста, версии браузера 10,11 <![endif]-->
+
             </block>
 
             <block type="core/text_list" name="after_body_start" as="after_body_start" translate="label">
