@@ -5175,10 +5175,10 @@ li.level0:after {
   margin-top:20px;
 }
 
-#modern-browser li.ie8{background:url('images/big-ie8.gif') no-repeat 5px top;}
-#modern-browser li.chrome{background:url('images/big-chrome.gif') no-repeat 15px top;}
-#modern-browser li.opera{background:url('images/big-opera.gif') no-repeat left top;}
-#modern-browser li.firefox{background:url('images/big-firefox.gif') no-repeat 10px top;}
+#modern-browser li.ie8{background:url('../images/big-ie8.gif') no-repeat 5px top;}
+#modern-browser li.chrome{background:url('../images/big-chrome.gif') no-repeat 15px top;}
+#modern-browser li.opera{background:url('../images/big-opera.gif') no-repeat left top;}
+#modern-browser li.firefox{background:url('../images/big-firefox.gif') no-repeat 10px top;}
 
 #modern-browser h2
 {
@@ -5199,10 +5199,10 @@ li.level0:after {
   margin:0;
 }
 
-#modern-browser .file li.microsoft{background:url('images/fav-ie.gif') no-repeat left;}
-#modern-browser .chrome .file li{background:url('images/fav-chrome.gif') no-repeat left;}
-#modern-browser .opera .file li{background:url('images/fav-opera.gif') no-repeat left;}
-#modern-browser .firefox .file li{background:url('images/fav-firefox.gif') no-repeat left;}
+#modern-browser .file li.microsoft{background:url('../images/fav-ie.gif') no-repeat left;}
+#modern-browser .chrome .file li{background:url('../images/fav-chrome.gif') no-repeat left;}
+#modern-browser .opera .file li{background:url('../images/fav-opera.gif') no-repeat left;}
+#modern-browser .firefox .file li{background:url('../images/fav-firefox.gif') no-repeat left;}
 
 .descriptiontext
 {
