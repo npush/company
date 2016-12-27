@@ -26,7 +26,7 @@ $_helper    = $this->helper('catalog/output');
                                     <a class="accordion-toggle accordion-toggle-styled collapsed " data-toggle="collapse"  aria-expanded="false" data-parent="#accordion3" href="#collapse_3_<?php echo $_childCategory->getId()?>"> <?php echo $this->htmlEscape($_childCategory->getName()) ?> </a>
                                 </h4>
                             </div>
-                            <div id="collapse_3_<?php echo $_childCategory->getId()?>" class="panel-collapse <?php echo $i ? ' in' : ' collapse'; ?>">
+                            <div id="collapse_3_<?php echo $_childCategory->getId()?>" class="panel-collapse collapsed <?php echo $i ? ' in' : ' collapse'; ?>" aria-expanded="false">
                                 <div class="panel-body">
                                     <div class="img-catalog">
                                         <!--<img class="img-responsive" src="<?php /*echo $_category->getImageUrl()*/?>" alt="<?php /*$this->htmlEscape($_category->getName());*/?>" title="<?php /*$this->htmlEscape($_category->getName());*/?>"/>-->
