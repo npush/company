@@ -25,5 +25,26 @@
                 </page_two_columns_top>
             </layouts>
         </page>
+        <!--<resources>
+            <manufacturer_attribute_setup>
+                <setup>
+                    <module>Manufacturer_Number_Attribute</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </manufacturer_attribute_setup>
+            <manufacturer_attribute_setup_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </manufacturer_attribute_setup_write>
+            <manufacturer_attribute_setup_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </manufacturer_attribute_setup_read>
+        </resources>-->
     </global>
 </config>
