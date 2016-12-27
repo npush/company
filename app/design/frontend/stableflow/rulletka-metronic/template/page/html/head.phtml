@@ -52,13 +52,28 @@
 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 <!--end favicon -->
-<!--[if lt IE 7]>
+
+<!--[if lt IE 10]>
+
+<style type="text/css">
+
+#old {
+display: block !important;
+position: fixed;
+}
+
+.wrapper {
+display: none !important;	
+}
+</style>
+
 <script type="text/javascript">
 //<![CDATA[
     var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
     var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
 //]]>
 </script>
+
 <![endif]-->
 
 
@@ -67,3 +82,4 @@
 <?php echo $this->getChildHtml() ?>
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
 <?php echo $this->getIncludes() ?>
+
