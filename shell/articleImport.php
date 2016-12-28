@@ -37,12 +37,12 @@ class Mage_Shell_ArticleImport extends Mage_Shell_Abstract{
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
                     if((int)$data[self::POST_ID]){
-                        //printf("Create post ID: %d \n", $data[self::POST_ID]);
-                        //$this->createPost($data);
+                        printf("Create post ID: %d \n", $data[self::POST_ID]);
+                        $this->createPost($data);
 
                         //print_r($this->_parseArticle($data[2]));
                     }
-                    $this->createCategory($data[1]);
+                    //$this->createCategory($data[1]);
                 }
                 fclose($file);
             }
