@@ -5219,4 +5219,24 @@ li.level0:after {
   border-width:0px; /* Убрать рамки вокруг элемента */
 }
 
+/* -------------------------------------------- *
+ * Product Image
+ */
+.product-image,
+.no-touch .product-img-box .product-image:not(.zoom-available):hover {
+    position: relative;
+    display: block;
+    border: 1px solid #ededed;
+}
+
+@media only screen and (max-width: 770px) {
+    body .product-img-box .product-image:hover {
+        border-color: #ededed;
+    }
+}
+.no-touch .product-image:hover {
+    border-color: #3399cc;
+}
+
+
 /* /IE */
