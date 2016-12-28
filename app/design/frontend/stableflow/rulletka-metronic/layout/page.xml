@@ -72,6 +72,7 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_js</type><name>js/input-number.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/baron.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/baron-script.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/media-gallery.js</name></action>
 
                 <action method="addItem"><type>skin_css</type><name>fonts/osans.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/font-awesome.min.css</name></action>
