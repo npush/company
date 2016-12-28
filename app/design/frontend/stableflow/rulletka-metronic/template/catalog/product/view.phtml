@@ -16,86 +16,160 @@
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
 <script type="text/javascript">
-    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+    //var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
 <div class="portlet light portlet-fit bordered">
-    <div class="portlet-title">
-    </div>
+    <div class="portlet-title"></div>
     <div class="portlet-body ">
-
-        <div class="timeline timeline-product">
-            <!-- TIMELINE ITEM -->
-            <?php include "product-view-image_block.phtml"?>
-            <div class="timeline-body clearfix">
-                <div class="timeline-body-head">
-                    <div class="timeline-body-head-caption">
-                        <a class="timeline-body-title font-blue-madison" href="javascript:;">СВЕТОДИОДНЫЙ LED СВЕТИЛЬНИК ВЫСОКОГО ПОДВЕСА HIGH BAY 50W (80W, 100w, 120W, 150w, 200w)</a>
-                    </div>
-                </div>
-                <?php include "product-view-raiting.phtml"?>
-                <div class="timeline-body-content">
-                    <div class="timeline-conten-min-width txt-link margin-bottom-lg">Вы можете заказать товар прямо сейчас на нашем сайте! Наши специалисты подберут то, что Вас интересует по минимальной цене и с минимальной стоимостью доставки специально для Вас!</div>
-                    <p>Сверхяркий 150-ваттный светильник High Bay от Edison Opto предназначен для решения задач промышленного освещения
-                        и обеспечивает световой поток в 12000лм. Заменяет галогенный светильник мощностью 600 ватт. Срок окупаемости в среднем составляет 1,5-2 года в зависимости от времени работы светильника.  Светильник выглядит как традиционный фонарь High Bay, но будучи построен на базе светодиодов, он способен обеспечить существенную экономию </p>
-                    <a href="" class="link-underline timeline-icon">Развернуть<i class="icon icon-arrow-point-down"></i></a>
-                    <div class="row margin-top-biggest">
-                        <div class="col-md-6 col-sm-6">
-                            <ul class="list-icon-navs">
-                                <li>
-                                    <a href=""><i class="icon icon-home"></i>использование в дизайне</a>
-                                </li>
-                                <li>
-                                    <a href=""><i class="icon icon-photo"></i>3 фото / видео</a>
-                                </li>
-                                <li>
-                                    <a href=""><i class="icon icon-comments"></i>3 комментария</a>
-                                </li>
-                            </ul>
+        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <div class="no-display">
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                <input type="hidden" name="related_product" id="related-products-field" value="" />
+            </div>
+            <div class="timeline timeline-product">
+                <!-- TIMELINE ITEM -->
+                <?php echo $this->getChildHtml('media') ?>
+                <div class="timeline-body clearfix">
+                    <div class="timeline-body-head">
+                        <div class="timeline-body-head-caption">
+                            <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name');?></a>
                         </div>
-                        <div class="col-md-6 col-sm-6 text-right">
-                            <div class="basket-number basket-number-lg">2 240 <span>грн</span></div>
-                            <a href="" class="link-underline">Попросить скидку</a>
-                            <div class="clearfix margin-top-min">
-                                <button class="btn btn-default-none btn-lg  border-radius-none margin-top-min" type="button">В наличии</button>
-                                <button class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button"><i class="icon icon-shopping-cart"></i></button>
-                                <button class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button">купить сейчас</button>
+                    </div>
+                    <!-- product-view-rating.phtml -->
+                    <div class="timeline-btn-product display-inline">
+                        <div class="btn yellow-mint btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask about product')?></div>
+                        <?php echo $this->getChildHtml('product-rating') ?>
+                    </div>
+                        <div class="timeline-body-content">
+                        <div class="timeline-conten-min-width txt-link margin-bottom-lg"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_view_notice')->toHtml();?> </div>
+                        <?php if ($_product->getShortDescription()):?>
+                            <div class="short-description">
+                                <h2><?php echo $this->__('Quick Overview') ?></h2>
+                                <p><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></p>
+                            </div>
+                        <?php endif;?>
+                        <div class="row margin-top-biggest">
+                            <div class="col-md-6 col-sm-6">
+                                <ul class="list-icon-navs">
+                                    <li>
+                                        <a href=""><i class="icon icon-home"></i><?php echo $this->__('Use in the design')?></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="icon icon-photo"></i><?php echo $this->__('Photo / Video')?></a>
+                                    </li>
+                                    <li>
+                                        <a href=""><i class="icon icon-comments"></i><?php echo $this->__('Comment`s')?></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-sm-6 text-right">
+                                <div class="basket-number basket-number-lg"><?php echo $this->getChildHtml('product_type_data') ?></div>
+                                <a data-toggle="modal" data-product-name="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="link-underline"><?php echo $this->__('Ask for discount')?></a>
+                                <div class="clearfix margin-top-min">
+                                    <div class="add-to-box">
+                                        <?php if($_product->isSaleable()): ?>
+                                            <?php echo $this->getChildHtml('addtocart') ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
+                </div>
+                <!-- END TIMELINE ITEM -->
+            </div>
+        </form>
+        <!-- Tabs content -->
+        <div class="tabbable tabbable-tabdrop">
+            <div id="tabs">
+                <ul class="nav nav-tabs">
+                    <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $groupTab => $html):?>
+                        <li>
+                            <?php
+                            if ($title = $this->getChildData($groupTab, 'title'));
+                            else
+                                $title = $groupTab;
+                            ?>
+                            <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($title); ?></a>
+                            <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <div class="tab-content">
+                    <?php echo $html_render; ?>
                 </div>
             </div>
-            <!-- END TIMELINE ITEM -->
+            <script  type="text/javascript">
+                //<![CDATA[
+                jQuery(document).ready(function(){
+                    jQuery( "#tabs" ).tabs();
+                });
+                //]]>
+            </script>
         </div>
-
-        <div class="tabbable tabbable-tabdrop">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#tab1" data-toggle="tab">описание товара</a>
-                </li>
-                <li>
-                    <a href="#tab2" data-toggle="tab">предложения (2)</a>
-                </li>
-                <li>
-                    <a href="#tab3" data-toggle="tab">отзывы (3)</a>
-                </li>
-                <li>
-                    <a href="#tab4" data-toggle="tab" onclick="initPortfolio()">Галерея (5)</a>
-                </li>
-                <li>
-                    <a href="#tab5" data-toggle="tab" onclick="initPortfolioTwo()">Статьи (6)</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <?php include "product-view-tab_1.phtml"?>
-                <?php include "product-view-tab_2.phtml"?>
-                <?php include "product-view-tab_3.phtml"?>
-                <?php include "product-view-tab_4.phtml"?>
-                <?php include "product-view-tab_5.phtml"?>
+        <!-- END Tabs content -->
+        <div class="row row-margin">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <a class="btn btn-sm yellow btn-width" href="<?php echo Mage::getModel('catalog/category')->load($_product->getCategoryIds()[0])->getUrl();?>">
+                        <i class="icon icon-arrows_left left-pull"></i>
+                        <?php echo $this->__('Back to catalog');?>
+                    </a>
+                </div>
             </div>
         </div>
 
+        <script type="text/javascript">
+            //<![CDATA[
+            var productAddToCartForm = new VarienForm('product_addtocart_form');
+            productAddToCartForm.submit = function(button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+
+                    if (url) {
+                        form.action = url;
+                    }
+                    var e = null;
+                    try {
+                        this.form.submit();
+                    } catch (e) {
+                    }
+                    this.form.action = oldUrl;
+                    if (e) {
+                        throw e;
+                    }
+
+                    if (button && button != 'undefined') {
+                        button.disabled = true;
+                    }
+                }
+            }.bind(productAddToCartForm);
+
+            productAddToCartForm.submitLight = function(button, url){
+                if(this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    // Remove custom datetime validators
+                    for (var methodName in Validation.methods) {
+                        if (methodName.match(/^validate-datetime-.*/i)) {
+                            delete Validation.methods[methodName];
+                        }
+                    }
+
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(productAddToCartForm);
+            //]]>
+        </script>
     </div>
 </div>

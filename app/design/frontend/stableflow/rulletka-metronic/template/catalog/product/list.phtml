@@ -64,7 +64,7 @@
                             <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" class="timeline-badge-userpic"
                                  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
                             <div class="label-product clearfix">
-                                <?php $stats = explode(',', $_product->getResource()->getAttribute('product_state')->getFrontend()->getValue($_product)); ?>
+                                <?php $stats = null;//explode(',', $_product->getResource()->getAttribute('product_state')->getFrontend()->getValue($_product)); ?>
                                 <?php foreach($stats as $_state) :?>
                                     <?php switch(trim($_state)):
                                         case 'New': ?>
@@ -142,5 +142,6 @@
             </div>
         </div>
     </div>
+    <?php echo $this->getChildHtml('product_list_toolbar_pager');?>
 </div>
 <?php endif; ?>

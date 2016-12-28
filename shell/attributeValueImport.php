@@ -64,7 +64,7 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
                 'is_configurable' => '0', //boolean 0 or 1 - if this will be used as a super-attribute for configurable products
                 'is_filterable' => '1', //boolean 0 or 1 - if this should be used in the filtered navigation
                 'is_filterable_in_search' => '1', //boolean 0 or 1
-                'backend_type' => 'int', // the available values are int, varchar, boolean, text
+                'backend_type' => 'int', // the available values are int, varchar, text
                 'default_value' => '',
             );
             $labelText = trim($_data[0]);
