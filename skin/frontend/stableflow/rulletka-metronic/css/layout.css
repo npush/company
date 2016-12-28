@@ -2974,7 +2974,7 @@ input[type="checkbox"], input[type="radio"] {
   border-radius: 50%; 
   background-color:#255e95;
 }
-.ul-outside .ul-outside li:before {
+.ul-outside .ul-outside li:before, .ul-outside li.list-unstyled:before {
   display: none;
 }
 
