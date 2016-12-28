@@ -19,7 +19,7 @@
  * needs please refer to http://www.magento.com for more information.
  *
  * @category    design
- * @package     base_default
+ * @package     rwd_default
  * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
@@ -29,64 +29,48 @@
  *
  * @see Mage_Catalog_Block_Product_View_Media
  */
+
+/* @var $this Mage_Catalog_Block_Product_View_Media */
 ?>
 <?php
     $_product = $this->getProduct();
     $_helper = $this->helper('catalog/output');
 ?>
+<div class="product-image product-image-zoom">
+    <div class="product-image-gallery">
+        <img id="image-main"
+             class="gallery-image visible"
+             src="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>"
+             alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
+             title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>" />
 
-
-<div class="timeline-badge">
-    <a href="#modal_product"  data-toggle="modal" class="company-link">
-        <?php echo $this->getChildHtml('product-status')?>
-        <?php $_img = '<img id="image" class="timeline-badge-userpic" src="'. $this->helper('catalog/image')->init($_product, 'image').'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';?>
-        <?php echo $_helper->productAttribute($_product, $_img, 'image'); ?>
-    </a>
-    <?php echo $this->getChilHtml('tooltips');?>
-</div>
-
-<!-- Modal window -->
-<div class="modal fade draggable-modal" id="modal_product" tabindex="-1" role="basic" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
-            </div>
-            <div class="modal-body clearfix">
-                <div class="title-slider clearfix">
-                    <h4 class="modal-title"><?php echo $this->escapeHtml($_product->getName());?></h4>
-                </div>
-                <ul class="menu-slider display-inline">
-                    <li class="active"><a href=""><?php echo $this->__('All')?></a></li>
-                    <li><a href=""><?php echo $this->__('Photo')?></a></li>
-                    <li><a href=""><?php echo $this->__('Video')?></a></li>
-                </ul>
-                <ul class="pgwSlider">
-                    <?php foreach ($this->getGalleryImages() as $_image): ?>
-                        <?php if ($this->isGalleryImageVisible($_image)): ?>
-                            <li><img src="<?php echo $this->getGalleryImageUrl($_image); ?>"></li>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-        <!-- /.modal-content -->
+        <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+            <?php if ($this->isGalleryImageVisible($_image)): ?>
+            <img id="image-<?php echo $i; ?>"
+                 class="gallery-image"
+                 src="<?php echo $this->getGalleryImageUrl($_image); ?>"
+                 data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>" />
+            <?php endif; ?>
+        <?php $i++; endforeach; ?>
     </div>
-    <!-- /.modal-dialog -->
 </div>
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-        var modalProduct = jQuery('#modal_product');
-        modalProduct.on('shown.bs.modal', function() {
-            jQuery('.pgwSlider').pgwSlider({
-                autoSlide: false,
-                displayControls: true,
-                adaptiveHeight : true
-            });
-        });
-        modalProduct.on('hidden.bs.modal', function() {
-            jQuery('.pgwSlider').pgwSlider().destroy(true);
-        });
 
-    });
-</script>
+<?php if (count($this->getGalleryImages()) > 0): ?>
+<div class="more-views">
+    <h2><?php echo $this->__('More Views') ?></h2>
+    <ul class="product-image-thumbs">
+    <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+        <?php if ($this->isGalleryImageVisible($_image)): ?>
+        <li>
+            <a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>">
+                <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>"
+                     width="75" height="75" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+            </a>
+        </li>
+        <?php endif; ?>
+    <?php $i++; endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('after'); ?>
