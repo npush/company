@@ -38,30 +38,31 @@
                     </div>
                     <!-- product-view-rating.phtml -->
                     <div class="timeline-btn-product display-inline">
-                        <div class="btn yellow-mint btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask about product')?></div>
+                        <div class="btn yellow-mint btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
                         <?php echo $this->getChildHtml('product-rating') ?>
                     </div>
                         <div class="timeline-body-content">
                         <div class="timeline-conten-min-width txt-link margin-bottom-lg"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_view_notice')->toHtml();?> </div>
-                        <?php if ($_product->getShortDescription()):?>
+                        <?php if (null && $_product->getShortDescription()):?>
                             <div class="short-description">
                                 <h2><?php echo $this->__('Quick Overview') ?></h2>
                                 <p><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></p>
                             </div>
                         <?php endif;?>
+                        <?php echo $this->getChildHtml('attributes');?>
                         <div class="row margin-top-biggest">
                             <div class="col-md-6 col-sm-6">
-                                <ul class="list-icon-navs">
+                                <!--<ul class="list-icon-navs">
                                     <li>
-                                        <a href=""><i class="icon icon-home"></i><?php echo $this->__('Use in the design')?></a>
+                                        <a href=""><i class="icon icon-home"></i><?php /*echo $this->__('Use in the design')*/?></a>
                                     </li>
                                     <li>
-                                        <a href=""><i class="icon icon-photo"></i><?php echo $this->__('Photo / Video')?></a>
+                                        <a href=""><i class="icon icon-photo"></i><?php /*echo $this->__('Photo / Video')*/?></a>
                                     </li>
                                     <li>
-                                        <a href=""><i class="icon icon-comments"></i><?php echo $this->__('Comment`s')?></a>
+                                        <a href=""><i class="icon icon-comments"></i><?php /*echo $this->__('Comment`s')*/?></a>
                                     </li>
-                                </ul>
+                                </ul>-->
                             </div>
                             <div class="col-md-6 col-sm-6 text-right">
                                 <div class="basket-number basket-number-lg"><?php echo $this->getChildHtml('product_type_data') ?></div>

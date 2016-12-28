@@ -30,10 +30,14 @@
  * @see Mage_Catalog_Block_Product_View_Description
  */
 ?>
-<?php $_description = $this->getProduct()->getDescription(); ?>
+
+<?php $_product = $this->getProduct()?>
+<?php $_description = $_product->getDescription(); ?>
 <?php if ($_description): ?>
-    <h2><?php echo $this->__('Details') ?></h2>
-    <div class="std">
-        <?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_description, 'description') ?>
+    <div class="content-text ">
+        <p class="text-margin"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_product->getDescription(), 'description'); ?></p>
     </div>
+<?php else: ?>
+    <?php echo Mage::helper('catalog')->__('There are no description'); ?>
 <?php endif; ?>
+

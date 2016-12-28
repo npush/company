@@ -10,7 +10,7 @@ $_product = Mage::registry('current_product');
 $_helper = $this->helper('catalog/output');
 ?>
 <div class="label-product clearfix">
-    <?php $stats = explode(',', $_product->getResource()->getAttribute('product_state')->getFrontend()->getValue($_product)); ?>
+    <?php $stats = null; //explode(',', $_product->getResource()->getAttribute('product_state')->getFrontend()->getValue($_product)); ?>
     <?php //print_r($_product->getResource()->getAttribute('product_state')->getAttributeType());?>
     <?php foreach($stats as $_state) :?>
         <?php switch(trim($_state)):
