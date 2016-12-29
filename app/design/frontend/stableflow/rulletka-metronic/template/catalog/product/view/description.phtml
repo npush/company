@@ -34,7 +34,7 @@
 <?php $_product = $this->getProduct()?>
 <?php $_description = $_product->getDescription(); ?>
 <?php if ($_description): ?>
-    <div class="content-text ">
+    <div class="content-text content-description-outside">
         <p class="text-margin"><?php echo $this->helper('catalog/output')->productAttribute($this->getProduct(), $_product->getDescription(), 'description'); ?></p>
     </div>
 <?php else: ?>

@@ -2947,20 +2947,20 @@ input[type="checkbox"], input[type="radio"] {
   min-width:125px;
 }
 
-.ul-outside  li {
+.ul-outside  li, .content-description-outside ul li {
   position:relative;
   color:#595959;
   margin-right: 7px;
   padding-bottom: 7px;
   padding-left: 12px;
 }
-.ul-outside li a {
+.ul-outside li a, .content-description-outside ul li a {
   color:#595959;
 }
-.ul-outside li a:hover {
+.ul-outside li a:hover, .content-description-outside ul li a:hover {
   color:#255e95;
 }
-.ul-outside li:before {
+.ul-outside li:before, .content-description-outside ul li:before {
   content:"";
   position:absolute;
   left: 0;
@@ -2977,6 +2977,11 @@ input[type="checkbox"], input[type="radio"] {
 .ul-outside .ul-outside li:before, .ul-outside li.list-unstyled:before {
   display: none;
 }
+
+.content-description-outside ul {
+  margin-left: 14px;
+}
+
 
 .ul-dashed li {
   position:relative;
