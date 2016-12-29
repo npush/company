@@ -5259,36 +5259,36 @@ li.level0:after {
     height: 100%;
     display: none;
 }
-.product-vew.product-image-gallery:before {
+.product-vew .product-image-gallery:before {
     background-color: white;
     opacity: 0.8;
     z-index: 2;
 }
-.product-vew.product-image-gallery:after {
+.product-vew .product-image-gallery:after {
     background-image: url("../images/opc-ajax-loader.gif");
     background-repeat: no-repeat;
     background-position: center;
     z-index: 3;
 }
-.product-vew.product-image-gallery.loading {
+.product-vew .product-image-gallery.loading {
     position: relative;
 }
-.product-vew.product-image-gallery.loading:before, .product-image-gallery.loading:after {
+.product-vew .product-image-gallery.loading:before, .product-image-gallery.loading:after {
     display: block;
 }
 
-.product-vew.product-image-thumbs li {
+.product-vew .product-image-thumbs li {
     display: inline-block;
 }
-.product-vew.product-image-thumbs li:first-child {
+.product-vew .product-image-thumbs li:first-child {
     margin-left: -1px;
 }
-.product-vew.product-image-thumbs a {
+.product-vew .product-image-thumbs a {
     display: inline-block;
     border: 1px solid transparent;
 }
 
-.product-vew.no-touch .product-image-thumbs a:hover {
+.product-vew .no-touch .product-image-thumbs a:hover {
     border-color: #c7c7c7;
 }
 
