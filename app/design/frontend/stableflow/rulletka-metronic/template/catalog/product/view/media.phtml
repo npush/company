@@ -44,32 +44,52 @@
              alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
              title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>" />
 
-        <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
-            <?php if ($this->isGalleryImageVisible($_image)): ?>
-            <img id="image-<?php echo $i; ?>"
+        <?php /*$i=0; foreach ($this->getGalleryImages() as $_image): */?><!--
+            <?php /*if ($this->isGalleryImageVisible($_image)): */?>
+            <img id="image-<?php /*echo $i; */?>"
                  class="gallery-image"
-                 src="<?php echo $this->getGalleryImageUrl($_image); ?>"
-                 data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>" />
-            <?php endif; ?>
-        <?php $i++; endforeach; ?>
+                 src="<?php /*echo $this->getGalleryImageUrl($_image); */?>"
+                 data-zoom-image="<?php /*echo  $this->getGalleryImageUrl($_image); */?>" />
+            <?php /*endif; */?>
+        --><?php /*$i++; endforeach; */?>
+
+        <ul class="pgwSlider">
+            <?php foreach ($this->getGalleryImages() as $_image): ?>
+                <?php if ($this->isGalleryImageVisible($_image)): ?>
+                    <li><img src="<?php echo $this->getGalleryImageUrl($_image); ?>"></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
     </div>
 </div>
-<?php if (count($this->getGalleryImages()) > 0): ?>
+<?php /*if (count($this->getGalleryImages()) > 0): */?><!--
 <div class="product-vew more-views">
-    <h2><?php echo $this->__('More Views') ?></h2>
+    <h2><?php /*echo $this->__('More Views') */?></h2>
     <ul class="product-image-thumbs">
-    <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
-        <?php if ($this->isGalleryImageVisible($_image)): ?>
+    <?php /*$i=0; foreach ($this->getGalleryImages() as $_image): */?>
+        <?php /*if ($this->isGalleryImageVisible($_image)): */?>
         <li>
-            <a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>">
-                <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>"
-                     width="75" height="75" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+            <a class="thumb-link" href="#" title="<?php /*echo $this->escapeHtml($_image->getLabel()) */?>" data-image-index="<?php /*echo $i; */?>">
+                <img src="<?php /*echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); */?>"
+                     width="75" height="75" alt="<?php /*echo $this->escapeHtml($_image->getLabel()) */?>" />
             </a>
         </li>
-        <?php endif; ?>
-    <?php $i++; endforeach; ?>
+        <?php /*endif; */?>
+    <?php /*$i++; endforeach; */?>
     </ul>
 </div>
-<?php endif; ?>
+--><?php /*endif; */?>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('.pgwSlider').pgwSlider({
+            autoSlide: false,
+            displayControls: true,
+            adaptiveHeight : true
+        });
+
+    });
+</script>
 
 <?php echo $this->getChildHtml('after'); ?>
+
