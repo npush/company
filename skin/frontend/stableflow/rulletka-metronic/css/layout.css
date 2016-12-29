@@ -2978,6 +2978,11 @@ input[type="checkbox"], input[type="radio"] {
   display: none;
 }
 
+.content-description-outside ul {
+  margin-left: 14px;
+}
+
+
 .ul-dashed li {
   position:relative;
 }
