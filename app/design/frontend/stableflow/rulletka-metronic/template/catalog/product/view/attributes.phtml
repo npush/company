@@ -38,12 +38,14 @@
     <div class="content-text ">
         <!--<p class="text-margin"><?php /*echo $_helper->productAttribute($this->getProduct(), $_product->getDescription(), 'description') */?></p>-->
         <?php foreach ($_additional as $_data): ?>
+            <?php if($_data['value']):?>
             <p class="line-dashed">
                 <span class="dashed-style">
                     <b><?php echo $this->escapeHtml($this->__($_data['label'])) ?></b>
                 </span>
                 <?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?>
             </p>
+            <?php endif;?>
         <?php endforeach; ?>
     </div>
 <?php endif;?>

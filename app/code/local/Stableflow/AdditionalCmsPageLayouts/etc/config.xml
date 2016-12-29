@@ -12,6 +12,11 @@
                     <navigation>Stableflow_AdditionalCmsPageLayouts_Block_Navigation</navigation>
                 </rewrite>
             </catalog>
+            <catalog>
+                <rewrite>
+                    <product_view_attributes>Stableflow_AdditionalCmsPageLayouts_Block_Attributes</product_view_attributes>
+                </rewrite>
+            </catalog>
         </blocks>
         <page>
             <layouts>
