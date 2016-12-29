@@ -36,7 +36,7 @@
     $_product = $this->getProduct();
     $_helper = $this->helper('catalog/output');
 ?>
-<div class="product-image product-image-zoom">
+<div class="product-vew product-image product-image-zoom">
     <div class="company-link product-image-gallery">
         <img id="image-main"
              class="timeline-badge-userpic gallery-image visible"
@@ -55,7 +55,7 @@
     </div>
 </div>
 <?php if (count($this->getGalleryImages()) > 0): ?>
-<div class="more-views">
+<div class="product-vew more-views">
     <h2><?php echo $this->__('More Views') ?></h2>
     <ul class="product-image-thumbs">
     <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
