@@ -2451,9 +2451,6 @@ input[type="checkbox"], input[type="radio"] {
       width: 200px;
   }
 
-  .timeline.timeline-product .company-link {
-      height: 200px;
-  }
   .timeline.timeline-product  .timeline-body {
       margin-left: 220px;
   }
@@ -2499,9 +2496,6 @@ input[type="checkbox"], input[type="radio"] {
       width: 230px;
   }
 
-  .timeline.timeline-product .company-link {
-      height: 230px;
-  }
   .timeline.timeline-product  .timeline-body {
       margin-left: 250px;
   }
@@ -2512,10 +2506,6 @@ input[type="checkbox"], input[type="radio"] {
       width:100%;
       min-height: 270px;
       height:auto;
-  }
-
-  .timeline.timeline-product .company-link {
-      height: 270px;
   }
   .timeline.timeline-product  .timeline-body {
       margin-left: 0px;
