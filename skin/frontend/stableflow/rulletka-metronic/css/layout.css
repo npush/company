@@ -2380,11 +2380,11 @@ input[type="checkbox"], input[type="radio"] {
   position:absolute;
   color:#3f3f3f;
   left: 10px;
-  height:100%;
-  width:100%;
   top: 10px;
   z-index: 1;
   font: 30px "icomoon";
+  width: 30px;
+  height: 30px;
 
 }
 .timeline-product  .timeline-body {
@@ -4301,7 +4301,7 @@ ul.pgwSlider,
 .pgwSlider  ul {
     float: right;
     width: 38%;
-    padding: 0;
+    padding: 5px;
     list-style: none;
     margin: 0;
     margin-top: 30px;
@@ -4323,11 +4323,8 @@ ul.pgwSlider > li,
 
 .pgwSlider > .ps-list > li {
     border:1px solid #c2c2c2;
-    padding: 15px;
-    margin: 0 1px;
-}
-.pgwSlider > .ps-list > li:first-child {
-    margin-left:0;
+    padding: 5px;
+    margin: 1px;
 }
 
 ul.pgwSlider > li span,
@@ -4368,18 +4365,29 @@ ul.pgwSlider > li img,
     width: 60px;
     margin-top: -28px;
 }
+
+.pgwSlider .ps-current .ps-next, .pgwSlider .ps-current .ps-prev {
+    color: #5783ae;
+    cursor: pointer;
+    height: 30px;
+    position: absolute;
+    text-align: left;
+    top: 50%;
+    width: 30px;
+    margin-top: -15px;
+}
 .pgwSlider .ps-current .ps-prev {
-    left: 0;
+    left: 7px;
 }
 .pgwSlider .ps-current .ps-next {
-    right:0;
+    right:7px;
 }
 .pgwSlider .ps-current .ps-next:hover, .pgwSlider .ps-current .ps-prev:hover {
     color:#fdcb42;
 }
 .pgwSlider .ps-current .ps-next:before, .pgwSlider .ps-current .ps-prev:before {
     position: absolute;
-    font: 55px "icomoon";
+    font: 25px "icomoon";
     top: 0;
     left: 0;
 }
@@ -4436,12 +4444,12 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 .pgwSlider.narrow .ps-current .ps-prev {
     padding: 15px 15px 15px 12px;
-    top: 40%;
+    top: 50%;
 }
 
 .pgwSlider.narrow .ps-current .ps-next {
     padding: 15px 12px 15px 15px;
-    top: 40%;
+    top: 50%;
 }
 
 @media (max-width: 1500px) {
