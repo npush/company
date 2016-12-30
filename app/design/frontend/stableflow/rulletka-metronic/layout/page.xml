@@ -66,13 +66,14 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_js</type><name>js/app.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/jquery-ui.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/fliplightbox.min.js</name></action>
-                <action method="addItem"><type>skin_js</type><name>js/pgwslider.js</name></action>
+                <!--<action method="addItem"><type>skin_js</type><name>js/pgwslider.js</name></action>-->
                 <action method="addItem"><type>skin_js</type><name>js/layout.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/ui-modals.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/input-number.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/baron.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/baron-script.js</name></action>
                 <!--<action method="addItem"><type>skin_js</type><name>js/media-gallery.js</name></action>-->
+                <action method="addItem"><type>skin_js</type><name>js/lightslider.js</name></action>
 
                 <action method="addItem"><type>skin_css</type><name>fonts/osans.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/font-awesome.min.css</name></action>
@@ -82,6 +83,7 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>skin_css</type><name>css/portfolio.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/layout.css</name></action>
                 <action method="addItem"><type>skin_css</type><name>css/darkblue.css</name></action>
+                <action method="addItem"><type>skin_css</type><name>css/lightslider.css</name></action>
 
             </block>
 
