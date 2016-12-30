@@ -14,6 +14,7 @@
 .lightSlider {
     overflow: hidden;
     margin: 0;
+    min-height: 237px;
 }
 .lSSlideWrapper {
     max-width: 100%;
@@ -120,15 +121,22 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    text-align: center;
 }
 .lSSlideOuter .lSPager.lSGallery li {
     overflow: hidden;
     -webkit-transition: border-radius 0.12s linear 0s 0.35s linear 0s;
     transition: border-radius 0.12s linear 0s 0.35s linear 0s;
+    display: inline-block;
+    border:1px solid #c2c2c2;
+    padding: 3px;
+    margin: 1px;
+    width: 11% !important;
 }
 .lSSlideOuter .lSPager.lSGallery li.active, .lSSlideOuter .lSPager.lSGallery li:hover {
-    border-radius: 5px;
+    border-color: rgb(87, 131, 174);
 }
+
 .lSSlideOuter .lSPager.lSGallery img {
     display: block;
     height: auto;
@@ -144,30 +152,47 @@
 /* End of Gallery*/
 
 /* slider actions */
-.lSAction > a {
-    width: 32px;
-    display: block;
-    top: 50%;
-    height: 32px;
-    background-image: url('../img/controls.png');
+.lSAction .lSNext, .lSAction .lSPrev {
+    color: #5783ae;
     cursor: pointer;
+    height: 56px;
     position: absolute;
-    z-index: 99;
-    margin-top: -16px;
-    opacity: 0.5;
-    -webkit-transition: opacity 0.35s linear 0s;
-    transition: opacity 0.35s linear 0s;
+    text-align: left;
+    top: 50%;
+    width: 60px;
+    margin-top: -28px;
 }
-.lSAction > a:hover {
-    opacity: 1;
+
+.lSAction .lSNext, .lSAction .lSPrev {
+    color: #5783ae;
+    cursor: pointer;
+    height: 30px;
+    position: absolute;
+    text-align: left;
+    top: 50%;
+    width: 30px;
+    margin-top: -15px;
 }
-.lSAction > .lSPrev {
-    background-position: 0 0;
-    left: 10px;
+.lSAction .lSPrev {
+    left: 7px;
 }
-.lSAction > .lSNext {
-    background-position: -32px 0;
-    right: 10px;
+.lSAction .lSNext {
+    right:7px;
+}
+.lSAction .lSNext:hover, .lSAction .lSPrev:hover {
+    color:#fdcb42;
+}
+.lSAction .lSNext:before, .lSAction .lSPrev:before {
+    position: absolute;
+    font: 25px "icomoon";
+    top: 0;
+    left: 0;
+}
+.lSAction .lSNext:before {
+    content:"\e902";
+}
+.lSAction .lSPrev:before {
+    content:"\e901";
 }
 .lSAction > a.disabled {
     pointer-events: none;
@@ -227,8 +252,18 @@
 .lSSlideOuter.lSrtl .lightSlider, .lSSlideOuter.lSrtl .lSPager {
     padding-right: 0;
 }
-.lSSlideOuter .lightSlider > *,  .lSSlideOuter .lSGallery li {
+.lSSlideOuter .lightSlider > * {
+    display: inline-block;
+    margin: 10px auto;
+    vertical-align: top;
     float: left;
+}
+
+.lSSlideOuter .lightSlider img {
+    height: auto;
+    max-width: 100%;
+    display: block;
+    margin:auto;
 }
 .lSSlideOuter.lSrtl .lightSlider > *,  .lSSlideOuter.lSrtl .lSGallery li {
     float: right !important;

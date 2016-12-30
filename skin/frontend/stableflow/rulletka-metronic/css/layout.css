@@ -236,6 +236,13 @@ Page Header
 .navbar-form {
     margin: 16px 0px 10px 3%;
 }
+
+@media (max-width: 1400px) {
+  .top-menu .navbar-form {
+      margin: 16px 0px 45px 3%;
+  }
+}
+
 .page-header.navbar {
   width: 100%;
   padding: 0 20px 0 20px;
@@ -2451,9 +2458,6 @@ input[type="checkbox"], input[type="radio"] {
       width: 200px;
   }
 
-  .timeline.timeline-product .company-link {
-      height: 200px;
-  }
   .timeline.timeline-product  .timeline-body {
       margin-left: 220px;
   }
@@ -2499,9 +2503,6 @@ input[type="checkbox"], input[type="radio"] {
       width: 230px;
   }
 
-  .timeline.timeline-product .company-link {
-      height: 230px;
-  }
   .timeline.timeline-product  .timeline-body {
       margin-left: 250px;
   }
@@ -2512,10 +2513,6 @@ input[type="checkbox"], input[type="radio"] {
       width:100%;
       min-height: 270px;
       height:auto;
-  }
-
-  .timeline.timeline-product .company-link {
-      height: 270px;
   }
   .timeline.timeline-product  .timeline-body {
       margin-left: 0px;
@@ -4320,6 +4317,8 @@ ul.pgwSlider > li,
     padding: 5px;
     margin: 1px;
 }
+
+
 
 ul.pgwSlider > li span,
 .pgwSlider > .ps-list > li span {
