@@ -35,6 +35,9 @@
     $_productCollection=$this->getLoadedProductCollection();
     $_helper = $this->helper('catalog/output');
 ?>
+
+<?php echo $this->getChildHtml('category.child.list');?>
+
 <?php if(!$_productCollection->count()): ?>
 <div class="category-products">
     <div class="portlet light portlet-fit bordered portlet-full">
