@@ -114,8 +114,8 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
                     'is_comparable' => '1', //boolean 0 or 1
                     'is_used_for_promo_rules' => '0', //boolean 0 or 1
                     'is_html_allowed_on_front' => '1', //boolean 0 or 1
-                    'is_visible_on_front' => '0', //boolean 0 or 1 - if this should load in the product detail view
-                    'used_in_product_listing' => '0', //boolean 0 or 1 - if this should be loaded in the category or search listing
+                    'is_visible_on_front' => '1', //boolean 0 or 1 - if this should load in the product detail view
+                    'used_in_product_listing' => '1', //boolean 0 or 1 - if this should be loaded in the category or search listing
                     'used_for_sort_by' => '0', //boolean 0 or 1
                     'is_configurable' => '0', //boolean 0 or 1 - if this will be used as a super-attribute for configurable products
                     'is_filterable' => '0', //boolean 0 or 1 - if this should be used in the filtered navigation

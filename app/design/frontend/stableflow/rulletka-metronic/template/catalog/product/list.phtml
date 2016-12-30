@@ -47,8 +47,9 @@
 </div>
 <?php else: ?>
 <div class="category-products">
-    <?php echo $this->getToolbarHtml() ?>
     <?php echo $this->getChildHtml('catalog.leftnav')?>
+    <?php echo $this->getToolbarHtml() ?>
+
 
     <?php // Grid Mode ?>
     <div class="portlet light portlet-fit bordered portlet-full">
@@ -142,6 +143,6 @@
             </div>
         </div>
     </div>
-    <?php echo $this->getChildHtml('product_list_toolbar_pager');?>
+    <?php echo $this->getChild('product_list_toolbar')->getPagerHtml();?>
 </div>
 <?php endif; ?>
