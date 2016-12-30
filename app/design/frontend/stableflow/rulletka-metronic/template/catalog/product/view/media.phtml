@@ -39,13 +39,13 @@
 <?php if (count($this->getGalleryImages()) > 0): ?>
     <div class="company-link product-image-gallery clearfix">
         <ul id="imageGallery">
-            <?php foreach ($this->getGalleryImages() as $_image): ?>
+            <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
                 <?php if ($this->isGalleryImageVisible($_image)): ?>
                     <li data-thumb="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>" data-src="<?php echo $this->getGalleryImageUrl($_image); ?>">
                         <img src="<?php echo $this->getGalleryImageUrl($_image); ?>">
                     </li>
                 <?php endif; ?>
-            <?php endforeach; ?>
+            <?php $i++; endforeach; ?>
         </ul>
     </div>
 <?php else: ?>
@@ -66,7 +66,7 @@
             gallery:true,
             item:1,
             loop:true,
-            thumbItem:9,
+            thumbItem:<?php echo $i;?>,
             slideMargin:0,
             enableDrag: false,
             currentPagerPosition:'left',
