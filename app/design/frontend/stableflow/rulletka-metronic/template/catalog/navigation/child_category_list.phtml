@@ -13,7 +13,7 @@ $_helper    = $this->helper('catalog/output');
     <?php $i = true; foreach ($_topCategories as $_childCategory): ?>
         <?php if($_childCategory->getIsActive()): ?>
             <?php $_category = Mage::getModel('catalog/category')->load($_childCategory->getId()); ?>
-            <ul class="ul-outside display-inline">
+            <ul class="ul-outside display-inline ">
                 <li><a href="<?php echo $_category->getUrl()?>"><?php echo $this->htmlEscape($_category->getName()) ?></a> (<?php echo $_category->getProductCount()?>)</li>
             </ul>
         <?php endif;?>
