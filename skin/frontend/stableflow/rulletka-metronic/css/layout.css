@@ -4263,7 +4263,7 @@ input[type="checkbox"], input[type="radio"] {
 .pgwSlider .ps-current ul {
     float: none;
     margin: auto;
-    width: 75%;
+    width: 100%;
 }
 
 .pgwSlider .ps-current li {
@@ -4458,10 +4458,6 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
   ul.pgwSlider, .pgwSlider ul, .menu-slider, .title-slider .modal-title {
       width: 50%;
-  }
-
-  .pgwSlider .ps-current ul {
-      width: 60%;
   }
 
   .pgwSlider .ps-current .ps-next::before, .pgwSlider .ps-current .ps-prev::before {
