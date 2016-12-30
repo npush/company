@@ -236,6 +236,13 @@ Page Header
 .navbar-form {
     margin: 16px 0px 10px 3%;
 }
+
+@media (max-width: 1400px) {
+  .top-menu .navbar-form {
+      margin: 16px 0px 45px 3%;
+  }
+}
+
 .page-header.navbar {
   width: 100%;
   padding: 0 20px 0 20px;
