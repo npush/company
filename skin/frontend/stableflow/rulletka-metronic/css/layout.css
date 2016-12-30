@@ -4415,16 +4415,21 @@ ul.pgwSlider.wide > li,
 ul.pgwSlider.narrow,
 .pgwSlider.narrow > ul {
     width: 100%;
+    text-align: center;
+    height: auto !important;
+    min-height: 290px;
+    overflow:hidden;
 }
 
 ul.pgwSlider.narrow > li,
 .pgwSlider.narrow > .ps-list > li {
-    float: left;
+    display: inline-block;
     min-height: 50px;
     max-height: 70px;
     min-width: 15%;
     font-size: 0.7rem;
     margin-bottom: 0;
+    background-color: #fff;
 }
 
 ul.pgwSlider.narrow.listOnTheLeft > li,
