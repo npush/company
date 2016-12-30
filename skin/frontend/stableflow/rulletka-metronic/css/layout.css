@@ -2369,7 +2369,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .timeline-product .company-link {
-    height: 500px;
+    height: 100%;
     border:1px solid #c2c2c2;
     position:relative;
     display:block;
@@ -4253,16 +4253,11 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .pgwSlider .ps-current {
-    float: left;
-    width: 60%;
+    width: 100%;
     overflow: hidden;
     height: inherit;
     position: relative;
     font-size: 1rem;
-}
-
-.pgwSlider.listOnTheLeft .ps-current {
-    float: right;
 }
 
 .pgwSlider .ps-current ul {
@@ -4299,8 +4294,7 @@ input[type="checkbox"], input[type="radio"] {
 
 ul.pgwSlider,
 .pgwSlider  ul {
-    float: right;
-    width: 38%;
+    width: 100%;
     padding: 5px;
     list-style: none;
     margin: 0;
