@@ -36,33 +36,46 @@
     $_product = $this->getProduct();
     $_helper = $this->helper('catalog/output');
 ?>
-<div class="product-vew product-image product-image-zoom">
+<?php if (count($this->getGalleryImages()) > 0): ?>
     <div class="company-link product-image-gallery clearfix">
-        <img id="image-main"
-             class="timeline-badge-userpic gallery-image visible"
-             src="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>"
-             alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
-             title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>" />
-
-        <ul class="pgwSlider">
+        <ul id="imageGallery">
             <?php foreach ($this->getGalleryImages() as $_image): ?>
                 <?php if ($this->isGalleryImageVisible($_image)): ?>
-                    <li><img src="<?php echo $this->getGalleryImageUrl($_image); ?>"></li>
+                    <li data-thumb="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>" data-src="<?php echo $this->getGalleryImageUrl($_image); ?>">
+                        <img src="<?php echo $this->getGalleryImageUrl($_image); ?>">
+                    </li>
                 <?php endif; ?>
             <?php endforeach; ?>
         </ul>
     </div>
-</div>
+<?php else: ?>
+    <div class="product-image-gallery">
+        <img id="image-main"
+             class="gallery-image visible"
+             src="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>"
+             alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
+             title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>" />
+    </div>
+<?php endif; ?>
+
 
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        jQuery('.pgwSlider').pgwSlider({
-            autoSlide: false,
-            displayControls: true,
-            adaptiveHeight : true
+        jQuery('#imageGallery').lightSlider({
+            gallery:true,
+            item:1,
+            loop:true,
+            thumbItem:9,
+            slideMargin:0,
+            enableDrag: false,
+            currentPagerPosition:'left',
+            onSliderLoad: function(el) {
+                el.lightGallery({
+                    selector: '#imageGallery .lslide'
+                });
+            }
         });
-
     });
 </script>
 
