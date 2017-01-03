@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <Stableflow_AdditionalCmsPageLayouts>
+        <Stableflow_Rulletka>
             <version>0.1.0</version>
-        </Stableflow_AdditionalCmsPageLayouts>
+        </Stableflow_Rulletka>
     </modules>
     <global>
         <blocks>
             <catalog>
                 <rewrite>
-                    <navigation>Stableflow_AdditionalCmsPageLayouts_Block_Navigation</navigation>
+                    <navigation>Stableflow_Rulletka_Block_Navigation</navigation>
                 </rewrite>
             </catalog>
             <catalog>
                 <rewrite>
-                    <product_view_attributes>Stableflow_AdditionalCmsPageLayouts_Block_Attributes</product_view_attributes>
+                    <product_view_attributes>Stableflow_Rulletka_Block_Attributes</product_view_attributes>
                 </rewrite>
             </catalog>
         </blocks>
@@ -30,33 +30,38 @@
                 </page_two_columns_top>
             </layouts>
         </page>
+        <helpers>
+            <rulletka>
+                <class>Stableflow_Rulletka_Helper</class>
+            </rulletka>
+        </helpers>
         <!--<resources>
-            <manufacturer_attribute_setup>
+            <rulletka_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </rulletka_write>
+            <rulletka_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </rulletka_read>
+            <rulletka_setup>
                 <setup>
-                    <module>Manufacturer_Number_Attribute</module>
-                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                    <module>Stableflow_Rulletka</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
                 </setup>
                 <connection>
                     <use>core_setup</use>
                 </connection>
-            </manufacturer_attribute_setup>
-            <manufacturer_attribute_setup_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </manufacturer_attribute_setup_write>
-            <manufacturer_attribute_setup_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </manufacturer_attribute_setup_read>
-        </resources>-->
+            </rulletka_setup>
+        </resources>
         <events>
             <adminhtml_catalog_product_attribute_edit_prepare_form>
                 <observers>
                     <add_position_field>
                         <type>model</type>
-                        <class>Stableflow_CustomMenu_Model_Observer</class>
+                        <class>Stableflow_Rulletka_Model_Observer</class>
                         <method>addPositionToAttribute_</method>
                     </add_position_field>
                 </observers>
@@ -65,11 +70,11 @@
                 <observers>
                     <add_position_field_front>
                         <type>model</type>
-                        <class>Stableflow_CustomMenu_Model_Observer</class>
+                        <class>Stableflow_Rulletka_Model_Observer</class>
                         <method>addPositionToAttribute</method>
                     </add_position_field_front>
                 </observers>
             </adminhtml_block_html_before>
-        </events>
+        </events>-->
     </global>
 </config>

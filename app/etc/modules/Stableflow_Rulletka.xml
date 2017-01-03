@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <Stableflow_CustomMenu>
+        <Stableflow_Rulletka>
             <codePool>local</codePool>
             <active>true</active>
-        </Stableflow_CustomMenu>
+        </Stableflow_Rulletka>
     </modules>
 </config>

@@ -8,7 +8,7 @@
  * @package    Mage_Catalog
  * @author     Magento Core Team <core@magentocommerce.com>
  */
-class Stableflow_AdditionalCmsPageLayouts_Block_Attributes extends Mage_Core_Block_Template
+class Stableflow_Rulletka_Block_Attributes extends Mage_Core_Block_Template
 {
     protected $_product = null;
 
@@ -47,9 +47,9 @@ class Stableflow_AdditionalCmsPageLayouts_Block_Attributes extends Mage_Core_Blo
 
                 if (is_string($value) && strlen($value)) {
                     $data[$attribute->getAttributeCode()] = array(
-                        'label' => $attribute->getStoreLabel(),
-                        'value' => $value,
-                        'code'  => $attribute->getAttributeCode()
+                        'label'     => $attribute->getStoreLabel(),
+                        'value'     => $value,
+                        'code'      => $attribute->getAttributeCode()
                     );
                 }
             }
