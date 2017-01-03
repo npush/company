@@ -2382,7 +2382,7 @@ input[type="checkbox"], input[type="radio"] {
     display:block;
     float:none;
 }
-.timeline-product .company-link:before {
+/*.timeline-product .company-link:before {
   content:"\e914";
   position:absolute;
   color:#3f3f3f;
@@ -2393,7 +2393,7 @@ input[type="checkbox"], input[type="radio"] {
   width: 30px;
   height: 30px;
 
-}
+}*/
 .timeline-product  .timeline-body {
     margin-left: 480px;
 }
