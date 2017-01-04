@@ -166,7 +166,14 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
 
                 $smodel = Mage::getModel('eav/entity_setup', 'core_setup');
                 $attributeGroupId = $smodel->getAttributeGroup('catalog_product', $model->getAttributeSetId(), 'Rulletka');
-                $smodel->addAttributeToSet(
+                /*$smodel->addAttributeToSet(
+                    'catalog_product',
+                    $model->getAttributeSetId(),
+                    $attributeGroupId['attribute_group_id'],
+                    $attributeModel->getId(),
+                    $sortOrder
+                );*/
+                $smodel->addAttributeToGroup(
                     'catalog_product',
                     $model->getAttributeSetId(),
                     $attributeGroupId['attribute_group_id'],
@@ -195,7 +202,14 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
                 */
                 $smodel = Mage::getModel('eav/entity_setup', 'core_setup');
                 $attributeGroupId = $smodel->getAttributeGroup('catalog_product', $model->getAttributeSetId(), 'Rulletka');
-                $smodel->addAttributeToSet(
+                /*$smodel->addAttributeToSet(
+                    'catalog_product',
+                    $model->getAttributeSetId(),
+                    $attributeGroupId['attribute_group_id'],
+                    $attributeModel->getId(),
+                    $sortOrder
+                );*/
+                $smodel->addAttributeToGroup(
                     'catalog_product',
                     $model->getAttributeSetId(),
                     $attributeGroupId['attribute_group_id'],
