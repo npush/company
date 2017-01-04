@@ -45,7 +45,7 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
         if (!is_object($attributeModel) || is_null($attributeModel->getAttributeCode())) {
             $data = array(
                 'is_global' => '2', // this can be global-1 or store view-1 website-2 dependent
-                'frontend_input' => 'select', // this can be text, textarea, select, date, boolean, multiselect,price,media_image,wee
+                'frontend_input' => 'boolean', // this can be text, textarea, select, date, boolean, multiselect,price,media_image,wee
                 'default_value_text' => '', // the default value depending on the input type
                 'default_value_yesno' => '0', // the default value depending on the input type
                 'default_value_date' => '', // the default value depending on the input type
@@ -62,8 +62,8 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
                 'used_in_product_listing' => '1', //boolean 0 or 1 - if this should be loaded in the category or search listing
                 'used_for_sort_by' => '0', //boolean 0 or 1
                 'is_configurable' => '0', //boolean 0 or 1 - if this will be used as a super-attribute for configurable products
-                'is_filterable' => '1', //boolean 0 or 1 - if this should be used in the filtered navigation
-                'is_filterable_in_search' => '1', //boolean 0 or 1
+                'is_filterable' => '0', //boolean 0 or 1 - if this should be used in the filtered navigation
+                'is_filterable_in_search' => '0', //boolean 0 or 1
                 'backend_type' => 'int', // the available values are int, varchar, text
                 'default_value' => '',
             );
@@ -80,7 +80,7 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
                 4 => '',
             );
             //comment string
-            $data['option']['values'] = explode(';', $_data[1]);
+            //$data['option']['values'] = explode(';', $_data[1]);
             $attmodel = Mage::getModel('catalog/resource_eav_attribute');
             $attmodel->setEntityTypeId(Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId());
             $attmodel->setIsUserDefined(1);
@@ -88,7 +88,7 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
             //print_r($attmodel);
             $attmodel->save();
             // comment
-            $setup = new Mage_Eav_Model_Entity_Setup('core_setup');
+            /*$setup = new Mage_Eav_Model_Entity_Setup('core_setup');
 
             // here is a re-occurence of the attribute values in case they did not get properly in the first time as no attribute id was available.
 
@@ -99,7 +99,7 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
                 $arr['attribute_id'] = $attributeModel->getId();
                 $arr['value']['option_name'][0] = $dt;
                 $setup->addAttributeOption($arr);
-            }
+            }*/
             // end comment
         }
     }
