@@ -24,7 +24,7 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
             $file = fopen($path, 'r');
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
-                    printf("attribute set - %s \n", preg_replace('/\W+/u', '_', trim($data[0])));
+                    printf("-- Attribute set - %s --\n", preg_replace('/\W+/u', '_', trim($data[0])));
                     $this->createAttributeSet($data);
                 }
                 fclose($file);
@@ -100,8 +100,8 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
                     ->setType('catalog_product')->getTypeId(), $attributeCode);
             print_r("Attribute: {$_attribute} Code: {$attributeCode} Position: {$sortOrder} \n ");
             if (!is_object($attributeModel) || is_null($attributeModel->getAttributeCode())) {
-                print_r("not found: \n");
-                print_r("create ...  Attribute: {$_attribute} Code: {$attributeCode} \n ");
+                print_r("not found: create ...  \n");
+                print_r("+ -> Attribute: {$_attribute} Code: {$attributeCode} \n ");
                 $data = array(
                     'is_global' => '2', // this can be global or store view dependent
                     'frontend_input' => 'text', // this can be text, textarea, select, date, boolean, multiselect,price,media_image,wee
