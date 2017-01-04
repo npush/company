@@ -98,10 +98,10 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
             $attributeModel = Mage::getModel('eav/entity_attribute')
                 ->loadByCode(Mage::getModel('eav/entity')
                     ->setType('catalog_product')->getTypeId(), $attributeCode);
-            print_r("Attribute: {$_attribute} Code: {$attributeCode} Position: {$sortOrder} \n ");
+            print_r("Attribute: {$_attribute} Code: {$attributeCode} Position: {$sortOrder} \n");
             if (!is_object($attributeModel) || is_null($attributeModel->getAttributeCode())) {
                 print_r("not found: create ...  \n");
-                print_r("+ -> Attribute: {$_attribute} Code: {$attributeCode} \n ");
+                print_r("+ -> Attribute: {$_attribute} Code: {$attributeCode} \n");
                 $data = array(
                     'is_global' => '2', // this can be global or store view dependent
                     'frontend_input' => 'text', // this can be text, textarea, select, date, boolean, multiselect,price,media_image,wee
