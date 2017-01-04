@@ -89,7 +89,7 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
         //load your attribute if it exists, by your attributecode (alphanumeric and underscores only)
         foreach($this->collectAttributes($_data[1]) as $_attribute) {
             preg_match('/\{(\d+)\}/', $_attribute, $result);
-            $sortOrder = $result[1] + 1;
+            $sortOrder = (int)$result[1] + 1;
             $_attribute = preg_replace('/\{(\d+)\}/', '', $_attribute);
             $attributeCode = preg_replace('/\W+/', '_', trim(strtolower($this->_rus2translit(trim($_attribute)))));
             if($_attrLen = strlen($attributeCode) > 30){
