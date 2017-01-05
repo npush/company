@@ -30,4 +30,8 @@ class Stableflow_Rulletka_Block_Navigation extends Mage_Catalog_Block_Navigation
         $text .= '</ul>';
         return $text;
     }
+
+    public function getCountInCategories($rootCategoryId){
+
+    }
 }
