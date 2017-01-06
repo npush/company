@@ -150,7 +150,7 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
                 $attmodel->setIsUserDefined(1);
 
                 $attmodel->save();
-                $setup = new Mage_Eav_Model_Entity_Setup('core_setup');
+                //$setup = new Mage_Eav_Model_Entity_Setup('core_setup');
 
                 // here is a re-occurence of the attribute values in case they did not get properly in the first time as no attribute id was available.
 
