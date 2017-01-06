@@ -15,8 +15,8 @@ class Mage_Shell_AddAttrToSet extends Mage_Shell_Abstract{
      *
      */
     public function run(){
-        $this->addAttrToSet('manufacturer_number', 'Rulletka');
-        $this->addAttrToSet('ask_4_price', 'Prices');
+        $this->addAttrToSet('out_of_production', 'Rulletka');
+        $this->addAttrToSet('promo', 'Rulletka');
         //$this->addAttrToSet('tooltips', 'General');
     }
 
