@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<layout>
+    <stableflow_uploader>
+        <reference name="head">
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/flex.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>lib/FABridge.js</name>
+            </action>
+            <action method="removeItem">
+                <type>js</type>
+                <name>mage/adminhtml/flexuploader.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>stableflow/uploader/jsuploader.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>stableflow/uploader/uploader.js</name>
+            </action>
+        </reference>
+    </stableflow_uploader>
+    <editor>
+        <update handle="stableflow_uploader"/>
+    </editor>
+    <adminhtml_cms_wysiwyg_images_index>
+        <reference name="wysiwyg_images.uploader">
+            <action method="setTemplate">
+                <template>uploader/cms_uploader.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_cms_wysiwyg_images_index>
+    <!--
+     To make it compatible with image picker aijko-widgetimagechooser
+     https://github.com/aijko/aijko-widgetimagechooser
+     https://github.com/aligent/aijko-widgetimagechooser
+     -->
+    <adminhtml_widget_instance_edit>
+        <update handle="stableflow_uploader"/>
+    </adminhtml_widget_instance_edit>
+    <adminhtml_cms_wysiwyg_images_chooser_index>
+        <reference name="wysiwyg_images.uploader">
+            <action method="setTemplate">
+                <template>uploader/cms_uploader.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_cms_wysiwyg_images_chooser_index>
+</layout>
