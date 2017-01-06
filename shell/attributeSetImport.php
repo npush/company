@@ -23,6 +23,7 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
             echo 'reading data from ' . $path . PHP_EOL;
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
+                    printf("\n ---  mem usage: %d   ---\n",memory_get_usage());
                     printf("-- Attribute set - %s --\n", preg_replace('/\W+/u', '_', trim($data[0])));
                     $this->createAttributeSet($data);
                 }
