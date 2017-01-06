@@ -6,7 +6,7 @@
  * Date: 8/23/16
  * Time: 12:25 PM
  */
-ini_set('memory_limit', '4096M');
+//ini_set('memory_limit', '4096M');
 require_once 'abstract.php';
 
 class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
