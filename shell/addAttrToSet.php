@@ -55,7 +55,7 @@ class Mage_Shell_AddAttrToSet extends Mage_Shell_Abstract{
                 ->setAttributeSetId($setId) // Attribute Set ID
                 ->setAttributeGroupId($groupId) // Attribute Group ID ( usually general or whatever based on the query i automate to get the first attribute group in each attribute set )
                 ->setAttributeId($attId) // Attribute ID that need to be added manually
-                ->setSortOrder(2) // Sort Order for the attribute in the tab form edit
+                //->setSortOrder(2) // Sort Order for the attribute in the tab form edit
                 ->save();
             echo "Attribute ".$attCode." Added to Attribute Set ".$set->getAttributeSetName()." in Attribute Group ".$group->getAttributeGroupName()."<br>\n";
         }
