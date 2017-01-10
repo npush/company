@@ -10,22 +10,16 @@ $_product = Mage::registry('current_product');
 $_helper = $this->helper('catalog/output');
 ?>
 <div class="label-product clearfix">
-    <?php $stats = null; //explode(',', $_product->getResource()->getAttribute('product_state')->getFrontend()->getValue($_product)); ?>
-    <?php //print_r($_product->getResource()->getAttribute('product_state')->getAttributeType());?>
-    <?php foreach($stats as $_state) :?>
-        <?php switch(trim($_state)):
-            case 'New': ?>
-                <span type="button" class="label-span label-yellow"><?php echo $this->__('New');?></span>
-                <?php break;?>
-            <?php case 'Sale': ?>
-                <span type="button" class="label-span label-primary"><?php echo $this->__('Sale');?></span>
-                <?php break; ?>
-            <?php case 'Promo': ?>
-                <span type="button" class="label-span label-yellow-light"><?php echo $this->__('Promo');?></span>
-                <?php break;?>
-            <?php case 'Out of production': ?>
-                <span type="button" class="label-span label-grey"><?php echo $this->__('Out of production');?></span>
-                <?php break;?>
-            <?php endswitch ;?>
-    <?php endforeach ;?>
+    <?php if ($_product->getData('news_from_date')): ?>
+        <span type="button" class="label-span label-yellow"><?php echo $this->__('New');?></span>
+    <?php endif; ?>
+    <?php if ($_product->getData('sale')): ?>
+        <span type="button" class="label-span label-primary"><?php echo $this->__('Sale');?></span>
+    <?php endif; ?>
+    <?php if ($_product->getData('promo')): ?>
+        <span type="button" class="label-span label-yellow-light"><?php echo $this->__('Promo');?></span>
+    <?php endif; ?>
+    <?php if ($_product->getData('out_of_production')): ?>
+        <span type="button" class="label-span label-grey"><?php echo $this->__('Out of production');?></span>
+    <?php endif; ?>
 </div>

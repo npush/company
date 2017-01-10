@@ -20,6 +20,9 @@ if ($handle = opendir('var/importexport/products')) {
 array_multisort($files, SORT_NATURAL);
 
     foreach ($files as $_file){
+        printf("\n ---  mem usage: %d   ---\n",memory_get_usage());
+        /** @var $import Danslo_ApiImport_Model_Import_Api */
+        $import = Mage::getModel('api_import/import_api');
         $file = fopen('var/importexport/products/' . $_file, 'r');
         printf("Importing: %s \n", $_file);
         $entities = array();
@@ -28,9 +31,10 @@ array_multisort($files, SORT_NATURAL);
             $entities[] = array_combine($header, $row);
         }
         try {
-            Mage::getModel('api_import/import_api')->importEntities($entities);
+            //var_dump($entities);
+            $import->importEntities($entities);
             fclose($file);
-        }catch (Mage_Api_Exception $e) {
+        }catch (Mage_Core_Exception $e) {
             printf("%s: %s\n", $e->getMessage(), $e->getCustomMessage());
         }
     }

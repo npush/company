@@ -38,6 +38,7 @@
 ?>
 <?php if (count($this->getGalleryImages()) > 0): ?>
     <div class="company-link product-image-gallery clearfix">
+        <?php echo $this->getChildHtml('product-status')?>
         <ul id="imageGallery">
             <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
                 <?php if ($this->isGalleryImageVisible($_image)): ?>
@@ -47,6 +48,7 @@
                 <?php endif; ?>
             <?php $i++; endforeach; ?>
         </ul>
+        <?php echo $this->getChilHtml('tooltips');?>
     </div>
 <?php else: ?>
     <div class="product-image-gallery">
