@@ -23,20 +23,20 @@ $_product = $this->getProduct();
 
 
 
-<?/*
-$product_id = Mage::registry('current_product')->getId();
-$storeId = Mage::app()->getStore()->getId();
-$summaryData = Mage::getModel('review/review_summary')
-    ->setStoreId($storeId)
-    ->load($product_id);
-*/?><!--
+<?
+//$product_id = Mage::registry('current_product')->getId();
+//$storeId = Mage::app()->getStore()->getId();
+//$summaryData = Mage::getModel('review/review_summary')
+//   ->setStoreId($storeId)
+//    ->load($product_id);
+?>
 
-<div class="stars-rating">
-    <?php /*$rating = $summaryData['rating_summary'] ? $summaryData['rating_summary'] : 0*/?>
-    <?php /*//print_r($summaryData);*/?>
-    <?php /*$numOfStar = intval($rating * 5 / 100);*/?>
-    <?php /*for($i = 5; $i != 0; $i--):*/?>
-        <input type="radio" disabled="disabled" <?php /*echo $numOfStar-- > 0 ?  'checked="checked"' : '' */?> name="star-rating-<?php /*echo $i;*/?>">
-        <label for="star-rating-<?php /*echo $i;*/?>" class="radio-label"></label>
-    <?php /*endfor;*/?>
-</div>-->
+<!--div class="stars-rating"-->
+    <?php// $rating = $summaryData['rating_summary'] ? $summaryData['rating_summary'] : 0?>
+    <?php //print_r($summaryData);?>
+    <?php// $numOfStar = intval($rating * 5 / 100);?>
+    <?php// for($i = 5; $i != 0; $i--):?>
+        <!--<input type="radio" disabled="disabled" <?php /*echo $numOfStar-- > 0 ?  'checked="checked"' : '' */?> name="star-rating-<?php /*echo $i;*/?>">-->
+        <!--<label for="star-rating-<?php /*echo $i;*/?>" class="radio-label"></label>-->
+    <?php// endfor;?>
+<!--/div-->
