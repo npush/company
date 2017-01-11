@@ -30,7 +30,7 @@ $_product = $this->getProduct();
         <?php $group = $attribute->getAttributeGroupId();?>
         <?php $label = $attribute->getStoreLabel();?>
         <?php $value = $attribute->getFrontend()->getValue($_product);?>
-        <?php if($value && $label): ?>
+        <?php if($value && $label && $value != 'Нет'): ?>
             <?php echo "<p>{$label}:&nbsp<span class=\"bold\">{$value}</span></p>";?>
             <?php if(!--$i) break ?>
         <?php endif;?>
