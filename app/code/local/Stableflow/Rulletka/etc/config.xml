@@ -7,6 +7,9 @@
     </modules>
     <global>
         <blocks>
+            <rulletka>
+                <class>Stableflow_Rulletka_Block</class>
+            </rulletka>
             <catalog>
                 <rewrite>
                     <navigation>Stableflow_Rulletka_Block_Navigation</navigation>

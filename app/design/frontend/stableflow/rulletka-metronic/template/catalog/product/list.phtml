@@ -67,50 +67,14 @@
                             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                             <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" class="timeline-badge-userpic"
                                  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
-                            <?php //echo $this->getChildHtml('product-status')?>
-                            <div class="label-product clearfix">
-                                <?php //echo $_product->getResource()->getAttribute('out_of_production');?>
-                                <?php if ($_product->getData('news_from_date')): ?>
-                                    <span type="button" class="label-span label-yellow"><?php echo $this->__('New');?></span>
-                                <?php endif; ?>
-                                <?php if ($_product->getData('sale')): ?>
-                                    <span type="button" class="label-span label-primary"><?php echo $this->__('Sale');?></span>
-                                <?php endif; ?>
-                                <?php if ($_product->getData('promo')): ?>
-                                    <span type="button" class="label-span label-yellow-light"><?php echo $this->__('Promo');?></span>
-                                <?php endif; ?>
-                                <?php if ($_product->getData('out_of_production')): ?>
-                                    <span type="button" class="label-span label-grey"><?php echo $this->__('Out of production');?></span>
-                                <?php endif; ?>
-                            </div>
+                            <?php $this->getChild('product-status')->setData("product", $_product);?>
+                            <?php echo $this->getChildHtml('product-status',false);?>
                         </div>
                         <div class="body-product">
                             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
                                 <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
-                            <div class="body-product-txt">
-                                <?php
-                                $setId = $_product->getAttributeSetId(); // Attribute set Id
-                                $groups = Mage::getModel('eav/entity_attribute_group')
-                                    ->getResourceCollection()
-                                    ->setAttributeSetFilter($setId)
-                                    ->setSortOrder()
-                                    ->load();
-                                foreach ($groups as $group) {
-                                    if($group->getAttributeGroupName() == 'Rulletka'){
-                                        $attributeGroupId = $group->getId();
-                                    }
-                                }
-                                ?>
-                                <?php $attributes = $_product->getAttributes($attributeGroupId);?>
-                                <?php foreach ($attributes as $attribute) :?>
-                                    <?php $group = $attribute->getAttributeGroupId();?>
-                                    <?php $label = $attribute->getStoreLabel();?>
-                                    <?php $value = $attribute->getFrontend()->getValue($_product);?>
-                                    <?php if($value && $label && $attribute->getIsVisible()): ?>
-                                        <?php echo "<p>{$label}:&nbsp<span class=\"bold\">{$value}</span></p>";?>
-                                    <?php endif;?>
-                                <?php endforeach ?>
-                            </div>
+                            <?php $this->getChild('product-attributes')->setData("product", $_product);?>
+                            <?php echo $this->getChildHtml('product-attributes', false);?>
                         </div>
                         <div class="footer-product clearfix">
                             <!--<div class="stars-rating stars-sm pull-left">
@@ -118,16 +82,8 @@
                                     <?php /*echo $this->getReviewsSummaryHtml($_product, 'short') */?>
                                 <?php /*endif; */?>
                             </div>-->
-                            <div class="stars-rating stars-sm pull-left">
-                                <?php $summaryData = Mage::getModel('review/review_summary')->setStoreId(Mage::app()->getStore()->getId())->load($_product->getId()); ?>
-                                <?php $rating = $summaryData['rating_summary'] ? $summaryData['rating_summary'] : 0?>
-                                <?php //print_r($summaryData);?>
-                                <?php $numOfStar = intval($rating * 5 / 100);?>
-                                <?php for($i = 5; $i != 0; $i--):?>
-                                    <input type="radio" disabled="disabled" <?php echo $numOfStar-- > 0 ?  'checked="checked"' : '' ?> name="star-rating-<?php echo $i;?>">
-                                    <label for="star-rating-<?php echo $i;?>" class="radio-label"></label>
-                                <?php endfor;?>
-                            </div>
+                            <?php $this->getChild('product-rating')->setData("product", $_product);?>
+                            <?php echo $this->getChildHtml('product-rating',false);?>
                             <div class="display-inline pull-right">
                                 <div class="basket-number basket-number-lg"><?php echo $this->getPriceHtml($_product, true) ?></div>
                                 <?php if($_product->isSaleable()): ?>

@@ -1,0 +1,39 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 1/11/17
+ * Time: 12:00 PM
+ */
+
+$_product = $this->getProduct();
+?>
+
+<div class="body-product-txt">
+    <?php
+    $attributeGroupId = null;
+    $setId = $_product->getAttributeSetId(); // Attribute set Id
+    $groups = Mage::getModel('eav/entity_attribute_group')
+        ->getResourceCollection()
+        ->setAttributeSetFilter($setId)
+        ->setSortOrder()
+        ->load();
+    foreach ($groups as $group) {
+        if($group->getAttributeGroupName() == 'Rulletka'){
+            $attributeGroupId = $group->getId();
+        }
+    }
+    ?>
+    <?php $attributes = $_product->getAttributes($attributeGroupId);?>
+    <?php $i = 7;?>
+    <?php foreach ($attributes as $attribute) :?>
+        <?php $group = $attribute->getAttributeGroupId();?>
+        <?php $label = $attribute->getStoreLabel();?>
+        <?php $value = $attribute->getFrontend()->getValue($_product);?>
+        <?php if($value && $label): ?>
+            <?php echo "<p>{$label}:&nbsp<span class=\"bold\">{$value}</span></p>";?>
+            <?php if(!--$i) break ?>
+        <?php endif;?>
+    <?php endforeach ?>
+    <p class=""><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->__('Show Details');?>:"><?php echo $this->__('Show Details');?>:</a></p>
+</div>

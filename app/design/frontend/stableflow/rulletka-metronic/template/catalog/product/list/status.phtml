@@ -6,7 +6,7 @@
  * Time: 12:23 PM
  */
 
-$_product = Mage::registry('current_product');
+$_product = $this->getProduct();
 $_helper = $this->helper('catalog/output');
 ?>
 <div class="label-product clearfix">
