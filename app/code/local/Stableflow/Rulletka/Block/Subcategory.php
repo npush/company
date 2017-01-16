@@ -101,7 +101,6 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Abstract {
                 'name' => $category->getName(),
                 'id' => $nodeId,
                 'url' => Mage::helper('catalog/category')->getCategoryUrl($category),
-                'is_active' => $this->_isActiveMenuCategory($category),
                 'product_count' => $category->getProductCount(),
             );
             $categoryNode = new Varien_Data_Tree_Node($categoryData, 'id', $tree, $parentCategoryNode);
