@@ -26,7 +26,8 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
         $this->setCacheTags(array('catalog_subcategory_tree'));
         $this->setCacheLifetime(false);
 
-        $this->_addCategoriesToMenu($categories, $this->_categoryTree, $menuBlock, $addTags = false);
+        $this->_addCategoriesToMenu(
+            Mage::helper('catalog/category')->getStoreCategories(), $this->_categoryTree);
     }
 
     protected function _renderCategoryTree($category){
@@ -41,7 +42,7 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
     protected function _toHtml()
     {
         $this->_addCacheTags();
-        $menuTree = $this->getCategoryTree();
+        $menuTree = $this->_categoryTree;
         if (!$this->getTemplate() || is_null($menuTree)) {
             throw new Exception("Top-menu renderer isn't fully configured.");
         }
@@ -82,7 +83,7 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
      * @param Mage_Page_Block_Html_Topmenu $menuBlock
      * @param bool $addTags
      */
-    protected function _addCategoriesToMenu($categories, $parentCategoryNode, $menuBlock, $addTags = false)
+    protected function _addCategoriesToMenu($categories, $parentCategoryNode)
     {
         $categoryModel = Mage::getModel('catalog/category');
         foreach ($categories as $category) {
@@ -93,9 +94,6 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
             $nodeId = 'category-node-' . $category->getId();
 
             $categoryModel->setId($category->getId());
-            if ($addTags) {
-                $menuBlock->addModelTags($categoryModel);
-            }
 
             $tree = $parentCategoryNode->getTree();
             $categoryData = array(
@@ -109,7 +107,7 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
 
             $subcategories = $category->getChildren();
 
-            $this->_addCategoriesToMenu($subcategories, $categoryNode, $menuBlock, $addTags);
+            $this->_addCategoriesToMenu($subcategories, $categoryNode);
         }
     }
 
