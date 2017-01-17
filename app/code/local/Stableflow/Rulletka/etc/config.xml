@@ -13,10 +13,6 @@
             <catalog>
                 <rewrite>
                     <navigation>Stableflow_Rulletka_Block_Navigation</navigation>
-                </rewrite>
-            </catalog>
-            <catalog>
-                <rewrite>
                     <product_view_attributes>Stableflow_Rulletka_Block_Attributes</product_view_attributes>
                 </rewrite>
             </catalog>

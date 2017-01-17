@@ -7,7 +7,7 @@
  * Time: 12:12 PM
  */
 
-class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Abstract {
+class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
 
     /**
      * categoryTree data tree
@@ -23,8 +23,10 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Abstract {
         /*
         * setting cache to save the topmenu block
         */
-        $this->setCacheTags(array('catalog_category_tree'));
+        $this->setCacheTags(array('catalog_subcategory_tree'));
         $this->setCacheLifetime(false);
+
+        $this->_addCategoriesToMenu($categories, $this->_categoryTree, $menuBlock, $addTags = false);
     }
 
     protected function _renderCategoryTree($category){
@@ -39,9 +41,8 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Abstract {
     protected function _toHtml()
     {
         $this->_addCacheTags();
-        $menuTree = $this->getMenuTree();
-        $childrenWrapClass = $this->getChildrenWrapClass();
-        if (!$this->getTemplate() || is_null($menuTree) || is_null($childrenWrapClass)) {
+        $menuTree = $this->getCategoryTree();
+        if (!$this->getTemplate() || is_null($menuTree)) {
             throw new Exception("Top-menu renderer isn't fully configured.");
         }
 
@@ -51,7 +52,7 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Abstract {
         } else {
             throw new Exception('Not valid template file:' . $this->_templateFile);
         }
-        return $this->render($menuTree, $childrenWrapClass);
+        return $this->render($menuTree);
     }
 
     /**
@@ -60,7 +61,7 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Abstract {
      * @param $childrenWrapClass
      * @return string
      */
-    public function render(Varien_Data_Tree_Node $menuTree, $childrenWrapClass)
+    public function render(Varien_Data_Tree_Node $menuTree)
     {
         ob_start();
         $html = include $this->_templateFile;
