@@ -9,6 +9,10 @@
 
 class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
 
+    const BASE_LEVEL = 1;
+    const SECOND_LEVEL = 2;
+    const LAST_LEVEL = 3;
+
     /**
      * categoryTree data tree
      *
@@ -38,18 +42,6 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
         $this->_addCategoriesToMenu(
             $this->getCurrentChildCategories(), $this->_categoryTree);
 
-        $this->helpDump($this->_categoryTree);
-        die();
-    }
-
-    public function helpDump($categoryTree){
-        foreach($categoryTree->getChildren() as $category){
-            printf("%s (%d)\n", $category->getName(), $category->getProductCount());
-            if($category->hasChildren()){
-                printf(" -> ");
-                $this->helpDump($category);
-            }
-        }
     }
 
     /**
@@ -93,7 +85,7 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
         } else {
             throw new Exception('Not valid template file:' . $this->_templateFile);
         }
-        return $this->render($menuTree);
+        return $this->render($menuTree, $menuTree->getLevel());
     }
 
     /**
@@ -102,7 +94,7 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
      * @param $childrenWrapClass
      * @return string
      */
-    public function render(Varien_Data_Tree_Node $menuTree)
+    public function render(Varien_Data_Tree_Node $menuTree, $level)
     {
         ob_start();
         $html = include $this->_templateFile;

@@ -5,3 +5,11 @@
  * Date: 1/17/17
  * Time: 5:02 PM
  */
+
+?>
+
+<p><a class="accordion-toggle accordion-toggle-styled collapsed text-transform"  aria-expanded="false" data-toggle="collapse" data-parent="#collapse_3_<?php echo $_childCategory->getId()?>" href="#collapse_3_<?php echo $_category->getId()?>"> <?php echo $this->htmlEscape($_category->getName()) ?> <span>(<?php echo $_category->getProductCount()?>)</span>: </a></p>
+<!-- print recursion -->
+<div id="collapse_3_<?php echo $_category->getId();?>" class="panel-collapse collapse" aria-expanded="false" style="display: none; height: 0px;">
+    <?php echo $this->getRecursionChild($_category);?>
+</div>

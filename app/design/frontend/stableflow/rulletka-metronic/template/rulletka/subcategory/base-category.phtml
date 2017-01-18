@@ -1,0 +1,42 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 1/18/17
+ * Time: 6:44 PM
+ */
+
+$html = '';
+
+$children = $menuTree->getChildren();
+$parentLevel = $menuTree->getLevel();
+$childLevel = is_null($parentLevel) ? 0 : $parentLevel + 1;
+
+$counter = 1;
+$childrenCount = $children->count();
+
+foreach($children as $category){
+?>
+<div class="panel panel-list">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a class="accordion-toggle accordion-toggle-styled collapsed " data-toggle="collapse"  aria-expanded="false" data-parent="#accordion3" href="#collapse_3_<?php echo $category->getId()?>"> <?php echo $this->htmlEscape($category->getName()) ?> </a>
+        </h4>
+    </div>
+    <div id="collapse_3_<?php echo $category->getId()?>" class="panel-collapse <?php echo $i ? ' in' : ' collapse'; ?>" aria-expanded="false"  style="display: none; height: 0px;">
+        <div class="panel-body">
+            <div class="img-catalog">
+                <?php $_imgHtml   = '';?>
+                <?php if ($_imgUrl = $category->getImageUrl()): ?>
+                    <?php $_imgHtml = '<img class="img-responsive" src="'.$_imgUrl.'" alt="'.$this->htmlEscape($category->getName()).'" title="'.$this->htmlEscape($category->getName()).'" />';?>
+                    <?php $_imgHtml = $_helper->categoryAttribute($category, $_imgHtml, 'image');?>
+                    <?php echo $_imgHtml;?>
+                <?php endif ?>
+            </div>
+            <!-- Child category render -->
+        </div>
+    </div>
+</div>
+<?php }
+
+return $html;

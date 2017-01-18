@@ -6,61 +6,21 @@
  * Time: 8:35 PM
  */
 
-// add static block  {{block type="catalog/navigation" template="catalog/navigation/subcategory_listing.phtml"}}
-//   System->Permissions->Blocks and add your block catalog/navigation in that list.
 
-$_helper    = $this->helper('catalog/output');
-?>
-<h1>TYTYTY</h1>
-<?php //var_dump($this->getCacheLifetime())?>
-<div class="portlet light portlet-fit bordered">
-    <div class="portlet-body form">
-        <div class="panel-group accordion" id="accordion3">
-            <?php $_topCategories = $this->getCurrentChildCategories();?>
-            <?php if($_topCategories->count()): ?>
-                <?php $i = true; foreach ($_topCategories as $_childCategory): ?>
-                    <?php if($_childCategory->getIsActive()): ?>
-                        <?php $_childCategory = Mage::getModel('catalog/category')->load($_childCategory->getId()); ?>
-                        <div class="panel panel-list">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle accordion-toggle-styled collapsed " data-toggle="collapse"  aria-expanded="false" data-parent="#accordion3" href="#collapse_3_<?php echo $_childCategory->getId()?>"> <?php echo $this->htmlEscape($_childCategory->getName()) ?> </a>
-                                </h4>
-                            </div>
-                            <div id="collapse_3_<?php echo $_childCategory->getId()?>" class="panel-collapse <?php echo $i ? ' in' : ' collapse'; ?>" aria-expanded="false"  style="display: none; height: 0px;">
-                                <div class="panel-body">
-                                    <div class="img-catalog">
-                                        <!--<img class="img-responsive" src="<?php /*echo $_category->getImageUrl()*/?>" alt="<?php /*$this->htmlEscape($_category->getName());*/?>" title="<?php /*$this->htmlEscape($_category->getName());*/?>"/>-->
-                                        <?php $_imgHtml   = '';?>
-                                        <?php if ($_imgUrl = $_childCategory->getImageUrl()): ?>
-                                            <?php $_imgHtml = '<img class="img-responsive" src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_childCategory->getName()).'" title="'.$this->htmlEscape($_childCategory->getName()).'" />';?>
-                                            <?php $_imgHtml = $_helper->categoryAttribute($_childCategory, $_imgHtml, 'image');?>
-                                            <?php echo $_imgHtml;?>
-                                        <?php endif ?>
-                                    </div>
-                                    <?php if($_childCategory->hasChildren()): ?>
-                                        <?php foreach($_childCategory->getChildrenCategories() as $_category): ?>
-                                            <?php if($_category->hasChildren()): ?>
-                                                <p><a class="accordion-toggle accordion-toggle-styled collapsed text-transform"  aria-expanded="false" data-toggle="collapse" data-parent="#collapse_3_<?php echo $_childCategory->getId()?>" href="#collapse_3_<?php echo $_category->getId()?>"> <?php echo $this->htmlEscape($_category->getName()) ?> <span>(<?php echo $_category->getProductCount()?>)</span>: </a></p>
-                                                <!-- print recursion -->
-                                                <div id="collapse_3_<?php echo $_category->getId();?>" class="panel-collapse collapse" aria-expanded="false" style="display: none; height: 0px;">
-                                                    <?php echo $this->getRecursionChild($_category);?>
-                                                </div>
-                                            <?php else: ?>
-                                                <ul class="display-inline">
-                                                    <li><p class="text-transform"><a href="<?php echo $_category->getUrl()?>"><?php echo $this->htmlEscape($_category->getName()) ?></a> (<?php echo $_category->getProductCount()?>)</p></li>
-                                                </ul>
-                                            <?php endif; ?>
-                                        <?php endforeach ;?>
-                                    <?php else: ?>
-                                        <p class="text-transform"><a href="<?php echo $_childCategory->getUrl()?>"> <?php echo $this->htmlEscape($_childCategory->getName()); ?></a> (<?php echo $_childCategory->getProductCount()?>)</p>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </div>
-                     <?php endif; ?>
-                <?php $i = false; endforeach; ?>
-            <?php endif; ?>
-         </div>
-    </div>
-</div>
+$html = '';
+
+$children = $menuTree->getChildren();
+$parentLevel = $menuTree->getLevel();
+$childLevel = is_null($parentLevel) ? 0 : $parentLevel + 1;
+
+$counter = 1;
+$childrenCount = $children->count();
+
+foreach($children as $category){
+    $html .= sprintf("%s (%d)\n", $category->getName(), $category->getProductCount());
+    if($category->hasChildren()){
+        $html .= $this->render($category, $parentLevel);
+    }
+}
+
+return $html;

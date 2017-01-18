@@ -1,0 +1,25 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 1/18/17
+ * Time: 6:37 PM
+ */
+
+$html = '';
+
+$children = $menuTree->getChildren();
+$parentLevel = $menuTree->getLevel();
+$childLevel = is_null($parentLevel) ? 0 : $parentLevel + 1;
+
+$counter = 1;
+$childrenCount = $children->count();
+?>
+
+<div class="portlet light portlet-fit bordered">
+    <div class="portlet-body form">
+        <div class="panel-group accordion" id="accordion3">
+            <!-- render base category -->
+        </div>
+    </div>
+</div>
