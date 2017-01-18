@@ -18,6 +18,13 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
 
     protected $_templateFile;
 
+    /**
+     * Current child categories collection
+     *
+     * @var Mage_Catalog_Model_Resource_Category_Collection
+     */
+    protected $_currentChildCategories;
+
     public function _construct(){
         $this->_categoryTree = new Varien_Data_Tree_Node(array(), 'root', new Varien_Data_Tree());
         /*
@@ -26,8 +33,41 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
         $this->setCacheTags(array('catalog_subcategory_tree'));
         $this->setCacheLifetime(false);
 
+        $this->getCurrentChildCategories();
+
         $this->_addCategoriesToMenu(
-            Mage::helper('catalog/category')->getStoreCategories(), $this->_categoryTree);
+            $this->getCurrentChildCategories(), $this->_categoryTree);
+
+        $this->helpDump($this->_categoryTree);
+        die();
+    }
+
+    public function helpDump($categoryTree){
+        foreach($categoryTree->getChildren() as $category){
+            printf("%s (%d)\n", $category->getName(), $category->getProductCount());
+            if($category->hasChildren()){
+                printf(" -> ");
+                $this->helpDump($category);
+            }
+        }
+    }
+
+    /**
+     * Retrieve child categories of current category
+     *
+     * @return Mage_Catalog_Model_Resource_Category_Collection
+     */
+    public function getCurrentChildCategories()
+    {
+        if (null === $this->_currentChildCategories) {
+            $layer = Mage::getSingleton('catalog/layer');
+            $category = $layer->getCurrentCategory();
+            $this->_currentChildCategories = $category->getChildrenCategories();
+            $productCollection = Mage::getResourceModel('catalog/product_collection');
+            $layer->prepareProductCollection($productCollection);
+            $productCollection->addCountToCategories($this->_currentChildCategories);
+        }
+        return $this->_currentChildCategories;
     }
 
     protected function _renderCategoryTree($category){
@@ -78,10 +118,8 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
     /**
      * Recursively adds categories
      *
-     * @param Varien_Data_Tree_Node_Collection|array $categories
+     * @param Mage_Catalog_Model_Resource_Category_Collection|array $categories
      * @param Varien_Data_Tree_Node $parentCategoryNode
-     * @param Mage_Page_Block_Html_Topmenu $menuBlock
-     * @param bool $addTags
      */
     protected function _addCategoriesToMenu($categories, $parentCategoryNode)
     {
@@ -101,11 +139,12 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
                 'id' => $nodeId,
                 'url' => Mage::helper('catalog/category')->getCategoryUrl($category),
                 'product_count' => $category->getProductCount(),
+                'has_children' => $category->hasChildren()
             );
             $categoryNode = new Varien_Data_Tree_Node($categoryData, 'id', $tree, $parentCategoryNode);
             $parentCategoryNode->addChild($categoryNode);
 
-            $subcategories = $category->getChildren();
+            $subcategories = $category->getChildrenCategories();
 
             $this->_addCategoriesToMenu($subcategories, $categoryNode);
         }
