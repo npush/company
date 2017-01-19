@@ -33,10 +33,7 @@
 ?>
 
 
-<?php
-$i = 0;
-foreach ($this->getItems() as $_item):
-    ?>
+<?php $i = 0; foreach ($this->getItems() as $_item): ?>
     <div class="checkbox-group <?= $i < 5 ? '' : 'hidden' ?>">
         <?php if ($_item->getCount() > 0): ?>
             <a class="checkbox-label" href="<?php echo $this->urlEscape($_item->getUrl()) ?>"><?php echo $_item->getLabel() ?></a>
@@ -46,15 +43,9 @@ foreach ($this->getItems() as $_item):
             (<?php echo $_item->getCount() ?>)
         <?php endif; ?>
     </div>
-    <?php
-    $i++;
-endforeach
-?>
-<?php if ($i > 4) {
-    ?>
+    <?php $i++; endforeach ?>
+<?php if ($i > 4) :?>
     <span style="cursor:pointer" class="js-show-more-filters link-sm">Показать еще <i class="icon icon-arrow-point-down"></i></span>
     <span style="cursor:pointer" class="js-hide-more-filters hidden link-sm">Скрыть</span>
-    <?php
-}
-?>
+<?php endif;?>
 
