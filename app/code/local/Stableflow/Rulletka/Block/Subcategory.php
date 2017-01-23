@@ -62,6 +62,21 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
         return $this->_currentChildCategories;
     }
 
+
+    public function getTree($parenNodeCategory=null)
+    {
+        $rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
+        $tree = isset($rootArray['children']) ? $rootArray['children'] : array();
+        return $tree;
+    }
+
+    public function getTreeJson($parenNodeCategory=null)
+    {
+        $rootArray = $this->_getNodeJson($this->getRoot($parenNodeCategory));
+        $json = Mage::helper('core')->jsonEncode(isset($rootArray['children']) ? $rootArray['children'] : array());
+        return $json;
+    }
+
     protected function _renderCategoryTree($category){
 
     }
@@ -140,6 +155,77 @@ class  Stableflow_Rulletka_Block_Subcategory extends Mage_Core_Block_Template {
 
             $this->_addCategoriesToMenu($subcategories, $categoryNode);
         }
+    }
+
+    /**
+     * Get JSON of a tree node or an associative array
+     *
+     * @param Varien_Data_Tree_Node|array $node
+     * @param int $level
+     * @return string
+     */
+    protected function _getNodeJson($node, $level = 0)
+    {
+        // create a node from data array
+        if (is_array($node)) {
+            $node = new Varien_Data_Tree_Node($node, 'entity_id', new Varien_Data_Tree);
+        }
+
+        $item = array();
+        $item['text'] = $this->buildNodeName($node);
+
+        /* $rootForStores = Mage::getModel('core/store')
+            ->getCollection()
+            ->loadByCategoryIds(array($node->getEntityId())); */
+        $rootForStores = in_array($node->getEntityId(), $this->getRootIds());
+
+        $item['id']  = $node->getId();
+        $item['store']  = (int) $this->getStore()->getId();
+        $item['path'] = $node->getData('path');
+
+        $item['cls'] = 'folder ' . ($node->getIsActive() ? 'active-category' : 'no-active-category');
+        //$item['allowDrop'] = ($level<3) ? true : false;
+        $allowMove = $this->_isCategoryMoveable($node);
+        $item['allowDrop'] = $allowMove;
+        // disallow drag if it's first level and category is root of a store
+        $item['allowDrag'] = $allowMove && (($node->getLevel()==1 && $rootForStores) ? false : true);
+
+        if ((int)$node->getChildrenCount()>0) {
+            $item['children'] = array();
+        }
+
+        $isParent = $this->_isParentSelectedCategory($node);
+
+        if ($node->hasChildren()) {
+            $item['children'] = array();
+            if (!($this->getUseAjax() && $node->getLevel() > 1 && !$isParent)) {
+                foreach ($node->getChildren() as $child) {
+                    $item['children'][] = $this->_getNodeJson($child, $level+1);
+                }
+            }
+        }
+
+        if ($isParent || $node->getLevel() < 2) {
+            $item['expanded'] = true;
+        }
+
+        return $item;
+    }
+
+
+    /**
+     * Get category name
+     *
+     * @param Varien_Object $node
+     * @return string
+     */
+    public function buildNodeName($node)
+    {
+        $result = $this->escapeHtml($node->getName());
+        if ($this->_withProductCount) {
+            $result .= ' (' . $node->getProductCount() . ')';
+        }
+        return $result;
     }
 
     /**
