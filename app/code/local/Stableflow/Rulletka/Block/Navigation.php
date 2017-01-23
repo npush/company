@@ -40,11 +40,11 @@ class Stableflow_Rulletka_Block_Navigation extends Mage_Catalog_Block_Navigation
      *
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */
-    public function getChildCategories($categoryId)
+    public function getChildCategories($category)
     {
         if (null === $this->_currentChildCategories) {
             $layer = Mage::getSingleton('catalog/layer');
-            $category = $layer->getCurrentCategory();
+            //$category = $layer->getCurrentCategory();
             $this->_currentChildCategories = $category->getChildrenCategories();
             $productCollection = Mage::getResourceModel('catalog/product_collection');
             $layer->prepareProductCollection($productCollection);
