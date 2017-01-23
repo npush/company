@@ -6,6 +6,6 @@
  * Date: 11/21/16
  * Time: 11:13 AM
  */
-class Satbleflow_Rulletka_Data extends Mage_Core_Helper_Abstract{
+class Stableflow_Rulletka_Helper_Data extends Mage_Core_Helper_Abstract{
 
 }

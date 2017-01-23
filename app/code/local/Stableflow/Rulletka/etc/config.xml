@@ -16,6 +16,11 @@
                     <product_view_attributes>Stableflow_Rulletka_Block_Attributes</product_view_attributes>
                 </rewrite>
             </catalog>
+            <page>
+                <rewrite>
+                    <html_breadcrumbs>Stableflow_Rulletka_Block_Breadcrumbs</html_breadcrumbs>
+                </rewrite>
+            </page>
         </blocks>
         <page>
             <layouts>
@@ -76,4 +81,11 @@
             </adminhtml_block_html_before>
         </events>-->
     </global>
+    <default>
+        <rulletka>
+            <rulletka_breadcrumbs>
+                <enabled><![CDATA[1]]></enabled>
+            </rulletka_breadcrumbs>
+        </rulletka>
+    </default>
 </config>
