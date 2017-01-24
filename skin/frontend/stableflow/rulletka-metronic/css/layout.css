@@ -3002,7 +3002,7 @@ input[type="checkbox"], input[type="radio"] {
   overflow:hidden;
 }
 
-/*.line-dashed span.dashed-style:before {
+.line-dashed span.dashed-style:before {
   content:"";
   position:absolute;
   left: 0;
@@ -3011,15 +3011,7 @@ input[type="checkbox"], input[type="radio"] {
   bottom: 5px;
   border-top: 1px dashed #595959;
 }
-.line-dashed span.dashed-style:after {
-  content:"";
-  position:absolute;
-  left: 0;
-  height:1px;
-  width:100%;
-  bottom: 5px;
-  border-top: 1px dashed #595959;
-}*/
+
 .line-dashed span.dashed-style b {
   position:relative;
 
@@ -3027,13 +3019,13 @@ input[type="checkbox"], input[type="radio"] {
 .line-dashed span.dashed-style b:before {
   content:"";
   position:absolute;
-  left: 100%;  
+  left: 0;
   height:1px;
-  width:360px;
+  width:100%;
   bottom: 3px;
   border-top: 1px dashed #fff;
 }
-.line-dashed span.dashed-style b:after {
+/*.line-dashed span.dashed-style b:after {
   content:"";
   position:absolute;
   left: 100%;  
@@ -3041,7 +3033,7 @@ input[type="checkbox"], input[type="radio"] {
   width:360px;
   bottom: 3px;
   border-top: 1px dashed #595959;
-}
+}*/
 .text-transform {
   text-transform:uppercase;
 }
