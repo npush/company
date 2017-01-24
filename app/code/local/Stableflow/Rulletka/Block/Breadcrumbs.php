@@ -78,16 +78,13 @@ class Stableflow_Rulletka_Block_Breadcrumbs  extends Mage_Page_Block_Html_Breadc
     protected function prepareCrumbs(){
         $crumbs = $this->_crumbs;
         $_helper = Mage::helper('rulletka/breadcrumbs');
-        if($_helper->isItProductPage()  && !$_helper->hasCurrentCategory()){
+        if($_helper->isItProductPage()  /*&& !$_helper->hasCurrentCategory()*/){
             $catPath = $_helper->getCategoryPath();
             foreach($crumbs as $_crumbName => $_crumbInfo){
                 if(strstr($_crumbName, 'product')){
-                    $_tmp = $crumbs['product'];
                     unset($crumbs[$_crumbName]);
                 }
             }
-            //array_push($crumbs, $_tmp);
-            unset($_tmp);
             $crumbs += $catPath;
         }
         $this->_crumbs = $crumbs;
