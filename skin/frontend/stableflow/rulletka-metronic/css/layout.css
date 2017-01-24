@@ -3005,7 +3005,7 @@ input[type="checkbox"], input[type="radio"] {
   max-width: 320px;
   width: 100%;
   display: inline-block;
-  overflow:hidden;
+/*  overflow:hidden;*/
   border-bottom: 1px dashed #595959;
 }
 
@@ -3022,6 +3022,7 @@ input[type="checkbox"], input[type="radio"] {
 .line-dashed span.dashed-style b {
   position:relative;
   border-bottom: 1px solid #fff;
+  padding-bottom: 2px;
 /*  display: inherit;*/
 
 }
