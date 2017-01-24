@@ -2996,7 +2996,8 @@ input[type="checkbox"], input[type="radio"] {
 .line-dashed span.dashed-style {
   position:relative;
   padding-right: 15px; 
-  min-width:366px;
+  max-width: 320px;
+  width: 100%;
   display: inline-block;
 }
 
