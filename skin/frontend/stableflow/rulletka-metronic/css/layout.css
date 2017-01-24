@@ -821,6 +821,19 @@ li .sub-menu .title {
   .page-sidebar {
     width: 335px;
  }
+
+#category-sidebar-nav li.level0 {
+    padding: 14px 25px 14px 0px;
+}
+
+  #category-sidebar-nav li ul.level0 a {
+      font-size: 14px;
+  }
+  #category-sidebar-nav li ul li ul {
+      display: none;
+      padding: 0 0px 0 10px;
+  }
+
   .page-content-wrapper .page-content {
     margin-left: 335px;
  }
