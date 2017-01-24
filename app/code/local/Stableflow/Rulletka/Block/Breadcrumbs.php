@@ -84,7 +84,7 @@ class Stableflow_Rulletka_Block_Breadcrumbs  extends Mage_Page_Block_Html_Breadc
                 if (
                 strstr($_crumbName, 'product')
                 ) {
-                    unset($crumbs[$_crumbName]);
+                    //unset($crumbs[$_crumbName]);
                 }
             }
             $crumbs += $catPath;
