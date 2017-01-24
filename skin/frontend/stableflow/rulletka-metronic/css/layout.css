@@ -4907,7 +4907,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 #category-sidebar-nav li ul.level0{padding:10PX 0px 0 10px; display:none;}
 #category-sidebar-nav li ul.level0 a {font-size:16px;}
-#category-sidebar-nav li ul.level0 li a.show-cat.pull-right {font-size:13px;}
+#category-sidebar-nav li ul.level0 li a.show-cat.pull-right {font-size:13px;position: absolute; right: 22px;}
 
 #category-sidebar-nav li ul.level0 li{border-bottom:1px dotted #535353;}
 #category-sidebar-nav li ul.level0 li.last{border:0 none;}
