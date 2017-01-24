@@ -31,22 +31,22 @@ class Stableflow_Rulletka_Block_Breadcrumbs  extends Mage_Page_Block_Html_Breadc
     }
 
     public function addCrumb($crumbName, $crumbInfo, $after = false){
-        if ($after) {
+        if($after){
             $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
-            if (!is_array($this->_crumbs)){
+            if(!is_array($this->_crumbs)){
                 $this->_crumbs = array();
             }
-            if (isset($this->_crumbs[$after])) {
+            if(isset($this->_crumbs[$after])){
                 $position = array_search($after, array_keys($this->_crumbs)) + 1;
                 $this->_crumbs = array_slice($this->_crumbs, 0, $position, true) +
                     array($crumbName => $crumbInfo) +
                     array_slice($this->_crumbs, $position, count($this->_crumbs) - 1, true);
-            } else {
+            }else{
                 $this->_crumbs = array($crumbName => $crumbInfo) + $this->_crumbs;
             }
-        } else {
+        }else{
             $this->_prepareArray($crumbInfo, array('label', 'title', 'link', 'first', 'last', 'readonly'));
-            if ((!isset($this->_crumbs[$crumbName])) || (!$this->_crumbs[$crumbName]['readonly'])) {
+            if((!isset($this->_crumbs[$crumbName])) || (!$this->_crumbs[$crumbName]['readonly'])){
                 $this->_crumbs[$crumbName] = $crumbInfo;
             }
         }
@@ -54,12 +54,12 @@ class Stableflow_Rulletka_Block_Breadcrumbs  extends Mage_Page_Block_Html_Breadc
     }
 
     protected function _toHtml(){
-        $enabled = (bool) Mage::getStoreConfig('rulletka/rulletka_breadcrumbs/enabled');
+        $enabled = (bool)Mage::getStoreConfig('rulletka/rulletka_breadcrumbs/enabled');
         if(!$enabled) {
             return parent::_toHtml();
         }
         $this->prepareCrumbs();
-        if (is_array($this->_crumbs)) {
+        if(is_array($this->_crumbs)){
             reset($this->_crumbs);
             $this->_crumbs[key($this->_crumbs)]['first'] = true;
             end($this->_crumbs);
@@ -78,13 +78,14 @@ class Stableflow_Rulletka_Block_Breadcrumbs  extends Mage_Page_Block_Html_Breadc
     protected function prepareCrumbs(){
         $crumbs = $this->_crumbs;
         $_helper = Mage::helper('rulletka/breadcrumbs');
-        if ($_helper->isItProductPage()  && !$_helper->hasCurrentCategory()) {
+        if($_helper->isItProductPage()  && !$_helper->hasCurrentCategory()){
             $catPath = $_helper->getCategoryPath();
-            foreach ($crumbs as $_crumbName => $_crumbInfo) {
-                if (
-                strstr($_crumbName, 'product')
-                ) {
-                    //unset($crumbs[$_crumbName]);
+            foreach($crumbs as $_crumbName => $_crumbInfo){
+                if(strstr($_crumbName, 'product')){
+                    $_tmp = $crumbs['product'];
+                    unset($crumbs[$_crumbName]);
+                    array_push($crumbs, $_tmp);
+
                 }
             }
             $crumbs += $catPath;
