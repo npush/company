@@ -84,10 +84,10 @@ class Stableflow_Rulletka_Block_Breadcrumbs  extends Mage_Page_Block_Html_Breadc
                 if(strstr($_crumbName, 'product')){
                     $_tmp = $crumbs['product'];
                     unset($crumbs[$_crumbName]);
-                    array_push($crumbs, $_tmp);
-
                 }
             }
+            array_push($crumbs, $_tmp);
+            unset($_tmp);
             $crumbs += $catPath;
         }
         $this->_crumbs = $crumbs;
