@@ -3010,6 +3010,15 @@ input[type="checkbox"], input[type="radio"] {
   bottom: 5px;
   border-top: 1px dashed #595959;
 }
+.line-dashed span.dashed-style:after {
+  content:"";
+  position:absolute;
+  left: 0;
+  height:1px;
+  width:100%;
+  bottom: 5px;
+  border-top: 1px dashed #595959;
+}
 .line-dashed span.dashed-style b {
   position:relative;
 
