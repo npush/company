@@ -822,13 +822,6 @@ li .sub-menu .title {
     width: 335px;
  }
 
-#category-sidebar-nav li.level0 {
-    padding: 14px 25px 14px 0px;
-}
-
-  #category-sidebar-nav li ul.level0 a {
-      font-size: 14px;
-  }
   #category-sidebar-nav li ul li ul {
       display: none;
       padding: 0 0px 0 10px;
@@ -4927,6 +4920,17 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 /* Level 1 */
 #category-sidebar-nav li ul li ul{ display:none;padding:0 10px;}
 
+@media (min-width: 992px) and (max-width: 1400px) {
+
+  #category-sidebar-nav li.level0 {
+      padding: 14px 25px 14px 0px;
+  }
+
+  #category-sidebar-nav li ul.level0 a {
+      font-size: 14px;
+  }
+
+}
 
 li.level0 {
     position:relative;
