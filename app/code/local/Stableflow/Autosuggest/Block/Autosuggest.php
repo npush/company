@@ -29,7 +29,7 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
         $catalogSearchModel->addAttributeToSelect('thumbnail');
         $catalogSearchModel->addAttributeToSelect('small_image');
         $catalogSearchModel->addAttributeToSelect('url_key');
-        $catalogSearchModel->getSelect()->limit(5);
+        $catalogSearchModel->getSelect()->limit(Mage::helper('autosuggest/config')->getSearchItemCount());
 
 
         if(count($catalogSearchModel)){
