@@ -87,7 +87,7 @@
                             <validate>required-entry</validate>
                         </search_item_count>
 
-                        <suggestion_word translate="label">
+                        <!--<suggestion_word translate="label">
                             <label>Show Suggestion Keyword</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -115,7 +115,7 @@
                                 <suggestion_word>1</suggestion_word>
                             </depends>
                             <validate>required-entry</validate>
-                        </suggestion_word_count>
+                        </suggestion_word_count>-->
                     </fields>
                 </configurations>
             </groups>
