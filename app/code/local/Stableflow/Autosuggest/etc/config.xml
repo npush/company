@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Stableflow_Autosuggest>
+            <version>0.1.0</version>
+        </Stableflow_Autosuggest>
+    </modules>
+    <global>
+        <blocks>
+            <autosuggest>
+                <class>Stableflow_Autosuggest_Block</class>
+            </autosuggest>
+        </blocks>
+        <models>
+            <autosuggest>
+                <class>Stableflow_Autosuggest_Model</class>
+            </autosuggest>
+        </models>
+        <helpers>
+            <autosuggest>
+                <class>Stableflow_Autosuggest_Helper</class>
+            </autosuggest>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <autosuggest>
+                <use>standard</use>
+                <args>
+                    <module>Stableflow_Autosuggest</module>
+                    <frontName>autosuggest</frontName>
+                </args>
+            </autosuggest>
+        </routers>
+        <layout>
+            <updates>
+                <autosuggest>
+                    <file>autosuggest.xml</file>
+                </autosuggest>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <autosuggest>
+            <configurations module="autosuggest">
+                <enabled>1</enabled>
+                <search_box_text>Search</search_box_text>
+                <search_min_count>3</search_min_count>
+                <search_box_settings>1</search_box_settings>
+                <search_item_count>3</search_item_count>
+                <suggestion_word>0</suggestion_word>
+                <suggestion_word_count>3</suggestion_word_count>
+            </configurations>
+        </autosuggest>
+    </default>
+</config>

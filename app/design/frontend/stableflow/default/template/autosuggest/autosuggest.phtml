@@ -1,0 +1,42 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 1/25/17
+ * Time: 1:20 PM
+ */
+
+$popularSuggestion = Mage::helper('autosuggest/config')->getSuggestionWord();
+$searchResult = $this->getSearchResult();
+?>
+
+<div class="auto-suggest-content">
+<?php if($searchResult): ?>
+    <div class="suggest-word-content">
+        <ul class="suggest-products">
+            <?php if($popularSuggestion):?>
+                <li class="list-title"><?php echo Mage::helper('core')->__('Popular suggestions: ') ?></li>
+                <li class="item" onclick="document.getElementById('search').value='{$_suggest->getQueryText()}';document.getElementById('search_mini_form').submit()"><?php echo $_suggest->getQueryText()?> <span class="amount"><?php echo $_suggest->getNumResults()?></span></li>
+            <?php endif;?>
+            <?php foreach($searchResult as $product): ?>
+                <?php $_product = Mage::getModel('catalog/product')->load($product->getId());?>
+                <li class="list-title"><?php Mage::helper('core')->__('Products: '); ?></li>
+                <li class="item">
+                    <a href="<?php echo $_product->getProductUrl(); ?>">
+                        <span class="item-thumbnail">
+                            <img src="<?php echo Mage::helper('catalog/image')->init($_product, 'image')->constrainOnly(true)->keepAspectRatio(true)->keepFrame(false)->resize(70, 70)?>" alt="<?php echo $_product->getName(); ?>" />
+                        </span>
+                        <span class="productinfo">
+                            <span class="title"><?php echo $_product->getName(); ?></span>
+                            <span class="description"><?php substr($_product->getShortDescription(), 0, 65); ?></span>
+                            <span class="item-price"><?php echo Mage::helper('core')->currency($product->getFinalPrice());?></span>
+                        </span>
+                    </a>
+                </li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+<?php else: ?>
+    <h4><?php echo Mage::helper('core')->__('No product match')?></h4>
+<?php endif;?>
+</div>
