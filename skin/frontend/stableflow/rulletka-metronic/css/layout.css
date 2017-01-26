@@ -4635,6 +4635,11 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   max-height:165px;
 }
 
+.min-height-product {
+  overflow: hidden;
+  max-height: 142px;
+}
+
 .portlet-full {
   margin:-5px -20px;
 }
