@@ -48,13 +48,7 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
 
             $suggests = Mage::helper('catalogsearch')->getSuggestCollection();
             if (count($suggests) > 0) {
-
-                $slimit = 5;
-                $swc = Mage::helper('autosuggest')->getSuggestionWordCount();
-                if ((int) $swc != 0) {
-                    $slimit = (int) $swc;
-                }
-
+                $slimit = Mage::helper('autosuggest')->getSuggestionWordCount();
                 $sc = 0;
                 $resultText .= '<li class="list-title">' . Mage::helper('core')->__('Popular suggestions: ') . '</li>';
                 foreach ($suggests as $_suggest) {
