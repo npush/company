@@ -4632,7 +4632,12 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .col-product:hover .body-product-txt {
-  max-height:210px;
+  max-height:165px;
+}
+
+.min-height-product {
+  overflow: hidden;
+  max-height: 126px;
 }
 
 .portlet-full {
