@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<layout>
+
+    <default>
+
+        <reference name="head">
+            <action method="addItem" ifconfig="autosuggest/configurations/enabled"><type>skin_js</type><name>autosuggest/js/autocomplete.js</name></action>
+            <action method="addItem" ifconfig="autosuggest/configurations/enabled"><type>skin_css</type><name>autosuggest/css/style.css</name></action>
+        </reference>
+
+        <reference name="top.search">
+            <action method="setTemplate" ifconfig="autosuggest/configurations/enabled">
+                <template>autosuggest/autosuggest_form.phtml</template>
+            </action>
+        </reference>
+
+    </default>
+
+    <autosuggest_ajax_search translate="label" module="autosuggest">
+        <block type="autosuggest/autosuggest" name="root" output="toHtml" template="autosuggest/autosuggest.phtml" />
+    </autosuggest_ajax_search>
+</layout>

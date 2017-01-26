@@ -8,10 +8,10 @@
     </tabs>
     <sections>
         <rulletka translate="label" module="rulletka">
-            <class>separator-top</class>
+            <!--<class>separator-top</class>-->
             <label>Extended Breadcrumbs</label>
             <tab>rulletka</tab>
-            <sort_order>10</sort_order>
+            <sort_order>100</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
