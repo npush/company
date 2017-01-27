@@ -6,7 +6,12 @@
  * Time: 1:20 PM
  */
 
+/** @var  $popularSuggestion Stableflow_Autosuggest_Helper_Config */
 $popularSuggestion = Mage::helper('autosuggest/config')->getSuggestionWord();
+if($popularSuggestion) {
+    /** @var  $_suggest Stableflow_Autosuggest_Block_Autosuggest */
+    $_suggest = $this->getSuggest();
+}
 $searchResult = $this->getSearchResult();
 ?>
 
@@ -16,7 +21,7 @@ $searchResult = $this->getSearchResult();
         <ul class="suggest-products">
             <?php if($popularSuggestion):?>
                 <li class="list-title"><?php echo Mage::helper('core')->__('Popular suggestions: ') ?></li>
-                <li class="item" onclick="document.getElementById('search').value='{$_suggest->getQueryText()}';document.getElementById('search_mini_form').submit()"><?php echo $_suggest->getQueryText()?> <span class="amount"><?php echo $_suggest->getNumResults()?></span></li>
+                <li class="item" onclick="document.getElementById('search').value='<?php echo $_suggest->getQueryText()?>';document.getElementById('search_mini_form').submit()"><?php echo $_suggest->getQueryText()?> <span class="amount"><?php echo $_suggest->getNumResults()?></span></li>
             <?php endif;?>
             <?php foreach($searchResult as $product): ?>
                 <?php $_product = Mage::getModel('catalog/product')->load($product->getId());?>
