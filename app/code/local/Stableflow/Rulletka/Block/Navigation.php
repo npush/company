@@ -21,10 +21,10 @@ class Stableflow_Rulletka_Block_Navigation extends Mage_Catalog_Block_Navigation
         $productCollection = Mage::getResourceModel('catalog/product_collection');
         $productCollection->addCountToCategories($cat);
         foreach($cat as $_childId) {
-            $childCategory = Mage::getModel('catalog/category')->load($_childId->getId());
+            $childCategory = $_childId; //Mage::getModel('catalog/category')->load($_childId->getId());
 
             if ($childCategory->getIsActive()) {
-                $text .= '<li><a href="' . $childCategory->getUrlPath() . '">' . $this->htmlEscape($childCategory->getName()) . '</a><span> (' . $childCategory->getProductCount() . ')</span></li>';
+                $text .= '<li><a href="' . $childCategory->getUrl() . '">' . $this->htmlEscape($childCategory->getName()) . '</a><span> (' . $childCategory->getProductCount() . ')</span></li>';
             }
             if($childCategory->hasChildren()){
                 $text .= '<li class="list-unstyled">' . $this->getRecursionChild($childCategory) . '</li>';
