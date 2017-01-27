@@ -2354,6 +2354,15 @@ input[type="checkbox"], input[type="radio"] {
     text-decoration:none;
 }
 
+.link-details a {
+  text-decoration:underline;
+}
+
+.link-underline-all {
+  text-decoration:underline;
+}
+
+
 .timeline-lg .company-link {
     height: 128px;
 }
