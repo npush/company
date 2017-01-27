@@ -2343,6 +2343,10 @@ input[type="checkbox"], input[type="radio"] {
     padding: 25px 10px;
 }
 
+.link-details {
+  margin-top: 8px;
+}
+
 .timeline-lg .timeline-body-title {
     font-size: 24px;
 }
@@ -4648,12 +4652,12 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .col-product:hover .body-product-txt {
-  max-height:165px;
+  max-height:190px;
 }
 
 .min-height-product {
   overflow: hidden;
-  max-height: 142px;
+  max-height: 160px;
 }
 
 .portlet-full {
