@@ -3003,10 +3003,17 @@ input[type="checkbox"], input[type="radio"] {
   position:relative;
   padding-right: 15px; 
   max-width: 320px;
-  width: 100%;
+  width: 40%;
   display: inline-block;
+  vertical-align: top;
 /*  overflow:hidden;*/
   border-bottom: 1px dashed #595959;
+}
+
+.dashed-left-txt {
+  display: inline-block;
+  vertical-align: top;
+  width: 56%;
 }
 
 /*.line-dashed span.dashed-style:before {
