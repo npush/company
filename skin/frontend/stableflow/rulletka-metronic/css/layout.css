@@ -2343,6 +2343,10 @@ input[type="checkbox"], input[type="radio"] {
     padding: 25px 10px;
 }
 
+.link-details {
+  margin-top: 8px;
+}
+
 .timeline-lg .timeline-body-title {
     font-size: 24px;
 }
@@ -2353,6 +2357,15 @@ input[type="checkbox"], input[type="radio"] {
 .link-underline:hover {
     text-decoration:none;
 }
+
+.link-details a {
+  text-decoration:underline;
+}
+
+.link-underline-all {
+  text-decoration:underline;
+}
+
 
 .timeline-lg .company-link {
     height: 128px;
@@ -2731,6 +2744,11 @@ input[type="checkbox"], input[type="radio"] {
   line-height: 25px;
   margin-bottom:0;
 }
+
+.content-description-outside p {
+  margin-bottom:10px;
+}
+
 .text-margin, .content-text .text-margin {
   margin-bottom:30px;
 }
@@ -3003,10 +3021,17 @@ input[type="checkbox"], input[type="radio"] {
   position:relative;
   padding-right: 15px; 
   max-width: 320px;
-  width: 100%;
+  width: 40%;
   display: inline-block;
+  vertical-align: top;
 /*  overflow:hidden;*/
   border-bottom: 1px dashed #595959;
+}
+
+.dashed-left-txt {
+  display: inline-block;
+  vertical-align: top;
+  width: 56%;
 }
 
 /*.line-dashed span.dashed-style:before {
@@ -4632,12 +4657,12 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .col-product:hover .body-product-txt {
-  max-height:165px;
+  max-height:190px;
 }
 
 .min-height-product {
   overflow: hidden;
-  max-height: 142px;
+  max-height: 160px;
 }
 
 .portlet-full {
