@@ -11,6 +11,11 @@ require_once 'abstract.php';
 
 class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
 
+    const ATTRIBUTE_SET = 0;
+    const ATTRIBUTES = 1;
+    const ATTRIBUTE_LABELS_ADMIN = 2;
+    const ATTRIBUTE_LABELS_DEFAULT = 3;
+
     protected $_attributeSetId;
 
     /**
@@ -24,7 +29,7 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
                     printf("\n ---  mem usage: %d   ---\n",memory_get_usage());
-                    printf("-- Attribute set - %s --\n", preg_replace('/\W+/u', '_', trim($data[0])));
+                    printf("-- Attribute set - %s --\n", preg_replace('/\W+/u', '_', trim($data[self::ATTRIBUTE_SET])));
                     $this->createAttributeSet($data);
                 }
                 fclose($file);
@@ -39,7 +44,7 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
     }
 
     protected function createAttributeSet($_data){
-        $data['set-name'] = preg_replace('/\W+/u', '_', trim(strtolower(trim($_data[0]))));
+        $data['set-name'] = $_data[self::ATTRIBUTE_SET];
         //$entityTypeId = Mage::getModel('catalog/product')->getResource()->getTypeId();
 
         $entityTypeId = Mage::getModel('eav/entity')
@@ -86,22 +91,24 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
         $model->setGroups(array($modelGroup));
         $model->save();
 
+        $attributes = $this->collectAttributes($_data[self::ATTRIBUTES]);
+        $attributeLabels = $this->collectAttributes($_data[self::ATTRIBUTE_LABELS_ADMIN]);
+        $i = 0;
         //load your attribute if it exists, by your attributecode (alphanumeric and underscores only)
-        foreach($this->collectAttributes($_data[1]) as $_attribute) {
-            preg_match('/\{(\d+)\}/', $_attribute, $result);
-            $sortOrder = (int)$result[1] + 1;
-            $_attribute = preg_replace('/\{(\d+)\}/', '', $_attribute);
-            $attributeCode = preg_replace('/\W+/', '_', trim(strtolower($this->_rus2translit(trim($_attribute)))));
-            if($_attrLen = strlen($attributeCode) > 30){
-                $attributeCode = substr($attributeCode, 0, -($_attrLen - 30));
-            }
+        foreach($attributes as $_attribute) {
+            // Get sort order from name
+            preg_match('/\{(\d+)\}/', $_attribute, $sortOrder);
+            $sortOrder = (int)$sortOrder[1];
+            // Replace new name
+            $attributeCode = preg_replace('/\{(\d+)\}/', '', $_attribute);
+
             $attributeModel = Mage::getModel('eav/entity_attribute')
                 ->loadByCode(Mage::getModel('eav/entity')
                     ->setType('catalog_product')->getTypeId(), $attributeCode);
-            print_r("Attribute: {$_attribute} Code: {$attributeCode} Position: {$sortOrder} \n");
+            print_r("Attribute: {$attributeLabels[$i]} Code: {$attributeCode} Position: {$sortOrder} \n");
             if (!is_object($attributeModel) || is_null($attributeModel->getAttributeCode())) {
                 print_r("not found: create ...  \n");
-                print_r("+ -> Attribute: {$_attribute} Code: {$attributeCode} \n");
+                print_r("+ -> Attribute: {$attributeLabels[$i]} Code: {$attributeCode} \n");
                 $data = array(
                     'is_global' => '2', // this can be global or store view dependent
                     'frontend_input' => 'text', // this can be text, textarea, select, date, boolean, multiselect,price,media_image,wee
@@ -126,17 +133,14 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
                     'backend_type' => 'varchar', // the available values are int, varchar, boolean, text
                     'default_value' => '',
                 );
-                $labelText = $_attribute;
+                $labelText = $attributeLabels[$i];
                 $data['apply_to'] = array('simple'); // the product type this attribute should apply
                 $data['attribute_code'] = $attributeCode;
 
                 // the label for each of your store views
                 $data['frontend_label'] = array(
-                    0 => $labelText,
-                    1 => $labelText,
-                    3 => '',
-                    2 => '',
-                    4 => '',
+                    0 => $labelText,            // Admin
+                    1 => $labelText,            //Default store
                 );
                 $data['option']['values'] = array();
                 $attmodel = Mage::getModel('catalog/resource_eav_attribute');
@@ -217,6 +221,7 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
                     $sortOrder
                 );
             }
+            $i++;
         }
     }
 
@@ -228,34 +233,6 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
         return $this->_attributeSetId;
     }
 
-    protected function _rus2translit($string) {
-        $converter = array(
-            'а' => 'a',   'б' => 'b',   'в' => 'v',
-            'г' => 'g',   'д' => 'd',   'е' => 'e',
-            'ё' => 'e',   'ж' => 'zh',  'з' => 'z',
-            'и' => 'i',   'й' => 'y',   'к' => 'k',
-            'л' => 'l',   'м' => 'm',   'н' => 'n',
-            'о' => 'o',   'п' => 'p',   'р' => 'r',
-            'с' => 's',   'т' => 't',   'у' => 'u',
-            'ф' => 'f',   'х' => 'h',   'ц' => 'c',
-            'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
-            'ь' => '',  'ы' => 'y',   'ъ' => '',
-            'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
-
-            'А' => 'A',   'Б' => 'B',   'В' => 'V',
-            'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
-            'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',
-            'И' => 'I',   'Й' => 'Y',   'К' => 'K',
-            'Л' => 'L',   'М' => 'M',   'Н' => 'N',
-            'О' => 'O',   'П' => 'P',   'Р' => 'R',
-            'С' => 'S',   'Т' => 'T',   'У' => 'U',
-            'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
-            'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
-            'Ь' => '',  'Ы' => 'Y',   'Ъ' => '',
-            'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
-        );
-        return strtr($string, $converter);
-    }
 
     /**
      * Retrieve Usage Help Message

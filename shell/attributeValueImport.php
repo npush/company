@@ -11,6 +11,12 @@ require_once 'abstract.php';
 
 class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
 
+    const ATTRIBUTE = 0;
+    const ATTRIBUTE_LABELS_ADMIN = 1;
+    const ATTRIBUTE_LABELS_DEFAULT = 2;
+    const VALUE = 3;
+
+
     /**
      * Run script
      *
@@ -21,7 +27,7 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
             echo 'reading data from ' . $path . PHP_EOL;
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
-                    echo "Attribute: " . $data[0]. "\n";
+                    echo "Attribute: " . $data[self::ATTRIBUTE_LABELS_ADMIN]. "\n";
                     $this->setAttributeValue($data);
                 }
                 fclose($file);
@@ -32,10 +38,7 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
     }
 
     protected function setAttributeValue($_data){
-        $attributeCode = preg_replace('/\W+/', '_', trim(strtolower($this->_rus2translit(trim($_data[0])))));
-        if($_attrLen = strlen($attributeCode) > 30){
-            $attributeCode = substr($attributeCode, 0, -($_attrLen - 30));
-        }
+        $attributeCode = $_data[self::ATTRIBUTE];
         $attributeModel = Mage::getModel('eav/entity_attribute')
             ->loadByCode(Mage::getModel('eav/entity')
             ->setType('catalog_product')
@@ -66,20 +69,19 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
                 'backend_type' => 'int', // the available values are int, varchar, text
                 'default_value' => '',
             );
-            $labelText = trim($_data[0]);
             $data['apply_to'] = array('simple'); // the product type this attribute should apply
             $data['attribute_code'] = $attributeCode;
 
             // the label for each of your store views
             $data['frontend_label'] = array(
-                0 => $labelText,
-                1 => $labelText,
+                0 => $_data[self::ATTRIBUTE_LABELS_ADMIN],
+                1 => $_data[self::ATTRIBUTE_LABELS_DEFAULT],
                 3 => '',
                 2 => '',
                 4 => '',
             );
             //comment string
-            $data['option']['values'] = explode(';', $_data[1]);
+            $data['option']['values'] = explode(';', $_data[self::VALUE]);
             $attmodel = Mage::getModel('catalog/resource_eav_attribute');
             $attmodel->setEntityTypeId(Mage::getModel('eav/entity')->setType('catalog_product')->getTypeId());
             $attmodel->setIsUserDefined(1);
@@ -101,35 +103,6 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
             }
             // end comment
         }
-    }
-
-    protected function _rus2translit($string) {
-        $converter = array(
-            'а' => 'a',   'б' => 'b',   'в' => 'v',
-            'г' => 'g',   'д' => 'd',   'е' => 'e',
-            'ё' => 'e',   'ж' => 'zh',  'з' => 'z',
-            'и' => 'i',   'й' => 'y',   'к' => 'k',
-            'л' => 'l',   'м' => 'm',   'н' => 'n',
-            'о' => 'o',   'п' => 'p',   'р' => 'r',
-            'с' => 's',   'т' => 't',   'у' => 'u',
-            'ф' => 'f',   'х' => 'h',   'ц' => 'c',
-            'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
-            'ь' => '',  'ы' => 'y',   'ъ' => '',
-            'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
-
-            'А' => 'A',   'Б' => 'B',   'В' => 'V',
-            'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
-            'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',
-            'И' => 'I',   'Й' => 'Y',   'К' => 'K',
-            'Л' => 'L',   'М' => 'M',   'Н' => 'N',
-            'О' => 'O',   'П' => 'P',   'Р' => 'R',
-            'С' => 'S',   'Т' => 'T',   'У' => 'U',
-            'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
-            'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
-            'Ь' => '',  'Ы' => 'Y',   'Ъ' => '',
-            'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
-        );
-        return strtr($string, $converter);
     }
 
     /**
