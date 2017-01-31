@@ -3023,14 +3023,14 @@ input[type="checkbox"], input[type="radio"] {
   max-width: 320px;
   width: 40%;
   display: inline-block;
-  vertical-align: top;
+  vertical-align: bottom;
 /*  overflow:hidden;*/
   border-bottom: 1px dashed #595959;
 }
 
 .dashed-left-txt {
   display: inline-block;
-  vertical-align: top;
+  vertical-align: bottom;
   width: 56%;
 }
 
