@@ -231,7 +231,7 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
 
     public function getCsvString(){
         if(is_null($this->_csvHeader)){
-            fgetcsv($this->_file, 10000, ',', '"');
+            $this->_csvHeader = fgetcsv($this->_file, 10000, ',', '"');
         }
         if($this->_file) {
             return fgetcsv($this->_file, 10000, ',', '"');
