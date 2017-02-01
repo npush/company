@@ -18,6 +18,9 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
 
     protected $_attributeSetId;
 
+    protected $_csvHeader = null;
+    protected $_file = null;
+
     /**
      * Run script
      *
@@ -26,13 +29,13 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
         if ($this->getArg('file')) {
             $path = $this->getArg('file');
             echo 'reading data from ' . $path . PHP_EOL;
-            if (false !== ($file = fopen($path, 'r'))) {
-                while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
+            if (false !== ($this->_file = fopen($path, 'r'))) {
+                while (false !== ($data = $this->getCsvString())) {
                     printf("\n ---  mem usage: %d   ---\n",memory_get_usage());
                     printf("-- Attribute set - %s --\n", preg_replace('/\W+/u', '_', trim($data[self::ATTRIBUTE_SET])));
                     $this->createAttributeSet($data);
                 }
-                fclose($file);
+                fclose($this->_file);
             }
         } else {
             echo $this->usageHelp();
@@ -223,6 +226,24 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
             }
             $i++;
         }
+    }
+
+
+    public function getCsvString(){
+        if(is_null($this->_csvHeader)){
+            fgetcsv($this->_file, 10000, ',', '"');
+        }
+        if($this->_file) {
+            return fgetcsv($this->_file, 10000, ',', '"');
+        }
+        return false;
+    }
+
+    public function getCsvHeader(){
+        if(is_null($this->_csvHeader)){
+            $this->_csvHeader = $this->getCsvString();
+        }
+        return $this->_csvHeader;
     }
 
     protected function _getAttributeSetId()

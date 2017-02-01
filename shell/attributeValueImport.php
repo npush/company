@@ -16,6 +16,8 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
     const ATTRIBUTE_LABELS_DEFAULT = 2;
     const VALUE = 3;
 
+    protected $_csvHeader = null;
+    protected $_file = null;
 
     /**
      * Run script
@@ -25,12 +27,12 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
         if ($this->getArg('file')) {
             $path = $this->getArg('file');
             echo 'reading data from ' . $path . PHP_EOL;
-            if (false !== ($file = fopen($path, 'r'))) {
-                while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
+            if (false !== ($this->_file = fopen($path, 'r'))) {
+                while (false !== ($data = $this->getCsvString())) {
                     echo "Attribute: " . $data[self::ATTRIBUTE_LABELS_ADMIN]. "\n";
                     $this->setAttributeValue($data);
                 }
-                fclose($file);
+                fclose($this->_file);
             }
         } else {
             echo $this->usageHelp();
@@ -103,6 +105,23 @@ class Mage_Shell_AttributeValueImport extends Mage_Shell_Abstract{
             }
             // end comment
         }
+    }
+
+    public function getCsvString(){
+        if(is_null($this->_csvHeader)){
+            fgetcsv($this->_file, 10000, ',', '"');
+        }
+        if($this->_file) {
+            return fgetcsv($this->_file, 10000, ',', '"');
+        }
+        return false;
+    }
+
+    public function getCsvHeader(){
+        if(is_null($this->_csvHeader)){
+            $this->_csvHeader = $this->getCsvString();
+        }
+        return $this->_csvHeader;
     }
 
     /**
