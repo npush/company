@@ -3022,14 +3022,14 @@ input[type="checkbox"], input[type="radio"] {
   padding-right: 15px; 
   width: 50%;
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 /*  overflow:hidden;*/
 /*  border-bottom: 1px dashed #595959;*/
 }
 
 .dashed-left-txt {
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
   width: 50%;
 }
 
@@ -5337,5 +5337,5 @@ li.level0:after {
   border-bottom: dashed 1px #888888;
 }
 .content-text .line-dashed {
-  max-width: 500px;
+  max-width: 640px;
 }
