@@ -3020,8 +3020,7 @@ input[type="checkbox"], input[type="radio"] {
 .line-dashed span.dashed-style {
   position:relative;
   padding-right: 15px; 
-  max-width: 320px;
-  width: 40%;
+  width: 50%;
   display: inline-block;
   vertical-align: bottom;
 /*  overflow:hidden;*/
@@ -3031,7 +3030,7 @@ input[type="checkbox"], input[type="radio"] {
 .dashed-left-txt {
   display: inline-block;
   vertical-align: bottom;
-  width: 56%;
+  width: 50%;
 }
 
 /*.line-dashed span.dashed-style:before {
@@ -3044,13 +3043,13 @@ input[type="checkbox"], input[type="radio"] {
   border-top: 1px dashed #595959;
 }*/
 
-.line-dashed span.dashed-style b {
+/*.line-dashed span.dashed-style b {
   position:relative;
   border-bottom: 1px solid #fff;
   padding-bottom: 2px;
-/*  display: inherit;*/
+ display: inherit;
 
-}
+}*/
 
 /*.line-dashed span.dashed-style b:before {
   content:"";
@@ -3070,6 +3069,9 @@ input[type="checkbox"], input[type="radio"] {
   bottom: 3px;
   border-top: 1px dashed #595959;
 }*/
+
+
+
 .text-transform {
   text-transform:uppercase;
 }
@@ -5292,13 +5294,18 @@ li.level0:after {
 
 
 
-.line-dashed{
+.line-dashed {
   margin:0px;
   padding: 7px 0px;
+  line-height: 20px;
   border-bottom: dashed 1px #DDDDDD;
 }
 .line-dashed:hover{
   background-color: #D8E7F5;
+}
+
+.line-dashed:nth-of-type(2n+1) {
+   background-color: #F0F5FB; 
 }
 
 .dashed-style { 
@@ -5324,7 +5331,9 @@ li.level0:after {
   background-color: #F0F5FB;
 }
 
-.dotted{
+.dotted {
   border-bottom: dashed 1px #888888;
 }
-
+.content-text .line-dashed {
+  max-width: 500px;
+}
