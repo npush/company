@@ -2395,7 +2395,8 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .timeline-product .company-link {
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     border:1px solid #c2c2c2;
     position:relative;
     display:block;

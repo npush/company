@@ -131,7 +131,8 @@
     border:1px solid #c2c2c2;
     padding: 3px;
     margin: 1px;
-    width: 11% !important;
+    width: 18% !important;
+    min-width: 65px;
 }
 .lSSlideOuter .lSPager.lSGallery li.active, .lSSlideOuter .lSPager.lSGallery li:hover {
     border-color: rgb(87, 131, 174);
