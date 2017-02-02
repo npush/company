@@ -2396,7 +2396,6 @@ input[type="checkbox"], input[type="radio"] {
 
 .timeline-product .company-link {
     height: auto;
-    min-height: 100%;
     border:1px solid #c2c2c2;
     position:relative;
     display:block;
@@ -3008,7 +3007,7 @@ input[type="checkbox"], input[type="radio"] {
 .ul-dashed li {
   position:relative;
 }
-.ul-dashed li:before {
+/*.ul-dashed li:before {
   content:"";
   position:absolute;
   left: 0;
@@ -3016,7 +3015,7 @@ input[type="checkbox"], input[type="radio"] {
   width:8px;
   top:10px;
   background-color:#595959;
-}
+}*/
 
 .line-dashed span.dashed-style {
   position:relative;
@@ -3026,7 +3025,7 @@ input[type="checkbox"], input[type="radio"] {
   display: inline-block;
   vertical-align: bottom;
 /*  overflow:hidden;*/
-  border-bottom: 1px dashed #595959;
+/*  border-bottom: 1px dashed #595959;*/
 }
 
 .dashed-left-txt {
@@ -5289,5 +5288,43 @@ li.level0:after {
   background-color: silver;
   height: 1px;
   border-width:0px; /* Убрать рамки вокруг элемента */
+}
+
+
+
+.line-dashed{
+  margin:0px;
+  padding: 7px 0px;
+  border-bottom: dashed 1px #DDDDDD;
+}
+.line-dashed:hover{
+  background-color: #D8E7F5;
+}
+
+.dashed-style { 
+
+  width: 45%; 
+  padding: 0 10px;
+  position:relative;
+  display: inline-block;
+  vertical-align: middle;
+  border-right: dashed 1px #DDDDDD;
+}
+
+.dashed-left-txt{
+  width: 45%;
+  padding: 0 10px;
+  position:relative;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.back{
+  background-color: #F0F5FB;
+}
+
+.dotted{
+  border-bottom: dashed 1px #888888;
 }
 
