@@ -5300,12 +5300,14 @@ li.level0:after {
   line-height: 20px;
   border-bottom: dashed 1px #DDDDDD;
 }
-.line-dashed:hover{
-  background-color: #D8E7F5;
-}
+
 
 .line-dashed:nth-of-type(2n+1) {
    background-color: #F0F5FB; 
+}
+
+.line-dashed:hover{
+  background-color: #D8E7F5 !important;
 }
 
 .dashed-style { 
