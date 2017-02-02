@@ -27,7 +27,6 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
         if ($this->getArg('file')) {
             $path = $this->getArg('file');
             echo 'reading data from ' . $path . PHP_EOL;
-            $file = fopen($path, 'r');
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
 
