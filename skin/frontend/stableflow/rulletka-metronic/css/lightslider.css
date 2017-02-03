@@ -265,15 +265,15 @@
     max-width: 100%;
     display: block;
     margin:auto;
-    max-height: 237px;
+    max-height: 222px;
 }
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1500  px) {
     .lightSlider {
         min-height: 150px;
     }
     .lSSlideOuter .lightSlider img {
-        max-height: 150px;
+        max-height: 138px;
     }
 }
 
