@@ -268,7 +268,7 @@
     max-height: 237px;
 }
 
-@media screen and (max-width: 1335px) {
+@media screen and (max-width: 1500px) {
     .lightSlider {
         min-height: 150px;
     }
