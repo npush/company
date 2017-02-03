@@ -2395,7 +2395,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .timeline-product .company-link {
-    height: 100%;
+    height: auto;
     border:1px solid #c2c2c2;
     position:relative;
     display:block;
@@ -3007,7 +3007,7 @@ input[type="checkbox"], input[type="radio"] {
 .ul-dashed li {
   position:relative;
 }
-.ul-dashed li:before {
+/*.ul-dashed li:before {
   content:"";
   position:absolute;
   left: 0;
@@ -3015,23 +3015,22 @@ input[type="checkbox"], input[type="radio"] {
   width:8px;
   top:10px;
   background-color:#595959;
-}
+}*/
 
 .line-dashed span.dashed-style {
   position:relative;
   padding-right: 15px; 
-  max-width: 320px;
-  width: 40%;
+  width: 50%;
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 /*  overflow:hidden;*/
-  border-bottom: 1px dashed #595959;
+/*  border-bottom: 1px dashed #595959;*/
 }
 
 .dashed-left-txt {
   display: inline-block;
-  vertical-align: bottom;
-  width: 56%;
+  vertical-align: middle;
+  width: 50%;
 }
 
 /*.line-dashed span.dashed-style:before {
@@ -3044,13 +3043,13 @@ input[type="checkbox"], input[type="radio"] {
   border-top: 1px dashed #595959;
 }*/
 
-.line-dashed span.dashed-style b {
+/*.line-dashed span.dashed-style b {
   position:relative;
   border-bottom: 1px solid #fff;
   padding-bottom: 2px;
-/*  display: inherit;*/
+ display: inherit;
 
-}
+}*/
 
 /*.line-dashed span.dashed-style b:before {
   content:"";
@@ -3070,6 +3069,9 @@ input[type="checkbox"], input[type="radio"] {
   bottom: 3px;
   border-top: 1px dashed #595959;
 }*/
+
+
+
 .text-transform {
   text-transform:uppercase;
 }
@@ -5290,3 +5292,50 @@ li.level0:after {
   border-width:0px; /* Убрать рамки вокруг элемента */
 }
 
+
+
+.line-dashed {
+  margin:0px;
+  padding: 5px 0px;
+  line-height: 20px;
+  border-bottom: dashed 1px #DDDDDD;
+}
+
+
+.line-dashed:nth-of-type(2n+1) {
+   background-color: #F0F5FB; 
+}
+
+.line-dashed:hover{
+  background-color: #D8E7F5 !important;
+}
+
+.dashed-style { 
+
+  width: 45%; 
+  padding: 0 10px;
+  position:relative;
+  display: inline-block;
+  vertical-align: middle;
+  border-right: dashed 1px #DDDDDD;
+}
+
+.dashed-left-txt{
+  width: 45%;
+  padding: 0 10px;
+  position:relative;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.back{
+  background-color: #F0F5FB;
+}
+
+.dotted {
+  border-bottom: dashed 1px #888888;
+}
+.content-text .line-dashed {
+  max-width: 640px;
+}
