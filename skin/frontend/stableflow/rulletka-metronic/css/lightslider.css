@@ -266,6 +266,16 @@
     display: block;
     margin:auto;
 }
+
+@media screen and (max-width: 1335px) {
+    .lightSlider {
+        min-height: 150px;
+    }
+    .lSSlideOuter .lightSlider img {
+        max-height: 150px;
+    }
+}
+
 .lSSlideOuter.lSrtl .lightSlider > *,  .lSSlideOuter.lSrtl .lSGallery li {
     float: right !important;
 }
