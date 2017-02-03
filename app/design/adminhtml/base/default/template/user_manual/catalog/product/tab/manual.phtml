@@ -1,0 +1,18 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 2/2/17
+ * Time: 4:48 PM
+ */
+?>
+<div class="input-field">
+    <label for="custom_field">Custom Field</label>
+    <input class="input-text" name="custom_field" id="custom_field" />
+</div>
+<?php $id = $this->getRequest()->getParam('id');?>
+<?php print_r($id);?>
+<?php $manual = Mage::getModel('user_manual/manual')->getCollection()->addFieldToFilter('entity_id' , 908);?>
+<?php foreach($manual as $_m):?>
+    <?php Zend_Debug::dump($_m);?>
+<?php endforeach;?>

@@ -40,6 +40,10 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
         }
     }
 
+    public function saveManual($_data){
+
+    }
+
     public function setAttributeValue($_data){
         $product = Mage::getModel('catalog/product');
         if($productId = $product->getIdBySku($_data[self::PRODUCT_SKU])) {
