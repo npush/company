@@ -41,7 +41,22 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
     }
 
     public function saveManual($_data){
-
+        $product_sku = $_data[self::PRODUCT_SKU];
+        $productId = Mage::getModel('catalog/product')->getIdBySku($product_sku);
+        if($productId){
+            $fileName = $this->uploadFile($_data[self::MANUAL_FILE_NAME], Mage::getBaseDir('media') . '/catalog/product_manual');
+            $manualModel = Mage::getModel('user_manual/manual');
+            $data = [
+                'entity_id' => $productId,
+                'value' => $fileName,
+                'store' => Mage::app()->getStore()->getStoreId(),
+                'label' => $_data[self::MANUAL_FILE_LABEL],
+            ];
+            $manualModel->setData($data)->save();
+            printf("%s --> %s\n", $_data[self::PRODUCT_SKU], $_data[self::MANUAL_FILE_LABEL]);
+        }else{
+            echo 'Product' . $_data[self::PRODUCT_SKU]  . "not found\n";
+        }
     }
 
     public function setAttributeValue($_data){
