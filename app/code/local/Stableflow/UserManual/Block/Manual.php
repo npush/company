@@ -42,7 +42,7 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
     public function getManual(){
         $productId = $this->getCurrentProduct()->getId();
         $manualArray = null;
-        $manualPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product_manual/';
+        $manualPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product_manual';
         $storeId = $this->getStore();
         if($productId) {
             $manuals = Mage::getModel('user_manual/manual')
