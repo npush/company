@@ -2536,6 +2536,9 @@ input[type="checkbox"], input[type="radio"] {
   .timeline.timeline-product  .timeline-body {
       margin-left: 0px;
   }
+  .timeline-body-content .timeline-conten-min-width {
+    display: none;
+  }
 }
 /* /timeline */
 
