@@ -8,6 +8,8 @@
  */
 class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
 
+    const BASE_MANUAL_PATH = 'catalog/product_manual';
+
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -42,7 +44,7 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
     public function getManual(){
         $productId = $this->getCurrentProduct()->getId();
         $manualArray = null;
-        $manualPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product_manual';
+        $manualPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . self::BASE_MANUAL_PATH;
         $storeId = $this->getStore();
         if($productId) {
             $manuals = Mage::getModel('user_manual/manual')
@@ -50,16 +52,14 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
                 ->addFieldToFilter('entity_id', $productId);
             $i = 0;
             foreach($manuals as $manual){
-                $manualArray[$i] = [
+                $manualArray[$i] = array(
                     'label' => $manual->getLabel(),
                     'file' => $manualPath . $manual->getValue(),
-                ];
+                );
                 $i++;
             }
-            return $manualArray;
-        }else {
-            return $manualArray;
         }
+        return $manualArray;
     }
 
     public function getStore(){
