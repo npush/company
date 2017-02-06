@@ -31,11 +31,9 @@ class Stableflow_UserManual_Block_Adminhtml_Catalog_Product_Manual extends Mage_
             //return $manuals;
             $i = 0;
             foreach($manuals as $manual){
-                $manualArray = [
-                    $i =>[
-                        'label' => $manual->getLabel(),
-                        'file' => $manualPath . $manual->getValue(),
-                    ]
+                $manualArray[$i] = [
+                    'label' => $manual->getLabel(),
+                    'file' => $manualPath . $manual->getValue(),
                 ];
                 $i++;
             }

@@ -56,7 +56,6 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
                 ];
                 $i++;
             }
-            print_r($manualArray);die();
             return $manualArray;
         }else {
             return $manualArray;
