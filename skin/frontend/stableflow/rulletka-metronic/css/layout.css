@@ -2549,6 +2549,9 @@ input[type="checkbox"], input[type="radio"] {
   .timeline-body-mob .timeline-body-head,  .timeline-body-mob .timeline-btn-product {
     display: block;
   }
+  .timeline.timeline-product .timeline-badge {
+    margin-bottom: 20px;
+  }
 }
 /* /timeline */
 
