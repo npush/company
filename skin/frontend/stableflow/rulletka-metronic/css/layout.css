@@ -2439,6 +2439,10 @@ input[type="checkbox"], input[type="radio"] {
   max-width:660px;
 }
 
+.timeline-body-mob .timeline-body-head,  .timeline-body-mob .timeline-btn-product {
+  display: none;
+}
+
 
 @media (max-width: 1500px) {
 
@@ -2535,6 +2539,18 @@ input[type="checkbox"], input[type="radio"] {
   }
   .timeline.timeline-product  .timeline-body {
       margin-left: 0px;
+  }
+  .timeline-body-content .timeline-conten-min-width {
+    display: none;
+  }
+  .timeline-body-desktop .timeline-body-head, .timeline-body-desktop .timeline-btn-product {
+    display: none;
+  }
+  .timeline-body-mob .timeline-body-head,  .timeline-body-mob .timeline-btn-product {
+    display: block;
+  }
+  .timeline.timeline-product .timeline-badge {
+    margin-bottom: 20px;
   }
 }
 /* /timeline */

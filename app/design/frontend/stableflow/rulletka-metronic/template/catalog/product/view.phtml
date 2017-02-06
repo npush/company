@@ -29,10 +29,7 @@
             </div>
             <div class="timeline timeline-product">
                 <!-- TIMELINE ITEM -->
-                <div class="timeline-badge">
-                    <?php echo $this->getChildHtml('media') ?>
-                </div>
-                <div class="timeline-body clearfix">
+                <div class="timeline-body timeline-body-mob clearfix">
                     <div class="timeline-body-head">
                         <div class="timeline-body-head-caption">
                             <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name');?></a>
@@ -40,7 +37,22 @@
                     </div>
                     <!-- product-view-rating.phtml -->
                     <div class="timeline-btn-product display-inline">
-                        <div class="btn yellow-mint btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
+                        <div class="btn  yellow btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
+                        <?php echo $this->getChildHtml('product-rating') ?>
+                    </div>
+                </div>
+                <div class="timeline-badge">
+                    <?php echo $this->getChildHtml('media') ?>
+                </div>
+                <div class="timeline-body timeline-body-desktop clearfix">
+                    <div class="timeline-body-head">
+                        <div class="timeline-body-head-caption">
+                            <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name');?></a>
+                        </div>
+                    </div>
+                    <!-- product-view-rating.phtml -->
+                    <div class="timeline-btn-product display-inline">
+                        <div class="btn  yellow btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
                         <?php echo $this->getChildHtml('product-rating') ?>
                     </div>
                         <div class="timeline-body-content">
