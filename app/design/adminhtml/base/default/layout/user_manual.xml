@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <!--<block type="user_manual/adminhtml_catalog_product_edit_tab" name="custom_tab"/>-->
+            <action method="addTab">
+                <name>User Manual</name>
+                <block>user_manual/adminhtml_catalog_product_tab_manual</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    <adminhtml_manual_index>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="user_manual/adminhtml_catalog_product_manual" name="catalog.product.manual"/>
+        </block>
+    </adminhtml_manual_index>
+</layout>

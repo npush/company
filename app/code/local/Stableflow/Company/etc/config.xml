@@ -135,7 +135,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <company before="Mage_Adminhtml">Stablefow_Company_Adminhtml</company>
+                        <company before="Mage_Adminhtml">Stableflow_Company_Adminhtml</company>
                     </modules>
                 </args>
             </adminhtml>
