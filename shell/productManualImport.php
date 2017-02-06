@@ -58,7 +58,6 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
                 ];
                 $manualModel->setData($data);
                 $manualModel->save();
-                var_dump($manualModel);
 
                 printf("%s --> %s\n", $_data[self::PRODUCT_SKU], $_data[self::MANUAL_FILE_LABEL]);
             }
