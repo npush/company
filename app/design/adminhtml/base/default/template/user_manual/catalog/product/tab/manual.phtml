@@ -6,13 +6,15 @@
  * Time: 4:48 PM
  */
 ?>
+<h1>This page under construction... Coming soon :)</h1>
 <div class="input-field">
-    <label for="custom_field">Custom Field</label>
+    <label for="custom_field">Name</label>
     <input class="input-text" name="custom_field" id="custom_field" />
 </div>
 <?php $id = $this->getRequest()->getParam('id');?>
 <?php print_r($id);?>
 <?php $manual = Mage::getModel('user_manual/manual')->getCollection()->addFieldToFilter('entity_id' , 908);?>
 <?php foreach($manual as $_m):?>
-    <?php Zend_Debug::dump($_m);?>
+    <?php //Zend_Debug::dump($_m);?>
+    <?php printf('Manual file %s', $_m->getValue());?><br>
 <?php endforeach;?>

@@ -13,7 +13,8 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
 
     const PRODUCT_SKU = 1;
     const MANUAL_FILE_NAME = 2;
-    const MANUAL_FILE_LABEL = 3;
+    const MANUAL_FILE_GENUINE = 3;
+    const MANUAL_FILE_LABEL = 4;
     const MANUAL_ATTRIBUTE_CODE = 'file_upload';
 
     protected $_manualDir;
@@ -30,8 +31,9 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
 
-                    $this->setAttributeValue($data);
-                    echo "Adding to " . $data[1] . "\n";
+                    //$this->setAttributeValue($data);
+                    $this->saveManual($data);
+                    echo "Adding to " . $data[self::PRODUCT_SKU] . "\n";
                 }
                 fclose($file);
             }
@@ -44,16 +46,23 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
         $product_sku = $_data[self::PRODUCT_SKU];
         $productId = Mage::getModel('catalog/product')->getIdBySku($product_sku);
         if($productId){
-            $fileName = $this->uploadFile($_data[self::MANUAL_FILE_NAME], Mage::getBaseDir('media') . '/catalog/product_manual');
-            $manualModel = Mage::getModel('user_manual/manual');
-            $data = [
-                'entity_id' => $productId,
-                'value' => $fileName,
-                'store' => Mage::app()->getStore()->getStoreId(),
-                'label' => $_data[self::MANUAL_FILE_LABEL],
-            ];
-            $manualModel->setData($data)->save();
-            printf("%s --> %s\n", $_data[self::PRODUCT_SKU], $_data[self::MANUAL_FILE_LABEL]);
+            $_files = explode(';', $_data[self::MANUAL_FILE_NAME]);
+            foreach($_files as $_file){
+                $fileName = $this->uploadFile($_file, Mage::getBaseDir('media') . '/catalog/product_manual');
+                $manualModel = Mage::getModel('user_manual/manual');
+                $data = [
+                    'entity_id' => $productId,
+                    'value' => $fileName,
+                    'store' => (int)Mage::app()->getStore()->getStoreId(),
+                    'label' => $_data[self::MANUAL_FILE_LABEL],
+                ];
+                $manualModel->setData($data);
+                $manualModel->save();
+                var_dump($manualModel);
+
+                printf("%s --> %s\n", $_data[self::PRODUCT_SKU], $_data[self::MANUAL_FILE_LABEL]);
+            }
+            die();
         }else{
             echo 'Product' . $_data[self::PRODUCT_SKU]  . "not found\n";
         }

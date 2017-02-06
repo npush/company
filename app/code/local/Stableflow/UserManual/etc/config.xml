@@ -55,6 +55,15 @@
             </user_manual>
         </helpers>
     </global>
+    <frontend>
+        <layout>
+            <updates>
+                <user_manual>
+                    <file>user_manual.xml</file>
+                </user_manual>
+            </updates>
+        </layout>
+    </frontend>
     <admin>
         <routers>
             <adminhtml>
