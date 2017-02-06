@@ -18,4 +18,32 @@ class Stableflow_UserManual_Block_Adminhtml_Catalog_Product_Manual extends Mage_
 
         $this->setTemplate('user_manual/catalog/product/tab/manual.phtml');
     }
+
+    public function getManual(){
+        $productId = $this->getRequest()->getParam('id');
+        $manualArray = null;
+        $manualPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product_manual/';
+        $storeId = $this->getStore();
+        if($productId) {
+            $manuals = Mage::getModel('user_manual/manual')
+                ->getCollection()
+                ->addFieldToFilter('entity_id', $productId);
+            //return $manuals;
+            foreach($manuals as $manual){
+                $manualArray = [
+                    $manual->getId() =>[
+                        'label' => $manual->getLabel(),
+                        'file' => $manualPath . $manual->getValue(),
+                    ]
+                ];
+            }
+            return $manualArray;
+        }else {
+            return $manualArray;
+        }
+    }
+
+    public function getStore(){
+        return (int)Mage::app()->getStore()->getId();
+    }
 }

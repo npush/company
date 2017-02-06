@@ -42,20 +42,28 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
     public function getManual(){
         $productId = $this->getCurrentProduct()->getId();
         $manualArray = null;
-        $manualPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+        $manualPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product_manual/';
+        $storeId = $this->getStore();
         if($productId) {
             $manuals = Mage::getModel('user_manual/manual')
                 ->getCollection()
                 ->addFieldToFilter('entity_id', $productId);
-            return $manuals;
+            //return $manuals;
             foreach($manuals as $manual){
-                $manualArray['label'] = $manual->getLabel();
-                $manualArray['file'] = $manualPath . $manual->getValue();
-
+                $manualArray = [
+                    $manual->getId() =>[
+                        'label' => $manual->getLabel(),
+                        'file' => $manualPath . $manual->getValue(),
+                    ]
+                ];
             }
             return $manualArray;
         }else {
             return $manualArray;
         }
+    }
+
+    public function getStore(){
+        return (int)Mage::app()->getStore()->getId();
     }
 }

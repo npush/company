@@ -63,6 +63,15 @@
                 </user_manual>
             </updates>
         </layout>
+        <translate>
+            <modules>
+                <Stableflow_UserManual>
+                    <files>
+                        <default>Stableflow_UserManual.csv</default>
+                    </files>
+                </Stableflow_UserManual>
+            </modules>
+        </translate>
     </frontend>
     <admin>
         <routers>

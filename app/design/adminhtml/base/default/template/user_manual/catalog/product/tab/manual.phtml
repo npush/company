@@ -13,8 +13,9 @@
 </div>
 <?php $id = $this->getRequest()->getParam('id');?>
 <?php print_r($id);?>
-<?php $manual = Mage::getModel('user_manual/manual')->getCollection()->addFieldToFilter('entity_id' , 908);?>
+<?php $manual = Mage::getModel('user_manual/manual')->getCollection()->addFieldToFilter('entity_id' , $id);?>
+<?php $manual = $this->getManual()?>
 <?php foreach($manual as $_m):?>
     <?php //Zend_Debug::dump($_m);?>
-    <?php printf('Manual file %s', $_m->getValue());?><br>
+    <?php printf('Manual file %s', $_m['file']);?><br>
 <?php endforeach;?>

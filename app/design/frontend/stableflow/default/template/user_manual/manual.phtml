@@ -10,12 +10,11 @@
 <?php $manuals = $this->getManual();?>
 <?php if(count($manuals)): ?>
     <div>
-        <h1>MANUAL`S </h1>
+        <h3><?php echo $this->__('User Manual');?></h3>
     </div>
     <ul>
     <?php foreach($manuals as $manual): ?>
-        <?php $path = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product_manual/' .$this->htmlEscape($manual->getValue());?>
-        <li><a href="<?php echo $path;?>"><img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>"></a></li>
+        <li><a href="<?php echo $this->htmlEscape($manual['file']);?>"><img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>"></a></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>

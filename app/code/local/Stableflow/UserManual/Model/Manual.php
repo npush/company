@@ -12,4 +12,8 @@ class Stableflow_UserManual_Model_Manual extends Mage_Core_Model_Abstract{
         $this->_init('user_manual/manual');
         parent::_construct();
     }
+
+    public function getId(){
+        return $this->getData('value_id');
+    }
 }
