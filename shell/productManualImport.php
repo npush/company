@@ -62,7 +62,6 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
 
                 printf("%s --> %s\n", $_data[self::PRODUCT_SKU], $_data[self::MANUAL_FILE_LABEL]);
             }
-            die();
         }else{
             echo 'Product' . $_data[self::PRODUCT_SKU]  . "not found\n";
         }
