@@ -48,17 +48,17 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
             $manuals = Mage::getModel('user_manual/manual')
                 ->getCollection()
                 ->addFieldToFilter('entity_id', $productId);
-            //return $manuals;
             $i = 0;
             foreach($manuals as $manual){
                 $manualArray = [
-                    $i =>[
+                    $i => [
                         'label' => $manual->getLabel(),
                         'file' => $manualPath . $manual->getValue(),
                     ]
                 ];
                 $i++;
             }
+            print_r($manualArray);die();
             return $manualArray;
         }else {
             return $manualArray;
