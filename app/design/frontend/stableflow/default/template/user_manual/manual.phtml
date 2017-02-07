@@ -11,7 +11,10 @@
 <?php if(count($manuals)): ?>
     <ul class="line-pdf">
     <?php foreach($manuals as $manual): ?>
-        <li><a href="<?php echo $this->htmlEscape($manual['file']);?>"><img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>"></a></li>
+        <li><a href="<?php echo $this->htmlEscape($manual['file']);?>"  onclick="window.open('<?php echo $this->htmlEscape($manual['file']);?>', 'newwindow', 'width=300, height=250'); return false;">
+                <img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>">
+            </a>
+        </li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>
