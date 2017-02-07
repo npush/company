@@ -5364,6 +5364,7 @@ li.level0:after {
 
 .line-pdf .tooltip-pdf a{
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 .line-pdf li  {
