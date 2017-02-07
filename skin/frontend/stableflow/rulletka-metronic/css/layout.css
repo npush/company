@@ -5386,7 +5386,7 @@ li.level0:after {
 /* Tooltip text */
 .tooltip-pdf .tooltip-pdf-text {
     visibility: hidden;
-    width: 120px;
+    width: 150px;
     background-color: #555;
     color: #fff;
     text-align: center;
@@ -5396,14 +5396,17 @@ li.level0:after {
     /* Position the tooltip text */
     position: absolute;
     z-index: 1;
-    bottom: -550%;
+    bottom: -500%;
     left: 200%;
     margin-left: -60px;
+      font-size: 13px;
 
     /* Fade in tooltip */
     opacity: 0;
     transition: opacity 1s;
 }
+
+
 
 /* Tooltip arrow */
 /*.tooltip-pdf .tooltip-pdf-text::after {
