@@ -11,9 +11,16 @@
 <?php if(count($manuals)): ?>
     <ul class="line-pdf">
     <?php foreach($manuals as $manual): ?>
-        <li><a href="<?php echo $this->htmlEscape($manual['file']);?>"  onclick="window.open('<?php echo $this->htmlEscape($manual['file']);?>', 'newwindow', 'width=300, height=250'); return false;">
-                <img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>">
-            </a>
+        <li><div class="tooltip-pdf">
+                <a href="<?php echo $this->htmlEscape($manual['file']);?>"  onclick="window.open('<?php echo $this->htmlEscape($manual['file']);?>', 'new_window', 'width=640, height=480'); return false;">
+                    <img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>">
+                </a>
+                <div class="tooltip-pdf-text">
+                    <p class="pdf-title">Тута будет метка<?php echo $this->htmlEscape($manual['label']);?></p>
+                    <p class="pdf-description"><?php echo $this->__('Download Manual');?></p>
+                    <img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>">
+                </div>
+            </div>
         </li>
     <?php endforeach; ?>
     </ul>
