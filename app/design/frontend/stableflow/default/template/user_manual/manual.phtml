@@ -12,7 +12,7 @@
     <ul class="line-pdf">
     <?php foreach($manuals as $manual): ?>
         <li><div class="tooltip-pdf">
-                <a href="<?php echo $this->htmlEscape($manual['file']);?>"  onclick="window.open('<?php echo $this->htmlEscape($manual['file']);?>', 'new_window', 'width=640, height=480'); return false;">
+                <a href="<?php echo $this->htmlEscape($manual['file']);?>"  target="_blank">
                     <img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>">
                 </a>
                 <div class="tooltip-pdf-text">
