@@ -5357,6 +5357,11 @@ li.level0:after {
 }
 
 /** Manual CSS **/
+
+.line-pdf {
+  margin-top: 10px;
+}
+
 .line-pdf li  {
   display: inline-block;
   width: 30px;
@@ -5366,7 +5371,7 @@ li.level0:after {
   width: 100%;
 }
 
-.tooltip-pdf-text li img {
+.tooltip-pdf-text img {
   width: 70%;
   margin: 0 auto;
   border-radius: 10px;
