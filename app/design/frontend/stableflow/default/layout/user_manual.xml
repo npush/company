@@ -4,7 +4,7 @@
     </default>
     <catalog_product_view>
         <reference name="product.info.media.after">
-            <block type="user_manual/manual" name="user_manual_list" template="user_manual/manual.phtml" output="toHtml" after="-">
+            <block type="user_manual/manual" name="user_manual_list" template="user_manual/manual.phtml"  after="-">
                 <!--<action method="append">
                     <block>user_manual_list</block>
                 </action>-->
