@@ -5362,6 +5362,10 @@ li.level0:after {
   margin-top: 10px;
 }
 
+.line-pdf .tooltip-pdf a{
+    color: #FFFFFF;
+}
+
 .line-pdf li  {
   display: inline-block;
   width: 30px;
