@@ -5366,6 +5366,12 @@ li.level0:after {
   width: 100%;
 }
 
+.tooltip-pdf-text li img {
+  width: 70%;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
 .tooltip-pdf {
     position: relative;
     display: inline-block;
