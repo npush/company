@@ -5406,7 +5406,7 @@ li.level0:after {
 }
 
 /* Tooltip arrow */
-.tooltip-pdf .tooltip-pdf-text::after {
+/*.tooltip-pdf .tooltip-pdf-text::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -5415,7 +5415,7 @@ li.level0:after {
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
-}
+}*/
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip-pdf:hover .tooltip-pdf-text {
