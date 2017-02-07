@@ -5,7 +5,7 @@
     <catalog_product_view>
         <reference name="head">
             <!--<action method="addItem"><type>skin_js</type><name>name.js</name></action>-->
-            <action method="addItem"><type>skin_css</type><name>user_manual.css</name></action>
+            <action method="addItem"><type>skin_css</type><name>css/user_manual.css</name></action>
         </reference>
         <reference name="product.info.media.after">
             <block type="user_manual/manual" name="user_manual_list" template="user_manual/manual.phtml"  after="-"/>
