@@ -12,7 +12,7 @@
     <div>
         <h3><?php echo $this->__('User Manual');?></h3>
     </div>
-    <ul>
+    <ul class="line-pdf">
     <?php foreach($manuals as $manual): ?>
         <li><a href="<?php echo $this->htmlEscape($manual['file']);?>"><img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>"></a></li>
     <?php endforeach; ?>
