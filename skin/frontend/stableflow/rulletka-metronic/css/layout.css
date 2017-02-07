@@ -5355,3 +5355,13 @@ li.level0:after {
 .content-text .line-dashed {
   max-width: 640px;
 }
+
+
+.line-pdf li  {
+  display: inline-block;
+  width: 30px;
+}
+
+.line-pdf li img {
+  width: 100%;
+}
