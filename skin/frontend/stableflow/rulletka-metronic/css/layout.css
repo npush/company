@@ -5371,7 +5371,7 @@ li.level0:after {
   width: 100%;
 }
 
-.tooltip-pdf-text img {
+.line-pdf li .tooltip-pdf-text img {
   width: 70%;
   margin: 0 auto;
   border-radius: 10px;
@@ -5380,7 +5380,7 @@ li.level0:after {
 .tooltip-pdf {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+
 }
 
 /* Tooltip text */
