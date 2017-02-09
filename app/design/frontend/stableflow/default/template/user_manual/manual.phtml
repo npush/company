@@ -11,13 +11,14 @@
 <?php if(count($manuals)): ?>
     <ul class="line-pdf">
     <?php foreach($manuals as $manual): ?>
-        <li><div class="tooltip-pdf">
-                <a href="<?php echo $this->htmlEscape($manual['file']);?>"  target="_blank">
+        <li>
+            <div class="tooltip-pdf">
+                <a href="<?php echo $this->htmlEscape($manual['file']);?>" target="_blank">
                     <img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>">
                 </a>
                 <div class="tooltip-pdf-text">
                     <p class="pdf-title">Какой-то текст ... <?php echo $this->htmlEscape($manual['label']);?></p>
-                    <p class="pdf-description"><a href="<?php echo $this->htmlEscape($manual['file']);?>"  target="_blank"><?php echo $this->__('Download Manual');?></a></p>
+                    <p class="pdf-description"><a href="<?php echo $this->htmlEscape($manual['file']);?>" target="_blank"><?php echo $this->__('Download Manual');?></a></p>
                     <img src="<?php  echo $this->getSkinUrl('images/user_manual/img-pdf.png')?>">
                 </div>
             </div>

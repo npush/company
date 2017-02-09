@@ -1,0 +1,25 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 2/9/17
+ * Time: 12:51 PM
+ */
+?>
+<?php $tooltips = $this->getTooltip()?>
+<?php if(count($tooltips) > 0): ?>
+<ul class="line-pdf">
+    <?php foreach($tooltips as $_tooltip): ?>
+    <li>
+        <div class="tooltip-pdf">
+            <img src="<?php  echo $_tooltip['file']?>">
+            <div class="tooltip-pdf-text">
+                <span><?php  echo $_tooltip['title']?></span>
+                <p><?php  echo $_tooltip['description']?></p>
+                <img src="<?php  echo $_tooltip['file']?>">
+            </div>
+        </div>
+    </li>
+    <?php endforeach; ?>
+</ul>
+<?php endif; ?>

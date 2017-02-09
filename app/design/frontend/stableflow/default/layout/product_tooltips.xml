@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+    </default>
+    <catalog_product_view>
+        <reference name="head">
+            <!--<action method="addItem"><type>skin_js</type><name>name.js</name></action>-->
+            <action method="addItem"><type>skin_css</type><name>css/product_tooltips.css</name></action>
+        </reference>
+        <reference name="product.info.media.after">
+            <block type="product_tooltips/tooltip" name="product_tooltips_list" template="product_tooltips/product/list.phtml"  after="-"/>
+        </reference>
+    </catalog_product_view>
+</layout>

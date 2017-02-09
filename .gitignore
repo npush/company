@@ -135,3 +135,5 @@ var/
 !/app/design/frontend/base/default/template/youama/*
 
 !/app/design/frontend/base/default/template/mageinn/*
+
+!/media/tooltips/*
