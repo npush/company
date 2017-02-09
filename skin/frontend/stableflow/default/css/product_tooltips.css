@@ -1,10 +1,10 @@
 /** Tooltips CSS **/
 
-.line-pdf {
+.line-pdf, .line-icon {
     margin-top: 10px;
 }
 
-.line-pdf .tooltip-pdf a{
+.line-pdf .tooltip-pdf a {
     color: #FFFFFF;
     cursor: pointer;
 }
@@ -30,6 +30,17 @@
 
 }
 
+.line-icon li  {
+    display: inline-block;
+    width: 40px;
+}
+
+.line-icon li .tooltip-pdf-text img {
+    width: 60%;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
 /* Tooltip text */
 .tooltip-pdf .tooltip-pdf-text {
     visibility: hidden;
@@ -51,6 +62,25 @@
     /* Fade in tooltip */
     opacity: 0;
     transition: opacity 1s;
+}
+
+.line-icon  .tooltip-pdf .tooltip-pdf-text {
+    visibility: hidden;
+    width: 180px;
+    background-color: #fff;
+    border: 1px solid #000;
+    text-align: center;
+    padding: 7px 10px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: -359%;
+    left: 200%;
+    margin-left: -60px;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 1s;
+    color: #000;
 }
 
 
