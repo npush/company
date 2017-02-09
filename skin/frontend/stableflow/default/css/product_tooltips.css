@@ -14,7 +14,7 @@
     width: 30px;
 }
 
-.line-pdf li img {
+.line-pdf li img, .line-icon  li img {
     width: 100%;
 }
 
@@ -74,7 +74,7 @@
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-    bottom: -359%;
+    top: 20px;
     left: 200%;
     margin-left: -60px;
     font-size: 13px;
