@@ -57,7 +57,6 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
                 'created_at' => Varien_Date::now(),
                 'status' => 1
             ];
-            Zend_Debug::dump($tooltipsModel);die();
             $tooltipsModel->setData($data);
             $tooltipsModel->save();
 
