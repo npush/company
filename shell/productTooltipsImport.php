@@ -26,7 +26,7 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
      *
      */
     public function run(){
-        $this->_tooltipsDir =  Mage::getBaseDir('media') . '/import//tooltips/';
+        $this->_tooltipsDir =  Mage::getBaseDir('media') . '/import/tooltips/';
         if ($this->getArg('file')) {
             $path = $this->getArg('file');
             echo 'reading data from ' . $path . PHP_EOL;
@@ -54,8 +54,10 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
                 'title' => $_data[self::TOOLTIP_LABEL],
                 'description' => $_data[self::TOOLTIP_DESCRIPTION] == '\N' ? '' : $_data[self::TOOLTIP_DESCRIPTION],
                 'image_file' => $fileName,
-                'created_at' => Varien_Date::now()
+                'created_at' => Varien_Date::now(),
+                'status' => 1
             ];
+            Zend_Debug::dump($tooltipsModel);die();
             $tooltipsModel->setData($data);
             $tooltipsModel->save();
 
