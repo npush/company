@@ -61,7 +61,7 @@
 
     /* Fade in tooltip */
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 0.35s;
 }
 
 .line-icon  .tooltip-pdf .tooltip-pdf-text {
@@ -79,7 +79,7 @@
     margin-left: -60px;
     font-size: 13px;
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 0.35s;
     color: #000;
 }
 
@@ -100,7 +100,7 @@
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip-pdf:hover .tooltip-pdf-text {
     visibility: visible;
-    opacity: 0.5;
+    opacity: 0.35;
 }
 
 /** END Tooltips CSS **/
