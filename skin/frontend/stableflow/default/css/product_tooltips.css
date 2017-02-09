@@ -100,7 +100,7 @@
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip-pdf:hover .tooltip-pdf-text {
     visibility: visible;
-    opacity: 1;
+    opacity: 0.5;
 }
 
 /** END Tooltips CSS **/
