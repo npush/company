@@ -6,6 +6,7 @@
  * Date: 2/8/17
  * Time: 3:20 PM
  */
+
 class Stableflow_ProductTooltips_Model_Tooltip extends Mage_Core_Model_Abstract{
 
     /**
@@ -33,12 +34,36 @@ class Stableflow_ProductTooltips_Model_Tooltip extends Mage_Core_Model_Abstract{
     /**
      * constructor
      *
-     * @access public
-     * @return void
-     * @author WEB4PRO <srepin@corp.web4pro.com.ua>
      */
     public function _construct(){
         parent::_construct();
         $this->_init('product_tooltips/tooltip');
+    }
+
+    /**
+     * before save attachment
+     *
+     * @return Stableflow_ProductTooltips_Model_Tooltip
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+        $now = Mage::getSingleton('core/date')->gmtDate();
+        if ($this->isObjectNew()) {
+            $this->setCreatedAt($now);
+        }
+        $this->setUpdatedAt($now);
+        return $this;
+    }
+
+    /**
+     * save attachment relation
+     *
+     * @return Stableflow_ProductTooltips_Model_Tooltip
+     */
+    protected function _afterSave()
+    {
+        $this->getProductInstance()->saveAttachmentRelation($this);
+        return parent::_afterSave();
     }
 }

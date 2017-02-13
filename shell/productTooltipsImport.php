@@ -11,8 +11,8 @@ require_once 'abstract.php';
 
 class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
 
-    const PRODUCT_SKU = 1;
-    const TOOLTIP_FILE_NAME = 2;
+    const R_PRODUCT_SKU = 0;
+    const R_TOOLTIP_ID = 1;
 
     const TOOLTIP_ID = 0;
     const TOOLTIP_LABEL = 1;
@@ -27,15 +27,24 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
      */
     public function run(){
         $this->_tooltipsDir =  Mage::getBaseDir('media') . '/import/tooltips/';
-        if ($this->getArg('file')) {
+        if ($this->getArg('file') && $this->getArg('mode')) {
             $path = $this->getArg('file');
+            $routne = $this->getArg('mode');
             echo 'reading data from ' . $path . PHP_EOL;
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
-
+                    switch($routne){
+                        case 'tooltips':
+                            $this->addTooltip($data);
+                            echo "Adding " . $data[self::TOOLTIP_LABEL] . "\n";
+                            break;
+                        case 'relation':
+                            $this->addRelation($data);
+                            printf("Adding tooltip ID: %D  to product SKU: %S\n", $data[self::R_TOOLTIP_ID], $data[self::R_PRODUCT_SKU]);
+                    }
                     //$this->setAttributeValue($data);
                     $this->addTooltip($data);
-                    echo "Adding to " . $data[self::PRODUCT_SKU] . "\n";
+                    echo "Adding to " . $data[self::R_PRODUCT_SKU] . "\n";
                 }
                 fclose($file);
             }
@@ -49,14 +58,14 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
         foreach($_files as $_file){
             $fileName = $this->uploadFile($_file, Mage::getBaseDir('media') . '/tooltips');
             $tooltipsModel = Mage::getModel('product_tooltips/tooltip');
-            $data = [
+            $data = array(
                 'tooltip_id' => $_data[self::TOOLTIP_ID],
                 'title' => $_data[self::TOOLTIP_LABEL],
                 'description' => $_data[self::TOOLTIP_DESCRIPTION] == '\N' ? '' : $_data[self::TOOLTIP_DESCRIPTION],
                 'image_file' => $fileName,
                 'created_at' => Varien_Date::now(),
                 'status' => 1
-            ];
+            );
             $tooltipsModel->setData($data);
             $tooltipsModel->save();
 
@@ -65,6 +74,19 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
     }
 
     public function addRelation($_data){
+        $tooltipIds = explode('|', trim($_data[self::R_TOOLTIP_ID],'|'));
+        $productId = Mage::getModel('catalog/product')->getIdBySku($_data[self::R_PRODUCT_SKU]);
+        foreach($tooltipIds as $tooltipId){
+            if($tooltipId == 2 || $tooltipId == 1 || $tooltipId == 6) continue;
+            $data = array(
+                'tooltip_id' => $tooltipId,
+                'product_id' => $productId,
+                'position' => 0
+            );
+            $tooltipsModel = Mage::getModel('product_tooltips/tooltip');
+            $tooltipsModel->setData($data);
+            $tooltipsModel->save();
+        }
 
     }
 

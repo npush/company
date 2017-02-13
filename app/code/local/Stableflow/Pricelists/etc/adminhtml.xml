@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <stableflow_pricelists translate="title" module="stableflow_pricelists">
+            <title>Price Lists</title>
+            <sort_order>55</sort_order>
+            <action>adminhtml/pricelists</action>
+        </stableflow_pricelists>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <stableflow_pricelists translate="title" module="stableflow_pricelists">
+                        <title>Price Lists</title>
+                        <sort_order>0</sort_order>
+                    </stableflow_pricelists>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

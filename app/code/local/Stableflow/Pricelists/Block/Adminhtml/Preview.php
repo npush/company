@@ -1,0 +1,39 @@
+<?php
+
+class Stableflow_Pricelists_Block_Adminhtml_Preview extends Mage_Adminhtml_Block_Template {
+
+    protected function _construct() {
+        parent::_construct();
+        $this->setTemplate('stableflow/pricelists/preview.phtml');
+    }
+
+    public function thePreview() {
+
+        $request = $this->getRequest();
+
+        /** @var $pricelist Stableflow_Pricelists_Model_Pricelist */
+        $pricelist = Mage::getModel('pricelists/pricelist')->load($request->getParam('id'));
+
+        $config = $request->getParam('config');
+        if(!empty($config['delete']) && in_array(1, $config['delete'])) {
+            foreach ($config['delete'] as $key => $value) {
+                if ($value == 1) {
+                    unset($config['value'][$key]);
+                }
+            }
+        }
+        $mapArr = array();
+        foreach ($config['value'] as $option => $values) {
+            $column = $pricelist::getTypes()[$values['column']];
+            $letter = $values['letter'];
+            $mapArr[$column] = $letter;
+        }
+
+        /** @var Stableflow_Pricelists_Model_PricelistParser $parser */
+        $parser = Mage::getModel('pricelists/pricelistParser');
+        $file = Mage::getBaseDir('media') . '/pricelists/' . $pricelist->getFilename() . '.xls';
+        $parser->init($file, $mapArr);
+
+        return $parser->parseFile($request->getParam('row'), 20);
+    }
+}

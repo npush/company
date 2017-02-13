@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_pricelists_index>
+        <reference name="content">
+            <block type="stableflow_pricelists/adminhtml_pricelists" name="pricelists.grid_container" />
+        </reference>
+    </adminhtml_pricelists_index>
+
+    <adminhtml_pricelists_new>
+        <update handle="adminhtml_pricelists_edit"/>
+    </adminhtml_pricelists_new>
+
+    <adminhtml_pricelists_edit>
+        <reference name="content">
+            <block type="stableflow_pricelists/adminhtml_edit" />
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <name>pricelist.css</name>
+            </action>
+        </reference>
+    </adminhtml_pricelists_edit>
+
+    <adminhtml_ajax_preview>
+        <reference name="content">
+            <block type="stableflow_pricelists/adminhtml_preview" name="ajax.preview" template="stableflow/pricelists/preview.phtml" output="toHtml"/>
+        </reference>
+    </adminhtml_ajax_preview>
+</layout>

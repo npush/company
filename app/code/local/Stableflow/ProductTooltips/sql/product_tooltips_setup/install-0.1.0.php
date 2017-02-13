@@ -16,6 +16,7 @@ if ($installer->getConnection()->isTableExists($tableName) != true) {
     $table = $this->getConnection()
         ->newTable($tableName)
         ->addColumn('tooltip_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+            'unsigned' => true,
             'identity' => true,
             'nullable' => false,
             'primary' => true,

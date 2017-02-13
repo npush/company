@@ -38,7 +38,7 @@ class Stableflow_ProductTooltips_Block_Tooltip extends Mage_Core_Block_Template{
 
     public function getTooltips(){
         $tooltips = null;
-        $tolltipArray = null;
+        $tooltipArray = null;
         $productId = $this->getCurrentProduct()->getId();
         $product = $this->getCurrentProduct();
         $manualArray = null;
@@ -49,7 +49,7 @@ class Stableflow_ProductTooltips_Block_Tooltip extends Mage_Core_Block_Template{
             $i = 0;
             foreach($tooltipIds as $tooltipId){
                 $modelTooltip = Mage::getModel('product_tooltips/tooltip')->load($tooltipId);
-                $tolltipArray[$i] = array(
+                $tooltipArray[$i] = array(
                     'title' => $modelTooltip->getTitle(),
                     'file' => $imgPath . $modelTooltip->getImageFile(),
                     'description' => $modelTooltip->getDescription(),
@@ -57,6 +57,6 @@ class Stableflow_ProductTooltips_Block_Tooltip extends Mage_Core_Block_Template{
                 $i++;
             }
         }
-        return $tolltipArray;
+        return $tooltipArray;
     }
 }

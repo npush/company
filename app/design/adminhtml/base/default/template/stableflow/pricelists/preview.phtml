@@ -1,0 +1,22 @@
+<?php
+    $data = $this->thePreview();
+    $titles = array_keys(reset($data));
+?>
+<div class="grid">
+    <table class="preview-table" border="1" align="center">
+        <tr class="headings">
+            <th>Line</th>
+            <?php foreach ($titles as $title) : ?>
+                <th><?= $title; ?></th>
+            <?php endforeach; ?>
+        </tr>
+        <?php foreach ($data as $row => $cols): ?>
+            <tr>
+                <td><?= $row; ?></td>
+                <?php foreach ($cols as $col) : ?>
+                    <td><?= $col; ?></td>
+                <?php endforeach;?>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</div>

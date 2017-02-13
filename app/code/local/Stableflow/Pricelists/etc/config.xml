@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Stableflow_Pricelists>
+            <version>0.2.0</version>
+        </Stableflow_Pricelists>
+    </modules>
+    <global>
+
+        <blocks>
+            <stableflow_pricelists>
+                <class>Stableflow_Pricelists_Block</class>
+            </stableflow_pricelists>
+        </blocks>
+
+        <helpers>
+            <stableflow_pricelists>
+                <class>Stableflow_Pricelists_Helper</class>
+            </stableflow_pricelists>
+        </helpers>
+
+        <models>
+            <pricelists>
+                <class>Stableflow_Pricelists_Model</class>
+                <resourceModel>pricelist_resource</resourceModel>
+            </pricelists>
+            <pricelist_resource>
+                <class>Stableflow_Pricelists_Model_Resource</class>
+                <entities>
+                    <pricelist>
+                        <table>pricelist</table>
+                    </pricelist>
+                </entities>
+            </pricelist_resource>
+        </models>
+
+        <resources>
+            <pricelists_setup>
+                <setup>
+                    <module>Stableflow_Pricelists</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </pricelists_setup>
+            <pricelists_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </pricelists_write>
+            <pricelists_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </pricelists_read>
+        </resources>
+
+    </global>
+
+    <frontend>
+        <routers>
+            <Stableflow_Pricelists>
+                <use>standard</use>
+                <args>
+                    <module>Stableflow_Pricelists</module>
+                    <frontName>pricelists</frontName>
+                </args>
+            </Stableflow_Pricelists>
+        </routers>
+        <layout>
+            <updates>
+                <stableflow_pricelists>
+                    <file>stableflow/pricelists.xml</file>
+                </stableflow_pricelists>
+            </updates>
+        </layout>
+    </frontend>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <stableflow_pricelists>
+                    <file>stableflow/pricelists.xml</file>
+                </stableflow_pricelists>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <admin>
+        <routers>
+             <adminhtml>
+                 <args>
+                     <modules>
+                         <stableflow_pricelists before="Mage_Adminhtml">Stableflow_Pricelists_Adminhtml</stableflow_pricelists>
+                     </modules>
+                 </args>
+             </adminhtml>
+        </routers>
+    </admin>
+</config>
