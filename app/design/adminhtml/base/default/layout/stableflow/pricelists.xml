@@ -7,7 +7,9 @@
     </adminhtml_pricelists_index>
 
     <adminhtml_pricelists_new>
-        <update handle="adminhtml_pricelists_edit"/>
+        <reference name="content">
+            <block type="stableflow_pricelists/adminhtml_new" />
+        </reference>
     </adminhtml_pricelists_new>
 
     <adminhtml_pricelists_edit>

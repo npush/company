@@ -3,11 +3,11 @@
     $titles = array_keys(reset($data));
 ?>
 <div class="grid">
-    <table class="preview-table" border="1" align="center">
+    <table class="preview-table">
         <tr class="headings">
             <th>Line</th>
             <?php foreach ($titles as $title) : ?>
-                <th><?= $title; ?></th>
+                <th><?= Stableflow_Pricelists_Model_Pricelist::getTypes()[$title]; ?></th>
             <?php endforeach; ?>
         </tr>
         <?php foreach ($data as $row => $cols): ?>

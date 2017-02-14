@@ -2,7 +2,7 @@
 
 class Stableflow_Pricelists_Model_Pricelist extends Mage_Core_Model_Abstract {
 
-    protected $pathToFile = 'pricelists/';
+    protected $uploadDir = 'pricelists';
 
     protected function _construct() {
         $this->_init('pricelists/pricelist');
@@ -19,15 +19,16 @@ class Stableflow_Pricelists_Model_Pricelist extends Mage_Core_Model_Abstract {
     }
 
     public static function getTypes(){
-        return array('name', 'price', 'code', 'manufacturer');
+        return array(
+            'name' => Mage::helper('stableflow_pricelists')->__('Name'),
+            'price' => Mage::helper('stableflow_pricelists')->__('Price'),
+            'code' => Mage::helper('stableflow_pricelists')->__('Code'),
+            'manufacturer' => Mage::helper('stableflow_pricelists')->__('Manufacturer')
+        );
     }
 
     public function getConfig() {
         return unserialize($this->configurations);
-    }
-
-    public function setConfig($configuration) {
-        $this->configurations = serialize($configuration);
     }
 
     public function getRow() {
@@ -41,6 +42,10 @@ class Stableflow_Pricelists_Model_Pricelist extends Mage_Core_Model_Abstract {
     }
 
     public function getPathToFile() {
-        return $this->pathToFile . $this->filename .".xls";
+        return $this->uploadDir . DS . $this->getFilename();
+    }
+
+    public function setConfig($configuration) {
+        $this->configurations = serialize($configuration);
     }
 }

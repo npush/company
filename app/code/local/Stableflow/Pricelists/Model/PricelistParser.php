@@ -31,17 +31,17 @@ class Stableflow_Pricelists_Model_PricelistParser {
         $highestRow = (int)($lastRow) ? ($lastRow + $firstRow) - 1 : $sheet->getHighestRow();
         $highestColumn = $sheet->getHighestColumn();
         $data = [];
+
         for ($row = $firstRow; $row <= $highestRow; $row++) {
-            $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+            $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, TRUE);
             $fill = 0;
             foreach ($rowData[0] as $index => $value) {
-                if (!empty($value)) {
-                    $fill++;
-                }
                 if ($type = array_search($index, $this->_config)) {
+                    if (!empty($value)) {
+                        $fill++;
+                    }
                     $data[$row][$type] = ($type == 'price') ? round($value, 2) : $value;
                 }
-
             }
             if($fill == 0) {
                 unset($data[$row]);

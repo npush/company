@@ -34,7 +34,7 @@ foreach ($pricelist->getTypes() as $key => $value) {
                     <td> 
                         <select name="<?php echo $_htmlName; ?>[value][option_<?= $_counter; ?>][column]">
                             <?php foreach ($pricelist->getTypes() as $k => $t): ?>
-                                <option value="<?= $k; ?>" <?= ($type != $t) ? '' : 'selected'; ?>><?= $t; ?></option>
+                                <option value="<?= $k; ?>" <?= ($type != $k) ? '' : 'selected'; ?>><?= $t; ?></option>
                             <?php endforeach; ?>
                         </select>
                     <td>
@@ -57,7 +57,9 @@ foreach ($pricelist->getTypes() as $key => $value) {
         <br>
         <?= $this->getButtonHtml($this->__('Preview'), 'preview()'); ?>
         <?= $this->getButtonHtml($this->__('Download file'), "setLocation('{$this->urlToFile()}')", 'preview_btn'); ?>
-        <?= $this->getButtonHtml($this->__('Approve'), 'approve()'); ?>
+        <?php if ($pricelist->getStatus() == Stableflow_Pricelists_Model_Resource_Pricelist::STATUS_NOT_APPROVED) : ?>
+            <?= $this->getButtonHtml($this->__('Approve'), 'approve()'); ?>
+        <?php endif; ?>
 
         <script type="text/javascript">//<![CDATA[
             function preview(){

@@ -23,17 +23,17 @@ class Stableflow_Pricelists_Block_Adminhtml_Preview extends Mage_Adminhtml_Block
             }
         }
         $mapArr = array();
-        foreach ($config['value'] as $option => $values) {
-            $column = $pricelist::getTypes()[$values['column']];
+        foreach ($config['value'] as $values) {
+            $column = $values['column'];
             $letter = $values['letter'];
             $mapArr[$column] = $letter;
         }
 
         /** @var Stableflow_Pricelists_Model_PricelistParser $parser */
         $parser = Mage::getModel('pricelists/pricelistParser');
-        $file = Mage::getBaseDir('media') . '/pricelists/' . $pricelist->getFilename() . '.xls';
+        $file = Mage::getBaseDir('media') . DS . 'pricelists' . DS . $pricelist->getFilename();
         $parser->init($file, $mapArr);
 
-        return $parser->parseFile($request->getParam('row'), 20);
+        return $parser->parseFile($request->getParam('row'), 10);
     }
 }
