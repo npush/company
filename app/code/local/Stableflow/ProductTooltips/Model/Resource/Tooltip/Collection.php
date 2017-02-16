@@ -20,6 +20,23 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip_Collection extends Mage_
     }
 
     /**
+     * Init collection select
+     *
+     * @return unknown
+     */
+    public function _initSelect(){
+        parent::_initSelect();
+        $this->getSelect()
+            ->joinLeft(
+                array('product_relation' => $this->getTable('product_tooltip')),
+                'main_table.tooltip_id = product_relation.tooltip_id',
+                array('code')
+            );
+        return $this;
+    }
+
+
+    /**
      * get tooltips as array
      *
      * @access protected

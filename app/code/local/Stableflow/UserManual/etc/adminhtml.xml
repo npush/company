@@ -1,11 +1,5 @@
 <?xml version="1.0"?>
 <config>
-    <menu>
-        <rulletka translate="title" module="rulletka">
-            <title>Rulletka Theme</title>
-            <sort_order>65</sort_order>
-        </rulletka>
-    </menu>
     <acl>
         <resources>
             <all>
@@ -18,20 +12,18 @@
                             <config>
                                 <children>
                                     <rulletka>
-                                        <title>Extended Breadcrumbs</title>
+                                        <title>User Manual</title>
                                     </rulletka>
                                 </children>
                             </config>
                         </children>
                     </system>
-                    <rulletka translate="title" module="rulletka">
-                        <title>Rulletka Theme</title>
-                        <sort_order>0</sort_order>
+                    <rulletka translate="title">
                         <children>
-                            <rulletka translate="title" module="rulletka">
-                                <title>Extended Breadcrumbs</title>
+                            <user_manual translate="title" module="user_manual">
+                                <title>User Manual</title>
                                 <sort_order>0</sort_order>
-                            </rulletka>
+                            </user_manual>
                         </children>
                     </rulletka>
                 </children>

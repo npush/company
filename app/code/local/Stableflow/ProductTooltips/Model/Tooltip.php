@@ -45,7 +45,7 @@ class Stableflow_ProductTooltips_Model_Tooltip extends Mage_Core_Model_Abstract{
      *
      * @return Stableflow_ProductTooltips_Model_Tooltip
      */
-    protected function _beforeSave()
+/*    protected function _beforeSave()
     {
         parent::_beforeSave();
         $now = Mage::getSingleton('core/date')->gmtDate();
@@ -54,16 +54,16 @@ class Stableflow_ProductTooltips_Model_Tooltip extends Mage_Core_Model_Abstract{
         }
         $this->setUpdatedAt($now);
         return $this;
-    }
+    }*/
 
     /**
      * save attachment relation
      *
      * @return Stableflow_ProductTooltips_Model_Tooltip
      */
-    protected function _afterSave()
+/*    protected function _afterSave()
     {
         $this->getProductInstance()->saveAttachmentRelation($this);
         return parent::_afterSave();
-    }
+    }*/
 }

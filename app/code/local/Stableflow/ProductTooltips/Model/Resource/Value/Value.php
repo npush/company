@@ -12,7 +12,7 @@ class Stableflow_ProductTooltips_Model_Resource_Value_Value extends Mage_Core_Mo
      *
      */
     public function _construct(){
-        $this->_init('product_tooltips/tooltip_value', 'id');
+        $this->_init('product_tooltips/product_tooltip', 'id');
     }
 
     /**

@@ -83,9 +83,13 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
                 'product_id' => $productId,
                 'position' => 0
             );
-            $tooltipsModel = Mage::getModel('product_tooltips/tooltip');
-            $tooltipsModel->setData($data);
-            $tooltipsModel->save();
+            $tooltipsModel = Mage::getModel('product_tooltips/value');
+            try{
+                $tooltipsModel->setData($data);
+                $tooltipsModel->save();
+            }catch (Exception $e){
+                print_r($e);
+            }
         }
 
     }

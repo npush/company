@@ -36,7 +36,15 @@ class Stableflow_ProductTooltips_Block_Tooltip extends Mage_Core_Block_Template{
         return Mage::registry('current_product');
     }
 
+    /**
+     * get
+     * @return null
+     */
+
     public function getTooltips(){
+        /*$modelTooltip = Mage::getModel('product_tooltips/tooltip')
+            ->getCollection()
+            ->addProductFilter($this->getCurrentProduct());*/
         $tooltips = null;
         $tooltipArray = null;
         $productId = $this->getCurrentProduct()->getId();

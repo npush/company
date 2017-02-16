@@ -81,6 +81,17 @@
             </adminhtml_block_html_before>
         </events>-->
     </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Stableflow_ProductTooltips>
+                    <files>
+                        <default>Stableflow_Rulletka.csv</default>
+                    </files>
+                </Stableflow_ProductTooltips>
+            </modules>
+        </translate>
+    </adminhtml>
     <default>
         <rulletka>
             <rulletka_breadcrumbs>

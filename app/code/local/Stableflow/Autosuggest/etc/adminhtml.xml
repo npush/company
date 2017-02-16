@@ -13,12 +13,20 @@
                             <config>
                                 <children>
                                     <autosuggest>
-                                        <title>Stableflow Autosuggest</title>
+                                        <title>Stableflow Auto suggest</title>
                                     </autosuggest>
                                 </children>
                             </config>
                         </children>
                     </system>
+                    <rulletka translate="title">
+                        <children>
+                            <autosuggest translate="title" module="autosuggest">
+                                <title>Auto suggest</title>
+                                <sort_order>0</sort_order>
+                            </autosuggest>
+                        </children>
+                    </rulletka>
                 </children>
             </admin>
         </resources>

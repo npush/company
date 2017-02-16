@@ -1,6 +1,17 @@
 <?xml version="1.0"?>
 
 <config>
+    <menu>
+        <rulletka translate="title">
+            <children>
+                <tooltips translate="title" module="product_tooltips">
+                    <title>Product Tooltips</title>
+                    <action>adminhtml/tooltips_tooltip</action>
+                    <sort_order>0</sort_order>
+                </tooltips>
+            </children>
+        </rulletka>
+    </menu>
     <acl>
         <resources>
             <all>
@@ -19,30 +30,16 @@
                             </config>
                         </children>
                     </system>
-                    <product_tooltips translate="title" module="product_tooltips">
-                        <title>Rulletka</title>
+                    <rulletka translate="title">
                         <children>
                             <tooltips translate="title" module="product_tooltips">
                                 <title>Product Tooltips</title>
                                 <sort_order>0</sort_order>
                             </tooltips>
                         </children>
-                    </product_tooltips>
+                    </rulletka>
                 </children>
             </admin>
         </resources>
     </acl>
-<!--    <menu>
-        <product_tooltips translate="title" module="product_tooltips">
-            <title>Rulletka</title>
-            <sort_order>25</sort_order>
-            <children>
-                <tooltips translate="title" module="product_tooltips">
-                    <title>Product Tooltips</title>
-                    <action>adminhtml/tooltips_tooltip</action>
-                    <sort_order>0</sort_order>
-                </tooltips>
-            </children>
-        </product_tooltips>
-    </menu>-->
 </config>
