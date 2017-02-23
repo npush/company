@@ -1,0 +1,46 @@
+.amshopby-slider-ui {
+    width: 300px;
+    margin: 2px 0.4em;
+}
+
+.amshopby-item-top.block-content.am-toggle-content dd ol > li {
+    display: inline-block;
+}
+
+.amshopby-item-top.block-content.am-toggle-content dt {
+    padding-right: 25px;
+    float: left;
+}
+
+.amshopby-filters-top .block-content ol {
+    max-width: none;
+}
+
+.amshopby-item-top{
+    display: block;
+}
+
+.amshopby-filters-top .block-content ol > li {
+    display: inline-block;
+    padding: 0 3px 0 3px;
+}
+
+.amshopby-item-top {
+    max-width: none;
+}
+
+.amshopby-container-top.block-layered-nav.amshopby-filters-top {
+    margin-top: 10px;
+}
+
+.currently .label {
+    color: #333;
+}
+
+.amshopby-more, .amshopby-less{
+    cursor: pointer;
+    color: #255e95;
+    font-weight: bold;
+    padding: 2px 7px;
+    font-size: 11px;
+}
