@@ -24,8 +24,12 @@
                             </span>
                         <?php endforeach ?>
                     <?php else: ?>
-                        <a href="<?php echo $_filter->getRemoveUrl() ?>" class="btn-remove" title="<?php echo $_removeTxt ?>"><?php echo $_removeTxt ?></a>
-                        <?php echo $_filter->getLabel() ?>
+                        <span class="multiselect-child">
+                                <?php echo $_filter->getLabel() ?>
+                            <a href="<?php echo $_filter->getUrl() ?>" class="btn-remove-inline">
+                                <img src="<?php echo Mage::getDesign()->getSkinUrl('images/spacer.gif') ?>" width="13" height="12" alt="<?php echo $_removeTxt ?>" />
+                            </a>
+                        </span>
                     <?php endif ?>
                 </li>
             <?php endforeach; ?>
