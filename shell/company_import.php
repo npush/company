@@ -76,7 +76,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
             'entity_id'     => $companyData[self::COMPANY_ID],
             'name'          => stripslashes($companyData[self::COMPANY_NAME]),
             'description'   => stripslashes($companyData[self::COMPANY_DESCRIPTION]),
-            'image'         => $this->uploadFile($companyData[self::COMPANY_LOGO_IMG]),
+            'image'         => $this->uploadFile($this->_importImagePath . $companyData[self::COMPANY_LOGO_IMG]),
             'created_at'    => $_date ? $_date : Varien_Date::now(),
             'email'         => $companyData[self::COMPANY_EMAIL],
             'url'           => $companyData[self::COMPANY_URL],
