@@ -128,6 +128,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
 
     public function uploadFile($file){
         try {
+            echo $file . "\n";
             $uploader = new Mage_ImportExport_Model_Import_Uploader($file);
             $fileInfo = pathinfo($file);
             $newFile = $fileInfo['basename'];
