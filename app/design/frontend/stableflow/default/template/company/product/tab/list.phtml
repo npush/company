@@ -14,7 +14,7 @@
 
 <div class="category-products">
 <?php echo count($productCollection)?>
-<?php foreach($productCollection as $productRelation):?>
+<?php $ii = 0; foreach($productCollection as $productRelation):?>
     <?php $_product = Mage::getModel('catalog/product')->load($productRelation->getProductId());?>
     <?php // Grid Mode ?>
     <div class="portlet light portlet-fit bordered portlet-full">
@@ -60,5 +60,6 @@
             </div>
         </div>
     </div>
-<?php endforeach;?>
+    <?php if($ii > 20) break;?>
+<?php $ii++; endforeach;?>
 </div>
