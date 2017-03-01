@@ -6,7 +6,7 @@
  * Date: 12/9/16
  * Time: 3:45 PM
  */
-class Stableflow_Company_Model_Attribute extends Mage_Core_Model_Abstract {
+class Stableflow_Company_Model_Attribute extends Mage_Eav_Model_Entity_Attribute {
 
     /**
      * Name of the module

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <Stableflow_company>
+        <Stableflow_Company>
             <version>0.1.0</version>
-        </Stableflow_company>
+        </Stableflow_Company>
     </modules>
     <global>
         <models>
@@ -37,26 +37,62 @@
                     </company_entity_char>
 
                     <address_entity>
-                        <table>address_entity</table>
+                        <table>company_address_entity</table>
                     </address_entity>
                     <address_entity_datetime>
-                        <table>address_entity_datetime</table>
+                        <table>company_address_entity_datetime</table>
                     </address_entity_datetime>
                     <address_entity_decimal>
-                        <table>address_entity_decimal</table>
+                        <table>company_address_entity_decimal</table>
                     </address_entity_decimal>
                     <address_entity_int>
-                        <table>address_entity_int</table>
+                        <table>company_address_entity_int</table>
                     </address_entity_int>
                     <address_entity_text>
-                        <table>address_entity_text</table>
+                        <table>company_address_entity_text</table>
                     </address_entity_text>
                     <address_entity_varchar>
-                        <table>address_entity_varchar</table>
+                        <table>company_address_entity_varchar</table>
                     </address_entity_varchar>
                     <address_entity_char>
-                        <table>address_entity_char</table>
+                        <table>company_address_entity_char</table>
                     </address_entity_char>
+
+                    <product_entity>
+                        <table>company_product_entity</table>
+                    </product_entity>
+                    <product_entity_datetime>
+                        <table>company_product_entity_datetime</table>
+                    </product_entity_datetime>
+                    <product_entity_decimal>
+                        <table>company_product_entity_decimal</table>
+                    </product_entity_decimal>
+                    <product_entity_int>
+                        <table>company_product_entity_int</table>
+                    </product_entity_int>
+                    <product_entity_text>
+                        <table>company_product_entity_text</table>
+                    </product_entity_text>
+                    <product_entity_varchar>
+                        <table>company_product_entity_varchar</table>
+                    </product_entity_varchar>
+                    <product_entity_char>
+                        <table>company_product_entity_char</table>
+                    </product_entity_char>
+
+                    <eav_attribute>
+                        <table>company_eav_attribute</table>
+                    </eav_attribute>
+                    <company_to_products>
+                        <table>company_to_products</table>
+                    </company_to_products>
+
+                    <company_type>
+                        <table>company_type</table>
+                    </company_type>
+                    <company_activity>
+                        <table>company_activity</table>
+                    </company_activity>
                 </entities>
             </company_resource>
         </models>
@@ -96,11 +132,11 @@
         <events>
             <page_block_html_topmenu_gethtml_before>
                 <observers>
-                    <company>
-                        <class>stableflow_company/observer</class>
+                    <company_add_menu_item>
+                        <class>Stableflow_Company_Model_Observer</class>
                         <method>addMenuItems</method>
                         <!--<method>addItemsToTopmenu</method>-->
-                    </company>
+                    </company_add_menu_item>
                 </observers>
             </page_block_html_topmenu_gethtml_before>
         </events>
@@ -116,7 +152,7 @@
         <layout>
             <updates>
                 <company>
-                    <file>stableflow_company.xml</file>
+                    <file>company.xml</file>
                 </company>
             </updates>
         </layout>
@@ -124,18 +160,37 @@
             <modules>
                 <Stableflow_Company>
                     <files>
-                        <default>stableflow_company.csv</default>
+                        <default>Stableflow_Company.csv</default>
                     </files>
                 </Stableflow_Company>
             </modules>
         </translate>
     </frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <company>
+                    <file>company.xml</file>
+                </company>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Stableflow_Company>
+                    <files>
+                        <default>Stableflow_Company.csv</default>
+                    </files>
+                </Stableflow_Company>
+            </modules>
+        </translate>
+    </adminhtml>
     <admin>
         <routers>
             <adminhtml>
                 <args>
                     <modules>
-                        <company before="Mage_Adminhtml">Stableflow_Company_Adminhtml</company>
+                        <Stableflow_Company before="Mage_Adminhtml">Stableflow_Company_Adminhtml</Stableflow_Company>
+                        <!--<company before="Mage_Adminhtml">Stableflow_Company_Adminhtml</company>-->
                     </modules>
                 </args>
             </adminhtml>

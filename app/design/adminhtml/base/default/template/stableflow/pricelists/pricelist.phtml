@@ -44,8 +44,6 @@ foreach ($pricelist->getTypes() as $key => $value) {
                             <?php endforeach; ?>
                         </select>
                     <td class="a-left" id="delete_button_container_option_<?php echo $_counter ?>'">
-                        <input name="<?php echo $_htmlName; ?>[option_<?php echo $_counter ?>][id]" type="hidden">
-                        <input id="delete-row-<?php echo $_counter ?>" type="hidden" class="delete-flag" name="<?php echo $_htmlName; ?>[delete][option_<?php echo $_counter ?>]" value=""/>
                         <button onclick="$('config-row-<?php echo $_counter ?>').remove(); $('delete-row-<?php echo $_counter ?>').setValue(1);" title="Delete" type="button" class="scalable delete delete-option"><span><span><span>Delete</span></span></span></button>
                     </td>
                 </tr>
@@ -90,8 +88,6 @@ foreach ($pricelist->getTypes() as $key => $value) {
                         '<select name="<?php echo $_htmlName; ?>[value][option_{{id}}][letter]"><?= $optionsLetter; ?></select>' +
                     '</td>' +
                     '<td class="a-left" id="delete_button_container_option_{{id}}">'+
-                        '<input name="<?php echo $_htmlName; ?>[value][option_{{id}}][id]" value="" type="hidden">'+
-                        '<input id="delete-row-{{id}}" type="hidden" class="delete-flag" name="<?php echo $_htmlName; ?>[delete][option_{{id}}]" value=""/>'+
                         '<button onclick="$(\'config-row-{{id}}\').remove(); $(\'delete-row-{{id}}\').setValue(1);" title="Delete" type="button" class="scalable delete delete-option">' +
                             '<span>' +
                                 '<span>' +

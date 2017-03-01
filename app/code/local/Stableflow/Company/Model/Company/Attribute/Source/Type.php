@@ -51,4 +51,16 @@ class Stableflow_Company_Model_Company_Attribute_Source_Type extends Mage_Eav_Mo
     public function toOptionArray(){
         return $this->getAllOptions();
     }
+
+    public function getOptionArray()
+    {
+        return array(
+            self::SELLER        => Mage::helper('company')->__('Seller'),
+            self::PRODUCER      => Mage::helper('company')->__('Producer'),
+            self::CORPORATION   => Mage::helper('company')->__('Corporation'),
+            self::SHOP          => Mage::helper('company')->__('Shop'),
+            self::ENTREPRENEUR  => Mage::helper('company')->__('Entrepreneur'),
+            self::MIXED         => Mage::helper('company')->__('Mixed'),
+        );
+    }
 }

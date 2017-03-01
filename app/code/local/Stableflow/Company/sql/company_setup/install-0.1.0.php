@@ -49,19 +49,39 @@ $installer->addEntityType('company_address',Array(
  * Create all entity tables
  */
 $installer->createEntityTables(
-    $this->getTable('company/price_entity')
+    $this->getTable('company/product_entity')
 );
 
 /**
  * Add Entity type
  */
-$installer->addEntityType('company_price',Array(
+$installer->addEntityType('company_product',Array(
+    'entity_model'          =>'company/product',
+    'attribute_model'       =>'company/attribute',
+    'table'                 =>'company/product_entity',
+    'increment_model'       =>'eav/entity_increment_numeric',
+    //'increment_per_store'   =>'0'
+));
+
+
+
+/**
+ * Create all entity tables
+ */
+/*$installer->createEntityTables(
+    $this->getTable('company/price_entity')
+);*/
+
+/**
+ * Add Entity type
+ */
+/*$installer->addEntityType('company_price',Array(
     'entity_model'          =>'company/price',
     'attribute_model'       =>'company/attribute',
     'table'                 =>'company/price_entity',
     'increment_model'       =>'eav/entity_increment_numeric',
     //'increment_per_store'   =>'0'
-));
+));*/
 
 /**
  * Create table 'company/eav_attribute'
@@ -88,11 +108,6 @@ $table = $installer->getConnection()
     ), 'Multiline Count')
     ->addColumn('validate_rules', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
     ), 'Validate Rules')
-    ->addColumn('is_system', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-        'unsigned'  => true,
-        'nullable'  => false,
-        'default'   => '0',
-    ), 'Is System')
     ->addColumn('sort_order', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
         'nullable'  => false,
@@ -109,83 +124,143 @@ $installer->getConnection()->createTable($table);
 /**
  * Create table 'company_type'
  */
-/*
+
 $table = $installer->getConnection()
     ->newTable($installer->getTable('company/company_type'))
-    ->addColumn('company_type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ->addColumn('type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
     ), 'Company Type Id')
-    ->addColumn('company_type_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
+    ->addColumn('type_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
         'nullable'  => false,
     ), 'Company Type Code')
     ->setComment('Company Type');
 $installer->getConnection()->createTable($table);
-*/
 
-/*
+
+
 $installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'company_type_id'     => 1,
-    'company_type_code'   => 'Seller',
+    'type_id'     => 1,
+    'type_code'   => 'Seller',
 ));
 $installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'company_type_id'     => 2,
-    'company_type_code'   => 'Producer',
+    'type_id'     => 2,
+    'type_code'   => 'Producer',
 ));
 $installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'company_type_id'     => 3,
-    'company_type_code'   => 'Corporation',
+    'type_id'     => 3,
+    'type_code'   => 'Corporation',
 ));
 $installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'company_type_id'     => 4,
-    'company_type_code'   => 'Shop',
+    'type_id'     => 4,
+    'type_code'   => 'Shop',
 ));
 $installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'company_type_id'     => 5,
-    'company_type_code'   => 'Entrepreneur',
+    'type_id'     => 5,
+    'type_code'   => 'Entrepreneur',
 ));
 $installer->getConnection()->insertForce($installer->getTable('company/company_type'), array(
-    'company_type_id'     => 6,
-    'company_type_code'   => 'Mixed',
+    'type_id'     => 6,
+    'type_code'   => 'Mixed',
 ));
-*/
+
 
 /**
  * Create table 'company_activity'
  */
-/*
+
 $table = $installer->getConnection()
     ->newTable($installer->getTable('company/company_activity'))
-    ->addColumn('company_activity_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ->addColumn('activity_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-    ), 'Company Type Id')
-    ->addColumn('company_activity_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
+    ), 'Company Activity Id')
+    ->addColumn('activity_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
         'nullable'  => false,
-    ), 'Company Type Code')
-    ->setComment('Company Type');
+    ), 'Company Activity Code')
+    ->setComment('Company Activity');
 $installer->getConnection()->createTable($table);
-*/
+
+$installer->getConnection()->insertForce($installer->getTable('company/company_activity'), array(
+    'activity_id'     => 1,
+    'activity_code'   => 'Lights',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_activity'), array(
+    'activity_id'     => 2,
+    'activity_code'   => 'Electric',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_activity'), array(
+    'activity_id'     => 3,
+    'activity_code'   => 'Security',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_activity'), array(
+    'activity_id'     => 4,
+    'activity_code'   => 'Construction',
+));
+$installer->getConnection()->insertForce($installer->getTable('company/company_activity'), array(
+    'activity_id'     => 5,
+    'activity_code'   => 'Other',
+));
+
 
 /**
- * Create table 'company_products'
+ * Create table 'company_to_products'
  */
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('company/company_products'))
-    ->addColumn('company_type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+    ->newTable($installer->getTable('company/company_to_products'))
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'unsigned'  => true,
         'nullable'  => false,
         'primary'   => true,
-    ), 'Company Type Id')
-    ->addColumn('company_type_code', Varien_Db_Ddl_Table::TYPE_TEXT, 32, array(
+    ), 'Relation Id')
+    ->addColumn('company_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unsigned'  => true,
         'nullable'  => false,
-    ), 'Company Type Code')
-    ->setComment('Company Type');
+        //'primary'   => true,
+    ), 'Company Id')
+    ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unsigned'  => true,
+        'nullable'  => false,
+        //'primary'   => true,
+    ), 'Product Id')
+    ->addColumn('company_product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unsigned'  => true,
+        'nullable'  => false,
+        //'primary'   => true,
+    ), 'Company Product Id')
+    ->addForeignKey($this->getFkName(
+        'company/company_to_products',
+        'company_id',
+        'company/company_entity',
+        'entity_id'
+        ), 'company_id', $this->getTable('company/company_entity'), 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey($this->getFkName(
+        'company/company_to_products',
+        'product_id',
+        'catalog/product',
+        'entity_id'
+    ), 'product_id', $this->getTable('catalog/product'), 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addForeignKey($this->getFkName(
+        'company/company_to_products',
+        'company_product_id',
+        'company/product_entity',
+        'entity_id'
+    ), 'company_product_id', $this->getTable('company/product_entity'), 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
+    ->addIndex(
+        $this->getIdxName(
+            'company/company_to_products',
+            array('company_id', 'product_id','company_product_id'),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
+        ),
+        array('company_id', 'product_id','company_product_id'),
+        array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)
+    );
+
 $installer->getConnection()->createTable($table);
 
 

@@ -23,43 +23,68 @@ class Stableflow_Pricelists_Block_Adminhtml_Pricelists_Grid extends Mage_Adminht
     protected function _prepareColumns()
     {
 
-        $this->addColumn('id_company', array(
-            'header'        => Mage::helper('stableflow_pricelists')->__('Company ID'),
+        $this->addColumn('entity_id', array(
+            'header'        => Mage::helper('stableflow_pricelists')->__('ID'),
             'align'         => 'left',
-            'filter_index'  => 'id_company',
-            'index'         => 'id_company',
+            'filter_index'  => 'id',
+            'index'         => 'id',
             'type'          => 'text',
             'truncate'      => 50,
             'escape'        => true,
             'width'         => '25px'
         ));
 
-        $this->addColumn('filename', array(
-            'header'        => Mage::helper('stableflow_pricelists')->__('Filename'),
+        $this->addColumn('id_company', array(
+            'header'        => Mage::helper('stableflow_pricelists')->__('Company Name'),
             'align'         => 'left',
-            'filter_index'  => 'filename',
-            'index'         => 'filename',
+            'filter_index'  => 'id_company',
+            'index'         => 'id_company',
             'type'          => 'text',
             'truncate'      => 50,
             'escape'        => true,
+            'width'         => '350px'
         ));
+
 
         $this->addColumn('status', array(
             'header'        => Mage::helper('stableflow_pricelists')->__('Status'),
             'align'         => 'left',
             'filter_index'  => 'status',
             'index'         => 'status',
-            'width'         => '200px',
+            'width'         => '100px',
             'type'          => 'options',
             'options'       => Mage::getModel('pricelists/resource_pricelist')->toArray()
         ));
 
-        $this->addColumn('date', array(
-            'header'        => Mage::helper('stableflow_pricelists')->__('Date'),
+        $this->addColumn('schedule_at', array(
+            'header'        => Mage::helper('stableflow_pricelists')->__('Schedule At'),
             'align'         => 'left',
             'filter_index'  => 'date',
             'index'         => 'date',
             'type'          => 'date',
+            'width'         => '70',
+            'truncate'      => 50,
+            'escape'        => true,
+        ));
+
+        $this->addColumn('created_at', array(
+            'header'        => Mage::helper('stableflow_pricelists')->__('Created At'),
+            'align'         => 'left',
+            'filter_index'  => 'date',
+            'index'         => 'date',
+            'type'          => 'date',
+            'width'         => '70px',
+            'truncate'      => 50,
+            'escape'        => true,
+        ));
+
+        $this->addColumn('updated_at', array(
+            'header'        => Mage::helper('stableflow_pricelists')->__('Updated At'),
+            'align'         => 'left',
+            'filter_index'  => 'date',
+            'index'         => 'date',
+            'type'          => 'date',
+            'width'         => '70px',
             'truncate'      => 50,
             'escape'        => true,
         ));

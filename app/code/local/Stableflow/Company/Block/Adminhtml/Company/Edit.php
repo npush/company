@@ -20,7 +20,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit extends Mage_Adminhtml_Blo
         $this->_updateButton(
             'delete',
             'label',
-            Mage::helper('mageplaza_betterblog')->__('Delete Company')
+            Mage::helper('company')->__('Delete Company')
         );
         $this->_addButton(
             'saveandcontinue',
@@ -42,7 +42,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit extends Mage_Adminhtml_Blo
         if (Mage::registry('current_company') && Mage::registry('current_company')->getId()) {
             return Mage::helper('company')->__(
                 "Edit Company '%s'",
-                $this->escapeHtml(Mage::registry('current_company')->getCompanyName())
+                $this->escapeHtml(Mage::registry('current_company')->getName())
             );
         } else {
             return Mage::helper('company')->__('Add Company');

@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <config>
     <menu>
-        <rulletka translate="title">
+        <company translate="title">
             <children>
                 <pricelists translate="title" module="stableflow_pricelists">
                     <title>Price Lists</title>
                     <action>adminhtml/pricelists</action>
-                    <sort_order>5</sort_order>
+                    <sort_order>15</sort_order>
                 </pricelists>
             </children>
-        </rulletka>
+        </company>
     </menu>
     <acl>
         <resources>

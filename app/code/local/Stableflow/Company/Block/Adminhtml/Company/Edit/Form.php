@@ -6,6 +6,7 @@
  * Date: 12/10/16
  * Time: 12:39 PM
  */
+
 class Stableflow_Company_Block_Adminhtml_Company_Edit_Form extends Mage_Adminhtml_Block_Widget_Form{
 
     protected function _prepareForm(){

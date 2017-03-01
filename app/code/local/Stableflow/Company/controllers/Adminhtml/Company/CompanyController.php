@@ -7,7 +7,7 @@
  * Time: 4:46 PM
  */
 
-class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Controller_Action{
+class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminhtml_Controller_Action{
 
     /**
      * constructor - set the used module name
@@ -23,30 +23,30 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * init the post
+     * init the company
      *
      * @access protected
-     * @return Mageplaza_BetterBlog_Model_Post
+     * @return Stableflow_Company_Model_Company
      * @author nick
      */
-    protected function _initPost()
+    protected function _initCompany()
     {
         $this->_title($this->__('Company'))
             ->_title($this->__('Manage Companies'));
 
-        $postId  = (int) $this->getRequest()->getParam('id');
-        $post    = Mage::getModel('stableflow_company/company')
+        $companyId  = (int) $this->getRequest()->getParam('id');
+        $company    = Mage::getModel('company/company')
             ->setStoreId($this->getRequest()->getParam('store', 0));
 
-        if ($postId) {
-            $post->load($postId);
+        if ($companyId) {
+            $company->load($companyId);
         }
-        Mage::register('current_company', $post);
-        return $post;
+        Mage::register('current_company', $company);
+        return $company;
     }
 
     /**
-     * default action for post controller
+     * default action for company controller
      *
      * @access public
      * @return void
@@ -61,7 +61,7 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * new post action
+     * new company action
      *
      * @access public
      * @return void
@@ -73,7 +73,7 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * edit post action
+     * edit company action
      *
      * @access public
      * @return void
@@ -82,18 +82,18 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
     public function editAction()
     {
         $companyId  = (int) $this->getRequest()->getParam('id');
-        $company    = $this->_initPost();
+        $company    = $this->_initCompany();
         if ($companyId && !$company->getId()) {
             $this->_getSession()->addError(
-                Mage::helper('stableflow_company')->__('This company no longer exists.')
+                Mage::helper('company')->__('This company no longer exists.')
             );
             $this->_redirect('*/*/');
             return;
         }
-        if ($data = Mage::getSingleton('adminhtml/session')->getPostData(true)) {
+        if ($data = Mage::getSingleton('adminhtml/session')->getCompanyData(true)) {
             $company->setData($data);
         }
-        $this->_title($company->getPostTitle());
+        $this->_title($company->getCompanyTitle());
         Mage::dispatchEvent(
             'stableflow_company_company_edit_action',
             array('company' => $company)
@@ -101,7 +101,7 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
         $this->loadLayout();
         if ($company->getId()) {
             if (!Mage::app()->isSingleStoreMode() && ($switchBlock = $this->getLayout()->getBlock('store_switcher'))) {
-                $switchBlock->setDefaultStoreName(Mage::helper('stableflow_company')->__('Default Values'))
+                $switchBlock->setDefaultStoreName(Mage::helper('company')->__('Default Values'))
                     ->setWebsiteIds($company->getWebsiteIds())
                     ->setSwitchUrl(
                         $this->getUrl(
@@ -123,7 +123,7 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * save post action
+     * save company action
      *
      * @access public
      * @return void
@@ -133,46 +133,46 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
     {
         $storeId        = $this->getRequest()->getParam('store');
         $redirectBack   = $this->getRequest()->getParam('back', false);
-        $postId   = $this->getRequest()->getParam('id');
+        $companyId   = $this->getRequest()->getParam('id');
         $isEdit         = (int)($this->getRequest()->getParam('id') != null);
         $data = $this->getRequest()->getPost();
         if ($data) {
-            $post     = $this->_initPost();
-            $postData = $this->getRequest()->getPost('post', array());
-            $post->addData($postData);
-            $post->setAttributeSetId($post->getDefaultAttributeSetId());
+            $company     = $this->_initCompany();
+            $companyData = $this->getRequest()->getPost('company', array());
+            $company->addData($companyData);
+            $company->setAttributeSetId($company->getDefaultAttributeSetId());
             if (isset($data['tags'])) {
                 $tags = Mage::helper('adminhtml/js')->decodeGridSerializedInput($data['tags']);
-                $post->setTagsData($tags);
+                $company->setTagsData($tags);
             }
             $categories = $this->getRequest()->getPost('category_ids', -1);
             if ($categories != -1) {
                 $categories = explode(',', $categories);
                 $categories = array_unique($categories);
-                $post->setCategoriesData($categories);
+                $company->setCategoriesData($categories);
             }
             if ($useDefaults = $this->getRequest()->getPost('use_default')) {
                 foreach ($useDefaults as $attributeCode) {
-                    $post->setData($attributeCode, false);
+                    $company->setData($attributeCode, false);
                 }
             }
             try {
-                $post->save();
-                $postId = $post->getId();
+                $company->save();
+                $companyId = $company->getId();
                 $this->_getSession()->addSuccess(
-                    Mage::helper('mageplaza_betterblog')->__('Post was saved')
+                    Mage::helper('company')->__('Company was saved')
                 );
             } catch (Mage_Core_Exception $e) {
                 Mage::logException($e);
                 $this->_getSession()->addError($e->getMessage())
-                    ->setPostData($postData);
+                    ->setCompanyData($companyData);
                 $redirectBack = true;
             } catch (Exception $e) {
                 Mage::logException($e);
                 $this->_getSession()->addError(
-                    Mage::helper('mageplaza_betterblog')->__('Error saving post')
+                    Mage::helper('company')->__('Error saving company')
                 )
-                    ->setPostData($postData);
+                    ->setCompanyData($companyData);
                 $redirectBack = true;
             }
         }
@@ -180,7 +180,7 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
             $this->_redirect(
                 '*/*/edit',
                 array(
-                    'id'    => $postId,
+                    'id'    => $companyId,
                     '_current'=>true
                 )
             );
@@ -190,7 +190,7 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * delete post
+     * delete company
      *
      * @access public
      * @return void
@@ -199,11 +199,11 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
     public function deleteAction()
     {
         if ($id = $this->getRequest()->getParam('id')) {
-            $post = Mage::getModel('mageplaza_betterblog/post')->load($id);
+            $company = Mage::getModel('company/company')->load($id);
             try {
-                $post->delete();
+                $company->delete();
                 $this->_getSession()->addSuccess(
-                    Mage::helper('mageplaza_betterblog')->__('The posts has been deleted.')
+                    Mage::helper('company')->__('The company has been deleted.')
                 );
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -215,7 +215,7 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
     }
 
     /**
-     * mass delete posts
+     * mass delete companys
      *
      * @access public
      * @return void
@@ -223,21 +223,21 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
      */
     public function massDeleteAction()
     {
-        $postIds = $this->getRequest()->getParam('post');
-        if (!is_array($postIds)) {
-            $this->_getSession()->addError($this->__('Please select posts.'));
+        $companyIds = $this->getRequest()->getParam('company');
+        if (!is_array($companyIds)) {
+            $this->_getSession()->addError($this->__('Please select company.'));
         } else {
             try {
-                foreach ($postIds as $postId) {
-                    $post = Mage::getSingleton('mageplaza_betterblog/post')->load($postId);
+                foreach ($companyIds as $companyId) {
+                    $company = Mage::getSingleton('company/company')->load($companyId);
                     Mage::dispatchEvent(
-                        'mageplaza_betterblog_controller_post_delete',
-                        array('post' => $post)
+                        'company_controller_company_delete',
+                        array('company' => $company)
                     );
-                    $post->delete();
+                    $company->delete();
                 }
                 $this->_getSession()->addSuccess(
-                    Mage::helper('mageplaza_betterblog')->__('Total of %d record(s) have been deleted.', count($postIds))
+                    Mage::helper('company')->__('Total of %d record(s) have been deleted.', count($companyIds))
                 );
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -255,27 +255,27 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
      */
     public function massStatusAction()
     {
-        $postIds = $this->getRequest()->getParam('post');
-        if (!is_array($postIds)) {
+        $companyIds = $this->getRequest()->getParam('company');
+        if (!is_array($companyIds)) {
             Mage::getSingleton('adminhtml/session')->addError(
-                Mage::helper('mageplaza_betterblog')->__('Please select posts.')
+                Mage::helper('company')->__('Please select companies.')
             );
         } else {
             try {
-                foreach ($postIds as $postId) {
-                    $post = Mage::getSingleton('mageplaza_betterblog/post')->load($postId)
+                foreach ($companyIds as $companyId) {
+                    $company = Mage::getSingleton('company/company')->load($companyId)
                         ->setStatus($this->getRequest()->getParam('status'))
                         ->setIsMassupdate(true)
                         ->save();
                 }
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d posts were successfully updated.', count($postIds))
+                    $this->__('Total of %d companies were successfully updated.', count($companyIds))
                 );
             } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('mageplaza_betterblog')->__('There was an error updating posts.')
+                    Mage::helper('company')->__('There was an error updating companys.')
                 );
                 Mage::logException($e);
             }
@@ -306,11 +306,11 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('mageplaza_betterblog/post');
+        return Mage::getSingleton('admin/session')->isAllowed('company/company');
     }
 
     /**
-     * Export posts in CSV format
+     * Export companys in CSV format
      *
      * @access public
      * @return void
@@ -318,14 +318,14 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
      */
     public function exportCsvAction()
     {
-        $fileName   = 'posts.csv';
-        $content    = $this->getLayout()->createBlock('mageplaza_betterblog/adminhtml_post_grid')
+        $fileName   = 'companys.csv';
+        $content    = $this->getLayout()->createBlock('company/adminhtml_company_grid')
             ->getCsvFile();
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
     /**
-     * Export posts in Excel format
+     * Export companys in Excel format
      *
      * @access public
      * @return void
@@ -333,14 +333,14 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
      */
     public function exportExcelAction()
     {
-        $fileName   = 'post.xls';
-        $content    = $this->getLayout()->createBlock('mageplaza_betterblog/adminhtml_post_grid')
+        $fileName   = 'company.xls';
+        $content    = $this->getLayout()->createBlock('company/adminhtml_company_grid')
             ->getExcelFile();
         $this->_prepareDownloadResponse($fileName, $content);
     }
 
     /**
-     * Export posts in XML format
+     * Export companys in XML format
      *
      * @access public
      * @return void
@@ -348,8 +348,8 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
      */
     public function exportXmlAction()
     {
-        $fileName   = 'post.xml';
-        $content    = $this->getLayout()->createBlock('mageplaza_betterblog/adminhtml_post_grid')
+        $fileName   = 'company.xml';
+        $content    = $this->getLayout()->createBlock('company/adminhtml_company_grid')
             ->getXml();
         $this->_prepareDownloadResponse($fileName, $content);
     }
@@ -368,7 +368,7 @@ class Stableflow_Company_Adminhtml_CompanyController extends Mage_Adminhtml_Cont
         $storeMediaUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
 
         $content = $this->getLayout()->createBlock(
-            'mageplaza_betterblog/adminhtml_betterblog_helper_form_wysiwyg_content',
+            'company/adminhtml_betterblog_helper_form_wysiwyg_content',
             '',
             array(
                 'editor_element_id' => $elementId,

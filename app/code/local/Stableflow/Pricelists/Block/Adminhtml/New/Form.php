@@ -24,7 +24,7 @@ class Stableflow_Pricelists_Block_Adminhtml_New_Form extends Mage_Adminhtml_Bloc
         ));
 
         $fieldset->addField('file', 'file', array(
-            'label'     => Mage::helper('stableflow_pricelists')->__('XLS'),
+            'label'     => Mage::helper('stableflow_pricelists')->__('Pricelist'),
             'required'  => true,
             'class'     => 'disable',
             'name'      => 'file',
@@ -33,6 +33,14 @@ class Stableflow_Pricelists_Block_Adminhtml_New_Form extends Mage_Adminhtml_Bloc
 
         $form->setUseContainer(true);
         $this->setForm($form);
+    }
+
+    protected function _afterToHtml($html) {
+        $html =  parent::_afterToHtml($html);
+        $html .= '<script>//< ![C
+            $$("#edit_form input[name=file]")[0].writeAttribute("accept", ".xls,.xlsx");
+        //]]></script>';
+        return $html;
     }
 
 }

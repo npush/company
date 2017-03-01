@@ -5,13 +5,11 @@ if (!is_readable('app/Mage.php')) {
     echo "Could not find app/Mage.php\n";
     exit(1);
 }
-
 require 'app/Mage.php';
 if (!Mage::isInstalled()) {
     echo "Application is not installed yet, please complete install wizard first.";
     exit(1);
 }
-
 $baseDir = getcwd();
 //not sure if this is necessary, ported over from cron.php script
 $_SERVER['SCRIPT_NAME'] = $baseDir.'/index.php';
@@ -29,16 +27,13 @@ try {
 } catch (Exception $e) {
     Mage::printException($e);
 }
-
 class IMC {
     protected static $instance = null;
     protected $historyFile = null;
     protected $histSize    = 20;
     protected $history     = array();
-
     protected function __construct()
     {
-
         if (!empty($_SERVER['HOME'])) {
             $this->historyFile = $_SERVER['HOME'].'/.imc_history';
             if (!file_exists($this->historyFile)) {
@@ -57,26 +52,22 @@ class IMC {
         pcntl_signal(SIGTERM, array($this, 'sigintShutdown'));
         pcntl_signal(SIGINT, array($this, 'sigintShutdown'));
     }
-
     public function fatalErrorShutdown()
     {
         $this->quit();
     }
-
     public function sigintShutdown($signal)
     {
         if ($signal === SIGINT || $signal === SIGTERM) {
             $this->quit();
         }
     }
-
     public function __destruct()
     {
         if (!empty($this->historyFile) && is_writable($this->historyFile)) {
             readline_write_history($this->historyFile);
         }
     }
-
     public static function getInstance()
     {
         if (self::$instance == null) {
@@ -84,7 +75,6 @@ class IMC {
         }
         return self::$instance;
     }
-
     public function read()
     {
         while (true) {
@@ -99,7 +89,6 @@ class IMC {
             }
         }
     }
-
     protected function addToHistory($line)
     {
         if ($histsize = count($this->history) > $this->histSize) {
@@ -107,13 +96,11 @@ class IMC {
         }
         readline_add_history($line);
     }
-
     public function quit($code=0)
     {
         $this->__destruct();//just to be safe, if eval causes fatal error we have to call explicitly
         exit($code);
     }
-
     protected function completeCallback($line)
     {
         if (!empty($line)) {

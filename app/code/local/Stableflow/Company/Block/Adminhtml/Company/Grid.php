@@ -21,8 +21,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Grid extends Mage_Adminhtml_Blo
     protected function _prepareCollection(){
         $collection = Mage::getModel('company/company')
             ->getCollection()
-            ->addAttributeToSelect('status')
-            ->addAttributeToSelect('url_key');
+                ->addAttributeToSelect('*');
 
         $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
         $store = $this->_getStore();
@@ -60,31 +59,52 @@ class Stableflow_Company_Block_Adminhtml_Company_Grid extends Mage_Adminhtml_Blo
             )
         );
         $this->addColumn(
-            'post_title',
+            'name',
             array(
                 'header'    => Mage::helper('company')->__('Name'),
                 'align'     => 'left',
-                'index'     => 'post_title',
+                'index'     => 'name',
             )
         );
-
+        $this->addColumn(
+            'balance',
+            array(
+                'header'    => Mage::helper('company')->__('Balance'),
+                'align'     => 'left',
+                'index'     => 'balance',
+                'width'     => '120px',
+            )
+        );
+        $this->addColumn(
+            'Type',
+            array(
+                'header'    => Mage::helper('company')->__('Type'),
+                'align'     => 'left',
+                'index'     => 'type',
+                'width'     => '120px',
+                'type'    => 'options',
+                'options' => Mage::getModel('company/company_attribute_source_type')->getOptionArray(),
+            )
+        );
+        $this->addColumn(
+            'activity',
+            array(
+                'header'    => Mage::helper('company')->__('Activity'),
+                'align'     => 'left',
+                'index'     => 'activity',
+                'width'     => '120px',
+                'type'    => 'options',
+                'options' => Mage::getModel('company/company_attribute_source_activity')->getOptionArray(),
+            )
+        );
         $this->addColumn(
             'status',
             array(
                 'header'  => Mage::helper('company')->__('Status'),
                 'index'   => 'status',
                 'type'    => 'options',
-                'options' => array(
-                    '1' => Mage::helper('company')->__('Enabled'),
-                    '0' => Mage::helper('company')->__('Disabled'),
-                )
-            )
-        );
-        $this->addColumn(
-            'url_key',
-            array(
-                'header' => Mage::helper('company')->__('URL key'),
-                'index'  => 'url_key',
+                'width'     => '120px',
+                'options' => Mage::getModel('company/company_attribute_source_status')->getOptionArray(),
             )
         );
         $this->addColumn(

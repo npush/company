@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <config>
     <tabs>
-        <stableflow translate="label" module="stableflow_company">
+        <stableflow translate="label" module="company">
             <label>Companies</label>
             <sort_order>2</sort_order>
         </stableflow>
     </tabs>
     <sections>
-        <company translate="label" module="stableflow_company">
+        <company translate="label" module="company">
             <class>separator-top</class>
             <label>Settings</label>
             <tab>stableflow</tab>

@@ -62,7 +62,7 @@ class Stableflow_Pricelists_Adminhtml_PricelistsController extends Mage_Adminhtm
                     $uploader->setFilesDispersion(false);
                     $uploader->save($path, $filename);
 
-                    $pricelist = new Stableflow_Pricelists_Model_Pricelist();
+                    $pricelist = Mage::getModel('pricelists/pricelist');
                     $pricelist->setFilename($filename);
                     $pricelist->setDate('NOW');
                     $pricelist->setStatus(Stableflow_Pricelists_Model_Resource_Pricelist::STATUS_NOT_APPROVED);
@@ -92,13 +92,6 @@ class Stableflow_Pricelists_Adminhtml_PricelistsController extends Mage_Adminhtm
         Mage::register('current_pricelist', $priceList);
 
         $config = $request->getParam('config');
-        if(!empty($config['delete']) && in_array(1, $config['delete'])) {
-            foreach ($config['delete'] as $key => $value) {
-                if ($value == 1) {
-                    unset($config['value'][$key]);
-                }
-            }
-        }
         $arrToSerialize = array();
         foreach ($config['value'] as $values) {
             $column = $values['column'];

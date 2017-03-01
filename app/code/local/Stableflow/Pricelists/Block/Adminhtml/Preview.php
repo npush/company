@@ -15,13 +15,6 @@ class Stableflow_Pricelists_Block_Adminhtml_Preview extends Mage_Adminhtml_Block
         $pricelist = Mage::getModel('pricelists/pricelist')->load($request->getParam('id'));
 
         $config = $request->getParam('config');
-        if(!empty($config['delete']) && in_array(1, $config['delete'])) {
-            foreach ($config['delete'] as $key => $value) {
-                if ($value == 1) {
-                    unset($config['value'][$key]);
-                }
-            }
-        }
         $mapArr = array();
         foreach ($config['value'] as $values) {
             $column = $values['column'];
@@ -34,6 +27,6 @@ class Stableflow_Pricelists_Block_Adminhtml_Preview extends Mage_Adminhtml_Block
         $file = Mage::getBaseDir('media') . DS . 'pricelists' . DS . $pricelist->getFilename();
         $parser->init($file, $mapArr);
 
-        return $parser->parseFile($request->getParam('row'), 10);
+        return $parser->parseFile($request->getParam('row'), 20);
     }
 }

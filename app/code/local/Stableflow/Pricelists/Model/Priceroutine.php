@@ -180,7 +180,7 @@ class Stableflow_Pricelists_Model_Priceroutine extends Mage_Core_Model_Abstract 
      * @return array if file exist else FALSE
      */
     public function parseFile() {
-        $includePath = Mage::getBaseDir() . "/lib/rulletka/PhpExcel/Classes";
+        $includePath = Mage::getBaseDir() . "/lib/stablwflow/PhpExcel/Classes";
         set_include_path(get_include_path() . PS . $includePath);
         try {
             $inputFileType = PHPExcel_IOFactory::identify($this->filePath);

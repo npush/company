@@ -46,4 +46,16 @@ class Stableflow_Company_Model_Company_Attribute_Source_Activity extends Mage_Ea
     public function toOptionArray(){
         return $this->getAllOptions();
     }
+
+    public function getOptionArray()
+    {
+        return array(
+            self::LIGHTS        => Mage::helper('company')->__('Lights'),
+            self::ELECTRIC      => Mage::helper('company')->__('Electric'),
+            self::SECURITY      => Mage::helper('company')->__('Security'),
+            self::CONSTRUCTION  => Mage::helper('company')->__('Construction'),
+            self::OTHER         => Mage::helper('company')->__('Other')
+        );
+    }
+
 }

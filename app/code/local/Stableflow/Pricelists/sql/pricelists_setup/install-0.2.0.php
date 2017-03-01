@@ -3,8 +3,7 @@
 $installer = $this;
 $installer->startSetup();
 
-if(!$installer->getConnection()->isTableExists($this->getTable('pricelists/pricelist'))) {
-    $installer->run("
+$installer->run("
 CREATE TABLE `{$this->getTable('pricelists/pricelist')}` (
  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `id_company` int(10) NOT NULL,
@@ -15,5 +14,5 @@ CREATE TABLE `{$this->getTable('pricelists/pricelist')}` (
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 ");
-}
+
 $installer->endSetup();

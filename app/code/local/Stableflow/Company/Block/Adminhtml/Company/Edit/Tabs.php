@@ -13,7 +13,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
         parent::__construct();
         $this->setId('company_info_tabs');
         $this->setDestElementId('edit_form');
-        $this->setTitle(Mage::helper('mageplaza_betterblog')->__('Company Information'));
+        $this->setTitle(Mage::helper('company')->__('Company Information'));
     }
 
 
@@ -21,71 +21,74 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
     {
         $company = $this->getCompany();
         $entity = Mage::getModel('eav/entity_type')
-            ->load('company', 'entity_type_code');
+            ->load('company_company', 'entity_type_code');
         $attributes = Mage::getResourceModel('eav/entity_attribute_collection')
             ->setEntityTypeFilter($entity->getEntityTypeId());
-        $attributes->addFieldToFilter(
-            'attribute_code',
-            array(
-                'nin' => array('meta_title', 'meta_description', 'meta_keywords')
-            )
-        );
-        $attributes->getSelect()->order('additional_table.position', 'ASC');
+
+        //$attributes->getSelect()->order('additional_table.position', 'ASC');
 
         $this->addTab(
-            'info',
+            'general',
             array(
-                'label'   => Mage::helper('mageplaza_betterblog')->__('Post Information'),
+                'label'   => Mage::helper('company')->__('General Information'),
                 'content' => $this->getLayout()->createBlock(
-                    'mageplaza_betterblog/adminhtml_post_edit_tab_attributes'
+                    'company/adminhtml_company_edit_tab_general'
                 )
                     ->setAttributes($attributes)
                     ->toHtml(),
             )
         );
-        $seoAttributes = Mage::getResourceModel('eav/entity_attribute_collection')
-            ->setEntityTypeFilter($entity->getEntityTypeId())
-            ->addFieldToFilter(
-                'attribute_code',
-                array(
-                    'in' => array('meta_title', 'meta_description', 'meta_keywords')
-                )
-            );
-        $seoAttributes->getSelect()->order('additional_table.position', 'ASC');
-
-        $this->addTab(
-            'meta',
+/*        $this->addTab(
+            'address',
             array(
-                'label'   => Mage::helper('mageplaza_betterblog')->__('Meta'),
-                'title'   => Mage::helper('mageplaza_betterblog')->__('Meta'),
+                'label'   => Mage::helper('company')->__('Company Address'),
                 'content' => $this->getLayout()->createBlock(
-                    'mageplaza_betterblog/adminhtml_post_edit_tab_attributes'
+                    'company/adminhtml_company_edit_tab_address'
                 )
-                    ->setAttributes($seoAttributes)
+                ->initForm()
+                ->toHtml(),
+            )
+        );*/
+        $this->addTab(
+            'owner',
+            array(
+                'label'   => Mage::helper('company')->__('Company Owners'),
+                'content' => $this->getLayout()->createBlock(
+                    'company/adminhtml_company_edit_tab_owner'
+                )
+                //->setAttributes($attributes)
+                ->toHtml(),
+            )
+        );
+        $this->addTab(
+            'price',
+            array(
+                'label'   => Mage::helper('company')->__('Company Prices'),
+                'content' => $this->getLayout()->createBlock(
+                    'company/adminhtml_company_edit_tab_price'
+                )
+                //->setAttributes($attributes)
+                ->toHtml(),
+            )
+        );
+        $this->addTab(
+            'products',
+            array(
+                'label'   => Mage::helper('company')->__('Company Products List'),
+                'content' => $this->getLayout()->createBlock(
+                    'company/adminhtml_company_edit_tab_products'
+                )
+                    //->setAttributes($attributes)
                     ->toHtml(),
             )
         );
-        $this->addTab(
-            'categories',
-            array(
-                'label' => Mage::helper('mageplaza_betterblog')->__('Categories'),
-                'url'   => $this->getUrl('*/*/categories', array('_current' => true)),
-                'class' => 'ajax'
-            )
-        );
-        $this->addTab(
-            'tags',
-            array(
-                'label' => Mage::helper('mageplaza_betterblog')->__('Tags'),
-                'url'   => $this->getUrl('*/*/tags', array('_current' => true)),
-                'class' => 'ajax'
-            )
-        );
+
+
         return parent::_beforeToHtml();
     }
 
-    public function getPost()
+    public function getCompany()
     {
-        return Mage::registry('current_post');
+        return Mage::registry('current_company');
     }
 }

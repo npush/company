@@ -8,9 +8,10 @@
  */
 class Stableflow_Company_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstract {
 
-    public function __construct(){
+    public function _construct(){
+        /** @var  $resource Mage_Core_Model_Resource */
         $resource = Mage::getSingleton('core/resource');
-        $this->setType('company_company');
+        $this->setType('company_address');
         $this->setConnection(
             $resource->getConnection('company_read'),
             $resource->getConnection('company_write')
@@ -19,13 +20,14 @@ class Stableflow_Company_Model_Resource_Address extends Mage_Eav_Model_Entity_Ab
 
     protected function _getDefaultAttributes(){
         return array(
+            'entity_id',
             'entity_type_id',
             'attribute_set_id',
             'created_at',
             'updated_at',
             'increment_id',
             'store_id',
-            'website_id'
+            'is_active'
         );
     }
 }

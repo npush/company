@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_company_company_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>company/company</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <!-- We also reference our block by namespacename_modulename/adminhtml_controllername, and name it uniquely -->
+            <block type="company/adminhtml_company" name="company_company" />
+        </reference>
+    </adminhtml_company_company_index>
+    <adminhtml_company_company_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_company_grid" name="company_grid"/>
+        </block>
+    </adminhtml_company_company_grid>
+    <adminhtml_company_company_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>company/company/edit</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="company/adminhtml_company_edit" name="company_edit"/>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" before="-"/>
+            <block type="company/adminhtml_company_edit_tabs" name="company_tabs"/>
+        </reference>
+        <reference name="head">
+            <action method="setCanLoadTinyMce"><load>1</load></action>
+        </reference>
+        <reference name="js">
+            <block type="core/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
+        </reference>
+    </adminhtml_company_company_edit>
+</layout>

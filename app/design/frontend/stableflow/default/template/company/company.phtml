@@ -1,0 +1,93 @@
+<?php
+/**
+ * Created by nick
+ * Project magento.dev
+ * Date: 12/20/16
+ * Time: 5:10 PM
+ */
+?>
+
+<?php $company = $this->getCompany()?>
+
+<div class="portlet light portlet-fit bordered">
+    <div class="portlet-title">
+    </div>
+    <div class="portlet-body ">
+        <div class="timeline timeline-lg">
+            <!-- TIMELINE ITEM -->
+            <div class="timeline-badge">
+                <a href="<?php echo $company->getUrl();?>" class="company-link">
+                    <img src="<?php echo $company->getImage();?>" class="timeline-badge-userpic">
+                </a>
+                <a href="http://aquazona.com.ua" class="link-md link-underline"><?php echo $company->getUrl();?></a>
+            </div>
+            <div class="timeline-body clearfix">
+                <div class="timeline-body-head">
+                    <div class="timeline-body-head-caption">
+                        <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $company->getName();?></a>
+                    </div>
+                </div>
+                <div class="stars-rating">
+                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-5">
+                    <label for="star-rating-19-5" class="radio-label"></label>
+                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-4">
+                    <label for="star-rating-19-4" class="radio-label"></label>
+                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-3">
+                    <label for="star-rating-19-3" class="radio-label"></label>
+                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-2">
+                    <label for="star-rating-19-2" class="radio-label"></label>
+                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-1">
+                    <label for="star-rating-19-1" class="radio-label"></label>
+                </div>
+                <div class="timeline-body-content">
+                    <?php include('address/address.phtml')?>
+                </div>
+            </div>
+            <!-- END TIMELINE ITEM -->
+        </div>
+
+        <div class="tabbable tabbable-tabdrop">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab1" data-toggle="tab">описание</a>
+                </li>
+                <li>
+                    <a href="#tab2" data-toggle="tab">список товаров</a>
+                </li>
+                <li>
+                    <a href="#tab3" data-toggle="tab">отзывы (0)</a>
+                </li>
+                <li>
+                    <a href="#tab4" data-toggle="tab">портфолио (0)</a>
+                </li>
+                <li>
+                    <a href="#tab5" data-toggle="tab">лицензии (0)</a>
+                </li>
+            </ul>
+            <!-- TABS -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <div class="content-text">
+                        <?php include('address/address_full.phtml')?>
+                        <br>
+                        <?php echo $company->getDescription();?>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <?php include('product/tab/list.phtml')?>
+                </div>
+                <div class="tab-pane" id="tab3">
+                    <p> </p>
+                </div>
+                <div class="tab-pane" id="tab4">
+                    <p> </p>
+                </div>
+                <div class="tab-pane" id="tab5">
+                    <p> </p>
+                </div>
+            </div>
+            <!-- END TABS -->
+        </div>
+
+    </div>
+</div>

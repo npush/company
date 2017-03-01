@@ -28,7 +28,7 @@
                 <class>Stableflow_Pricelists_Model_Resource</class>
                 <entities>
                     <pricelist>
-                        <table>pricelist</table>
+                        <table>company_product_price_list</table>
                     </pricelist>
                 </entities>
             </pricelist_resource>
@@ -56,7 +56,26 @@
         </resources>
 
     </global>
-
+    <crontab>
+        <jobs>
+            <stableflow_pricelists>
+                <schedule><cron_expr>0 0 * * *</cron_expr></schedule>
+                <run><model>stableflow_pricelists/observer::updatePriceLists</model></run>
+            </stableflow_pricelists>
+        </jobs>
+    </crontab>
+    <default>
+        <system>
+            <cron>
+                <schedule_generate_every>15</schedule_generate_every>
+                <schedule_ahead_for>20</schedule_ahead_for>
+                <schedule_lifetime>15</schedule_lifetime>
+                <history_cleanup_every>10</history_cleanup_every>
+                <history_success_lifetime>60</history_success_lifetime>
+                <history_failure_lifetime>600</history_failure_lifetime>
+            </cron>
+        </system>
+    </default>
     <frontend>
         <routers>
             <Stableflow_Pricelists>

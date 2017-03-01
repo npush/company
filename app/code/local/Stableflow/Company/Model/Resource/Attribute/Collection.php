@@ -1,40 +1,68 @@
 <?php
 
 /**
- * Created by nick
- * Project magento1.dev
- * Date: 12/9/16
- * Time: 3:48 PM
+ * Collection.php
+ * Free software
+ * Project: magento.dev
+ *
+ * Created by: nick
+ * Copyright (C) 2016
+ * Date: 12/18/16
+ *
  */
-
-class Stableflow_Company_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Attribute_Collection{
+class Stableflow_Company_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
+{
     /**
-     * Default attribute entity type code
+     * init attribute select
      *
-     * @var string
+     * @access protected
+     * @return Stableflow_Company_Model_Resource_Attribute_Collection
      */
-    protected $_entityTypeCode   = 'company';
-
-    /**
-     * Default attribute entity type code
-     *
-     * @return string
-     */
-    protected function _getEntityTypeCode()
+    protected function _initSelect()
     {
-        return $this->_entityTypeCode;
+        $this->getSelect()->from(array('main_table' => $this->getResource()->getMainTable()))
+            ->where(
+                'main_table.entity_type_id=?',
+                Mage::getModel('eav/entity')->setType('company_company')->getTypeId()
+            )
+            ->join(
+                array('additional_table' => $this->getTable('company/eav_attribute')),
+                'additional_table.attribute_id=main_table.attribute_id'
+            );
+        return $this;
     }
 
     /**
-     * Get EAV website table
+     * set entity type filter
      *
-     * Get table, where website-dependent attribute parameters are stored
-     * If realization doesn't demand this functionality, let this function just return null
-     *
-     * @return string|null
+     * @access public
+     * @param string $typeId
+     * @return Stableflow_Company_Model_Resource_Company_Attribute_Collection
      */
-    protected function _getEavWebsiteTable()
+    public function setEntityTypeFilter($typeId)
     {
-        return $this->getTable('company/eav_attribute_website');
+        return $this;
+    }
+
+    /**
+     * Specify filter by "is_visible" field
+     *
+     * @access public
+     * @return Stableflow_Company_Model_Resource_Company_Attribute_Collection
+     */
+    public function addVisibleFilter()
+    {
+        return $this->addFieldToFilter('additional_table.is_visible', 1);
+    }
+
+    /**
+     * Specify filter by "is_editable" field
+     *
+     * @access public
+     * @return Stableflow_Company_Model_Resource_Company_Attribute_Collection
+     */
+    public function addEditableFilter()
+    {
+        return $this->addFieldToFilter('additional_table.is_editable', 1);
     }
 }
