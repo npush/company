@@ -137,3 +137,4 @@ var/
 !/app/design/frontend/base/default/template/mageinn/*
 
 !/media/tooltips/*
+lib/Unserialize/Reader/Null.php

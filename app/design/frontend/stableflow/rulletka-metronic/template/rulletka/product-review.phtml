@@ -51,12 +51,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="summary_field" class="col-label control-label required"><?php echo $this->__('Summary of Your Review +/-'); ?><span class="has-span">*</span></label>
-                        <div class="col-form">
-                            <input type="text" name="title" id="summary_field" class="form-control radius-none input-text required-entry" value="<?php echo $this->escapeHtml($data->getTitle()); ?>" />
-                        </div>
-                    </div>
+                    <input type="hidden" name="title" id="summary_field" class="form-control radius-none input-text required-entry" value="(not set)<?php //echo $this->escapeHtml($data->getTitle()); ?>" />
+<!--                    <div class="form-group">-->
+<!--                        <label for="summary_field" class="col-label control-label required">--><?php //echo $this->__('Summary of Your Review +/-'); ?><!--<span class="has-span">*</span></label>-->
+<!--                        <div class="col-form">-->
+<!--                            <input type="hidden" name="title" id="summary_field" class="form-control radius-none input-text required-entry" value="(not set)--><?php //echo $this->escapeHtml($data->getTitle()); ?><!--" />-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="review_field" class="col-label control-label required"><?php echo $this->__('Let us know your thoughts'); ?><span class="has-span">*</span></label>
                         <div class="col-form">
