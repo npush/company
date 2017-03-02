@@ -17,7 +17,34 @@
         <update handle="page_left_menu"/>
         <reference name="content">
             <block type="company/company" name="company" template="company/company.phtml">
-                <block type="company/company_rating" name="company_rating" template="company/company/rating.phtml"/>
+                <block type="core/template" name="company_address" template="company/address/address.phtml"/>
+                <block type="core/template" name="company_rating" template="company/company/rating.phtml"/>
+                <!-- TABS -->
+                <block type="core/template" name="company_description" template="company/address/address_full.phtml">
+                    <action method="addToParentGroup"><group>detailed_info</group></action>
+                    <action method="setTitle" translate="value"><value>Description</value></action>
+                </block>
+                <block type="catalog/product_list" name="company_product_list" template="catalog/product/list.phtml">
+                    <action method="addToParentGroup"><group>detailed_info</group></action>
+                    <action method="setTitle" translate="value"><value>Product List</value></action>
+                    <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                        <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                    </block>
+                    <action method="setColumnCount"><count>4</count></action>
+                </block>
+                <block type="core/template" name="company_feedback" template="company/company/feedback.phtml">
+                    <action method="addToParentGroup"><group>detailed_info</group></action>
+                    <action method="setTitle" translate="value"><value>Feedback</value></action>
+                </block>
+                <block type="core/template" name="company_portfolio" template="company/company/portfolio.phtml">
+                    <action method="addToParentGroup"><group>detailed_info</group></action>
+                    <action method="setTitle" translate="value"><value>Portfolio</value></action>
+                </block>
+                <block type="core/template" name="company_portfolio" template="company/company/license.phtml">
+                    <action method="addToParentGroup"><group>detailed_info</group></action>
+                    <action method="setTitle" translate="value"><value>License</value></action>
+                </block>
+                <!-- END TABS -->
             </block>
         </reference>
     </company_company_view>

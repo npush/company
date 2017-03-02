@@ -6,6 +6,8 @@
  * Time: 2:15 PM
  */
 ?>
+<?php $company = Mage::registry('current_company')?>
+
 <p><span class="bold">Страна: </span>Украина</p>
 <p><span class="bold">Адрес: </span>Харьковская область, Харьков, ул. Плехановская 126/1</p>
 <p>
@@ -16,5 +18,7 @@
                                                            (098) 297 63 40 <br>
                                                         </span>
 </p>
-<p><span class="bold">Email: </span><a class="link-underline" href="mailto:roman@aquazona.com.ua">roman@aquazona.com.ua</a></p>
-<p><span class="bold">Сайт: </span><a class="link-underline" href="http://aquazona.com.ua">http://aquazona.com.ua</a></p>
+<p><span class="bold">Email: </span><a class="link-underline" href="<?php echo $company->getEmail(); ?>"><?php echo $company->getEmail(); ?></a></p>
+<p><span class="bold">Сайт: </span><a class="link-underline" href="<?php echo $company->getUrl(); ?>"><?php echo $company->getUrl(); ?></a></p>
+
+<?php echo $company->getDescription()?>

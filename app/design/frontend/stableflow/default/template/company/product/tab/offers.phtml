@@ -1,0 +1,66 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 11/14/16
+ * Time: 2:59 PM
+ */
+?>
+<?php $productId = Mage::registry('current_product')->getId();?>
+
+<?php $companyIds = Mage::getModel('company/relation')->getCollection()->addFieldToFilter('product_id', $productId);?>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-middle table-padding">
+        <thead>
+        <tr>
+            <th><?php echo $this->__('Supplier')?></th>
+            <th><?php echo $this->__('Price')?></th>
+            <th><?php echo $this->__('Rating')?></th>
+            <th><?php echo $this->__('Availability')?></th>
+            <th><?php echo $this->__('Topicality')?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($companyIds as $company):?>
+            <?php //print_r($company)?>
+            <?php $company = Mage::getModel('company/company')->load($company->getCompanyId()); ?>
+            <?php $product = Mage::getModel('company/product')->load($company->getCompanyProductId()); ?>
+            <tr>
+                <td><?php echo $company->getName(); ?></td>
+                <td><?php echo $product->getPrice(); ?></td>
+                <td>
+                    <div class="stars-rating">
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-5">
+                        <label for="star-rating-16-5" class="radio-label"></label>
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-4">
+                        <label for="star-rating-16-4" class="radio-label"></label>
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-3">
+                        <label for="star-rating-16-3" class="radio-label"></label>
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-2">
+                        <label for="star-rating-16-2" class="radio-label"></label>
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-1">
+                        <label for="star-rating-16-1" class="radio-label"></label>
+                    </div>
+                </td>
+                <td><?php echo $product->getExist() ? '+' : '-'; ?></td>
+                <td>
+                    <div class="stars-rating">
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-5">
+                        <label for="star-rating-17-5" class="radio-label"></label>
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-4">
+                        <label for="star-rating-17-4" class="radio-label"></label>
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-3">
+                        <label for="star-rating-17-3" class="radio-label"></label>
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-2">
+                        <label for="star-rating-17-2" class="radio-label"></label>
+                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-1">
+                        <label for="star-rating-17-1" class="radio-label"></label>
+                    </div>
+                </td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+

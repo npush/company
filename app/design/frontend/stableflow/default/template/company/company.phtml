@@ -27,67 +27,45 @@
                         <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $company->getName();?></a>
                     </div>
                 </div>
-                <div class="stars-rating">
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-5">
-                    <label for="star-rating-19-5" class="radio-label"></label>
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-4">
-                    <label for="star-rating-19-4" class="radio-label"></label>
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-3">
-                    <label for="star-rating-19-3" class="radio-label"></label>
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-2">
-                    <label for="star-rating-19-2" class="radio-label"></label>
-                    <input type="radio" disabled="disabled" checked="checked" name="star-rating-19-1">
-                    <label for="star-rating-19-1" class="radio-label"></label>
-                </div>
+                <?php echo $this->getChildHtml('company_rating'); ?>
                 <div class="timeline-body-content">
-                    <?php include('address/address.phtml')?>
+                    <?php echo $this->getChildHtml('company_address'); ?>
                 </div>
             </div>
             <!-- END TIMELINE ITEM -->
         </div>
 
+        <!-- Tabs content -->
         <div class="tabbable tabbable-tabdrop">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#tab1" data-toggle="tab">описание</a>
-                </li>
-                <li>
-                    <a href="#tab2" data-toggle="tab">список товаров</a>
-                </li>
-                <li>
-                    <a href="#tab3" data-toggle="tab">отзывы (0)</a>
-                </li>
-                <li>
-                    <a href="#tab4" data-toggle="tab">портфолио (0)</a>
-                </li>
-                <li>
-                    <a href="#tab5" data-toggle="tab">лицензии (0)</a>
-                </li>
-            </ul>
-            <!-- TABS -->
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab1">
-                    <div class="content-text">
-                        <?php include('address/address_full.phtml')?>
-                        <br>
-                        <?php echo $company->getDescription();?>
-                    </div>
-                </div>
-                <div class="tab-pane" id="tab2">
-                    <?php include('product/tab/list.phtml')?>
-                </div>
-                <div class="tab-pane" id="tab3">
-                    <p> </p>
-                </div>
-                <div class="tab-pane" id="tab4">
-                    <p> </p>
-                </div>
-                <div class="tab-pane" id="tab5">
-                    <p> </p>
+            <div id="tabs">
+                <ul class="nav nav-tabs">
+                    <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $groupTab => $html):?>
+                        <li>
+                            <?php
+                            if ($title = $this->getChildData($groupTab, 'title'));
+                            else
+                                $title = $groupTab;
+                            ?>
+                            <a href="#tabs-<?php echo $i;?>"><?php echo $this->escapeHtml($title); ?></a>
+                            <?php $html_render .= '<div id="tabs-'. $i . '">' .  $html . '</div>'; $i++;?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <div class="tab-content">
+                    <?php echo $html_render; ?>
                 </div>
             </div>
-            <!-- END TABS -->
+            <script  type="text/javascript">
+                //<![CDATA[
+                jQuery(document).ready(function(){
+                    jQuery( "#tabs" ).tabs();
+                });
+                //]]>
+            </script>
         </div>
+        <!-- END Tabs content -->
+
+
 
     </div>
 </div>

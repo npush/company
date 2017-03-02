@@ -34,6 +34,6 @@ class Stableflow_Company_Block_Company_List extends Mage_Core_Block_Template{
     }
 
     public function getImageUrl($company){
-        return Mage::getBaseUrl('media').'company'.$company->getImage();
+        return Mage::getBaseUrl('media') . 'company' . $company->getImage();
     }
 }
