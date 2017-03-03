@@ -6,6 +6,7 @@
  * Time: 2:12 PM
  */
 ?>
-<p><span class="bold">Тип: </span>поставщик - производитель</p>
-<p><span class="bold">Страна: </span>Украина, Харьковская область, Харьков</p>
-<p><span class="bold">Дата регистрации:: </span>15.03.201ddcvbcv3г</p>
+<?php $company = Mage::registry('current_company');?>
+<p><span class="bold"><?php echo $this->__('Type')?>: </span><?php echo $company->getCompanyType();?></p>
+<p><span class="bold"><?php echo $this->__('Country')?>: : </span><?php echo $company->getCountry();?></p>
+<p><span class="bold"><?php echo $this->__('Registration Date')?>: </span><?php echo $company->getData('created_at');?></p>

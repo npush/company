@@ -2,9 +2,122 @@
 /**
  * Created by nick
  * Project magento.dev
- * Date: 3/2/17
- * Time: 7:01 PM
+ * Date: 3/3/17
+ * Time: 5:16 PM
  */
 ?>
+<div class="panel-group-tab accordion" id="accordion3">
+    <div class="panel panel-list product-review-table">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_1"><?php echo $this->__('Write Your Own Review') ?></a>
+            </h4>
+        </div>
+        <?php if (1): ?> <!--$this->getAllowWriteReviewFlag()-->
+            <form action="<?php echo $this->getAction() ?>" method="post" id="review-form">
+                <?php echo $this->getBlockHtml('formkey'); ?>
+                <?php echo $this->getChildHtml('form_fields_before')?>
+                <div id="collapse_3_1" class="panel-collapse collapse">
+                    <h3><?php echo $this->__("You're reviewing:"); ?>
+                        <span><?php echo $this->escapeHtml('Company feedback'); ?></span>
+                    </h3>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="nickname_field" class="required col-label control-label"><?php echo $this->__("What's your nickname?"); ?><span class="has-span">*</span></label>
+                            <div class="col-form">
+                                <input type="text" name="nickname" id="nickname_field" class="form-control radius-none input-text required-entry" value="<?php echo $this->escapeHtml($data->getNickname()); ?>" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-label control-label">E-mail:</label>
+                            <div class="col-form">
+                                <input type="text" class="form-control radius-none">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-label control-label">Оценка:</label>
+                            <div class="col-form">
+                                <div class="stars-rating-edit clearfix">
+                                    <input id="star-rating-1-5" type="radio" name="star-rating-edit">
+                                    <label for="star-rating-1-5" class="radio-label"></label>
+                                    <input id="star-rating-1-4" type="radio" name="star-rating-edit">
+                                    <label for="star-rating-1-4" class="radio-label"></label>
+                                    <input id="star-rating-1-3" type="radio" name="star-rating-edit">
+                                    <label for="star-rating-1-3" class="radio-label"></label>
+                                    <input id="star-rating-1-2" type="radio" name="star-rating-edit">
+                                    <label for="star-rating-1-2" class="radio-label"></label>
+                                    <input id="star-rating-1-1" type="radio" name="star-rating-edit">
+                                    <label for="star-rating-1-1" class="radio-label"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="title" id="summary_field" class="form-control radius-none input-text required-entry" value="(not set)<?php //echo $this->escapeHtml($data->getTitle()); ?>" />
+                        <!--                    <div class="form-group">-->
+                        <!--                        <label for="summary_field" class="col-label control-label required">--><?php //echo $this->__('Summary of Your Review +/-'); ?><!--<span class="has-span">*</span></label>-->
+                        <!--                        <div class="col-form">-->
+                        <!--                            <input type="hidden" name="title" id="summary_field" class="form-control radius-none input-text required-entry" value="(not set)--><?php //echo $this->escapeHtml($data->getTitle()); ?><!--" />-->
+                        <!--                        </div>-->
+                        <!--                    </div>-->
+                        <div class="form-group">
+                            <label for="review_field" class="col-label control-label required"><?php echo $this->__('Let us know your thoughts'); ?><span class="has-span">*</span></label>
+                            <div class="col-form">
+                                <textarea name="detail" id="review_field" cols="5" rows="3" class="form-control radius-none required-entry"><?php echo $this->escapeHtml($data->getDetail()); ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <?php echo $this->getChildHtml('recaptcha'); ?>
+                    <div class="row row-margin">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit Review')); ?>" class="btn btn-sm yellow btn-width">
+                                    <i class="icon submit"></i>
+                                    <?php echo $this->__('Submit Review'); ?>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <script type="text/javascript">
+                //<![CDATA[
+                var dataForm = new VarienForm('review-form');
+                Validation.addAllThese(
+                    [
+                        ['validate-rating', '<?php echo Mage::helper('core')->jsQuoteEscape($this->__('Please select one of each of the ratings above')); ?>', function(v) {
+                            var trs = $('product-review-table').select('tr');
+                            var inputs;
+                            var error = 1;
 
-<h1>feedback</h1>
+                            for( var j=0; j < trs.length; j++ ) {
+                                var tr = trs[j];
+                                if( j > 0 ) {
+                                    inputs = tr.select('input');
+
+                                    for( i in inputs ) {
+                                        if( inputs[i].checked == true ) {
+                                            error = 0;
+                                        }
+                                    }
+
+                                    if( error == 1 ) {
+                                        return false;
+                                    } else {
+                                        error = 1;
+                                    }
+                                }
+                            }
+                            return true;
+                        }]
+                    ]
+                );
+                //]]>
+            </script>
+        <?php else: ?>
+            <p class="review-nologged" id="review-form">
+                <?php echo $this->__('Only registered users can write reviews. Please, <a href="%s">log in</a> or <a href="%s">register</a>', $this->getLoginLink(), Mage::helper('customer')->getRegisterUrl()) ?>
+            </p>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php //echo $this->getChildHtml('company_feedback_list');?>

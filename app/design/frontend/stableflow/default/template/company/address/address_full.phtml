@@ -8,17 +8,15 @@
 ?>
 <?php $company = Mage::registry('current_company')?>
 
-<p><span class="bold">Страна: </span>Украина</p>
-<p><span class="bold">Адрес: </span>Харьковская область, Харьков, ул. Плехановская 126/1</p>
-<p>
-    <span class="bold">Телефоны: </span>
-                                                        <span class="left-content">
-                                                           (066) 761 16 19 <br>
-                                                           (093) 072 74 74 <br>
-                                                           (098) 297 63 40 <br>
-                                                        </span>
+<p><span class="bold"><?php echo $this->__('Country')?>: </span>Украина</p>
+<p><span class="bold"><?php echo $this->__('Address')?>: </span>Харьковская область, Харьков, ул. Плехановская 126/1</p>
+<p><span class="bold"><?php echo $this->__('Telephone')?>: </span>
+    <span class="left-content">
+       (066) 761 16 19 <br>
+       (093) 072 74 74 <br>
+       (098) 297 63 40 <br>
+    </span>
 </p>
-<p><span class="bold">Email: </span><a class="link-underline" href="<?php echo $company->getEmail(); ?>"><?php echo $company->getEmail(); ?></a></p>
-<p><span class="bold">Сайт: </span><a class="link-underline" href="<?php echo $company->getUrl(); ?>"><?php echo $company->getUrl(); ?></a></p>
-
-<?php echo $company->getDescription()?>
+<p><span class="bold"><?php echo $this->__('Email')?>: </span><a class="link-underline" href="<?php echo $company->getEmail(); ?>"><?php echo $company->getEmail(); ?></a></p>
+<p><span class="bold"><?php echo $this->__('Site')?>: </span><a class="link-underline" href="<?php echo $company->getUrl(); ?>"><?php echo $company->getUrl(); ?></a></p>
+<p><?php echo $company->getDescription()?></p>

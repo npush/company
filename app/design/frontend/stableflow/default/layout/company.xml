@@ -37,9 +37,11 @@
                     <block type="core/template" name="product-status" template="catalog/product/list/status.phtml"/>
                     <block type="core/template" name="product-rating"  as="product-rating" template="catalog/product/list/rating.phtml"/>
                 </block>
-                <block type="core/template" name="company_feedback" template="company/company/feedback.phtml">
+                <block type="review/form" name="company_feedback" template="company/company/feedback.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                     <action method="setTitle" translate="value"><value>Feedback</value></action>
+                    <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit"  as="recaptcha" template="studioforty9/recaptcha/explicit.phtml"/>
+                    <!--block type="review/product_view_list" name="company_feedback_list" template="company/company/feedback-list.phtml"/-->
                 </block>
                 <block type="core/template" name="company_portfolio" template="company/company/portfolio.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
