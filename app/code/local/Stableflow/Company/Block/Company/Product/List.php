@@ -12,10 +12,10 @@ class Stableflow_Company_Block_Company_Product_List extends Mage_Catalog_Block_P
     protected function _getProductCollection()
     {
         if (is_null($this->_productCollection)) {
-
+            $layer = $this->getLayer();
             $productIds = $this->getCompanyProducts(Mage::registry('current_company')->getId());
             $productCollection = Mage::getModel('catalog/product')->getCollection()
-                ->addFieldToFilter('entity_id', array('in' => $productIds))->load();
+                ->addFieldToFilter('entity_id', array('in' => $productIds));
 
 
             $productCollection->getSelect()->order("find_in_set(entity_id,'".implode(',',$productIds)."')");
