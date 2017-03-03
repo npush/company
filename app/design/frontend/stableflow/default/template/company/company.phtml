@@ -17,7 +17,7 @@
             <!-- TIMELINE ITEM -->
             <div class="timeline-badge">
                 <a href="<?php echo $company->getUrl();?>" class="company-link">
-                    <img src="<?php echo $company->getImage();?>" class="timeline-badge-userpic">
+                    <img class="timeline-badge-userpic" src="<?php echo $this->getImageUrl($company);?>">
                 </a>
                 <a href="http://aquazona.com.ua" class="link-md link-underline"><?php echo $company->getUrl();?></a>
             </div>
