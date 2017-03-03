@@ -19,6 +19,7 @@
             <block type="company/company" name="company" template="company/company.phtml">
                 <block type="core/template" name="company_address" template="company/address/address.phtml"/>
                 <block type="core/template" name="company_rating" template="company/company/rating.phtml"/>
+
                 <!-- TABS -->
                 <block type="core/template" name="company_description" template="company/address/address_full.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
@@ -31,6 +32,11 @@
                         <block type="page/html_pager" name="product_list_toolbar_pager"/>
                     </block>
                     <action method="setColumnCount"><count>4</count></action>
+
+                    <block type="core/template" name="product-attributes" template="catalog/product/list/attributes.phtml"/>
+                    <block type="core/template" name="product-status" template="catalog/product/list/status.phtml"/>
+                    <block type="core/template" name="product-rating"  as="product-rating" template="catalog/product/list/rating.phtml"/>
+
                 </block>
                 <block type="core/template" name="company_feedback" template="company/company/feedback.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
