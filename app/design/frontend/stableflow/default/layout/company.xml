@@ -24,7 +24,7 @@
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                     <action method="setTitle" translate="value"><value>Description</value></action>
                 </block>
-                <block type="catalog/product_list" name="company_product_list" template="catalog/product/list.phtml">
+                <block type="company/company_product_list" name="company_product_list" template="catalog/product/list.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                     <action method="setTitle" translate="value"><value>Product List</value></action>
                     <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
