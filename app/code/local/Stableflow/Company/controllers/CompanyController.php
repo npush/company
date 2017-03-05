@@ -22,7 +22,7 @@ class Stableflow_Company_CompanyController extends Mage_Core_Controller_Front_Ac
     }
 
     public function viewAction(){
-        $isAjax = Mage::app()->getRequest()->getParam('is_ajax');
+        //$isAjax = Mage::app()->getRequest()->getParam('is_ajax');
         if($isAjax){
             $this->loadLayout();
             die('asdas');
