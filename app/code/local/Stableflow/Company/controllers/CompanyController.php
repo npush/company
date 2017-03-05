@@ -24,9 +24,10 @@ class Stableflow_Company_CompanyController extends Mage_Core_Controller_Front_Ac
     public function viewAction(){
         $isAjax = Mage::app()->getRequest()->getParam('is_ajax');
         if($isAjax){
+            die('asdasdas');
             $this->loadLayout();
-            //$myBlock = $this->getLayout()->getBlock('company_product_list');
-            $myHtml =  'sdfsd';//$myBlock->toHtml(); //also consider $myBlock->renderView();
+            $myBlock = $this->getLayout()->getBlock('company_product_list');
+            $myHtml =  $myBlock->toHtml(); //also consider $myBlock->renderView();
             $this->getResponse()
                 ->setHeader('Content-Type', 'text/html')
                 ->setBody($myHtml);
