@@ -59,15 +59,15 @@ class Stableflow_Company_CompanyController extends Mage_Core_Controller_Front_Ac
 
     public function productListAction(){
         $this->loadLayout();
-        //$this->getLayout()->getBlock('root');
-        //$this->renderLayout();
-        $myBlock = $this->getLayout()->createBlock('ajax/product');
+        $this->getLayout()->getBlock('root');
+        $this->renderLayout();
+/*        $myBlock = $this->getLayout()->createBlock('ajax/product');
         $myBlock->setTemplate('company/product/list.phtml');
         $myHtml =  $myBlock->toHtml(); //also consider $myBlock->renderView();
         $this->getResponse()
             ->setHeader('Content-Type', 'text/html')
             ->setBody($myHtml);
-        return;
+        return;*/
     }
 
     protected function _getProductListCollection(){
