@@ -39,8 +39,9 @@
         var categoryProducts = $('.category-products');
         var listBlock = categoryProducts.parent();
         categoryProducts.remove();
-        listBlock.append(data.page);
-        $('#tabs-2').append(data.js);
+        //listBlock.append(data.page);
+        listBlock.append(data);
+        $('body').append(data.js);
         $('#loader').hide();
     }
 
