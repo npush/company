@@ -26,12 +26,13 @@ class Stableflow_Company_CompanyController extends Mage_Core_Controller_Front_Ac
         if($isAjax){
             $this->loadLayout();
             $myBlock = $this->getLayout()->getBlock('company_product_list');
-            $myHtml =  $myBlock->toHtml(); //also consider $myBlock->renderView();
+            $myHtml =  'sdfsd';//$myBlock->toHtml(); //also consider $myBlock->renderView();
             $this->getResponse()
                 ->setHeader('Content-Type', 'text/html')
                 ->setBody($myHtml);
             return;
         }
+
         $company = $this->_initCompany();
         if (!$company) {
             $this->_forward('no-route');
