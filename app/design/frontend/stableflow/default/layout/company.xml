@@ -5,9 +5,9 @@
         <update handle="page_left_menu"/>
         <reference name="content">
             <block type="company/company_list" name="company_list" template="company/company/list.phtml">
-                <block type="company/toolbar" name="toolbar" >
+                <!--<block type="company/toolbar" name="toolbar" >
                     <block type="page/html_pager" name="pager"/>
-                </block>
+                </block>-->
                 <block type="company/company_rating" name="company_rating" template="company/company/rating.phtml"/>
             </block>
         </reference>
