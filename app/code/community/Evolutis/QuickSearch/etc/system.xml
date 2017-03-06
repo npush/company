@@ -21,17 +21,17 @@
  -->
 <!-- Affichage de la section (page de parametres) dans System > Configuration -->
 <config>
-	<tabs>
+	<!--<tabs>
 		<evolutis_quicksearch module="evolutis_quicksearch">
 			<label>Evolutis</label>
 			<sort_order>9999</sort_order>
 		</evolutis_quicksearch>
-	</tabs>
+	</tabs>-->
 	<sections>
         <evolutis_quicksearch module="evolutis_quicksearch">
-            <label>Evolutis QuickSearch</label>
+            <label>QuickSearch</label>
            	<class>separator-top</class>
-            <tab>evolutis_quicksearch</tab>
+            <tab>catalog</tab>
             <sort_order>1000</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>0</show_in_website>
