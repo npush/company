@@ -22,6 +22,13 @@ class Stableflow_Company_CompanyController extends Mage_Core_Controller_Front_Ac
     }
 
     public function viewAction(){
+        $company = $this->_initCompany();
+        if (!$company) {
+            $this->_forward('no-route');
+            return;
+        }
+        Mage::register('current_company', $company);
+        // -----
         $isAjax = Mage::app()->getRequest()->getParam('is_ajax');
         if($isAjax){
             $this->loadLayout();
@@ -32,13 +39,7 @@ class Stableflow_Company_CompanyController extends Mage_Core_Controller_Front_Ac
                 ->setBody($myHtml);
             return;
         }
-
-        $company = $this->_initCompany();
-        if (!$company) {
-            $this->_forward('no-route');
-            return;
-        }
-        Mage::register('current_company', $company);
+        // -----
         $this->loadLayout();
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
