@@ -60,7 +60,7 @@
     </catalog_category_layered> 
 
     
-    <catalogsearch_result_index>
+<!--    <catalogsearch_result_index>
         <remove name="catalogsearch.leftnav" />
         <remove name="enterprisesearch.leftnav"/> 
         
@@ -73,7 +73,7 @@
                 <action method="setBlockId"><id>amshopby-filters-bottom-cms</id></action>
             </block>
         </reference>
-    </catalogsearch_result_index>   
+    </catalogsearch_result_index>  -->
 
 <!-- comment out to show navigation on the product pages
      <catalog_product_view>
