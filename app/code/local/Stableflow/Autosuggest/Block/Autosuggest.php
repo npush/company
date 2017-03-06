@@ -24,12 +24,15 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
 
         $catalogSearchModel = $query->getResultCollection();
         $catalogSearchModel->addAttributeToFilter('visibility', array('neq' => 1));
-        //$catalogSearchModel->addAttributeToSelect('short_description');
+        $catalogSearchModel->addAttributeToSelect('manufacturer_number');
         $catalogSearchModel->addAttributeToSelect('name');
         $catalogSearchModel->addAttributeToSelect('thumbnail');
         $catalogSearchModel->addAttributeToSelect('small_image');
         $catalogSearchModel->addAttributeToSelect('url_key');
+        //$catalogSearchModel->addAttributeToSort('name', 'ASC');
+        $catalogSearchModel->setOrder(array('manufacturer_number', 'name'), 'asc');
         $catalogSearchModel->getSelect()->limit(Mage::helper('autosuggest/config')->getSearchItemCount());
+
 
 
         if(count($catalogSearchModel)){

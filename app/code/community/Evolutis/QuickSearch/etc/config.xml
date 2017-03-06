@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Evolutis_QuickSearch
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to contact@evolutis.fr so we can send you a copy immediately.
+ *
+ * @category    QuickSearch
+ * @package     Evolutis_QuickSearch
+ * @copyright  Copyright (c) 2001-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+	<modules>
+		<Evolutis_QuickSearch>
+			<version>1.0.0</version>
+		</Evolutis_QuickSearch>
+	</modules>
+	
+	<global>
+		<models>
+			<evolutis_quicksearch>
+				<class>Evolutis_QuickSearch_Model</class>
+				<resourceModel>evolutis_quicksearch_mysql4</resourceModel>
+			</evolutis_quicksearch>
+
+			<!-- Surchage de Mage_CatalogSearch_Mysql4_Fulltext qui permet d'avoir les fonctions de préparation de recherches et d'indexages -->
+			<catalogsearch_mysql4>
+				<rewrite>
+					<fulltext>Evolutis_QuickSearch_Model_Mysql4_Fulltext</fulltext>
+				</rewrite>
+			</catalogsearch_mysql4>
+			
+			<!-- Déclaration de l'utilisation de notre table evolutis_quicksearch_fulltext -->
+			<evolutis_quicksearch_mysql4>
+				<class>Evolutis_QuickSearch_Model_Mysql4</class>
+				<entities>
+					<fulltext>
+						<table>evolutis_quicksearch_fulltext</table>
+					</fulltext>
+				</entities>
+			</evolutis_quicksearch_mysql4>
+		</models>
+		
+		<helpers>
+			<!-- Helper pour la traduction et les méthodes autour du poids dans core_config_data -->
+			<evolutis_quicksearch>
+				<class>Evolutis_QuickSearch_Helper</class>
+			</evolutis_quicksearch>
+		</helpers>
+		
+		<resources>
+			<!-- Setup du module -->
+			<evolutis_quicksearch_setup>
+	            <setup>
+	                <module>Evolutis_QuickSearch</module>
+	            </setup>
+			    <connection>
+			        <use>core_setup</use>
+			    </connection>
+	        </evolutis_quicksearch_setup>
+	        <!-- "Permissio"n d'écrire dans la BDD -->
+			<evolutis_quicksearch_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</evolutis_quicksearch_write>
+			<!-- "Permission" de lire dans la BDD -->
+			<evolutis_quicksearch_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</evolutis_quicksearch_read>
+		</resources>
+	</global>
+	
+	<!-- 	/!\ Partie importante !
+			Ici sont saisies les données par défaut pour les poids et le type de recherche.
+	 -->
+	<default>
+		<evolutis_quicksearch>
+			<!--
+				weight_name => nom du poids
+				weight 		=> valeur du poids
+				
+				Il faut respecter les _Id
+			 -->
+			<weight_name>
+				<weight_1>Low</weight_1>
+				<weight_2>Normal</weight_2>
+				<weight_3>High</weight_3>
+			</weight_name>
+			<weight>
+				<weight_1>1</weight_1>
+				<weight_2>2</weight_2>
+				<weight_3>3</weight_3>
+			</weight>
+			<search>
+				<type>0</type> <!-- 0 = OR ; 1 = AND   type search -->
+			</search>
+		</evolutis_quicksearch>
+	</default>
+	
+	<adminhtml>
+		<events>
+			<adminhtml_catalog_product_attribute_edit_prepare_form>
+				<observers>
+					<Evolutis_QuickSearch_Model_AdminObserver>
+						<type>singleton</type>
+						<class>Evolutis_QuickSearch_Model_AdminObserver</class>
+						<method>addFieldToAttributeEditForm</method>
+					</Evolutis_QuickSearch_Model_AdminObserver>
+				</observers>
+			</adminhtml_catalog_product_attribute_edit_prepare_form>
+			
+			<model_save_before>
+				<observers>
+					<Evolutis_QuickSearch_Model_AdminObserver>
+						<type>singleton</type>
+						<class>Evolutis_QuickSearch_Model_AdminObserver</class>
+						<method>clearResultAfterChangeConfiguration</method>
+					</Evolutis_QuickSearch_Model_AdminObserver>
+				</observers>
+			</model_save_before>
+			
+			<catalog_entity_attribute_save_before >
+				<observers>
+					<Evolutis_QuickSearch_Model_AdminObserver>
+						<type>singleton</type>
+						<class>Evolutis_QuickSearch_Model_AdminObserver</class>
+						<method>addFlagReindexAfterSaveAttribute</method>
+					</Evolutis_QuickSearch_Model_AdminObserver>
+				</observers>
+			</catalog_entity_attribute_save_before >
+		</events>
+		
+		<translate>
+		  <modules>
+		    <Evolutis_QuickSearch>
+            	<files>
+		        	<default>Evolutis_QuickSearch.csv</default>
+	       		</files>
+		    </Evolutis_QuickSearch>
+		  </modules>
+		</translate>
+	</adminhtml>
+</config>
