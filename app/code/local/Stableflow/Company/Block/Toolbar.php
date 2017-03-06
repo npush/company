@@ -106,7 +106,7 @@ class Stableflow_Company_Block_Toolbar extends Mage_Core_Block_Template{
      *
      * @var array
      */
-    protected $_defaultAvailableLimit  = array(10=>10,20=>20,50=>50);
+    protected $_defaultAvailableLimit  = array(12=>12,24=>24,48=>48);
 
     /**
      * @var bool $_paramsMemorizeAllowed
