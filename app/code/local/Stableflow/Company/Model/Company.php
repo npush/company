@@ -19,4 +19,12 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
     public function getCompanyList(){
         return $this->getResource()->getCollection();
     }
+
+    public function getCompanyProducts(){
+
+    }
+
+    public function getCompanyProductById(){
+
+    }
 }

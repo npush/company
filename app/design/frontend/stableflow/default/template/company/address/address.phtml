@@ -7,6 +7,6 @@
  */
 ?>
 <?php $company = Mage::registry('current_company');?>
-<p><span class="bold"><?php echo $this->__('Type')?>: </span><?php echo $company->getCompanyType();?></p>
-<p><span class="bold"><?php echo $this->__('Country')?>: : </span><?php echo $company->getCountry();?></p>
-<p><span class="bold"><?php echo $this->__('Registration Date')?>: </span><?php echo $company->getData('created_at');?></p>
+<p><span class="bold"><?php echo $this->__('Type:')?> </span><?php echo $company->getCompanyType();?></p>
+<p><span class="bold"><?php echo $this->__('Country:')?> </span><?php echo $company->getCountry();?></p>
+<p><span class="bold"><?php echo $this->__('Registration Date:')?> </span><?php echo $company->getData('created_at');?></p>
