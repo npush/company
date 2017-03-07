@@ -19,15 +19,15 @@
                     <!-- TIMELINE ITEM -->
                     <div class="timeline-item">
                         <div class="timeline-badge">
-                            <a href="<?php echo $_company->getUrl()?>" class="company-link">
+                            <a href="<?php echo $_company->getUrl()?>" target="_blank" class="company-link">
                                 <img src="<?php echo $this->getImageUrl($_company)?>" class="timeline-badge-userpic">
                             </a>
-                            <a href="<?php echo $_company->getUrl()?>" class="link-md link-underline"><?php echo $_company->getUrl()?></a>
+                            <a href="<?php echo $_company->getUrl()?>" target="_blank" class="link-md link-underline"><?php echo $_company->getUrl()?></a>
                         </div>
                         <div class="timeline-body clearfix">
                             <div class="timeline-body-head">
                                 <div class="timeline-body-head-caption">
-                                    <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $this->escapeHtml($_company->getName())?></a>
+                                    <a class="timeline-body-title font-blue-madison" href="<?php echo $_company->getCompanyUrl()?>"><?php echo $this->escapeHtml($_company->getName())?></a>
                                     <div class="stars-rating stars-sm">
                                         <?php echo $this->getRating($_company->getId())?>
                                     </div>

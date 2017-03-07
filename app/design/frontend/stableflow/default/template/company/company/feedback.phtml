@@ -18,8 +18,8 @@
                 <?php echo $this->getBlockHtml('formkey'); ?>
                 <?php echo $this->getChildHtml('form_fields_before')?>
                 <div id="collapse_3_1" class="panel-collapse collapse">
-                    <h3><?php echo $this->__("You're reviewing:"); ?>
-                        <span><?php echo $this->escapeHtml('Company feedback'); ?></span>
+                    <h3><?php echo $this->__("You're reviewing about company:"); ?>
+                        <span><?php echo $this->escapeHtml(Mage::registry('current_company')->getName()); ?></span>
                     </h3>
                     <div class="panel-body">
                         <div class="form-group">
