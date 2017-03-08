@@ -22,7 +22,10 @@
                         <?php $_votes = $_review->getRatingVotes(); ?>
                         <!-- Rating stars -->
                         <?php if (count($_votes = $_review->getRatingVotes())) :?>
-                            <?php echo $this->getBlockHtml('company_rating');?>
+                            <?php// echo $this->getBlockHtml('company_rating');?>
+                            <?php $ratingBlock = $this->getLayout()->getBlock('company_rating');?>
+                            <?php $ratingBlock->setData('_votes', $_votes);?>
+                            <?php echo $ratingBlock->toHtml();?>
                         <?php endif; ?>
                         <!-- End Rating stars -->
                         <?php echo nl2br($this->escapeHtml($_review->getDetail())); ?>

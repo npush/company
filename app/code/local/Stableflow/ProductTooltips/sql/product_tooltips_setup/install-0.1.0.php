@@ -48,12 +48,10 @@ if ($installer->getConnection()->isTableExists($tableName) != true) {
         ->addColumn('tooltip_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
             'unsigned' => true,
             'nullable' => false,
-            'default' => '0',
         ), 'Tooltip ID')
         ->addColumn('product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
             'unsigned' => true,
             'nullable' => false,
-            'default' => '0',
         ), 'Product ID')
         ->addColumn('position', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
             'nullable' => false,
