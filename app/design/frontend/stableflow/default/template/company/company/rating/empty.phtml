@@ -1,0 +1,16 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 3/9/17
+ * Time: 11:43 AM
+ */
+?>
+
+<!--<p class="no-rating"><?php /*echo $this->__('Be the first to review this company') */?></p>-->
+<div class="stars-rating">
+    <?php for($i = 5; $i != 0; $i--): ?>
+    <input type="radio" disabled="disabled" name="star-rating-<?php echo $i?>">
+    <label for="star-rating-<?php echo $i?>" class="radio-label"></label>
+    <?php endfor ;?>
+</div>

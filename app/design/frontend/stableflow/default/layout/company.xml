@@ -28,7 +28,7 @@
         <reference name="content">
             <block type="company/company" name="company" template="company/company.phtml">
                 <block type="core/template" name="company_address" template="company/address/address.phtml"/>
-                <block type="core/template" name="company_rating" template="company/company/rating.phtml"/>
+                <block type="company/company_rating" name="company_rating" template="company/company/rating/detalied.phtml"/>
 
                 <!-- TABS -->
                 <block type="core/template" name="company_description" template="company/address/address_full.phtml">
