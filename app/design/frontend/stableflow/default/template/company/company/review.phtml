@@ -42,26 +42,13 @@
                                     <?php foreach ($this->getRatings() as $_rating): ?>
                                             <?php //echo $this->escapeHtml($_rating->getRatingCode()); ?>
                                             <?php foreach ($_rating->getOptions() as $_option): ?>
-                                                <label for="star-rating-<?php echo $this->escapeHtml($_rating->getRatingCode()); ?>_<?php echo $_option->getValue(); ?>" class="radio-label" >
+                                                <label for="star-rating-<?php echo $this->escapeHtml($_rating->getRatingCode()); ?>_<?php echo $_option->getValue(); ?>" class="radio-label" ></label>
                                                     <input type="radio" name="ratings[<?php echo $_rating->getId(); ?>]"
                                                            id="star-rating-<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue(); ?>"
                                                            value="<?php echo $_option->getId(); ?>" />
-                                                </label>
                                             <?php endforeach; ?>
 
                                     <?php endforeach; ?>
-
-
-                                    <!--<input id="star-rating-1-5" type="radio" name="star-rating-edit" value="100">
-                                    <label for="star-rating-1-5" class="radio-label"></label>
-                                    <input id="star-rating-1-4" type="radio" name="star-rating-edit" value="75">
-                                    <label for="star-rating-1-4" class="radio-label"></label>
-                                    <input id="star-rating-1-3" type="radio" name="star-rating-edit" value="50">
-                                    <label for="star-rating-1-3" class="radio-label"></label>
-                                    <input id="star-rating-1-2" type="radio" name="star-rating-edit" value="25">
-                                    <label for="star-rating-1-2" class="radio-label"></label>
-                                    <input id="star-rating-1-1" type="radio" name="star-rating-edit" value="10">
-                                    <label for="star-rating-1-1" class="radio-label"></label>-->
                                 </div>
                             </div>
                         </div>
