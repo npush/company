@@ -7,7 +7,7 @@
  * Time: 11:53 AM
  */
 
-class Stableflow_Company_Model_Resource_Address_Attribute_Collection extends Stableflow_Company_Model_Resource_Attribute_Collection{
+class Stableflow_Company_Model_Resource_Address_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection{
 
     /**
      * Default attribute entity type code

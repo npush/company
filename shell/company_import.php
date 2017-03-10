@@ -29,6 +29,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
     const COMPANY_APPROVED = 15;
     const COMPANY_BALANCE = 16;
     const COMPANY_PARENT_COMPANY_ID = 17;
+    const COMPANY_TYPE_ID = 18;
 
     const COMPANY_PRODUCT_SKU = 0;
     const COMPANY_ID_PRODUCT = 1;
@@ -42,6 +43,8 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
     protected $_importImagePath;
     protected $_basePath;
 
+    protected $_countries = null;
+
     public function run(){
         if ($this->getArg('file')) {
             $this->_init();
@@ -49,8 +52,8 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
             echo 'reading data from ' . $path . PHP_EOL;
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
-                    //$this->addCompany($data);
-                    $this->addCompanyProduct($data);
+                    $this->addCompany($data);
+                    //$this->addCompanyProduct($data);
                     printf("Adding %s \n", $data[self::COMPANY_NAME]);
                 }
                 fclose($file);
@@ -81,6 +84,8 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
             'email'         => $companyData[self::COMPANY_EMAIL],
             'url'           => $companyData[self::COMPANY_URL],
             'address_id'    => $this->_addCompanyAddress($companyData),
+            'type'          => $companyData[self::COMPANY_TYPE_ID],
+            //'activity'      => $companyData[self::COMPANY_ACTIVITY],
         );
         $companyModel->setData($data);
         $companyModel->save();
@@ -92,6 +97,9 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
             'street'        => $address[self::COMPANY_ADDRESS],
             'city'          => $address[self::COMPANY_CITY],
             'telephone'     => $address[self::COMPANY_TEL],
+            'country_id'    => $this->_convertCountryName($address[self::COMPANY_COUNTRY]),
+            'email'         => $address[self::COMPANY_EMAIL],
+            'postcode'      => '',
         );
         $addressModel->setData($data);
         $addressModel->save();
@@ -144,6 +152,36 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
             echo "Error when upload file";
         }
     }
+
+    /**
+     * Convert Country cyrillic name to iSO code
+     * @param $name
+     * @return string ISO code
+     */
+
+    protected function _convertCountryName($name){
+        if(!$this->_countries){
+            $this->_initConvertCountry();
+        }
+        return $this->_countries[$name];
+    }
+
+    protected function _initConvertCountry(){
+        $headers = null;
+        $csvFilePath = __DIR__ . DS . 'countries.csv';
+        $csvFile = new Varien_File_Csv();
+        if (false !== ($file = fopen($csvFilePath, 'r'))) {
+            while (false !== ($data = fgetcsv($file, 10000, ';', '"'))) {
+                if(!$headers){
+                    $headers = $data;
+                    continue;
+                }
+                $this->_countries[$data[1]] = $data[6];
+            }
+            fclose($file);
+        }
+    }
+
 
     /**
      * Retrieve Usage Help Message

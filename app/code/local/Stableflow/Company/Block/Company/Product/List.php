@@ -33,4 +33,15 @@ class Stableflow_Company_Block_Company_Product_List extends Mage_Catalog_Block_P
         }
         return $productIds;
     }
+
+    public function getPriceHtml($product){
+        $productId = $product->getId();
+        $companyId = Mage::registry('current_company')->getId();
+        $rel = Mage::getModel('company/relation')->getCollection()
+            ->addFieldToFilter('product_id', $productId)
+            ->addFieldToFilter('company_id' , $companyId)
+            ->getFirstItem();
+        $price = Mage::getModel('company/product')->load($rel->getData('company_product_id'));
+        return Mage::helper('core')->formatPrice($price->getData('price'),true);
+    }
 }

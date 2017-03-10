@@ -30,7 +30,7 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                 'attribute_model'               => 'company/attribute',
                 'table'                         => 'company/company_entity',
                 'additional_attribute_table'    => 'company/eav_attribute',
-                'entity_attribute_collection'   => 'company/attribute_collection',
+                'entity_attribute_collection'   => 'company/company_attribute_collection',
                 'attributes' => array(
                     'image' => array(
                         'type'              => 'varchar',
@@ -171,7 +171,7 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                 'attribute_model'               => 'company/attribute',
                 'table'                         => 'company/address_entity',
                 'additional_attribute_table'    => 'company/eav_attribute',
-                'entity_attribute_collection'   => 'company/attribute_collection',
+                'entity_attribute_collection'   => 'company/address_attribute_collection',
                 'attributes' => array(
                     'street'             => array(
                         'type'              => 'text',
@@ -240,7 +240,7 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                 'attribute_model'               => 'company/attribute',
                 'table'                         => 'company/product_entity',
                 'additional_attribute_table'    => 'company/eav_attribute',
-                'entity_attribute_collection'   => 'company/attribute_collection',
+                'entity_attribute_collection'   => 'company/product_attribute_collection',
                 'attributes' => array(
                     'name' => array(
                         'type'              => 'varchar',

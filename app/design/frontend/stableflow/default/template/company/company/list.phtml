@@ -34,7 +34,8 @@
                                 </div>
                             </div>
                             <div class="timeline-body-content">
-                                <p><span class="bold"><?php echo $this->__('Type');?>: </span><?php echo $_company->getType()?></p>
+                                <?php $attr = Mage::getModel('company/company_attribute_source_type');?>
+                                <p><span class="bold"><?php echo $this->__('Type');?>: </span><?php echo $this->__($attr->getOptionText( $_company->getData('type')));?></p>
                                 <p><span class="bold"><?php echo $this->__('Country');?>: </span><?php echo $_company->getCountry()?></p>
                                 <p><span class="font-grey-cascade"><?php echo $this->escapeHtml($_company->getDescription())?>
                                         <a href="<?php echo $_company->getCompanyUrl()?>" class="link"><?php echo $this->__('More');?>...</a>
