@@ -52,8 +52,8 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
             echo 'reading data from ' . $path . PHP_EOL;
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
-                    $this->addCompany($data);
-                    //$this->addCompanyProduct($data);
+                    //$this->addCompany($data);
+                    $this->addCompanyProduct($data);
                     printf("Adding %s \n", $data[self::COMPANY_NAME]);
                 }
                 fclose($file);
