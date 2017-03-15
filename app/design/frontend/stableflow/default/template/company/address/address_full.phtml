@@ -15,6 +15,6 @@
        <?php echo $address->getData('telephone');?>
     </span>
 </p>
-<p><span class="bold"><?php echo $this->__('Email:')?> </span><a class="link-underline" href="<?php echo $company->getEmail(); ?>"><?php echo $company->getEmail(); ?></a></p>
+<p><span class="bold"><?php echo $this->__('Email:')?> </span><a class="link-underline" href="<?php echo $address->getEmail(); ?>"><?php echo $address->getEmail(); ?></a></p>
 <p><span class="bold"><?php echo $this->__('Site:')?> </span><a class="link-underline" href="<?php echo $company->getUrl(); ?>"><?php echo $company->getUrl(); ?></a></p>
 <p><?php echo $company->getDescription()?></p>

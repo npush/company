@@ -75,10 +75,13 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
         });
         $_date = date_create_from_format('Y-M-d H:i:s', $companyData[self::COMPANY_CREATED_AT]);
         $companyModel = Mage::getModel('company/company');
+        $description = stripslashes($companyData[self::COMPANY_DESCRIPTION]);
+        $sort_descr = strlen($description) > 100 ? substr($description, 0, 100) : $description;
         $data = array(
             'entity_id'     => $companyData[self::COMPANY_ID],
             'name'          => stripslashes($companyData[self::COMPANY_NAME]),
-            'description'   => stripslashes($companyData[self::COMPANY_DESCRIPTION]),
+            'short_description' => $sort_descr,
+            'description'   => $description,
             'image'         => $this->uploadFile($this->_importImagePath . $companyData[self::COMPANY_LOGO_IMG]),
             'created_at'    => $_date ? $_date : Varien_Date::now(),
             'email'         => $companyData[self::COMPANY_EMAIL],
