@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <!--<block type="user_manual/adminhtml_catalog_product_edit_tab" name="custom_tab"/>-->
+            <action method="addTab">
+                <name>Additional Codes</name>
+                <block>additional_codes/adminhtml_catalog_product_tab_codes</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    <adminhtml_codes_index>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="additional_codes/adminhtml_catalog_product_codes" name="catalog.product.codes">
+
+            </block>
+        </block>
+    </adminhtml_codes_index>
+</layout>

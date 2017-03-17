@@ -1,0 +1,105 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 3/17/17
+ * Time: 4:08 PM
+ */
+?>
+
+<h1>This page under construction... Coming soon :)</h1>
+<div class="input-field">
+    <label for="custom_field">Name</label>
+    <input class="input-text" name="custom_field" id="custom_field" />
+</div>
+
+
+
+<tr class="thisissparta">
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td colspan="10" class="config">
+        <table id="attribute-options-table" class="dynamic-grid pricelists-config" cellspacing="0" cellpadding="0">
+            <tr>
+                <th><?php echo $this->__('Type') ?></th>
+                <th><?php echo $this->__('Column') ?></th>
+                <th><button id="add_new_option_button" title="Add Option" type="button" class="scalable add"><span><span><span><?php echo $this->__('Add mapping column') ?></span></span></span></button></th>
+            </tr>
+            <?php foreach ($config['mapping'] as $type => $letter): ?>
+                <tr class="option-row pricelists-config-dayrow" id="config-row-<?php echo $_counter?>">
+                    <td>
+                        <select name="<?php echo $_htmlName; ?>[value][option_<?= $_counter; ?>][column]">
+                            <?php foreach ($pricelist->getTypes() as $k => $t): ?>
+                                <option value="<?= $k; ?>" <?= ($type != $k) ? '' : 'selected'; ?>><?= $t; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                        <select name="<?php echo $_htmlName; ?>[value][option_<?= $_counter; ?>][letter]">
+                            <?php foreach ($pricelist->getLettersRange() as $k => $l): ?>
+                                <option value="<?= $k; ?>" <?= ($letter != $k) ?: 'selected'; ?>><?= $l; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    <td class="a-left" id="delete_button_container_option_<?php echo $_counter ?>'">
+                        <button onclick="$('config-row-<?php echo $_counter ?>').remove(); $('delete-row-<?php echo $_counter ?>').setValue(1);" title="Delete" type="button" class="scalable delete delete-option"><span><span><span>Delete</span></span></span></button>
+                    </td>
+                </tr>
+                <?php
+                $_counter++;
+            endforeach;
+            ?>
+        </table>
+        <br>
+        <?= $this->getButtonHtml($this->__('Preview'), 'preview()'); ?>
+        <?= $this->getButtonHtml($this->__('Download file'), "setLocation('{$this->urlToFile()}')", 'preview_btn'); ?>
+        <?php if ($pricelist->getStatus() == Stableflow_Pricelists_Model_Resource_Pricelist::STATUS_NOT_APPROVED) : ?>
+            <?= $this->getButtonHtml($this->__('Approve'), 'approve()'); ?>
+        <?php endif; ?>
+
+        <script type="text/javascript">//<![CDATA[
+            function preview(){
+                var formData = $('edit_form').serialize(true);
+                formData.id = <?= $pricelist->getId(); ?>;
+                new Ajax.Request('/index.php/admin/ajax/preview' , {
+                    method: 'POST',
+                    parameters: formData,
+                    onComplete: function(transport){
+                        $('preview-output-grid').innerHTML = transport.responseText;
+                    }
+                });
+            }
+
+            function approve(){
+                var form = $('edit_form');
+                var url = '<?= $this->getUrl('*/*/saveConfig') . '?isApproved=1'; ?>';
+                form.setAttribute('action', url);
+                form.submit();
+            }
+
+            var _form_html_row = '' +
+                '<tr class="option-row pricelists-config-dayrow" id="config-row-{{id}}">' +
+                '<td>' +
+                '<select name="<?php echo $_htmlName; ?>[value][option_{{id}}][column]" class="input-text"><?= $optionsTypes; ?></select>' +
+                '</td>' +
+                '<td>' +
+                '<select name="<?php echo $_htmlName; ?>[value][option_{{id}}][letter]"><?= $optionsLetter; ?></select>' +
+                '</td>' +
+                '<td class="a-left" id="delete_button_container_option_{{id}}">'+
+                '<button onclick="$(\'config-row-{{id}}\').remove(); $(\'delete-row-{{id}}\').setValue(1);" title="Delete" type="button" class="scalable delete delete-option">' +
+                '<span>' +
+                '<span>' +
+                '<span>Delete</span>' +
+                '</span>' +
+                '</span>' +
+                '</button>' +
+                '</td>' +
+                '</tr>';
+
+            var _pricelists_counter = <?php echo $_counter ?>;
+            $('add_new_option_button').observe('click', function(){
+                $('attribute-options-table').insert(_form_html_row.replace(/\{\{id\}\}/ig, _pricelists_counter));
+                _pricelists_counter++;
+            });
+            //]]>
+        </script>
+    </td>
+</tr>
+<div id="preview-output-grid"></div>
