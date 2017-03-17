@@ -266,4 +266,24 @@ $installer->getConnection()->createTable($table);
 
 $installer->installEntities();
 
+// adding the manufacturer attribute
+$installer->addAttribute( 'catalog_product', 'manufacturer', array(
+    'label'             => 'Manufacturer',
+    'note'              => 'Manufacturer',
+    'type'              => 'int',
+    'backend'           => 'company/company_attribute_backend_company',
+    'source'            => 'company/company_attribute_source_company',
+    'frontend'          => '',
+    'required'          => false,
+    'unique'            => false,
+    'filterable'        => false,
+    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
+    'searchable'        => true,
+    'visible_on_front'  => true,
+    'visible'           => true,
+    'is_user_defined'   => true
+) );
+
+
+
 $installer->endSetup();

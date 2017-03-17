@@ -6,6 +6,7 @@
  * Date: 12/12/16
  * Time: 1:15 PM
  */
+
 class Stableflow_Company_Model_Company_Attribute_Source_Activity extends Mage_Eav_Model_Entity_Attribute_Source_Abstract{
 
     const LIGHTS = 1;
