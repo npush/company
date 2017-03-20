@@ -77,7 +77,7 @@
         <layout>
             <updates>
                 <product_tooltips>
-                    <file>product_tooltip.xml</file>
+                    <file>product_tooltips.xml</file>
                 </product_tooltips>
             </updates>
         </layout>

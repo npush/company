@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <!--<block type="user_manual/adminhtml_catalog_product_edit_tab" name="custom_tab"/>-->
+            <action method="addTab">
+                <name>Product Tooltips</name>
+                <block>product_tooltips/adminhtml_catalog_product_tab_tooltip</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    <adminhtml_tooltips_index>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="product_tooltips/adminhtml_catalog_product_tooltip" name="catalog.product.tooltip"/>
+        </block>
+    </adminhtml_tooltips_index>
+</layout>

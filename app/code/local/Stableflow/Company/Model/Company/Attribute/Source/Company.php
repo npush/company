@@ -9,15 +9,24 @@
 
 class Stableflow_Company_Model_Company_Attribute_Source_Company extends Mage_Eav_Model_Entity_Attribute_Source_Abstract{
 
+    protected $_companies = null;
+    protected $_options  = null;
+    protected $_optionsArray = null;
 
     public function getAllOptions(){
+        $companies = $this->getCompanies();
         if (is_null($this->_options)) {
-            $this->_options = array(
-                array(
-                    'label' => Mage::helper('company')->__('Demo comp'),
-                    'value' =>  '1',
-                ),
+            $this->_options[] = array(
+                'label' => Mage::helper('company')->__('-- Please Select --'),
+                'value'
             );
+            foreach($companies as $company) {
+                $this->_options[] =
+                    array(
+                        'label' => $company->getName(),
+                        'value' => $company->getId(),
+                    );
+            }
         }
         return $this->_options;
     }
@@ -28,9 +37,24 @@ class Stableflow_Company_Model_Company_Attribute_Source_Company extends Mage_Eav
 
     public function getOptionArray()
     {
-        return array(
-            '1' => Mage::helper('company')->__('Demo comp'),
-        );
+        $companies = $this->getCompanies();
+        if (is_null($this->_optionsArray)) {
+            foreach ($companies as $company) {
+                $this->_optionsArray[$company->getId()] = $company->getName();
+            }
+        }
+        return $this->_optionsArray;
+    }
+
+    public function getCompanies(){
+        if(is_null($this->_companies)) {
+            $this->_companies = Mage::getModel('company/company')
+                ->getCollection()
+                ->addAttributeToSelect(array('id','name'))
+                ->setOrder('name','ASC');
+            ;
+        }
+        return $this->_companies;
     }
 
 }

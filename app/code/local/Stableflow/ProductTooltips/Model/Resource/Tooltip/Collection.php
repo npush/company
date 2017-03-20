@@ -24,7 +24,7 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip_Collection extends Mage_
      *
      * @return unknown
      */
-    public function _initSelect(){
+/*    public function _initSelect(){
         parent::_initSelect();
         $this->getSelect()
             ->joinLeft(
@@ -33,7 +33,7 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip_Collection extends Mage_
                 array('code')
             );
         return $this;
-    }
+    }*/
 
 
     /**
@@ -45,10 +45,10 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip_Collection extends Mage_
      * @param array $additional
      * @return array
      */
-    protected function _toOptionArray($valueField='id', $labelField='label', $additional=array())
+/*    protected function _toOptionArray($valueField='id', $labelField='label', $additional=array())
     {
         return parent::_toOptionArray($valueField, $labelField, $additional);
-    }
+    }*/
 
 
     /**
@@ -58,7 +58,7 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip_Collection extends Mage_
      * @param mixed (Mage_Catalog_Model_Product|int) $product
      * @return Stableflow_ProductTooltips_Model_Resource_Tooltip_Collection
      */
-    public function addProductFilter($product)
+/*    public function addProductFilter($product)
     {
         if ($product instanceof Mage_Catalog_Model_Product) {
             $product = $product->getId();
@@ -73,7 +73,7 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip_Collection extends Mage_
             $this->_joinedFields['product'] = true;
         }
         return $this;
-    }
+    }*/
 
     /**
      * Get SQL for get record count.
@@ -82,10 +82,10 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip_Collection extends Mage_
      * @access public
      * @return Varien_Db_Select
      */
-    public function getSelectCountSql()
+/*    public function getSelectCountSql()
     {
         $countSelect = parent::getSelectCountSql();
         $countSelect->reset(Zend_Db_Select::GROUP);
         return $countSelect;
-    }
+    }*/
 }

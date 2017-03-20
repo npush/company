@@ -98,3 +98,27 @@ if ($installer->getConnection()->isTableExists($tableName) != true) {
 }
 
 $installer->endSetup();
+
+$installer = Mage::getResourceModel('catalog/setup', 'catalog_setup');;
+$installer->startSetup();
+
+// adding the manufacturer_number attribute as static attribute
+$installer->addAttribute( 'catalog_product', 'tooltips', array(
+    'label'             => 'Tooltips',
+    'note'              => 'Tooltips',
+    'type'              => 'int',
+    'backend'           => 'product_tooltips/tooltips_attribute_backend_tooltips',
+    'source'            => 'product_tooltips/tooltips_attribute_source_tooltips',
+    'frontend'          => 'product_tooltips/tooltips_attribute_frontend_tooltips',
+    'required'          => false,
+    'unique'            => false,
+    'filterable'        => false,
+    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
+    'searchable'        => false,
+    'visible_on_front'  => true,
+    'visible'           => true,
+    'is_user_defined'   => true
+) );
+
+$installer->endSetup();
+$installer = $this;
