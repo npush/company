@@ -19,7 +19,7 @@ foreach ($reviewEntityCodes as $entityCode) {
 
 //Fill table rating/rating_entity
 $ratingEntityCodes = array(
-    'company_review',
+    'company_review','company'
 );
 foreach ($ratingEntityCodes as $entityCode) {
     $installer->getConnection()

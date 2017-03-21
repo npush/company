@@ -39,7 +39,7 @@
                 <class>Stableflow_Rulletka_Helper</class>
             </rulletka>
         </helpers>
-        <!--<resources>
+        <resources>
             <rulletka_write>
                 <connection>
                     <use>core_write</use>
@@ -60,7 +60,7 @@
                 </connection>
             </rulletka_setup>
         </resources>
-        <events>
+        <!--<events>
             <adminhtml_catalog_product_attribute_edit_prepare_form>
                 <observers>
                     <add_position_field>
