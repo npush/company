@@ -88,7 +88,7 @@ if(!$this->getTable('company/product_entity')) {
     //'increment_per_store'   =>'0'
 ));*/
 
-$installer->installEntities();
+
 
 /**
  * Create table 'company/eav_attribute'
@@ -278,7 +278,6 @@ if(!$installer->getTable('company/company_to_products')) {
 // adding the manufacturer attribute
 $installer->addAttribute( 'catalog_product', 'manufacturer', array(
     'label'             => 'Manufacturer Name',
-    'note'              => 'Manufacturer',
     'type'              => 'int',
     'input'             => 'select',
     'backend'           => 'company/company_attribute_backend_company',
@@ -295,6 +294,6 @@ $installer->addAttribute( 'catalog_product', 'manufacturer', array(
     'used_in_product_listing' => true,
 ) );
 
-
+$installer->installEntities();
 
 $installer->endSetup();
