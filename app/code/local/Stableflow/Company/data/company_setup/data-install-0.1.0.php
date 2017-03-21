@@ -12,16 +12,16 @@ $installer = $this;
 $reviewEntityCodes = array(
     'company',
 );
-foreach ($reviewEntityCodes as $entityCode) {
+/*foreach ($reviewEntityCodes as $entityCode) {
     $installer->getConnection()
         ->insert($installer->getTable('review/review_entity'), array('entity_code' => $entityCode));
-}
+}*/
 
 //Fill table rating/rating_entity
 $ratingEntityCodes = array(
     'company_review','company'
 );
-foreach ($ratingEntityCodes as $entityCode) {
+/*foreach ($ratingEntityCodes as $entityCode) {
     $installer->getConnection()
         ->insert($installer->getTable('rating/rating_entity'), array('entity_code' => $entityCode));
-}
+}*/
