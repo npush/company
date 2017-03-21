@@ -12,11 +12,11 @@ $installer->startSetup();
 /**
  * Create all entity tables
  */
-if(!$this->getTable('company/company_entity')) {
+if($installer->getConnection()->isTableExists($this->getTable('company/company_entity')) != true) {
     $installer->createEntityTables(
         $this->getTable('company/company_entity')
     );
-}
+
     /**
      * Add Entity type
      */
@@ -27,15 +27,16 @@ if(!$this->getTable('company/company_entity')) {
         'increment_model' => 'eav/entity_increment_numeric',
         //'increment_per_store'   =>'0'
     ));
+}
 
-if(!$this->getTable('company/address_entity')) {
+if($installer->getConnection()->isTableExists($this->getTable('company/address_entity')) != true) {
     /**
      * Create all entity tables
      */
     $installer->createEntityTables(
         $this->getTable('company/address_entity')
     );
-}
+
     /**
      * Add Entity type
      */
@@ -46,17 +47,17 @@ if(!$this->getTable('company/address_entity')) {
         'increment_model' => 'eav/entity_increment_numeric',
         //'increment_per_store'   =>'0'
     ));
-
+}
 
 /**
  * Create all entity tables
  */
 
-if(!$this->getTable('company/product_entity')) {
+if($installer->getConnection()->isTableExists($this->getTable('company/product_entity')) != true) {
     $installer->createEntityTables(
         $this->getTable('company/product_entity')
     );
-}
+
     /**
      * Add Entity type
      */
@@ -67,7 +68,7 @@ if(!$this->getTable('company/product_entity')) {
         'increment_model' => 'eav/entity_increment_numeric',
         //'increment_per_store'   =>'0'
     ));
-
+}
 
 
 /**
