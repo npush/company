@@ -88,12 +88,12 @@ if(!$this->getTable('company/product_entity')) {
     //'increment_per_store'   =>'0'
 ));*/
 
-
+$installer->installEntities();
 
 /**
  * Create table 'company/eav_attribute'
  */
-if(!$installer->getTable('company/eav_attribute')) {
+if($installer->getConnection()->isTableExists($installer->getTable('company/eav_attribute')) != true) {
 
     $table = $installer->getConnection()
         ->newTable($installer->getTable('company/eav_attribute'))
@@ -131,7 +131,7 @@ if(!$installer->getTable('company/eav_attribute')) {
  * Create table 'company_type'
  */
 
-if(!$installer->getTable('company/company_type')){
+if($installer->getConnection()->isTableExists($installer->getTable('company/company_type')) != true){
     $table = $installer->getConnection()
         ->newTable($installer->getTable('company/company_type'))
         ->addColumn('type_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
@@ -177,7 +177,7 @@ if(!$installer->getTable('company/company_type')){
  * Create table 'company_activity'
  */
 
-if(!$installer->getTable('company/company_activity')){
+if($installer->getConnection()->isTableExists($installer->getTable('company/company_activity')) != true){
     $table = $installer->getConnection()
         ->newTable($installer->getTable('company/company_activity'))
         ->addColumn('activity_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
@@ -219,7 +219,7 @@ if(!$installer->getTable('company/company_activity')){
  * Create table 'company_to_products'
  */
 
-if(!$installer->getTable('company/company_to_products')) {
+if($installer->getConnection()->isTableExists($installer->getTable('company/company_to_products')) != true) {
     $table = $installer->getConnection()
         ->newTable($installer->getTable('company/company_to_products'))
         ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
@@ -293,7 +293,5 @@ $installer->addAttribute( 'catalog_product', 'manufacturer', array(
     'visible_on_front'  => true,
     'used_in_product_listing' => true,
 ) );
-
-$installer->installEntities();
 
 $installer->endSetup();
