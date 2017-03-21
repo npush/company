@@ -89,7 +89,7 @@ if($installer->getConnection()->isTableExists($this->getTable('company/product_e
     //'increment_per_store'   =>'0'
 ));*/
 
-$installer->installEntities();
+
 
 /**
  * Create table 'company/eav_attribute'
@@ -274,7 +274,7 @@ if($installer->getConnection()->isTableExists($installer->getTable('company/comp
     $installer->getConnection()->createTable($table);
 }
 
-
+$installer->installEntities();
 
 // adding the manufacturer attribute
 $installer->addAttribute( 'catalog_product', 'manufacturer', array(
