@@ -29,6 +29,8 @@ array_multisort($files, SORT_NATURAL);
         $header = fgetcsv($file);
         while ($row = fgetcsv($file)) {
             $entities[] = array_combine($header, $row);
+            print_r($entities);
+            die();
         }
         try {
             //var_dump($entities);
