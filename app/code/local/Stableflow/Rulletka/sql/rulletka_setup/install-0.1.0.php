@@ -69,7 +69,7 @@ $attributes = array(
         'visible_on_front'  => true,
 
     ),
-    'file_upload' => array(
+/*    'file_upload' => array(
         'group'             => 'General',
         'label'             => 'User manual',
         'note'              => 'User manual',
@@ -85,7 +85,7 @@ $attributes = array(
         'user_defined'   => true,
         'visible_on_front'  => true,
 
-    )
+    )*/
 );
 
 foreach($attributes as $attrName => $attrVal){
@@ -99,7 +99,7 @@ $installer->addAttribute(Mage_Catalog_Model_Category::ENTITY, 'category_icon',
         'default'           => '',
         'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
         'group'             => 'General Information',
-        'input'             => 'text',
+        'input'             => 'varchar',
         'label'             => 'Show Category Icon',
         'position'          => 100,
         'required'          => false,

@@ -10,3 +10,4 @@ SET children_count =
 );
 
 DROP TABLE catalog_category_entity_tmp;
+

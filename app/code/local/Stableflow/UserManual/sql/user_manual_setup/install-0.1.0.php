@@ -110,4 +110,26 @@ if($installer->getConnection()->isTableExists($installer->getTable('user_manual/
         ->setComment('Catalog Product Manual Attribute Value Table');
     $installer->getConnection()->createTable($table);
 }
+
+$installer = Mage::getResourceModel('catalog/setup', 'catalog_setup');;
+$installer->startSetup();
+
+// adding the manufacturer_number attribute as static attribute
+$installer->addAttribute( 'catalog_product', 'user_manual', array(
+    'label'             => 'User Manual',
+    'type'              => 'int',
+    'input'             => 'multiselect',
+    'backend'           => '', //'user_manual/manual_attribute_backend_manual',
+    'source'            => 'user_manual/manual_attribute_source_manual',
+    'frontend'          => '', //'user_manual/manual_attribute_frontend_manual',
+    'required'          => false,
+    'unique'            => false,
+    'filterable'        => false,
+    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
+    'searchable'        => false,
+    'visible_on_front'  => true,
+    'visible'           => true,
+    'is_user_defined'   => true
+) );
+
 $installer->endSetup();
