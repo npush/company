@@ -28,6 +28,8 @@ array_multisort($files, SORT_NATURAL);
         $entities = array();
         $header = fgetcsv($file);
         while ($row = fgetcsv($file)) {
+            print_r($header);
+            print_r($row);
             $entities[] = array_combine($header, $row);
             var_dump($entities);
             die();
