@@ -31,12 +31,12 @@ class Stableflow_ProductTooltips_Model_Tooltip extends Mage_Core_Model_Abstract{
     protected $_eventObject = 'tooltip';
     protected $_productInstance = null;
 
+
     /**
      * constructor
      *
      */
     public function _construct(){
-        parent::_construct();
         $this->_init('product_tooltips/tooltip');
     }
 

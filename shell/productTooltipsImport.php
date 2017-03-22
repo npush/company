@@ -47,7 +47,7 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
                     }
                     //$this->setAttributeValue($data);
                     //$this->addTooltip($data);
-                    echo "Adding to " . $data[self::R_PRODUCT_SKU] . "\n";
+                    //echo "Adding to " . $data[self::R_PRODUCT_SKU] . "\n";
                 }
                 fclose($file);
             }
@@ -67,7 +67,7 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
                 'description' => $_data[self::TOOLTIP_DESCRIPTION] == '\N' ? '' : $_data[self::TOOLTIP_DESCRIPTION],
                 'image_file' => $fileName,
                 'created_at' => Varien_Date::now(),
-                'status' => 1
+                'status' => '1'
             );
             $tooltipsModel->setData($data);
             $tooltipsModel->save();

@@ -15,7 +15,6 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip_Collection extends Mage_
      */
     protected function _construct()
     {
-        parent::_construct();
         $this->_init('product_tooltips/tooltip');
     }
 
