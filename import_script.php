@@ -29,7 +29,7 @@ array_multisort($files, SORT_NATURAL);
         $header = fgetcsv($file);
         while ($row = fgetcsv($file)) {
             $entities[] = array_combine($header, $row);
-            print_r($entities);
+            var_dump($entities);
             die();
         }
         try {
