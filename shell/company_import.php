@@ -46,15 +46,25 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
     protected $_countries = null;
 
     public function run(){
-        if ($this->getArg('file')) {
+        if ($this->getArg('file')  && $this->getArg('mode')) {
             $this->_init();
             $path = $this->getArg('file');
+            $routine = $this->getArg('mode');
             echo 'reading data from ' . $path . PHP_EOL;
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
-                    //$this->addCompany($data);
-                    $this->addCompanyProduct($data);
-                    printf("Adding %s \n", $data[self::COMPANY_NAME]);
+                    switch($routine) {
+                        case 'company':
+                            $this->addCompany($data);
+                            printf("Adding %s \n", $data[self::COMPANY_NAME]);
+                            break;
+                        case 'product':
+                            $this->addCompanyProduct($data);
+                            printf("Adding %s \n", $data[self::COMPANY_PRODUCT_SKU]);
+                            break;
+                        default:
+                            printf("Incorrect parameter... %s \n", $routine);
+                    }
                 }
                 fclose($file);
             }
@@ -193,7 +203,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
     public function usageHelp()
     {
         return <<<USAGE
-Usage:  php -f company_import.php -- --file <csv_file>
+Usage:  php -f company_import.php -- --file <csv_file> --mode <company | product>
   help                        This help
 USAGE;
     }

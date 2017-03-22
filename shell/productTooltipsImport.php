@@ -29,11 +29,11 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
         $this->_tooltipsDir =  Mage::getBaseDir('media') . '/import/tooltips/';
         if ($this->getArg('file') && $this->getArg('mode')) {
             $path = $this->getArg('file');
-            $routne = $this->getArg('mode');
+            $routine = $this->getArg('mode');
             echo 'reading data from ' . $path . PHP_EOL;
             if (false !== ($file = fopen($path, 'r'))) {
                 while (false !== ($data = fgetcsv($file, 10000, ',', '"'))) {
-                    switch($routne){
+                    switch($routine){
                         case 'tooltips':
                             $this->addTooltip($data);
                             echo "Adding " . $data[self::TOOLTIP_LABEL] . "\n";
@@ -41,9 +41,12 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
                         case 'relation':
                             $this->addRelation($data);
                             printf("Adding tooltip ID: %D  to product SKU: %S\n", $data[self::R_TOOLTIP_ID], $data[self::R_PRODUCT_SKU]);
+                            break;
+                        default:
+                            printf("Incorrect parameter... %s \n", $routine);
                     }
                     //$this->setAttributeValue($data);
-                    $this->addTooltip($data);
+                    //$this->addTooltip($data);
                     echo "Adding to " . $data[self::R_PRODUCT_SKU] . "\n";
                 }
                 fclose($file);
@@ -168,7 +171,7 @@ class Mage_Shell_ProductTooltipsImport extends Mage_Shell_Abstract{
     public function usageHelp()
     {
         return <<<USAGE
-Usage:  php -f productTooltipsImport.php -- --file <csv_file>
+Usage:  php -f productTooltipsImport.php -- --file <csv_file> --mode <tooltips | relation>
   help                        This help
 USAGE;
     }
