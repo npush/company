@@ -171,7 +171,6 @@ if($installer->getConnection()->isTableExists($installer->getTable('company/comp
         'type_id' => 6,
         'type_code' => 'Mixed',
     ));
-    $installer->getConnection()->createTable($table);
 }
 
 /**
@@ -213,7 +212,6 @@ if($installer->getConnection()->isTableExists($installer->getTable('company/comp
         'activity_id' => 5,
         'activity_code' => 'Other',
     ));
-    $installer->getConnection()->createTable($table);
 }
 
 /**
