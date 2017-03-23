@@ -86,7 +86,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
         $_date = date_create_from_format('Y-M-d H:i:s', $companyData[self::COMPANY_CREATED_AT]);
         $companyModel = Mage::getModel('company/company');
         $description = stripslashes($companyData[self::COMPANY_DESCRIPTION]);
-        $sort_descr = strlen($description) > 100 ? substr($description, 0, 100) : $description;
+        $sort_descr = strlen($description) > 100 ? substr($description, 0, 270) : $description;
         $data = array(
             'entity_id'     => $companyData[self::COMPANY_ID],
             'name'          => stripslashes($companyData[self::COMPANY_NAME]),
