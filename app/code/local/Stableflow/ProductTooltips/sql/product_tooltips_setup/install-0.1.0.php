@@ -106,7 +106,7 @@ $installer->startSetup();
 $installer->addAttribute( 'catalog_product', 'tooltips', array(
     'label'             => 'Tooltips',
     'note'              => 'Tooltips',
-    'type'              => 'int',
+    'type'              => 'varchar',
     'input'             => 'multiselect',
     'backend'           => 'product_tooltips/tooltips_attribute_backend_tooltips',
     'source'            => 'product_tooltips/tooltips_attribute_source_tooltips',

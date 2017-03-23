@@ -51,6 +51,17 @@
                 </connection>
             </additional_codes_setup>
         </resources>
+        <events>
+            <catalog_entity_attribute_save_before>
+                <observers>
+                    <additional_codes>
+                        <type>model</type>
+                        <class>additional_codes/observer</class>
+                        <method>assignBackendModelToAttribute</method>
+                    </additional_codes>
+                </observers>
+            </catalog_entity_attribute_save_before>
+        </events>
     </global>
     <translate>
         <modules>
@@ -73,6 +84,32 @@
         </routers>
     </admin>
     <adminhtml>
+        <events>
+            <adminhtml_product_attribute_types>
+                <observers>
+                    <additional_codes>
+                        <class>additional_codes/observer</class>
+                        <method>addAdditionalCodeAttributeType</method>
+                    </additional_codes>
+                </observers>
+            </adminhtml_product_attribute_types>
+            <adminhtml_catalog_product_edit_element_types>
+                <observers>
+                    <additional_codes>
+                        <class>additional_codes/observer</class>
+                        <method>updateElementTypes</method>
+                    </additional_codes>
+                </observers>
+            </adminhtml_catalog_product_edit_element_types>
+            <adminhtml_catalog_product_form_prepare_excluded_field_list>
+                <observers>
+                    <additional_codes>
+                        <class>additional_codes/observer</class>
+                        <method>updateExcludedFieldList</method>
+                    </additional_codes>
+                </observers>
+            </adminhtml_catalog_product_form_prepare_excluded_field_list>
+        </events>
         <layout>
             <updates>
                 <additional_codes>

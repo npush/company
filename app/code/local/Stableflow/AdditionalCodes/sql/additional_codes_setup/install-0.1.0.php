@@ -13,8 +13,9 @@ $installer->startSetup();
 $installer->addAttribute( 'catalog_product', 'additional_codes', array(
     'label'             => 'Manufacturer Numbers',
     'note'              => 'Enter numbers separated by semicolon ";"',
-    'type'              => 'int',
-    'backend'           => 'additional_codes/product_attribute_backend_codes',
+    'type'              => 'varchar',
+    'input'             => 'text',
+    'backend'           => '',//'additional_codes/product_attribute_backend_codes',
     'source'            => '',
     'frontend'          => '',
     'required'          => false,
