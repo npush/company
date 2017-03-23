@@ -52,6 +52,7 @@ class Stableflow_AdditionalCodes_Model_Observer extends Mage_Core_Model_Observer
      */
     public function assignBackendModelToAttribute(Varien_Event_Observer $observer)
     {
+        return $this;
         $backendModel = Stableflow_AdditionalCodes_Model_Product_Attribute_Backend_Codes::getBackendModelName();
         //$backendModel = 'jvs_fileattribute/attribute_backend_file';
 
