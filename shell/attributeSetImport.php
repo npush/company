@@ -122,9 +122,9 @@ class Mage_Shell_AttributeSetImport extends Mage_Shell_Abstract {
                     'is_unique' => '0', //boolean 0 or 1
                     'is_required' => '0',//boolean 0 or 1
                     'frontend_class' => '',
-                    'is_searchable' => '1', //boolean 0 or 1
-                    'is_visible_in_advanced_search' => '1', //boolean 0 or 1
-                    'is_comparable' => '1', //boolean 0 or 1
+                    'is_searchable' => '0', //boolean 0 or 1
+                    'is_visible_in_advanced_search' => '0', //boolean 0 or 1
+                    'is_comparable' => '0', //boolean 0 or 1
                     'is_used_for_promo_rules' => '0', //boolean 0 or 1
                     'is_html_allowed_on_front' => '1', //boolean 0 or 1
                     'is_visible_on_front' => '1', //boolean 0 or 1 - if this should load in the product detail view
