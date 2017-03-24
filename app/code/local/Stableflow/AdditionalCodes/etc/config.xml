@@ -51,7 +51,7 @@
                 </connection>
             </additional_codes_setup>
         </resources>
-        <events>
+<!--        <events>
             <catalog_entity_attribute_save_before>
                 <observers>
                     <additional_codes>
@@ -61,7 +61,7 @@
                     </additional_codes>
                 </observers>
             </catalog_entity_attribute_save_before>
-        </events>
+        </events>-->
     </global>
     <translate>
         <modules>
@@ -84,7 +84,7 @@
         </routers>
     </admin>
     <adminhtml>
-        <events>
+        <!--<events>
             <adminhtml_product_attribute_types>
                 <observers>
                     <additional_codes>
@@ -109,7 +109,7 @@
                     </additional_codes>
                 </observers>
             </adminhtml_catalog_product_form_prepare_excluded_field_list>
-        </events>
+        </events>-->
         <layout>
             <updates>
                 <additional_codes>

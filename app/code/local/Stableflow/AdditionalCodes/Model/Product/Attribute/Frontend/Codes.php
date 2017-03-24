@@ -11,7 +11,7 @@ class Stableflow_AdditionalCodes_Model_Product_Attribute_Frontend_Codes extends 
 
     public function getValue(Varien_Object $object){
         $value = $object->getData($this->getAttribute()->getAttributeCode());
-        return 'demo';
+        return implode(', ', 'demo, dfdfg, wewfe');
     }
 
     public function getOption($optionId)

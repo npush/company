@@ -11,10 +11,10 @@ require_once 'abstract.php';
 
 class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
 
-    const PRODUCT_SKU = 1;
-    const MANUAL_FILE_NAME = 2;
-    const MANUAL_FILE_GENUINE = 3;
-    const MANUAL_FILE_LABEL = 4;
+    const PRODUCT_SKU = 0;
+    const MANUAL_FILE_NAME = 1;
+    const MANUAL_FILE_LABEL = 2;
+    const MANUAL_FILE_DESCRIPTION = 3;
     const MANUAL_ATTRIBUTE_CODE = 'file_upload';
 
     protected $_manualDir;
@@ -53,8 +53,9 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
                 $data = [
                     'entity_id' => $productId,
                     'value' => $fileName,
-                    'store' => (int)Mage::app()->getStore()->getStoreId(),
+                    'store_id' => (int)Mage::app()->getStore(true)->getId(),
                     'label' => $_data[self::MANUAL_FILE_LABEL],
+                    'description' => $_data[self::MANUAL_FILE_DESCRIPTION],
                 ];
                 $manualModel->setData($data);
                 $manualModel->save();

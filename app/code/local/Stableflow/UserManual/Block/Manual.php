@@ -55,6 +55,7 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
                 $manualArray[$i] = array(
                     'label' => $manual->getLabel(),
                     'file' => $manualPath . $manual->getValue(),
+                    'description' => $manual->getDescription(),
                 );
                 $i++;
             }

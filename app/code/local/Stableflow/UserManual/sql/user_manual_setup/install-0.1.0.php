@@ -79,14 +79,7 @@ if($installer->getConnection()->isTableExists($installer->getTable('user_manual/
             'default' => '0',
         ), 'Store ID')
         ->addColumn('label', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(), 'Label')
-        ->addColumn('position', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-            'unsigned' => true,
-        ), 'Position')
-        ->addColumn('disabled', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
-            'unsigned' => true,
-            'nullable' => false,
-            'default' => '0',
-        ), 'Is Disabled')
+        ->addColumn('description', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(), 'Detail description')
         ->addIndex($installer->getIdxName('user_manual/manual_value', array('store_id')),
             array('store_id'))
         ->addForeignKey(
@@ -117,7 +110,7 @@ $installer->startSetup();
 // adding the manufacturer_number attribute as static attribute
 $installer->addAttribute( 'catalog_product', 'user_manual', array(
     'label'             => 'User Manual',
-    'type'              => 'int',
+    'type'              => 'varchar',
     'input'             => 'multiselect',
     'backend'           => '', //'user_manual/manual_attribute_backend_manual',
     'source'            => 'user_manual/manual_attribute_source_manual',
@@ -129,7 +122,7 @@ $installer->addAttribute( 'catalog_product', 'user_manual', array(
     'searchable'        => false,
     'visible_on_front'  => true,
     'visible'           => true,
-    'is_user_defined'   => true
+    'user_defined'   => true
 ) );
 
 $installer->endSetup();

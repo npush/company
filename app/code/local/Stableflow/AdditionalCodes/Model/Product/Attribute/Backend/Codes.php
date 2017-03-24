@@ -25,6 +25,14 @@ class Stableflow_AdditionalCodes_Model_Product_Attribute_Backend_Codes extends M
         $object->setData($attrCode, $value);
     }
 
+    public function afterSave($object){
+        $attrCode = $this->getAttribute()->getAttributeCode();
+        $value = array();
+        //print_r($attrCode);
+        return $this;
+    }
+
+
     /**
      * Add image to media gallery and return new filename
      *

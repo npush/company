@@ -8,9 +8,8 @@
  */
 class Stableflow_UserManual_Model_Manual extends Mage_Core_Model_Abstract{
 
-    public function __construct(){
+    public function _construct(){
         $this->_init('user_manual/manual');
-        parent::_construct();
     }
 
     public function getId(){

@@ -25,7 +25,7 @@ $installer->addAttribute( 'catalog_product', 'additional_codes', array(
     'searchable'        => true,
     'visible_on_front'  => true,
     'visible'           => true,
-    'is_user_defined'   => true
+    'user_defined'   => true
 ) );
 
 $installer->endSetup();

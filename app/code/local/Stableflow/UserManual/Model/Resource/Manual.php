@@ -31,8 +31,9 @@ class Stableflow_UserManual_Model_Resource_Manual extends Mage_Core_Model_Resour
 
         $select->joinLeft(
             array('label' => $this->_manualStoreTable),
-            $this->getMainTable() . '.value_id = label.value_id',
-            array('label'));
+            'main_table.value_id = label.value_id and '. Mage::app()->getStore(true)->getId() . ' = label.store_id',
+            array('label','description')
+        );
         return $select;
 
 //        $adapter    = $this->_getReadAdapter();
@@ -56,9 +57,9 @@ class Stableflow_UserManual_Model_Resource_Manual extends Mage_Core_Model_Resour
      * @param Mage_Rating_Model_Rating $object
      * @return Mage_Rating_Model_Resource_Rating
      */
-    protected function _afterLoad(Mage_Core_Model_Abstract $object)
+    public function afterLoad(Mage_Core_Model_Abstract $object)
     {
-        parent::_afterLoad($object);
+        parent::afterLoad($object);
 
         if (!$object->getId()) {
             return $this;
@@ -79,6 +80,31 @@ class Stableflow_UserManual_Model_Resource_Manual extends Mage_Core_Model_Resour
         // load rating available in stores
         $object->setStores($this->getStores((int)$object->getId()));
 
+        return $this;
+    }
+
+    protected function _afterSave(Mage_Core_Model_Abstract $object){
+        $adapter = $this->_getWriteAdapter();
+        /**
+         * save detail
+         */
+        $detail = array(
+            'label'     => $object->getLabel(),
+            'description'    => $object->getDescription(),
+            'store_id'  => $object->getStoreId(),
+        );
+        $select = $adapter->select()
+            ->from($this->_manualStoreTable, 'value_id')
+            ->where('value_id = :value_id');
+//print_r($object->getId());die();
+        $detailId = $adapter->fetchOne($select, array(':value_id' => $object->getId()));
+        if ($detailId) {
+            $condition = array("value_id = ?" => $detailId);
+            $adapter->update($this->_manualStoreTable, $detail, $condition);
+        } else {
+            $detail['value_id']  = $object->getId();
+            $adapter->insert($this->_manualStoreTable, $detail);
+        }
         return $this;
     }
 }
