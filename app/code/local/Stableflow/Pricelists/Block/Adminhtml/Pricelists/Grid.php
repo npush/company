@@ -39,10 +39,11 @@ class Stableflow_Pricelists_Block_Adminhtml_Pricelists_Grid extends Mage_Adminht
             'align'         => 'left',
             'filter_index'  => 'id_company',
             'index'         => 'id_company',
-            'type'          => 'text',
             'truncate'      => 50,
             'escape'        => true,
-            'width'         => '350px'
+            'width'         => '350px',
+            'type'          => 'options',
+            'options'       => Mage::getModel('company/company_attribute_source_company')->getOptionArray()
         ));
 
 

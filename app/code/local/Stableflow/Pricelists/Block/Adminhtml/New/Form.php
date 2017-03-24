@@ -17,10 +17,13 @@ class Stableflow_Pricelists_Block_Adminhtml_New_Form extends Mage_Adminhtml_Bloc
             'legend' => Mage::helper('stableflow_pricelists')->__('New Price List')
         ));
 
-        $fieldset->addField('id_company', 'text', array(
-            'label' => Mage::helper('stableflow_pricelists')->__('Company Id'),
+        $model = Mage::getModel('company/company_attribute_source_company');
+
+        $fieldset->addField('id_company', 'select', array(
+            'label' => Mage::helper('stableflow_pricelists')->__('Company'),
             'required' => true,
             'name' => 'id_company',
+            'values' => $model->getAllOptions(),
         ));
 
         $fieldset->addField('file', 'file', array(

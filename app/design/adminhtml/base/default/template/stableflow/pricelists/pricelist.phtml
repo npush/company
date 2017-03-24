@@ -27,7 +27,7 @@ foreach ($pricelist->getTypes() as $key => $value) {
             <tr>
                 <th><?php echo $this->__('Type') ?></th>
                 <th><?php echo $this->__('Column') ?></th>
-                <th><button id="add_new_option_button" title="Add Option" type="button" class="scalable add"><span><span><span><?php echo $this->__('Add mapping column') ?></span></span></span></button></th>
+                <th><button id="add_new_option_button" title="Add Option" type="button" class="scalable add"><span><span><span><?php echo $this->__('Add mapping') ?></span></span></span></button></th>
             </tr>
             <?php foreach ($config['mapping'] as $type => $letter): ?>
                 <tr class="option-row pricelists-config-dayrow" id="config-row-<?php echo $_counter?>">
@@ -44,7 +44,7 @@ foreach ($pricelist->getTypes() as $key => $value) {
                             <?php endforeach; ?>
                         </select>
                     <td class="a-left" id="delete_button_container_option_<?php echo $_counter ?>'">
-                        <button onclick="$('config-row-<?php echo $_counter ?>').remove(); $('delete-row-<?php echo $_counter ?>').setValue(1);" title="Delete" type="button" class="scalable delete delete-option"><span><span><span>Delete</span></span></span></button>
+                        <button onclick="$('config-row-<?php echo $_counter ?>').remove(); $('delete-row-<?php echo $_counter ?>').setValue(1);" title="Delete" type="button" class="scalable delete delete-option"><span><span><span><?= $this->__('Delete') ?></span></span></span></button>
                     </td>
                 </tr>
                 <?php
@@ -61,44 +61,57 @@ foreach ($pricelist->getTypes() as $key => $value) {
 
         <script type="text/javascript">//<![CDATA[
             function preview(){
-                var formData = $('edit_form').serialize(true);
-                formData.id = <?= $pricelist->getId(); ?>;
-                new Ajax.Request('/index.php/admin/ajax/preview' , {
-                    method: 'POST',
-                    parameters: formData,
-                    onComplete: function(transport){
-                        $('preview-output-grid').innerHTML = transport.responseText;
-                    }
-                });
+                var onComplete = function(transport){
+                    $('preview-output-grid').innerHTML = transport.responseText;
+                };
+                sendAjaxForm('/admin/ajax/preview', onComplete);
             }
 
             function approve(){
-                var form = $('edit_form');
-                var url = '<?= $this->getUrl('*/*/saveConfig') . '?isApproved=1'; ?>';
-                form.setAttribute('action', url);
-                form.submit();
+                var onComplete = function(data){
+                    console.log(data.responseJSON.message);
+                    console.log(data.responseJSON.type);
+                    var html = '<ul class="messages"><li class="'+ data.responseJSON.type +'-msg"><ul><li>' + data.responseJSON.message + '</li></ul></li></ul>';
+                    $('messages').update(html);
+                };
+                sendAjaxForm('<?= $this->getUrl('*/ajax/approve'); ?>', onComplete);
+            }
+
+            function getFormData(){
+                var formData = $('edit_form').serialize(true);
+                formData.id = <?= $pricelist->getId(); ?>;
+                return formData;
+            }
+
+            function sendAjaxForm(url, callback = false){
+                var formData = getFormData();
+                new Ajax.Request(url , {
+                    method: 'POST',
+                    parameters: formData,
+                    onComplete: callback
+                });
             }
 
             var _form_html_row = '' +
                 '<tr class="option-row pricelists-config-dayrow" id="config-row-{{id}}">' +
                     '<td>' +
-                        '<select name="<?php echo $_htmlName; ?>[value][option_{{id}}][column]" class="input-text"><?= $optionsTypes; ?></select>' +
+                        '<select name="<?= $_htmlName; ?>[value][option_{{id}}][column]" class="input-text"><?= $optionsTypes; ?></select>' +
                     '</td>' +
                     '<td>' +
-                        '<select name="<?php echo $_htmlName; ?>[value][option_{{id}}][letter]"><?= $optionsLetter; ?></select>' +
+                        '<select name="<?= $_htmlName; ?>[value][option_{{id}}][letter]"><?= $optionsLetter; ?></select>' +
                     '</td>' +
                     '<td class="a-left" id="delete_button_container_option_{{id}}">'+
                         '<button onclick="$(\'config-row-{{id}}\').remove(); $(\'delete-row-{{id}}\').setValue(1);" title="Delete" type="button" class="scalable delete delete-option">' +
                             '<span>' +
                                 '<span>' +
-                                    '<span>Delete</span>' +
+                                    '<span><?= $this->__('Delete') ?></span>' +
                                 '</span>' +
                             '</span>' +
                         '</button>' +
                     '</td>' +
                 '</tr>';
 
-            var _pricelists_counter = <?php echo $_counter ?>;
+            var _pricelists_counter = <?= $_counter ?>;
             $('add_new_option_button').observe('click', function(){
                 $('attribute-options-table').insert(_form_html_row.replace(/\{\{id\}\}/ig, _pricelists_counter));
                 _pricelists_counter++;
