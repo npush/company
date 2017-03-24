@@ -118,7 +118,7 @@ $installer->addAttribute( 'catalog_product', 'tooltips', array(
     'searchable'        => false,
     'visible_on_front'  => true,
     'visible'           => true,
-    'is_user_defined'   => true
+    'user_defined'   => true
 ) );
 
 $installer->endSetup();

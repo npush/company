@@ -10,6 +10,8 @@ class Stableflow_ProductTooltips_Block_Tooltip extends Mage_Core_Block_Template{
 
     const BASE_TOOLTIPS_PATH = 'tooltips';
 
+    protected $tooltipArray = null;
+
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -42,29 +44,10 @@ class Stableflow_ProductTooltips_Block_Tooltip extends Mage_Core_Block_Template{
      */
 
     public function getTooltips(){
-        /*$modelTooltip = Mage::getModel('product_tooltips/tooltip')
-            ->getCollection()
-            ->addProductFilter($this->getCurrentProduct());*/
-        $tooltips = null;
-        $tooltipArray = null;
-        $productId = $this->getCurrentProduct()->getId();
-        $product = $this->getCurrentProduct();
-        $manualArray = null;
-        $imgPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . self::BASE_TOOLTIPS_PATH;
-        $tooltips =  $product->getResource()->getAttribute('tooltips')->getFrontend()->getValue($product);
-        if($tooltips){
-            $tooltipIds = explode('|', trim($tooltips,'|'));
-            $i = 0;
-            foreach($tooltipIds as $tooltipId){
-                $modelTooltip = Mage::getModel('product_tooltips/tooltip')->load($tooltipId);
-                $tooltipArray[$i] = array(
-                    'title' => $modelTooltip->getTitle(),
-                    'file' => $imgPath . $modelTooltip->getImageFile(),
-                    'description' => $modelTooltip->getDescription(),
-                );
-                $i++;
-            }
+        if(is_null($this->tooltipArray)) {
+            $product = $this->getCurrentProduct();
+            $this->tooltipArray = $product->getResource()->getAttribute('tooltips')->getFrontend()->getValue($product);
         }
-        return $tooltipArray;
+        return $this->tooltipArray;
     }
 }
