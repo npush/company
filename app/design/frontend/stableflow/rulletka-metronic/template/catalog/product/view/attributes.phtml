@@ -47,7 +47,7 @@
                     <?php if($_data['code'] == 'manufacturer_number') : ?>
                         <?php $_codes = explode('|', $_data['value']); ?>
                         <?php foreach($_codes as $_code) : ?>
-                            <?php echo '<span>' . $_code . ', </span>';?>
+                            <?php echo '<span>' . $_code . ' </span>';?>
                         <?php endforeach; ?>
                         <?php //echo str_replace('|', ', ', $_data['value']); ?>
                     <?php else : ?>
