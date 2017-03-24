@@ -35,12 +35,7 @@ class Stableflow_Rulletka_Block_Attributes extends Mage_Core_Block_Template
         foreach ($attributes as $attribute) {
 //            if ($attribute->getIsVisibleOnFront() && $attribute->getIsUserDefined() && !in_array($attribute->getAttributeCode(), $excludeAttr)) {
             if ($attribute->getIsVisibleOnFront() && !in_array($attribute->getAttributeCode(), $excludeAttr)) {
-                if($attribute->getAttributeCode() == 'manufacturer_number'){
-                    $value = str_replace('|', '<br>', $attribute->getFrontend()->getValue($product));
-                }else {
-                    $value = $attribute->getFrontend()->getValue($product);
-                }
-
+                $value = $attribute->getFrontend()->getValue($product);
                 if (!$product->hasData($attribute->getAttributeCode())) {
                     $value = null;
                 } elseif ((string)$value == 'Нет') {
