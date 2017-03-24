@@ -51,9 +51,7 @@ class Stableflow_ProductTooltips_Block_Tooltip extends Mage_Core_Block_Template{
         $product = $this->getCurrentProduct();
         $manualArray = null;
         $imgPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . self::BASE_TOOLTIPS_PATH;
-        $tooltips =  $product->getResource()->getAttribute('tooltips');//->getFrontend()->getValue($product);
-        var_dump($tooltips);
-        die();
+        $tooltips =  $product->getResource()->getAttribute('tooltips')->getFrontend()->getValue($product);
         if($tooltips){
             $tooltipIds = explode('|', trim($tooltips,'|'));
             $i = 0;
