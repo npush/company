@@ -11,7 +11,7 @@ $_helper = $this->helper('catalog/output');
 $_currentDate = Mage::getModel('core/date')->date('Y-m-d H:i:s');
 ?>
 <?php //echo $_product->getResource()->getAttribute('out_of_production');?>
-<div class="label-product clearfix"><?php print_r($_product->getData('news_from_date')); die();?>
+<div class="label-product clearfix">
     <?php if ($_product->getData('news_from_date')): ?>
         <span type="button" class="label-span label-yellow"><?php echo $this->__('New');?></span>
     <?php endif; ?>
