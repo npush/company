@@ -19,4 +19,24 @@ class Stableflow_ProductTooltips_Model_Tooltips_Attribute_Frontend_Tooltips exte
         return $url;
     }
 
+
+    public function getValue(Varien_Object $object){
+        $imgPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . Stableflow_ProductTooltips_Block_Tooltip::BASE_TOOLTIPS_PATH;
+        $tooltips = $object->getData($this->getAttribute()->getAttributeCode());
+        $tooltipArray = null;
+        if($tooltips){
+            $tooltipIds = explode(',', $tooltips);
+            $i = 0;
+            foreach($tooltipIds as $tooltipId){
+                $modelTooltip = Mage::getModel('product_tooltips/tooltip')->load($tooltipId);
+                $tooltipArray[$i] = array(
+                    'title' => $modelTooltip->getTitle(),
+                    'file' => $imgPath . $modelTooltip->getImageFile(),
+                    'description' => $modelTooltip->getDescription(),
+                );
+                $i++;
+            }
+        }
+        return $tooltipArray;
+    }
 }
