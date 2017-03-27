@@ -16,7 +16,11 @@ class Stableflow_Company_Model_Company_Attribute_Frontend_Company extends Mage_E
      */
     public function getValue(Varien_Object $object)
     {
-
+        $value = $object->getData($this->getAttribute()->getAttributeCode());
+        if (in_array($this->getConfigField('input'), array('select'))) {
+            $valueOption = $this->getOption($value);
+        }
+        return $valueOption;
     }
 
     /**
