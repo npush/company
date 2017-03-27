@@ -30,9 +30,9 @@ class Stableflow_Company_Model_Company_Attribute_Frontend_Company extends Mage_E
      * @param int $optionId
      * @return mixed|boolean
      */
-    public function getOption($optionId)
+    /*public function getOption($optionId)
     {
         return "option text";
-    }
+    }*/
 
 }
