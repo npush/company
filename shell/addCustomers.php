@@ -25,6 +25,13 @@ class Mage_Shell_AddCustomers extends Mage_Shell_Abstract{
             'first_name' => 'Ольга',
             'last_name' => 'Белоус',
             'email' => 'olga.belous@rulletka.biz'
+        ],
+        3 => [
+            'login' => 'oleg',
+            'pass' => 'SfPass123',
+            'first_name' => 'Oleg',
+            'last_name' => 'Soloduhin',
+            'email' => 'oleg@rulletka.biz'
         ]
     ];
 
