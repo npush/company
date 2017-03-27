@@ -3048,7 +3048,11 @@ input[type="checkbox"], input[type="radio"] {
   vertical-align: middle;
   width: 50%;
 }
-
+.dashed-left-txt {
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+}
 /*.line-dashed span.dashed-style:before {
   content:"";
   position:absolute;
@@ -5343,6 +5347,10 @@ li.level0:after {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
+}
+
+.dashed-left-txt span {
+  display: inline-block;
 }
 
 .back{
