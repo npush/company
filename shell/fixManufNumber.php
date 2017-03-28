@@ -1,6 +1,6 @@
 <?php
 
-$mysqli = new mysqli("localhost", "root", "", "rulletka_beta.dev");
+$mysqli = new mysqli("localhost", "root", "SoloDuhin123", "rulletka_beta.dev");
 if ($mysqli->connect_errno) {
     printf("Connection error: (%s) %s\n", $mysqli->connect_errno, $mysqli->connect_error);
     die();
