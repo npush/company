@@ -22,8 +22,7 @@ if ($result){
         });
         $row['value'] = implode('|', $codes);
         print_r($row);
-        var_dump($mysqli->query("UPDATE `catalog_product_entity_varchar` SET value = '{$row['value']}' WHERE value_id = '{$row['value_id']}'"));
-        die();
+        $mysqli->query("UPDATE `catalog_product_entity_varchar` SET value = '{$row['value']}' WHERE value_id = '{$row['value_id']}'");
     }
 
     $result->close();
