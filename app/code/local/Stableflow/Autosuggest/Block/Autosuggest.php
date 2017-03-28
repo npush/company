@@ -53,7 +53,7 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
             if (count($suggests) > 0) {
                 $slimit = Mage::helper('autosuggest')->getSuggestionWordCount();
                 $sc = 0;
-                $resultText .= '<li class="list-title">' . Mage::helper('core')->__('Popular suggestions: ') . '</li>';
+                $resultText .= '<li class="list-title">' . Mage::helper('autosuggest')->__('Popular suggestions:') . '</li>';
                 foreach ($suggests as $_suggest) {
                     if ($sc < $slimit) {
                         $resultText .= "<li class=\"item\" onclick=\"document.getElementById('search').value='{$_suggest->getQueryText()}';document.getElementById('search_mini_form').submit()\">{$_suggest->getQueryText()} <span class=\"amount\">{$_suggest->getNumResults()}</span></li>";

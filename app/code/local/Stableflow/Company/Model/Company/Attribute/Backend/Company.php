@@ -10,4 +10,13 @@
 class Stableflow_Company_Model_Company_Attribute_Backend_Company extends  Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
 
+    /**
+     * Retrieve default value
+     *
+     * @return mixed
+     */
+/*    public function getDefaultValue()
+    {
+        die('!!!');
+    }*/
 }

@@ -20,12 +20,12 @@ $searchResult = $this->getSearchResult();
     <div class="suggest-word-content">
         <ul class="suggest-products">
             <?php if($popularSuggestion):?>
-                <li class="list-title"><?php echo Mage::helper('core')->__('Popular suggestions: ') ?></li>
+                <li class="list-title"><?php echo $this->__('Popular suggestions:') ?></li>
                 <li class="item" onclick="document.getElementById('search').value='<?php echo $_suggest->getQueryText()?>';document.getElementById('search_mini_form').submit()"><?php echo $_suggest->getQueryText()?> <span class="amount"><?php echo $_suggest->getNumResults()?></span></li>
             <?php endif;?>
             <?php foreach($searchResult as $product): ?>
                 <?php $_product = Mage::getModel('catalog/product')->load($product->getId());?>
-                <li class="list-title"><?php Mage::helper('core')->__('Products: '); ?></li>
+                <li class="list-title"><?php echo $this->__('Products:'); ?></li>
                 <li class="item">
                     <a href="<?php echo $_product->getProductUrl(); ?>">
                         <span class="item-thumbnail">
@@ -42,6 +42,6 @@ $searchResult = $this->getSearchResult();
         </ul>
     </div>
 <?php else: ?>
-    <h4><?php echo Mage::helper('core')->__('No product match')?></h4>
+    <h4><?php echo $this->__('No product match')?></h4>
 <?php endif;?>
 </div>

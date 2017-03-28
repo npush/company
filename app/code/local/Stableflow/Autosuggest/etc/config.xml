@@ -39,6 +39,15 @@
                 </autosuggest>
             </updates>
         </layout>
+        <translate>
+            <modules>
+                <Stableflow_Autosuggest>
+                    <files>
+                        <default>Stableflow_Autosuggest.csv</default>
+                    </files>
+                </Stableflow_Autosuggest>
+            </modules>
+        </translate>
     </frontend>
     <default>
         <autosuggest>
