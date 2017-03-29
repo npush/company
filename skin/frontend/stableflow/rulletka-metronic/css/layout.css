@@ -5376,7 +5376,9 @@ li.level0:after {
 .dashed-left-txt span:first-child:before {
   content: "";
 }
-.dashed-left-txt span:nth-child(2):before {
+.dashed-left-txt span:nth-child(2):after {
+  content: ",";
+  position: absolute;
   right: auto;
   left: -8px;
 }
