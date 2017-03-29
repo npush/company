@@ -22,41 +22,19 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach($companyIds as $company):?>
+        <?php foreach($companyIds as $_company):?>
             <?php //print_r($company)?>
-            <?php $company = Mage::getModel('company/company')->load($company->getCompanyId()); ?>
-            <?php $product = Mage::getModel('company/product')->load($company->getCompanyProductId()); ?>
+            <?php $company = Mage::getModel('company/company')->load($_company->getCompanyId()); ?>
+            <?php $product = Mage::getModel('company/product')->load((int)$_company->getCompanyProductId()); ?>
             <tr>
-                <td><?php echo $company->getName(); ?></td>
-                <td><?php echo $product->getPrice(); ?></td>
+                <td><a href="<?php echo $company->getCompanyUrl(); ?>"> <?php echo $company->getName(); ?></a></td>
+                <td><?php echo Mage::helper('core')->currency($product->getPrice(), true, false); ?></td>
                 <td>
-                    <div class="stars-rating">
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-5">
-                        <label for="star-rating-16-5" class="radio-label"></label>
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-4">
-                        <label for="star-rating-16-4" class="radio-label"></label>
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-3">
-                        <label for="star-rating-16-3" class="radio-label"></label>
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-2">
-                        <label for="star-rating-16-2" class="radio-label"></label>
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-16-1">
-                        <label for="star-rating-16-1" class="radio-label"></label>
-                    </div>
+                    <?php echo $this->getChildHtml('rating'); ?>
                 </td>
                 <td><?php echo $product->getExist() ? '+' : '-'; ?></td>
                 <td>
-                    <div class="stars-rating">
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-5">
-                        <label for="star-rating-17-5" class="radio-label"></label>
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-4">
-                        <label for="star-rating-17-4" class="radio-label"></label>
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-3">
-                        <label for="star-rating-17-3" class="radio-label"></label>
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-2">
-                        <label for="star-rating-17-2" class="radio-label"></label>
-                        <input type="radio" disabled="disabled" checked="checked" name="star-rating-17-1">
-                        <label for="star-rating-17-1" class="radio-label"></label>
-                    </div>
+                    <?php echo $this->getChildHtml('topicality'); ?>
                 </td>
             </tr>
         <?php endforeach;?>
