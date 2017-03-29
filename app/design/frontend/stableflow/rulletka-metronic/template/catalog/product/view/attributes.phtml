@@ -39,35 +39,30 @@
         <!--<p class="text-margin"><?php /*echo $_helper->productAttribute($this->getProduct(), $_product->getDescription(), 'description') */?></p>-->
         <?php foreach ($_additional as $_data): ?>
             <?php if($_data['value']):?>
-            <p class="line-dashed">
-                <span class="dashed-style">
-                    <b><?php echo $this->escapeHtml($this->__($_data['label'])) ?></b>
-                </span>
-                <span class="dashed-left-txt">
-                    <?php if($_data['code'] == 'manufacturer_number') : ?>
-                        <?php $_codes = explode('|', $_data['value']); ?>
-                        <?php foreach($_codes as $_code) : ?>
-                            <?php echo '<span>' . $_code . ' </span>';?>
-                        <?php endforeach; ?>
-                        <?php //echo str_replace('|', ', ', $_data['value']); ?>
-                    <?php else : ?>
+                <?php if($_data['code'] == 'manufacturer_number') : ?>
+                    <p class="line-dashed line-number-id">
+                        <span class="dashed-style">
+                            <b><?php echo $this->escapeHtml($this->__($_data['label'])) ?></b>
+                        </span>
+                        <span class="dashed-left-txt">
+                            <?php $_codes = explode('|', $_data['value']); ?>
+                            <?php foreach($_codes as $_code) : ?>
+                                <?php echo '<span>' . $_code . ', </span>';?>
+                            <?php endforeach; ?>
+                        </span>
+                    </p>
+                <?php else : ?>
+                <p class="line-dashed">
+                    <span class="dashed-style">
+                        <b><?php echo $this->escapeHtml($this->__($_data['label'])) ?></b>
+                    </span>
+                    <span class="dashed-left-txt">
                         <?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']); ?>
-                    <?php endif; ?>
-                 </span>
-            </p>
+                     </span>
+                </p>
+                <?php endif ;?>
             <?php endif;?>
         <?php endforeach; ?>
-
-<!--            <p class="line-dashed">
-                <span class="dashed-style">
-                    <b><?php /*echo $this->escapeHtml($this->__('Manufacturer Code')); */?></b>
-                </span>
-                <span class="dashed-left-txt">
-                <?php /*foreach($_product->getData('additional_codes') as $_code): */?>
-                        <?php /*echo $this->escapeHtml($_code['file']); */?><br>
-                <?php /*endforeach; */?>
-                </span>
-            </p>-->
     </div>
 <?php endif;?>
 
