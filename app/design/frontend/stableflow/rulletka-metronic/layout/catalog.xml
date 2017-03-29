@@ -235,7 +235,9 @@ Product view
                     <action method="setTitle" translate="value"><value>Gallery image</value></action>
                 </block>-->
 
-                <block type="core/template" name="product.offers" as="offers" template="rulletka/product-offers.phtml">
+                <block type="company/company_offers" name="product.offers" as="offers" template="company/product/tab/offers.phtml">
+                    <block type="company/company_offers_rating" name="company.rating" as="rating" template="company/company/rating.phtml"/>
+                    <block type="company/company_offers_topicality" name="company.topicality" as="topicality" template="company/company/topicality.phtml"/>
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                     <action method="setTitle" translate="value"><value>Offer</value></action>
                 </block>

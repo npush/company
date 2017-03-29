@@ -21,10 +21,14 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
     }
 
     public function getCompanyProducts(){
-
+        $companyId = $this->getCompanyId();
     }
 
     public function getCompanyProductById(){
 
+    }
+
+    public function getCompanyId(){
+        return $this->getId();
     }
 }
