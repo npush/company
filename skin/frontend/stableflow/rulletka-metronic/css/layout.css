@@ -5363,8 +5363,12 @@ li.level0:after {
 .dashed-left-txt span {
   display: inline-block;
   padding: 0 5px;
+  position: relative;
 }
-
+.dashed-left-txt span:before {
+  content: ",";
+  position: absolute;
+}
 .back{
   background-color: #F0F5FB;
 }
