@@ -5363,7 +5363,26 @@ li.level0:after {
 .dashed-left-txt span {
   display: inline-block;
   padding: 0 5px;
+  position: relative;
 }
+.dashed-left-txt span:before {
+  content: ",";
+  position: absolute;
+  right: 2px;
+}
+.dashed-left-txt span:last-child:before {
+  content: "";
+}
+.dashed-left-txt span:first-child:before {
+  content: "";
+}
+.dashed-left-txt span:nth-child(2):after {
+  content: ",";
+  position: absolute;
+  right: auto;
+  left: -5px;
+}
+
 
 .back{
   background-color: #F0F5FB;
