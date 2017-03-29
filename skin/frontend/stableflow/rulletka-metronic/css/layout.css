@@ -5368,7 +5368,16 @@ li.level0:after {
 .dashed-left-txt span:before {
   content: ",";
   position: absolute;
+  right: 5px;
 }
+.dashed-left-txt span:last-child:before {
+  content: "";
+}
+.dashed-left-txt span:first-child:before {
+  content: "";
+}
+
+
 .back{
   background-color: #F0F5FB;
 }
