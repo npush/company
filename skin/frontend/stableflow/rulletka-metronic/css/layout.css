@@ -5368,13 +5368,17 @@ li.level0:after {
 .dashed-left-txt span:before {
   content: ",";
   position: absolute;
-  right: 5px;
+  right: 2px;
 }
 .dashed-left-txt span:last-child:before {
   content: "";
 }
 .dashed-left-txt span:first-child:before {
   content: "";
+}
+.dashed-left-txt span:nth-child(2):before {
+  right: auto;
+  left: -8px;
 }
 
 
