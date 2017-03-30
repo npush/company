@@ -41,10 +41,10 @@ class Stableflow_Company_Model_Catalog_Layer_Filter_Sale extends Mage_Catalog_Mo
 
         if ($filter == self::FILTER_ON_SALE) {
             $select->where('price_index.final_price < price_index.price');
-            $stateLabel = Mage::helper('inchoo_sale')->__('On Sale');
+            $stateLabel = Mage::helper('company')->__('On Sale');
         } else {
             $select->where('price_index.final_price >= price_index.price');
-            $stateLabel = Mage::helper('inchoo_sale')->__('Not On Sale');
+            $stateLabel = Mage::helper('company')->__('Not On Sale');
         }
 
         $state = $this->_createItem(
@@ -54,7 +54,7 @@ class Stableflow_Company_Model_Catalog_Layer_Filter_Sale extends Mage_Catalog_Mo
 
         $this->getLayer()->getState()->addFilter($state);
 
-        Mage::register('inchoo_sale_filter', true);
+        Mage::register('stableflow_company_filter', true);
 
         return $this;
     }
@@ -80,13 +80,13 @@ class Stableflow_Company_Model_Catalog_Layer_Filter_Sale extends Mage_Catalog_Mo
         $status = $this->_getCount();
 
         $data[] = array(
-            'label' => Mage::helper('inchoo_sale')->__('On Sale'),
+            'label' => Mage::helper('company')->__('On Sale'),
             'value' => self::FILTER_ON_SALE,
             'count' => $status['yes'],
         );
 
         $data[] = array(
-            'label' => Mage::helper('inchoo_sale')->__('Not On Sale'),
+            'label' => Mage::helper('company')->__('Not On Sale'),
             'value' => self::FILTER_NOT_ON_SALE,
             'count' => $status['no'],
         );

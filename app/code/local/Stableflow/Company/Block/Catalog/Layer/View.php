@@ -80,7 +80,7 @@ class Stableflow_Company_Block_Catalog_Layer_View extends Mage_Catalog_Block_Lay
      */
     protected function _getSaleFilter()
     {
-        return $this->getChild('sale_filter');
+        return $this->getChild('company_filter');
     }
 
 }
