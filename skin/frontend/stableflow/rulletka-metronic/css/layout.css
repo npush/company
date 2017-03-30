@@ -1747,7 +1747,7 @@ button.btn.grey:hover {
     color: #b2b0ab;
 }
 
-.has-error .checkbox, 
+/*.has-error .checkbox, 
 .has-error .checkbox-inline, 
 .has-error .control-label, 
 .has-error .help-block, 
@@ -1759,7 +1759,11 @@ button.btn.grey:hover {
 .has-error.radio-inline label {
   color:#181717;
 }
+*/
 
+.has-error .help-block {
+  font-size: 11px;
+}
 .radius-none {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
