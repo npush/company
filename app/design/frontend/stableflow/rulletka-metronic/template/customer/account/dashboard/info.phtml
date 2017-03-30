@@ -24,31 +24,51 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<?php $registerDate = $this->escapeHtml($this->getCustomer()->getCreatedAtTimestamp());?>
+<?php $registerDate = $this->escapeHtml($this->getCustomer()->getCreatedAt());?>
 <?php $address = $this->getCustomer()->getAddressesCollection();?>
 
 <div class="row row-margin">
     <div class="col-md-8">
         <div class="content-text ">
-
             <ul class="list-icon-navs list-icon-navs-normal">
                 <li>
-                    <p class="line-dashed"><i class="fa fa-map-marker"></i><span class="dashed-style"><b>Дата регистрации: </b></span><span class="bold"><?php echo date('Y-m-d', $registerDate) ?></span><span class="bold time-style"><?php echo date('h-i-s', $registerDate) ?></span></p>
+                    <p class="line-dashed"><i class="fa fa-map-marker"></i>
+                        <span class="dashed-style"><b>Дата регистрации: </b></span>
+                        <span class="bold"><?php echo Mage::helper('core')->formatDate($registerDate, 'medium', false) ?></span>
+                    </p>
                 </li>
                 <li>
-                    <p class="line-dashed"><i class="icon icon-avatar"></i><span class="dashed-style"><b>Имя: </b></span><span class="bold"><?php echo $this->escapeHtml($this->getCustomer()->getName()) ?></span></p>
+                    <p class="line-dashed"><i class="icon icon-avatar"></i>
+                        <span class="dashed-style"><b>Имя: </b></span>
+                        <span class="bold"><?php echo $this->escapeHtml($this->getCustomer()->getName()) ?></span>
+                    </p>
                 </li>
                 <li>
-                    <p class="line-dashed"><i class="icon icon-email-filled-closed-envelope"></i><span class="dashed-style"><b>E-mail: </b></span><span class="bold"><?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?></span></p>
+                    <p class="line-dashed"><i class="icon icon-email-filled-closed-envelope"></i>
+                        <span class="dashed-style"><b>E-mail: </b></span>
+                        <span class="bold"><?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?></span>
+                    </p>
                 </li>
                 <li>
-                    <p class="line-dashed"><i class="fa fa-phone"></i><span class="dashed-style"><b>Телефон: </b></span><span class="bold"><?php echo $this->escapeHtml($this->getCustomer()->getTelephone()) ?></span></p>
+                    <p class="line-dashed"><i class="fa fa-phone"></i>
+                        <span class="dashed-style"><b>Телефон: </b></span>
+                        <span class="bold"><?php echo $this->escapeHtml($this->getCustomer()->getTelephone()) ?></span>
+                    </p>
                 </li>
                 <li>
                     <p class="line-dashed"><i class="fa fa-map-marker"></i>Адрес:</p>
-                    <p class="line-dashed"><i class="icon icon-margin"></i><span class="dashed-style"><b>улица: </b></span><span class="bold"><?php echo $address?></span></p>
-                    <p class="line-dashed"><i class="icon icon-margin"></i><span class="dashed-style"><b>город: </b></span><span class="bold"><?php echo $address?></span></p>
-                    <p class="line-dashed"><i class="icon icon-margin"></i><span class="dashed-style"><b>область: </b></span><span class="bold"><?php echo $address?></span></p>
+                    <p class="line-dashed"><i class="icon icon-margin"></i>
+                        <span class="dashed-style"><b>улица: </b></span>
+                        <span class="bold"><?php echo $address?></span>
+                    </p>
+                    <p class="line-dashed"><i class="icon icon-margin"></i>
+                        <span class="dashed-style"><b>город: </b></span>
+                        <span class="bold"><?php echo $address?></span>
+                    </p>
+                    <p class="line-dashed"><i class="icon icon-margin"></i>
+                        <span class="dashed-style"><b>область: </b></span>
+                        <span class="bold"><?php echo $address?></span>
+                    </p>
                 </li>
             </ul>
             <div class="row">
@@ -57,53 +77,45 @@
                         <a class="btn btn-sm yellow btn-width"  data-toggle="modal" href="#personal_registration">
                             редактировать личные данные
                         </a>
-                        <a class="btn btn-sm yellow btn-width" href="catalog.html">
-                            изменить пароль
+                        <a class="btn btn-sm yellow btn-width"  data-toggle="modal" href="#change-password">
+                            Сменить пароль
                         </a>
+                        <!--<a class="btn btn-sm yellow btn-width" href="<?php /*echo $this->getUrl('customer/account/edit') */?>"><?php /*echo $this->__('Edit') */?></a>-->
+                        <!--<a class="btn btn-sm yellow btn-width" href="<?php /*echo $this->getChangePasswordUrl() */?>"><?php /*echo $this->__('Change Password') */?></a>-->
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group btn-groups">
-                        <a class="btn btn-sm yellow btn-width" href="<?php echo $this->getUrl('customer/account/edit') ?>"><?php echo $this->__('Edit') ?></a>
-                        <a class="btn btn-sm yellow btn-width" href="<?php echo $this->getChangePasswordUrl() ?>"><?php echo $this->__('Change Password') ?></a>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <div class="col-md-4">
         <div class="form-group text-right">
-            <button class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button">Регистрация компании</button>
+            <!--<button class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button">Регистрация компании</button>-->
         </div>
     </div>
 </div>
 <div class="col2-set">
 
-    <?php if( $this->isNewsletterEnabled() ): ?>
+    <?php /*if( $this->isNewsletterEnabled() ): */?><!--
         <div class="col-2">
             <div class="box">
                 <div class="box-title">
-                    <h3><?php echo $this->__('Newsletters') ?></h3>
-                    <a href="<?php echo $this->getUrl('newsletter/manage') ?>"><?php echo $this->__('Edit') ?></a>
+                    <h3><?php /*echo $this->__('Newsletters') */?></h3>
+                    <a href="<?php /*echo $this->getUrl('newsletter/manage') */?>"><?php /*echo $this->__('Edit') */?></a>
                 </div>
                 <div class="box-content">
                     <p>
-                        <?php if( $this->getIsSubscribed() ): ?>
-                            <?php echo $this->__("You are currently subscribed to 'General Subscription'.") ?>
-                        <?php else: ?>
-                            <?php echo $this->__('You are currently not subscribed to any newsletter.') ?>
-                        <?php endif; ?>
+                        <?php /*if( $this->getIsSubscribed() ): */?>
+                            <?php /*echo $this->__("You are currently subscribed to 'General Subscription'.") */?>
+                        <?php /*else: */?>
+                            <?php /*echo $this->__('You are currently not subscribed to any newsletter.') */?>
+                        <?php /*endif; */?>
                     </p>
                 </div>
             </div>
             <?php /* Extensions placeholder */ ?>
-            <?php echo $this->getChildHtml('customer.account.dashboard.info.extra')?>
+            <?php /*//echo $this->getChildHtml('customer.account.dashboard.info.extra')*/?>
         </div>
-    <?php endif; ?>
+    --><?php /*endif; */?>
 </div>
 
 <!-- modal dialog Edit account info -->
@@ -118,11 +130,11 @@
             <div class="modal-body modal-body-form">
                 <div class="form-group">
                     <label class="control-label">Фамилия:</label>
-                    <input type="text" class="form-control radius-none">
+                    <input type="text" class="form-control radius-none" value="<?php echo $this->escapeHtml($this->getCustomer()->getLastName()) ?>">
                 </div>
                 <div class="form-group">
                     <label class="control-label">Имя:<span class="has-span">*</span> </label>
-                    <input type="text" class="form-control radius-none">
+                    <input type="text" class="form-control radius-none" value="<?php echo $this->escapeHtml($this->getCustomer()->getName()) ?>">
                 </div>
                 <div class="form-group">
                     <label class="control-label">Отчество: </label>
@@ -130,7 +142,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Номер телефона:</label>
-                    <input type="text" placeholder="+38 ( _ _ _ ) _ _ - _ _ - _ _" class="form-control radius-none">
+                    <input type="text" placeholder="+38 ( _ _ _ ) _ _ - _ _ - _ _" class="form-control radius-none" value="<?php echo $this->escapeHtml($this->getCustomer()->getTelephone()) ?>">
                 </div>
                 <div class="form-group">
                     <label class="control-label">Область:<span class="has-span">*</span> </label>
@@ -143,6 +155,42 @@
                 <div class="form-group">
                     <label class="control-label">Адрес: </label>
                     <input type="text" class="form-control radius-none">
+                </div>
+                <div class="form-group">
+                    <p class="txt-sm">
+                        Поля, обозначенные <span class="has-span">*</span> обязательны для заполнения
+                    </p>
+                </div>
+                <div class="form-group text-center row-position">
+                    <a href="" class="clear-editor link-underline">Отмена</a>
+                    <button type="button" class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min">сохранить</button>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade draggable-modal" id="change-password" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close close-default" data-dismiss="modal" aria-hidden="true"><i class="icon icon-cancel-music"></i></button>
+                <h4 class="modal-title text-center">Изменить пароль</h4>
+            </div>
+            <div class="modal-body modal-body-form">
+                <div class="form-group">
+                    <label class="control-label">Old pass:<span class="has-span">*</span></label>
+                    <input type="text" class="form-control radius-none" >
+                </div>
+                <div class="form-group">
+                    <label class="control-label">New pass:<span class="has-span">*</span> </label>
+                    <input type="text" class="form-control radius-none" >
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Confirm New pass:<span class="has-span">*</span> </label>
+                    <input type="text" class="form-control radius-none" >
                 </div>
                 <div class="form-group">
                     <p class="txt-sm">

@@ -43,8 +43,14 @@
     <?php /*echo $this->getChildHtml('info1') */?>
     <?php /*echo $this->getChildHtml('info2') */?>
 </div>-->
+
+<div class="page-title">
+    <h1><?php echo $this->__('My Dashboard') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
 <div class="portlet light portlet-fit bordered">
     <div class="portlet-title">
+
     </div>
     <div class="portlet-body ">
         <?php echo $this->getChildHtml('info')?>
@@ -52,7 +58,7 @@
         <div class="tabbable tabbable-tabdrop">
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#tab1" data-toggle="tab">список заказов1</a>
+                    <a href="#tab1" data-toggle="tab">список заказов</a>
                 </li>
                 <li>
                     <a href="#tab2" data-toggle="tab">подписка</a>
