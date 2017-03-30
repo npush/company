@@ -71,4 +71,15 @@
     <company_company_productlist>
         <block type="core/template" name="root" output="toHtml" template="company/product/list.phtml" />
     </company_company_productlist>
+
+    <catalog_category_layered>
+        <!-- Remove Magento layered navigation -->
+        <remove name="catalog.leftnav"/>
+
+        <!-- Add our layered navigation replacement -->
+        <reference name="catalog.leftnav">
+            <block type="company/catalog_layer_view" name="company.catalog.leftnav" after="currency" template="catalog/layer/view.phtml"/>
+        </reference>
+
+    </catalog_category_layered>
 </layout>
