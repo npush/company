@@ -8,7 +8,7 @@
  */
 class Stableflow_ProductTooltips_Model_Resource_Tooltip extends Mage_Core_Model_Resource_Db_Abstract{
 
-    protected $_isPkAutoIncrement = false;
+    //protected $_isPkAutoIncrement = false;
 
     /**
      *

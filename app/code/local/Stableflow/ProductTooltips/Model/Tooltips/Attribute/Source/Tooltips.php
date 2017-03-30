@@ -17,7 +17,7 @@ class Stableflow_ProductTooltips_Model_Tooltips_Attribute_Source_Tooltips extend
             foreach($tooltips as $tooltip) {
                 $this->_options[] =
                     array(
-                        'label' => $tooltip->getData('tooltip_id'),//$tooltip->getData('title'),
+                        'label' => $tooltip->getData('title'),
                         'value' => $tooltip->getData('tooltip_id'),
                     );
             }
