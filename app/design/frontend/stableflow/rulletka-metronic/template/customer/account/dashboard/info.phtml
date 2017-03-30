@@ -50,25 +50,31 @@
                     </p>
                 </li>
                 <li>
-                    <p class="line-dashed"><i class="fa fa-phone"></i>
-                        <span class="dashed-style"><b>Телефон: </b></span>
-                        <span class="bold"><?php echo $this->escapeHtml($this->getCustomer()->getTelephone()) ?></span>
-                    </p>
-                </li>
-                <li>
-                    <p class="line-dashed"><i class="fa fa-map-marker"></i>Адрес:</p>
-                    <p class="line-dashed"><i class="icon icon-margin"></i>
-                        <span class="dashed-style"><b>улица: </b></span>
-                        <span class="bold"><?php echo $address?></span>
-                    </p>
-                    <p class="line-dashed"><i class="icon icon-margin"></i>
-                        <span class="dashed-style"><b>город: </b></span>
-                        <span class="bold"><?php echo $address?></span>
-                    </p>
-                    <p class="line-dashed"><i class="icon icon-margin"></i>
-                        <span class="dashed-style"><b>область: </b></span>
-                        <span class="bold"><?php echo $address?></span>
-                    </p>
+                    <ul>
+                    <?php foreach($address as $_address) :?>
+                        <li>
+                            <p class="line-dashed"><i class="fa fa-phone"></i>
+                                <span class="dashed-style"><b>Телефон: </b></span>
+                                <span class="bold"><?php echo $this->escapeHtml($_address->getTelephone()) ?></span>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="line-dashed"><i class="fa fa-map-marker"></i>Адрес:</p>
+                            <p class="line-dashed"><i class="icon icon-margin"></i>
+                                <span class="dashed-style"><b>улица: </b></span>
+                                <span class="bold"><?php echo $_address->getStreetFull(); ?></span>
+                            </p>
+                            <p class="line-dashed"><i class="icon icon-margin"></i>
+                                <span class="dashed-style"><b>город: </b></span>
+                                <span class="bold"><?php echo $_address->getCity(); ?></span>
+                            </p>
+                            <p class="line-dashed"><i class="icon icon-margin"></i>
+                                <span class="dashed-style"><b>Почтовый индекс: </b></span>
+                                <span class="bold"><?php echo $_address->getPostCode()?></span>
+                            </p>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
                 </li>
             </ul>
             <div class="row">
