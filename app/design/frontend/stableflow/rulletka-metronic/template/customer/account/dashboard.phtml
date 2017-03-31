@@ -45,7 +45,7 @@
 </div>-->
 
 <div class="page-title">
-    <h1><?php echo $this->__('My Dashboard') ?></h1>
+    <h1><?php echo $this->__('Account Dashboard') ?></h1>
 </div>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <div class="portlet light portlet-fit bordered">
@@ -54,23 +54,26 @@
     </div>
     <div class="portlet-body ">
         <?php echo $this->getChildHtml('info')?>
-        <?php echo $this->getChildHtml('address') ?>
+        <?php //echo $this->getChildHtml('address') ?>
+
+
         <div class="tabbable tabbable-tabdrop">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#tab1" data-toggle="tab">список заказов</a>
-                </li>
-                <li>
-                    <a href="#tab2" data-toggle="tab">подписка</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab1">
-
-                </div>
-                <div class="tab-pane" id="tab2">
-                    <div class="content-text ">
-
+            <div id="tabs">
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a href="#tabs-1">список заказов</a>
+                    </li>
+                    <li>
+                        <a href="#tabs-2">подписка</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tabs-1">
+                        <?php echo $this->getChildHtml('cart'); ?>
+                    </div>
+                    <div id="tabs-2">
+                        <?php echo $this->getChildHtml('news_letter'); ?>
+                        <!--<div class="content-text ">
                         <p class="line-dashed"><span class="bold"><b>Подписка на рассылку статей:</b> </span></p>
                         <div class="type-checkbox">
                             <div class="checkbox-filter">
@@ -118,10 +121,17 @@
                             </div>
                         </div>
                         <button type="button" class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min">сохранить</button>
-                    </div>
-
+                    </div>-->
                 </div>
             </div>
+            <script  type="text/javascript">
+                //<![CDATA[
+                jQuery(document).ready(function(){
+                    jQuery( "#tabs" ).tabs();
+                });
+                //]]>
+            </script>
+        </div>
         </div>
 
     </div>
