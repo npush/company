@@ -15,7 +15,8 @@
             _this = this;
             this.controllerUrl = controllerUrl;
             // Click login
-            jQuery('#login button').on('click', function(){
+            jQuery('#login button').on('click', function(evt){
+                evt.preventDefault();
                 _this.collectField('#login');
                 _this.ajaxLogin();
             });
@@ -77,7 +78,7 @@
                 url: this.controllerUrl,
                 type: 'POST',
                 data: {
-                    ajax : 'ajaxlogin',
+                    ajax : 'login',
                     email : this.email,
                     password : this.password
                 },

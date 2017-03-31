@@ -109,7 +109,7 @@ Load this update on every page when customer is logged out
             <block type="customer/form_login" name="customer_form_mini_login" before="-" template="customer/form/mini.login.phtml"/>
         </reference>-->
         <reference name="top.links">
-            <action method="addLink" translate="label title before_text" module="customer">
+            <!--<action method="addLink" translate="label title before_text" module="customer">
                 <label>Register user</label>
                 <url><![CDATA[#user_registration]]></url>
                 <title>Register user</title>
@@ -120,10 +120,32 @@ Load this update on every page when customer is logged out
                 <a><![CDATA[data-toggle="modal"]]></a>
                 <beforeText/>
                 <afterText><![CDATA[<i class="icon icon-avatar"></i>]]></afterText>
+            </action>-->
+            <action method="addLink" translate="label title before_text" module="customer">
+                <label>Register</label>
+                <url helper="customer/getRegisterUrl" />
+                <title>Register</title>
+                <prepare/><urlParams/>
+                <position>20</position>
+                <li/>
+                <a/>
+                <beforeText/>
+                <afterText><![CDATA[<i class="icon icon-avatar"></i>]]></afterText>
             </action>
-            <action method="addLink" translate="label title" module="customer">
+            <!--<action method="addLink" translate="label title" module="customer">
                 <label>Log In</label>
                 <url><![CDATA[#login]]></url>
+                <title>Log In</title>
+                <prepare/><urlParams/>
+                <position>10</position>
+                <liParams/>
+                <aParrams><![CDATA[data-toggle="modal"]]></aParrams>
+                <beforeText/>
+                <afterText><![CDATA[<i class="icon icon-square"></i>]]></afterText>
+            </action>-->
+            <action method="addLink" translate="label title" module="customer">
+                <label>Log In</label>
+                <url helper="customer/getLoginUrl"/>
                 <title>Log In</title>
                 <prepare/><urlParams/>
                 <position>10</position>

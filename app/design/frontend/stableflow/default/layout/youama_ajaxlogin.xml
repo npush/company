@@ -40,13 +40,13 @@
             </action>
         </reference>
 
-        <reference name="content">
+        <!--<reference name="content">
             <block ifconfig="youamaajaxlogin/settings/power" type="youama_ajaxlogin/ajaxlogin" name="youamaajaxlogin" as="youamaajaxlogin">
                 <action ifconfig="youamaajaxlogin/settings/power" method="setTemplate">
                     <template>youama/ajaxlogin/ajaxlogin.phtml</template>
                 </action>
             </block>
-        </reference>
+        </reference>-->
     </default>
 
     <!-- ajaxlogin/ajax/index -->
