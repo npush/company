@@ -46,7 +46,10 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
         $product_sku = $_data[self::PRODUCT_SKU];
         $productId = Mage::getModel('catalog/product')->getIdBySku($product_sku);
         if($productId){
+            $_i = 0;
             $_files = explode(';', $_data[self::MANUAL_FILE_NAME]);
+            $_description = explode(';', $_data[self::MANUAL_FILE_DESCRIPTION]);
+            $_label= explode(';', $_data[self::MANUAL_FILE_LABEL]);
             foreach($_files as $_file){
                 $fileName = $this->uploadFile($_file, Mage::getBaseDir('media') . '/catalog/product_manual');
                 $manualModel = Mage::getModel('user_manual/manual');
@@ -54,9 +57,10 @@ class Mage_Shell_ProductManualImport extends Mage_Shell_Abstract{
                     'entity_id' => $productId,
                     'value' => $fileName,
                     'store_id' => (int)Mage::app()->getStore(true)->getId(),
-                    'label' => $_data[self::MANUAL_FILE_LABEL],
-                    'description' => $_data[self::MANUAL_FILE_DESCRIPTION],
+                    'label' => $_label[$_i],
+                    'description' => $_description[$_i],
                 ];
+                $_i++;
                 $manualModel->setData($data);
                 $manualModel->save();
 
