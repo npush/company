@@ -25,14 +25,6 @@
                 _this.collectField('#user_registration');
                 _this.ajaxRegistration();
             });
-            jQuery('#change-password button').on('click', function(){
-                _this.collectField('#change-password');
-                _this.ajaxChangePassword();
-            });
-            jQuery('#personal_registration button').on('click', function(){
-                _this.collectField('#personal_registration');
-                _this.ajaxChangeAccount();
-            });
         },
         collectField: function(context){
             _this = this;
@@ -108,12 +100,6 @@
             }).fail(function(){
                 alert("error");
             });
-        },
-        ajaxChangePassword: function(){
-            console.log("change pass");
-        },
-        ajaxChangeAccount: function(){
-            console.log("change account");
         }
     };
 
