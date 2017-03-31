@@ -33,6 +33,9 @@
         <Youama_Ajaxlogin>
             <active>true</active>
             <codePool>community</codePool>
+            <depends>
+                <Mage_Customer/>
+            </depends>
         </Youama_Ajaxlogin>
     </modules>
 </config>

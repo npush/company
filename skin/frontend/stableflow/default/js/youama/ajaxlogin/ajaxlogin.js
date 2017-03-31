@@ -77,7 +77,7 @@
                 url: this.controllerUrl,
                 type: 'POST',
                 data: {
-                    ajax : 'login',
+                    ajax : 'ajaxlogin',
                     email : this.email,
                     password : this.password
                 },
