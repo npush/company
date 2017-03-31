@@ -39,7 +39,7 @@
     <?php echo $this->getChildHtml('form_fields_before')?>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate">
-        <div class="fieldset">
+        <div class="col-md-8">
             <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
             <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
             <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
@@ -77,7 +77,7 @@
             </ul>
         </div>
     <?php if($this->getShowAddressFields()): ?>
-        <div class="fieldset">
+        <div class="col-md-8">
             <input type="hidden" name="create_address" value="1" />
             <h2 class="legend"><?php echo $this->__('Address Information') ?></h2>
             <ul class="form-list">
@@ -151,7 +151,7 @@
             <input type="hidden" name="default_shipping" value="1" />
         </div>
     <?php endif; ?>
-        <div class="fieldset">
+        <div class="col-md-12">
             <h2 class="legend"><?php echo $this->__('Login Information') ?></h2>
             <ul class="form-list">
                 <li class="fields">
@@ -173,7 +173,7 @@
             </ul>
             <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
         </div>
-        <div class="buttons-set">
+        <div class="col-md-12">
             <p class="required"><?php echo $this->__('* Required Fields') ?></p>
             <a class="btn yellow margin-top-min min-width" href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a>
             <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?>" class="btn yellow margin-top-min min-width"><span><span><?php echo $this->__('Submit') ?></span></span></button>
