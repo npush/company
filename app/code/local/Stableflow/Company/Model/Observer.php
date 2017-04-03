@@ -23,12 +23,12 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer{
 
         $collection = array(
             array(
-                'name'   => Mage::helper('company')->__('Sellers'),
+                'name'   => Mage::helper('company')->__('Seller'),
                 'id'     => 'seller-node-1',
                 'url'    => Mage::getUrl('company/index/list/company_type/1'),
             ),
             array(
-                'name'   => 'Manufacturers',
+                'name'   => 'Manufacturer',
                 'id'     => 'seller-node-2',
                 'url'    => Mage::getUrl('company/index/list/company_type/2'),
             )
