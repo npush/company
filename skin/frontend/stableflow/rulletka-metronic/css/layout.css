@@ -2378,6 +2378,7 @@ input[type="checkbox"], input[type="radio"] {
 .timeline-lg .timeline-badge-userpic {
     bottom: auto;
     top: 10px;
+    max-height: 120px;
 }
 .timeline-lg .timeline-badge {
     height: 155px;
