@@ -27,7 +27,7 @@ class Stableflow_Company_IndexController extends Mage_Core_Controller_Front_Acti
         $this->loadLayout();
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
-            $headBlock->setTitle('Companies');
+            $headBlock->setTitle($this->__('Companies'));
         }
         if ($breadcrumbBlock = $this->getLayout()->getBlock('breadcrumbs')) {
             $breadcrumbBlock->addCrumb(
