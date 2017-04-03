@@ -12,6 +12,9 @@
             </block>
         </reference>
     </company_index_index>
+    <company_index_list>
+        <update handle="company_index_index"/>
+    </company_index_list>
     <company_company_view translate="label" module="company">
         <label>Company list</label>
         <update handle="page_left_menu"/>

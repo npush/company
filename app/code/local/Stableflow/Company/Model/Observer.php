@@ -19,19 +19,26 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer{
         ), 'id', $tree, $menu);
 
         $menu->addChild($node);
+        $tree = $node->getTree();
 
-        //foreach ($collection as $category) {
-            $tree = $node->getTree();
-            $data = array(
-                'name'   => 'Sellers',
+        $collection = array(
+            array(
+                'name'   => Mage::helper('company')->__('Sellers'),
                 'id'     => 'seller-node-1',
-                'url'    => Mage::getUrl('company'),
-            );
+                'url'    => Mage::getUrl('company/index/list/company_type/1'),
+            ),
+            array(
+                'name'   => 'Manufacturers',
+                'id'     => 'seller-node-2',
+                'url'    => Mage::getUrl('company/index/list/company_type/2'),
+            )
+        );
 
-            $subNode = new Varien_Data_Tree_Node($data, 'id', $tree, $node);
+        foreach ($collection as $category) {
+            $subNode = new Varien_Data_Tree_Node($category, 'id', $tree, $node);
             $node->addChild($subNode);
         //$node->appendChild($subNode);
-        //}
+        }
     }
 
 }

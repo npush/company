@@ -11,12 +11,20 @@ class Stableflow_Company_Block_Company_List extends Mage_Core_Block_Template{
 
     protected $company = null;
 
+
     public function _construct(){
         parent::_construct();
-        /** @var  $company Stableflow_Company_Model_Company */
-        $company = Mage::getModel('company/company')->getCollection()
-            ->addAttributeToSelect('*')
-            ->setOrder('name','asc');
+        $post = Mage::app()->getRequest()->getParam('company_type');
+        if($post && is_numeric($post)){
+            $company = Mage::getModel('company/company')->getCollection()
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('type',$post)
+                ->setOrder('name','asc');
+        }else{
+            $company = Mage::getModel('company/company')->getCollection()
+                ->addAttributeToSelect('*')
+                ->setOrder('name','asc');
+        }
         //->addAttributeToFilter('status', 1);
         $this->setCompany($company);
     }
