@@ -190,6 +190,13 @@
                             <input type="password" name="confirmation" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="confirmation" class="input-text required-entry validate-cpassword" />
                         </div>
                     </div>
+                    <div class="form-group checkbox-group">
+                            <input type="checkbox" name="licence" checked="" id="checkbox2" class="checkbox required-entry" >
+                        <label class="checkbox-label" for="checkbox2">
+                            <?php echo $this->__('I have read and agreed to the ') ?><a href="<?php echo Mage::helper('cms/page')->getPageUrl(10) ?>" target="_blank"><?php echo $this->__('Terms and Conditions')?></a>
+                            <span class="has-span">*</span>
+                        </label>
+                    </div>
                 </li>
                 <?php echo $this->getChildHtml('form.additional.info'); ?>
                 <?php echo $this->getChildHtml('persistent.remember.me'); ?>
