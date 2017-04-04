@@ -1,0 +1,32 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 4/4/17
+ * Time: 4:06 PM
+ */
+?>
+
+<?php $collection = $this->getCollection();  ?>
+    <div class="page-title">
+        <h1><?php echo $this->__('My Collection') ?></h1>
+    </div>
+<?php echo $this->getToolbarHtml(); ?>
+    <table class="data-table" id="my-custom-table">
+        <thead>
+        <tr>
+            <th><?php echo $this->__('Title') ?></th>
+            <th><span class="nobr"><?php echo $this->__('Created at') ?></span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($collection as $item): ?>
+            <tr>
+                <td><span class="nobr"><?php echo $item->getSubject(); ?></span></td>
+                <td><?php echo $this->formatDate($item->getCreatedAt()) ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php echo $this->getToolbarHtml(); ?>

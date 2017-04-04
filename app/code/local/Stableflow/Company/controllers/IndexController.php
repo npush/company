@@ -78,4 +78,10 @@ class Stableflow_Company_IndexController extends Mage_Core_Controller_Front_Acti
         $this->renderLayout();
     }
 
+    public function paginationAction()
+    {
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
 }
