@@ -61,7 +61,7 @@
                 <?php foreach($this->getAvailableOrders() as $_key=>$_order): ?>
                     <div class="radio-group">
                         <a href="<?php echo $this->getOrderUrl($_key, 'asc') ?>" class="<?php if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'asc'): ?>selected <?php endif; ?>filter-group"><?php echo $this->__($_order) ?> <?php echo $this->__('Ascending') ?></a>
-                        <a href="<?php echo $this->getOrderUrl($_key, 'desc') ?>" class="<?php if($this->isOrderCurrent($_key && $this->getCurrentDirection() == 'desc')): ?>selected <?php endif; ?>filter-group"><?php echo $this->__($_order) ?> <?php echo $this->__('Descending') ?></a>
+                        <a href="<?php echo $this->getOrderUrl($_key, 'desc') ?>" class="<?php if($this->isOrderCurrent($_key) && $this->getCurrentDirection() == 'desc'): ?>selected <?php endif; ?>filter-group"><?php echo $this->__($_order) ?> <?php echo $this->__('Descending') ?></a>
                     </div>
                 <?php endforeach; ?>
             </div>
