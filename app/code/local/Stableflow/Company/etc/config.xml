@@ -127,6 +127,12 @@
                 </connection>
             </company_setup>
         </resources>
+        <!--<rewrite>
+            <companies>
+                <from><![CDATA[#^/from_this/#]]></from>
+                <to>/to_this/</to>
+            </companies>
+        </rewrite>-->
     </global>
     <frontend>
         <events>

@@ -18,7 +18,7 @@ class Stableflow_Company_Block_Company_List extends Mage_Core_Block_Template{
         if($post && is_numeric($post)){
             $company = Mage::getModel('company/company')->getCollection()
                 ->addAttributeToSelect('*')
-                ->addAttributeToFilter('type',$post)
+                ->addAttributeToFilter('type',array('in' => array($post, 6)))
                 ->setOrder('name','asc');
         }else{
             $company = Mage::getModel('company/company')->getCollection()

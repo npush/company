@@ -46,6 +46,8 @@ class Stableflow_Company_IndexController extends Mage_Core_Controller_Front_Acti
     }
 
     public function listAction(){
+        $post = Mage::app()->getRequest()->getParam('company_type');
+        $type = Mage::getModel('company/company_attribute_source_type')->getOptionArray();
         $this->loadLayout();
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
@@ -64,7 +66,14 @@ class Stableflow_Company_IndexController extends Mage_Core_Controller_Front_Acti
                     'label' => Mage::helper('company')->__('Companies'),
                     'link' =>  Mage::helper('core/url')->getCurrentUrl(),
                 )
-            );
+            )->addCrumb(
+                'company_',
+                array(
+                    'label' => $type[$post],
+                    'link' =>  Mage::helper('core/url')->getCurrentUrl(),
+                )
+            )
+            ;
         }
         $this->renderLayout();
     }

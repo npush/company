@@ -424,7 +424,7 @@
 "* Required Fields","* Обязательные поля"
 "Forgot Your Password","Забыли пароль?"
 "Please enter your email below and we'll send you a new password.","Пожалуйста введите ваш электронный адрес ниже и мы отправим вам новый пароль."
-"Back to Login","Back to Login"
+"Back to Login","Назад на Вход"
 "Submit","Submit"
 "My Dashboard","My Dashboard"
 "Contact Information","Контактная информация"
@@ -450,3 +450,4 @@
 "Register user","Регистрация пользователя"
 "Register Company","Регистрация компании"
 "Middle Name/Initial","Отчество"
+"If there is an account associated with %s you will receive an email with a link to reset your password.","На %s, отправлено электронное письмо со ссылкой для сброса пароля."
