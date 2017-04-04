@@ -2348,7 +2348,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .link-details {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .timeline-lg .timeline-body-title {
@@ -4652,7 +4652,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .body-product-txt {
-  max-height: 55px;
+  max-height: 58px;
   overflow: hidden;
 }
 .body-product-txt p {
