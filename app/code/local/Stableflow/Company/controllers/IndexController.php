@@ -64,7 +64,7 @@ class Stableflow_Company_IndexController extends Mage_Core_Controller_Front_Acti
                 'company_home',
                 array(
                     'label' => Mage::helper('company')->__('Companies'),
-                    'link' =>  Mage::helper('core/url')->getCurrentUrl(),
+                    'link' =>   Mage::getUrl() . '/company',
                 )
             )->addCrumb(
                 'company_',
