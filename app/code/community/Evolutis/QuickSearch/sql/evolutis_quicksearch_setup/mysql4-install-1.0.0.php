@@ -50,7 +50,7 @@ $installer->run("
 		 FULLTEXT KEY `data_index_3` (`data_index_3`)
 	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 	
-	-- ALTER TABLE `{$installer->getTable('catalog/eav_attribute')}` ADD `evolutis_weight_id` INT(10) NOT NULL DEFAULT '2';
+	 ALTER TABLE `{$installer->getTable('catalog/eav_attribute')}` ADD `evolutis_weight_id` INT(10) NOT NULL DEFAULT '2';
 ");
 
 /*
