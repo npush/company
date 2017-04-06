@@ -2278,6 +2278,7 @@ input[type="checkbox"], input[type="radio"] {
     position: relative;
     width: 230px;
     overflow: hidden;
+    word-break: break-all;
 }
 .link-md {
     text-align:center;
