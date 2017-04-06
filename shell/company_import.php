@@ -99,7 +99,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
 
 
         if($companyModel->load($companyData[self::COMPANY_ID]) && $companyModel->getId()){
-
+            $addressId = $companyModel->getAddressId();
             $data = array(
                 //'name'          => stripslashes($companyData[self::COMPANY_NAME]),
                 'short_description' => $this->_formatDescription($sort_descr[0]),
@@ -117,6 +117,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
             } catch (Exception $e){
                 echo $e->getMessage();
             }
+            $this->_addCompanyAddress($companyData, $addressId);
         }else {
             $data = array(
                 'entity_id'     => $companyData[self::COMPANY_ID],
@@ -136,19 +137,39 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
         }
     }
 
-    protected function _addCompanyAddress($address){
+    protected function _addCompanyAddress($address, $id = null){
         $addressModel = Mage::getModel('company/address');
-        $data = array(
-            'street'        => $address[self::COMPANY_ADDRESS],
-            'city'          => $address[self::COMPANY_CITY],
-            'telephone'     => $address[self::COMPANY_TEL],
-            'country_id'    => $this->_convertCountryName($address[self::COMPANY_COUNTRY]),
-            'email'         => $address[self::COMPANY_EMAIL],
-            'postcode'      => '',
-        );
-        $addressModel->setData($data);
-        $addressModel->save();
+        if($addressModel->load($id) && $addressModel->getId()){
+            $data = array(
+                'street' => $address[self::COMPANY_ADDRESS],
+                'city' => $address[self::COMPANY_CITY],
+                'telephone' => $address[self::COMPANY_TEL],
+                'country_id' => $this->_convertCountryName($address[self::COMPANY_COUNTRY]),
+                'email' => $address[self::COMPANY_EMAIL],
+                'postcode' => '',
+            );
+            $addressModel->setData($data);
+            try {
+                $addressModel->setId($id)->save();
+                printf ("Data Address updated successfully. \n");
+
+            } catch (Exception $e){
+                echo $e->getMessage();
+            }
+        }else {
+            $data = array(
+                'street' => $address[self::COMPANY_ADDRESS],
+                'city' => $address[self::COMPANY_CITY],
+                'telephone' => $address[self::COMPANY_TEL],
+                'country_id' => $this->_convertCountryName($address[self::COMPANY_COUNTRY]),
+                'email' => $address[self::COMPANY_EMAIL],
+                'postcode' => '',
+            );
+            $addressModel->setData($data);
+            $addressModel->save();
+        }
         return $addressModel->getId();
+
     }
 
     public function getAttributeId($attribute, $value){
