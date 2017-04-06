@@ -8,7 +8,9 @@
 ?>
 <?php $company = Mage::registry('current_company')?>
 <?php $address = Mage::getModel('company/address')->load($company->getAddressId());?>
-<p><span class="bold"><?php echo $this->__('Country:')?> </span><?php echo Mage::getModel('directory/country')->loadByCode($address->getData('country_id'))->getName();?></p>
+<?php if($address->getData('country_id')) :?>
+    <p><span class="bold"><?php echo $this->__('Country:')?> </span><?php echo Mage::getModel('directory/country')->loadByCode($address->getData('country_id'))->getName();?></p>
+<?php endif; ?>
 <p><span class="bold"><?php echo $this->__('Address:')?> </span><?php echo $address->getData('city');?> <?php echo $address->getData('street');?> </p>
 <p><span class="bold"><?php echo $this->__('Telephone:')?> </span>
     <span class="left-content">
