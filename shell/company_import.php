@@ -30,6 +30,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
     const COMPANY_BALANCE = 16;
     const COMPANY_PARENT_COMPANY_ID = 17;
     const COMPANY_TYPE_ID = 18;
+    const COMPANY_ACTIVITY_ID = 19;
 
     const COMPANY_PRODUCT_SKU = 0;
     const COMPANY_ID_PRODUCT = 1;
@@ -86,22 +87,53 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
         $_date = date_create_from_format('Y-M-d H:i:s', $companyData[self::COMPANY_CREATED_AT]);
         $companyModel = Mage::getModel('company/company');
         $description = stripslashes($companyData[self::COMPANY_DESCRIPTION]);
-        $sort_descr = strlen($description) > 100 ? substr($description, 0, 270) : $description;
-        $data = array(
-            'entity_id'     => $companyData[self::COMPANY_ID],
-            'name'          => stripslashes($companyData[self::COMPANY_NAME]),
-            'short_description' => $sort_descr,
-            'description'   => $description,
-            'image'         => $this->uploadFile($this->_importImagePath . $companyData[self::COMPANY_LOGO_IMG]),
-            'created_at'    => $_date ? $_date : Varien_Date::now(),
-            'email'         => $companyData[self::COMPANY_EMAIL],
-            'url'           => $companyData[self::COMPANY_URL],
-            'address_id'    => $this->_addCompanyAddress($companyData),
-            'type'          => $companyData[self::COMPANY_TYPE_ID],
-            //'activity'      => $companyData[self::COMPANY_ACTIVITY],
-        );
-        $companyModel->setData($data);
-        $companyModel->save();
+        //$sort_descr = strlen($description) > 100 ? substr($description, 0, 270) : $description;
+
+        $pattern = '/.{3,}[\?|\!|\.]/mu';
+        $result = array();
+        if (preg_match_all($pattern, $description, $result) && !empty($result[0])){
+            $sort_descr =  $result[0];
+        }else{
+            $sort_descr =  $description;
+        }
+
+
+        if($companyModel->load($companyData[self::COMPANY_ID]) && $companyModel->getId()){
+
+            $data = array(
+                //'name'          => stripslashes($companyData[self::COMPANY_NAME]),
+                'short_description' => $this->_formatDescription($sort_descr[0]),
+                'description'   => $this->_formatDescription($description),
+                //'email'         => $companyData[self::COMPANY_EMAIL],
+                //'url'           => $companyData[self::COMPANY_URL],
+                //'type'          => $companyData[self::COMPANY_TYPE_ID],
+                'activity'      => str_replace('|', ',', $companyData[self::COMPANY_ACTIVITY_ID]),
+            );
+            $companyModel->setData($data);
+            try {
+                $companyModel->setId($companyData[self::COMPANY_ID])->save();
+                printf ("Data updated successfully. \n");
+
+            } catch (Exception $e){
+                echo $e->getMessage();
+            }
+        }else {
+            $data = array(
+                'entity_id'     => $companyData[self::COMPANY_ID],
+                'name'          => stripslashes($companyData[self::COMPANY_NAME]),
+                'short_description' => $this->_formatDescription($sort_descr[0]),
+                'description'   => $this->_formatDescription($description),
+                'image'         => $this->uploadFile($this->_importImagePath . $companyData[self::COMPANY_LOGO_IMG]),
+                'created_at'    => $_date ? $_date : Varien_Date::now(),
+                'email'         => $companyData[self::COMPANY_EMAIL],
+                'url'           => $companyData[self::COMPANY_URL],
+                'address_id'    => $this->_addCompanyAddress($companyData),
+                'type'          => $companyData[self::COMPANY_TYPE_ID],
+                'activity'      => str_replace('|', ',', $companyData[self::COMPANY_ACTIVITY_ID]),
+            );
+            $companyModel->setData($data);
+            $companyModel->save();
+        }
     }
 
     protected function _addCompanyAddress($address){
@@ -189,10 +221,57 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
                     $headers = $data;
                     continue;
                 }
-                $this->_countries[$data[1]] = $data[6];
+                $this->_countries[$data[2]] = $data[6];
             }
             fclose($file);
         }
+    }
+
+    protected function _formatDescription($text){
+        $text = preg_replace('/^\s*/iUs', '', $text);
+        $text = preg_replace('/\s*$/iUs', '', $text);
+        $text = stripslashes($text);
+        $text = preg_replace('/\[b\](.*)\[\/b\]/iUs', '<b>$1</b>', $text);
+        $text = preg_replace('/\[i\](.*)\[\/i\]/iUs', '<i>$1</i>', $text);
+        $text = preg_replace('/\[u\](.*)\[\/u\]/iUs', '<u>$1</u>', $text);
+        $text = preg_replace('/\[img:(.*)\]/iUs', '<img src="$1"/>', $text);
+        $strings = explode(PHP_EOL, $text);
+        $i = 0;
+        $result = '';
+        $startUl = false;
+        while(isset($strings[$i])){
+            if(preg_match('/^\s*(-|•)\s*/u', $strings[$i])){
+                if(!$startUl){
+                    $result .= PHP_EOL .'<ul>' . PHP_EOL;
+                    $startUl = true;
+                }
+                $result .= preg_replace('/^\s*(-|•)\s*/u', '<li>', $strings[$i]);
+                $result .= '</li>'. PHP_EOL;
+            }/*elseif(preg_match_all('/(?!([^\s]*):)([^;]*)(;|.$)/u', $strings[$i], $out, PREG_SET_ORDER)) {
+            if(!$startUl){
+                $position = strpos($strings[$i], ":");
+                $result .= '<b>' . substr($strings[$i], 0, $position) . '</br>';
+                $result .= PHP_EOL .'<ul>' . PHP_EOL;
+                $startUl = true;
+            }
+            print_r($strings[$i]);print_r($out);die();
+            foreach ($out as $_str) {
+                $result .= '<li>' . $_str . '</li>'. PHP_EOL;
+            }
+        }*/else{
+                if($startUl){
+                    $result .= '</ul>' . PHP_EOL;
+                    $startUl = false;
+                }
+                $result .= '<p>' . $strings[$i] . '</p>' . PHP_EOL;
+            }
+            $i++;
+        }
+        if($startUl){
+            $result .= PHP_EOL . '</ul>' . PHP_EOL;
+            $startUl = false;
+        }
+        return $result;
     }
 
 
