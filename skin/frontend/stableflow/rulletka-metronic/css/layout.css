@@ -2274,10 +2274,9 @@ input[type="checkbox"], input[type="radio"] {
 
 .timeline .timeline-badge {
     float: left;
-    height: 175px;
+    height: 190px;
     position: relative;
     width: 230px;
-    overflow: hidden;
     word-break: break-all;
 }
 .link-md {
