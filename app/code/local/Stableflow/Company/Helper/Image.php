@@ -12,7 +12,7 @@ class Stableflow_Company_Helper_Image extends Mage_Core_Helper_Abstract{
 
     public function getImageBaseDir()
     {
-        return Mage::getBaseDir('media').DS.$this->_subdir.DS.'image';
+        return Mage::getBaseDir('media').DS.$this->_subdir.'company';
     }
 
     /**
@@ -22,6 +22,6 @@ class Stableflow_Company_Helper_Image extends Mage_Core_Helper_Abstract{
      * @return string
      */
     public function getImageBaseUrl(){
-        return Mage::getBaseUrl('media').$this->_subdir.DS.'image';
+        return Mage::getBaseUrl('media').$this->_subdir.'company';
     }
 }
