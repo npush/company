@@ -68,7 +68,7 @@
         <reference name="content">
             <block type="mageplaza_betterblog/post_list" name="post_list"
                    template="mageplaza_betterblog/post/list.phtml"/>
-            <block type="mageplaza_betterblog/frontend" template="mageplaza_betterblog/blog/footer.phtml" />
+            <!--<block type="mageplaza_betterblog/frontend" template="mageplaza_betterblog/blog/footer.phtml" />-->
         </reference>
         <update handle="frontend_better_blog"/>
     </mageplaza_betterblog_post_index>
@@ -79,7 +79,7 @@
         <reference name="content">
             <block type="mageplaza_betterblog/post_list" name="post_list"
                    template="mageplaza_betterblog/post/list.phtml"/>
-            <block type="mageplaza_betterblog/frontend" template="mageplaza_betterblog/blog/footer.phtml" />
+            <!--<block type="mageplaza_betterblog/frontend" template="mageplaza_betterblog/blog/footer.phtml" />-->
         </reference>
         <update handle="frontend_better_blog"/>
     </mageplaza_betterblog_index_index>
@@ -130,7 +130,7 @@
 
             <!--=================================================================-->
 
-            <block type="mageplaza_betterblog/frontend" template="mageplaza_betterblog/blog/footer.phtml" />
+            <!--<block type="mageplaza_betterblog/frontend" template="mageplaza_betterblog/blog/footer.phtml" />-->
         </reference>
         <update handle="frontend_better_blog"/>
     </mageplaza_betterblog_post_view>
@@ -154,7 +154,7 @@
                     <action method="setLimit"><limit>20</limit></action>
                 </block>-->
             </block>
-            <block type="mageplaza_betterblog/frontend" template="mageplaza_betterblog/blog/footer.phtml" />
+            <!--<block type="mageplaza_betterblog/frontend" template="mageplaza_betterblog/blog/footer.phtml" />-->
         </reference>
         <update handle="frontend_better_blog"/>
     </mageplaza_betterblog_category_view>

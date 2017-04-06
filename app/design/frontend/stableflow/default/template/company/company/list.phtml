@@ -8,10 +8,11 @@
 ?>
 
 <?php $_companies = $this->getCompany();?>
-<?php echo $this->getChildHtml();?>
+<?php //echo $this->getChildHtml();?>
 <div class="portlet light portlet-fit bordered">
     <div class="portlet-title">
     </div>
+    <?php echo $this->getToolbarHtml(); ?>
     <div class="portlet-body ">
         <?php if($_companies && $_companies->getSize() > 0) : ?>
             <?php foreach($_companies as $_company) :?>
@@ -53,4 +54,5 @@
             <?php echo Mage::helper('company')->__('There are no companies registered at this moment'); ?>
         <?php endif;?>
     </div>
+    <?php echo $this->getToolbarHtml(); ?>
 </div>

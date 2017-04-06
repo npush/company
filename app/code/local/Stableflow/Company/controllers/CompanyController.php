@@ -43,7 +43,7 @@ class Stableflow_Company_CompanyController extends Mage_Core_Controller_Front_Ac
         $this->loadLayout();
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
-            $headBlock->setTitle('Company view');
+            $headBlock->setTitle($this->__('Company View: ') . $company->getName());
         }
         if ($breadcrumbBlock = $this->getLayout()->getBlock('breadcrumbs')) {
             $breadcrumbBlock->addCrumb(

@@ -10,5 +10,7 @@
 <?php $address = Mage::getModel('company/address')->load($company->getAddressId());?>
 <?php $attr = Mage::getModel('company/company_attribute_source_type');?>
 <p><span class="bold"><?php echo $this->__('Type:')?> </span><?php echo $this->__($attr->getOptionText( $company->getData('type')));?></p>
-<p><span class="bold"><?php echo $this->__('Country:')?> </span><?php echo Mage::getModel('directory/country')->loadByCode($address->getData('country_id'))->getName();?></p>
+<?php if($address->getData('country_id')) :?>
+    <p><span class="bold"><?php echo $this->__('Country:')?> </span><?php echo Mage::getModel('directory/country')->loadByCode($address->getData('country_id'))->getName();?></p>
+<?php endif; ?>
 <p><span class="bold"><?php echo $this->__('Registration Date:')?> </span><?php echo Mage::helper('core')->formatDate($company->getCreatedAt(), 'medium', false);?></p>

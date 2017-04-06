@@ -15,6 +15,11 @@
     <company_index_list>
         <update handle="company_index_index"/>
     </company_index_list>
+    <company_index_pagination>
+        <reference name="content">
+            <block type="company/pagination" name="company_pagination"  template="company/pagination.phtml"/>
+        </reference>
+    </company_index_pagination>
     <company_company_view translate="label" module="company">
         <label>Company list</label>
         <update handle="page_left_menu"/>
