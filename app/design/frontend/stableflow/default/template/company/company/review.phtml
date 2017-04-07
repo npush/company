@@ -41,10 +41,11 @@
                                     <?php $_i = 5; foreach ($this->getRatings() as $_rating): ?>
                                             <?php //echo $this->escapeHtml($_rating->getRatingCode()); ?>
                                             <?php foreach ($_rating->getOptions() as $_option): ?>
-                                                <label for="star-rating-<?php echo $this->escapeHtml($_rating->getRatingCode()); ?>_<?php echo $_option->getValue(); ?>-<?php echo $_i?>" class="radio-label" ></label>
+
                                                     <input type="radio" name="ratings[<?php echo $_rating->getId(); ?>]"
-                                                           id="star-rating-<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>_<?php echo $_option->getValue(); ?>-<?php echo $_i?>"
+                                                           id="star-rating-<?php echo $this->escapeHtml($_rating->getRatingCode()) ?>-<?php echo $_option->getValue(); ?>-<?php echo $_i?>"
                                                            value="<?php echo $_option->getId(); ?>" />
+                                                <label for="star-rating-<?php echo $this->escapeHtml($_rating->getRatingCode()); ?>-<?php echo $_option->getValue(); ?>-<?php echo $_i?>" class="radio-label" ></label>
                                                 <?php $_i--;?>
                                             <?php endforeach; ?>
 
