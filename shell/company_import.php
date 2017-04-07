@@ -84,7 +84,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
             $value = str_replace('\N', '',$value);
             $value = str_replace('\\\\', '',$value);
         });
-        $_date = date_create_from_format('Y-M-d H:i:s', $companyData[self::COMPANY_CREATED_AT]);
+        $_date = date_create_from_format('Y-m-d H:i:s', $companyData[self::COMPANY_CREATED_AT]);
         $companyModel = Mage::getModel('company/company');
         $description = stripslashes($companyData[self::COMPANY_DESCRIPTION]);
         //$sort_descr = strlen($description) > 100 ? substr($description, 0, 270) : $description;
@@ -108,6 +108,8 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
                 //'url'           => $companyData[self::COMPANY_URL],
                 //'type'          => $companyData[self::COMPANY_TYPE_ID],
                 'activity'      => str_replace('|', ',', $companyData[self::COMPANY_ACTIVITY_ID]),
+                'created_at'    => $_date ? $_date->format('Y-m-d H:i:s') : Varien_Date::now(),
+                'updated_at'    => Varien_Date::now()
             );
             $companyModel->setData($data);
             try {
@@ -125,7 +127,7 @@ class Mage_Shell_CompanyImport extends Mage_Shell_Abstract{
                 'short_description' => $this->_formatDescription($sort_descr[0]),
                 'description'   => $this->_formatDescription($description),
                 'image'         => $this->uploadFile($this->_importImagePath . $companyData[self::COMPANY_LOGO_IMG]),
-                'created_at'    => $_date ? $_date : Varien_Date::now(),
+                'created_at'    => $_date ? $_date->format('Y-m-d H:i:s') : Varien_Date::now(),
                 'email'         => $companyData[self::COMPANY_EMAIL],
                 'url'           => $companyData[self::COMPANY_URL],
                 'address_id'    => $this->_addCompanyAddress($companyData),
