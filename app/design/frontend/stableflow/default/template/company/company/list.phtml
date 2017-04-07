@@ -8,6 +8,7 @@
 ?>
 
 <?php $_companies = $this->getCompany();?>
+<?php $_helper = Mage::helper('company');?>
 <?php //echo $this->getChildHtml();?>
 <div class="portlet light portlet-fit bordered">
     <div class="portlet-title">
@@ -23,7 +24,7 @@
                             <a href="<?php echo $_company->getCompanyUrl()?>" target="_blank" class="company-link">
                                 <img src="<?php echo $this->getImageUrl($_company)?>" class="timeline-badge-userpic">
                             </a>
-                            <a href="<?php echo $_company->getUrl()?>" target="_blank" class="link-md link-underline"><?php echo $_company->getUrl()?></a>
+                            <a href="<?php echo $_company->getUrl();?>" target="_blank" class="link-md link-underline"><?php echo $_helper->formatUrl($_company->getUrl())?></a>
                         </div>
                         <div class="timeline-body clearfix">
                             <div class="timeline-body-head">

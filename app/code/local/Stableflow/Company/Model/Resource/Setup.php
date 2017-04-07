@@ -140,7 +140,7 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'position'          => 90,
                     ),
                     'activity' => array(
-                        'type'              => 'int',
+                        'type'              => 'varchar',
                         'label'             => 'Company Activity',
                         'input'             => 'multiselect',
                         'source'            => 'company/company_attribute_source_activity',
@@ -148,6 +148,7 @@ class Stableflow_Company_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setu
                         'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
                         'sort_order'        => 100,
                         'position'          => 100,
+                        'required'          => false,
                     ),
                     'company_code' => array(
                         'type'              => 'varchar',

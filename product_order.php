@@ -9,7 +9,7 @@
 require_once('app/Mage.php');
 Mage::app()->setCurrentStore(Mage::getModel('core/store')->load(Mage_Core_Model_App::ADMIN_STORE_ID));
 
-$categories = Mage::getModel('catalog/category')->getCollection()->addFieldToFilter('entity_id', 1525);
+$categories = Mage::getModel('catalog/category')->getCollection();
 foreach($categories as $category){
     echo "Category Id: " . $category->getId() . "\n";
     $new_order = 1;
