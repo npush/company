@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
 			}, function(data){
 				jQuery('#contactForm #submit').attr('disabled','true');
 				jQuery('.response').remove();
-				jQuery('#contactForm').before('<span id="helpBlock" class="help-block">'+data+'</span>');
+				jQuery('#contactForm').before(data);
 				jQuery('.ajax-contact-loader').hide();
 				jQuery('.ajax-contact-overlay').fadeOut(200);
 				jQuery('.response').slideDown();

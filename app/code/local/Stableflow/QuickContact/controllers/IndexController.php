@@ -70,15 +70,15 @@ class Stableflow_QuickContact_IndexController extends Mage_Core_Controller_Front
 					);
 
 				if (!$mailTemplate->getSentSuccess()) {					
-					echo '<div class="error-msg">'.Mage::helper('contacts')->__('Unable to submit your request. Please, try again later.').'</div>';
+					echo '<div class="alert alert-danger" role="alert">'.Mage::helper('contacts')->__('Unable to submit your request. Please, try again later.').'</div>';
 					exit;
 				}				
 				$translate->setTranslateInline(true);
 
-                echo '<div class="success-msg">'.Mage::helper('contacts')->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.').'</div>';
+                echo '<div class="alert alert-success" role="alert">'.Mage::helper('contacts')->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.').'</div>';
 			} catch (Exception $e) {
 				$translate->setTranslateInline(true);
-				echo '<div class="error-msg">'.Mage::helper('contacts')->__('Unable to submit your request. Please, try again later.').$e.'</div>';
+				echo '<div class="alert alert-danger" role="alert">'.Mage::helper('contacts')->__('Unable to submit your request. Please, try again later.').$e.'</div>';
 				exit;
 			}		
 	}	
