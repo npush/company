@@ -51,8 +51,8 @@
                     </div>
                 </div>
 
-                <div class="checkbox-group">
-                    <input type="checkbox" id="agreement-<?php //echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox validate-one-required" />
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="agreement-<?php echo $_a->getId()?>" name="agreement[<?php echo $_a->getId()?>]" value="1" title="<?php echo $this->escapeHtml($_a->getCheckboxText()) ?>" class="checkbox validate-one-required" checked="1"/>
                     <label for="agreement-<?php echo $_a->getId()?>" class="checkbox-label"><?php echo $_a->getIsHtml() ? $_a->getCheckboxText() : $this->escapeHtml($_a->getCheckboxText()) ?></label>
                 </div>
             <?php endforeach; ?>
