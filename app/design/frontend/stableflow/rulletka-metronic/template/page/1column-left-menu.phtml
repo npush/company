@@ -61,14 +61,18 @@
 
 <?php echo $this->getChildHtml('after_body_start') ?>
 <div class="wrapper">
-    <?php echo $this->getChildHtml('global_notices') ?>
+    <?php //echo $this->getChildHtml('global_notices') ?>
     <?php echo $this->getChildHtml('header') ?>
     <div class="clearfix"></div>
     <div class="page-container">
         <?php echo $this->getChildHtml('left_menu') ?>
         <div class="page-content-wrapper">
-            <?php echo $this->getChildHtml('global_messages') ?>
+            <?php //echo $this->getChildHtml('global_messages') ?>
             <div class="page-content <?php echo Mage::getBlockSingleton('page/html_header')->getIsHomePage() ? 'bg-gray-light': '' ?>">
+                <div class="site-messages">
+                    <?php echo $this->getChildHtml('global_notices') ?>
+                    <?php echo $this->getChildHtml('global_messages') ?>
+                </div>
             <?php echo $this->getChildHtml('breadcrumbs') ?>
             <?php echo $this->getChildHtml('content') ?>
             </div>
