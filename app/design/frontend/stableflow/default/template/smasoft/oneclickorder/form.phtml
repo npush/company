@@ -53,6 +53,8 @@ $action = $this->getAction()->getFullActionName();
 </div>
 <script type="text/javascript">
 
+
+
     var oneClickOrder = {
         formInstance:new VarienForm('oneclickorder-form'),
 
@@ -88,6 +90,10 @@ $action = $this->getAction()->getFullActionName();
             }
         },
         saveOrder:function () {
+            if(agreementsForm.validator && agreementsForm.validator.validate()){
+                    $('#one_click_order').hide();
+                }
+
             if (this.formInstance.validator && this.formInstance.validator.validate()) {
 
                 Element.show('oneclickorder-please-wait');
