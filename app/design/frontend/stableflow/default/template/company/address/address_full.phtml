@@ -6,6 +6,7 @@
  * Time: 2:15 PM
  */
 ?>
+<?php $_helper = Mage::helper('company');?>
 <?php $company = Mage::registry('current_company')?>
 <?php $address = Mage::getModel('company/address')->load($company->getAddressId());?>
 <?php if($address->getData('country_id')) :?>
@@ -18,5 +19,8 @@
     </span>
 </p>
 <p><span class="bold"><?php echo $this->__('Email:')?> </span><a class="link-underline" href="<?php echo $address->getEmail(); ?>"><?php echo $address->getEmail(); ?></a></p>
-<p><span class="bold"><?php echo $this->__('Site:')?> </span><a class="link-underline" href="<?php echo $company->getUrl(); ?>"><?php echo $company->getUrl(); ?></a></p>
-<p><?php echo $company->getDescription()?></p>
+<p><span class="bold"><?php echo $this->__('Site:')?> </span><a class="link-underline" href="<?php echo $company->getUrl(); ?>"><?php echo $_helper->formatUrl($company->getUrl()); ?></a></p>
+
+<div class="content-text content-description-outside">
+    <?php echo $company->getDescription()?>
+</div>

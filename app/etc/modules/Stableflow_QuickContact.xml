@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Stableflow_QuickContact>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Stableflow_QuickContact>
+    </modules>
+</config>

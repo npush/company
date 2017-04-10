@@ -8,6 +8,7 @@
 ?>
 
 <?php $_companies = $this->getCompany();?>
+<?php $_helper = Mage::helper('company');?>
 <?php //echo $this->getChildHtml();?>
 <div class="portlet light portlet-fit bordered">
     <div class="portlet-title">
@@ -23,7 +24,7 @@
                             <a href="<?php echo $_company->getCompanyUrl()?>" target="_blank" class="company-link">
                                 <img src="<?php echo $this->getImageUrl($_company)?>" class="timeline-badge-userpic">
                             </a>
-                            <a href="<?php echo $_company->getUrl()?>" target="_blank" class="link-md link-underline"><?php echo $_company->getUrl()?></a>
+                            <a href="<?php echo $_company->getUrl();?>" target="_blank" class="link-md link-underline"><?php echo $_helper->formatUrl($_company->getUrl())?></a>
                         </div>
                         <div class="timeline-body clearfix">
                             <div class="timeline-body-head">
@@ -41,7 +42,7 @@
                                 <?php if($address->getData('country_id')) :?>
                                     <p><span class="bold"><?php echo $this->__('Country');?>: </span><?php echo Mage::getModel('directory/country')->loadByCode($address->getData('country_id'))->getName();?></p>
                                 <?php endif ;?>
-                                <p><span class="font-grey-cascade"><?php echo $this->escapeHtml($_company->getDescription())?>
+                                <p><span class="font-grey-cascade"><?php echo $_company->getShortDescription()?>
                                         <a href="<?php echo $_company->getCompanyUrl()?>" class="link"><?php echo $this->__('More');?>...</a>
                                     </span></p>
                             </div>

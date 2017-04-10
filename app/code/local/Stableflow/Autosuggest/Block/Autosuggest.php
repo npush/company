@@ -30,7 +30,7 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
         $catalogSearchModel->addAttributeToSelect('small_image');
         $catalogSearchModel->addAttributeToSelect('url_key');
         //$catalogSearchModel->addAttributeToSort('name', 'ASC');
-        $catalogSearchModel->setOrder(array('manufacturer_number', 'name'), 'asc');
+        //$catalogSearchModel->setOrder(array('manufacturer_number', 'name'), 'asc');
         $catalogSearchModel->getSelect()->limit(Mage::helper('autosuggest/config')->getSearchItemCount());
 
 
