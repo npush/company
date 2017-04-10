@@ -1274,8 +1274,8 @@ Page content
   padding: 0px 20px;
   margin: -25px -20px 0 -20px; 
 }
-.site-messages ~ .page-bar {
-  margin-top: 0px; 
+.site-messages .messages {
+  margin-bottom: 32px;
 }
 
 .page-content-white .page-bar .page-toolbar,
