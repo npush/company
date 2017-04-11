@@ -20,7 +20,9 @@ class Mageplaza_BetterBlog_Block_Post_Relation extends Mage_Core_Block_Template{
         foreach($this->_categories as $_category) {
             $post = Mage::getResourceModel('mageplaza_betterblog/post_relation')
                 ->getRelatedPostIds($_category->getId());
-            array_push($this->_postIds, $post);
+            if($post) {
+                array_push($this->_postIds, $post);
+            }
         }
     }
 
@@ -30,7 +32,7 @@ class Mageplaza_BetterBlog_Block_Post_Relation extends Mage_Core_Block_Template{
     }
 
     public function getPosts(){
-        if(!$this->_posts && $this->_postIds) {
+        if(is_null($this->_posts) && $this->_postIds) {
             $this->_posts = Mage::getResourceModel('mageplaza_betterblog/post_collection')
                 ->setStoreId(Mage::app()->getStore()->getId())
                 ->addAttributeToSelect('*')
