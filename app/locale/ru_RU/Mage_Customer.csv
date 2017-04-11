@@ -355,6 +355,7 @@
 "This Email will be sent instead of Default Welcome Email, after Account Confirmation.","Это письмо будет отправлено вместо письма с приветствием по умолчанию, после подтверждения учётной записи."
 "This account is not confirmed.","Эта учётная запись не подтверждена."
 "This customer has no saved addresses.","У этого клиента нет сохранённых адресов."
+"This customer email already exist","Пользователь с таким e-mail уже существует"
 "This e-mail does not require confirmation.","Этот адрес электронной почты (email) не требует подтверждения."
 "This email address was not found in our records","Данный адрес электронной почты (email) не найден в нашей базе данных"
 "This is My Primary %s Address","Это мой основной %s адрес"

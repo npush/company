@@ -8,7 +8,8 @@ jQuery(document).ready(function(){
 				name: jQuery('#name').val(),
 				email: jQuery('#email').val(),
 				telephone: jQuery('#telephone').val(),
-				comment: jQuery('#comment').val()
+				comment: jQuery('#comment').val(),
+				product_name:jQuery('#product_name').val()
 			}, function(data){
 				jQuery('#contactForm #submit').attr('disabled','true');
 				jQuery('.response').remove();
