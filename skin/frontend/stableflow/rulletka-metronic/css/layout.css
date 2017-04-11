@@ -4657,11 +4657,15 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .body-product-txt {
-  max-height: 57px;
+  max-height: 55px;
   overflow: hidden;
 }
 .body-product-txt p {
   margin-bottom: 2px;
+}
+
+.body-product-txt p.link-details {
+    margin-top: 4px;
 }
 
 .footer-product {
