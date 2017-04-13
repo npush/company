@@ -19,7 +19,7 @@ class Mageplaza_BetterBlog_Block_Adminhtml_System_Config_Sitemap extends Mage_Ad
         $html .= "<p class='note'>";
         $html .= "<span style='color:#E02525;'>";
         $html .= Mage::helper('mageplaza_betterblog')->__(
-            "IT IS INTEGRATED WITH MAGENTO DEFAULT SITEMAP. <br>Generate sitemap and save to ".Mage::getBaseUrl(true) ."sitemap/blog.xml. "
+            "IT IS INTEGRATED WITH MAGENTO DEFAULT SITEMAP. <br>Generate sitemap and save to ".Mage::getBaseUrl(true) ."sitemap/sitemap_blog.xml. "
         );
         $html .= "</span>";
         $html .= "</p>";

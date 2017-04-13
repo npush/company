@@ -19,7 +19,7 @@ class Stableflow_Company_Block_Adminhtml_System_Config_Sitemap extends Mage_Admi
         $html .= "<p class='note'>";
         $html .= "<span style='color:#E02525;'>";
         $html .= Mage::helper('company')->__(
-            "IT IS INTEGRATED WITH MAGENTO DEFAULT SITEMAP. <br>Generate sitemap and save to ".Mage::getBaseUrl(true) ."sitemap/companies.xml. "
+            "IT IS INTEGRATED WITH MAGENTO DEFAULT SITEMAP. <br>Generate sitemap and save to ".Mage::getBaseUrl(true) ."sitemap/sitemap_companies.xml. "
         );
         $html .= "</span>";
         $html .= "</p>";
