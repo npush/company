@@ -41,4 +41,8 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer{
         }
     }
 
+    public function generateSiteMap(){
+        Mage::getModel('company/generateSitemap')->generateXml();
+    }
+
 }
