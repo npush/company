@@ -169,11 +169,11 @@ b, strong, .bold {
 }
 
 .form-control.lg-control {
-    height: 48px;
+    height: 44px;
 }
 
 .form-control-feedback.lg-control {
-    line-height: 48px;
+    line-height: 44px;
     width: 40px;
 }
 .form-control-feedback {
@@ -204,7 +204,7 @@ Page Header
 .nav-header-top {
 
   text-align: right;
-  padding:6px 15px 0 15px;
+  padding:15px 25px 0 15px;
 
 }
 .nav-header-top li {
@@ -214,8 +214,14 @@ Page Header
 }
 .nav-header-top li a {
 
-  font-size:15px;
+  font-size:13px;
   color:#fff;
+
+}
+
+.nav-header-top li a:hover, .nav-header-top li a:focus, .nav-header-top li a:active {
+  
+  color: #fdbb09;
 
 }
 
@@ -391,6 +397,11 @@ Page Header
 .page-header.navbar .top-menu {
   margin: 0;
   padding: 0;
+}
+
+.top-menu .navbar-form .form-control {
+  border:none;
+  box-shadow: none;
 }
 
 @media (min-width: 1400px) { 
