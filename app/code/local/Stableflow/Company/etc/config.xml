@@ -225,13 +225,13 @@
             </general>
         </compnay>
     </default>
-    <!--<crontab>
+    <crontab>
         <jobs>
             <companies_sitemap_generate>
                 <run>
-                    <model>company/observer::scheduledGenerateSitemaps</model>
+                    <model>company/observer::generateSiteMap</model>
                 </run>
             </companies_sitemap_generate>
         </jobs>
-    </crontab>-->
+    </crontab>
 </config>
