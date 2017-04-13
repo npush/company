@@ -204,7 +204,7 @@ Page Header
 .nav-header-top {
 
   text-align: right;
-  padding:15px 25px 0 15px;
+  padding:15px 20px 0 15px;
 
 }
 .nav-header-top li {
@@ -245,7 +245,7 @@ Page Header
 
 @media (max-width: 1400px) {
   .top-menu .navbar-form {
-      margin: 16px 0px 45px 3%;
+      margin: 17px 0px 45px 3%;
   }
 }
 
@@ -1815,10 +1815,10 @@ button.btn.grey:hover {
 }
 
 .btn.yellow, .label-yellow {
-    background: #fdbb09;
-    border-color: #fdbb09;
+    background: #fdcf09;
+    border-color: transparent;
     color: #ffffff;
-    text-shadow: 0 0 1px #fdbb09;
+    text-shadow: 0 0 1px #fdcf09;
 }
 
 .btn.yellow.active, 
@@ -1827,10 +1827,9 @@ button.btn.grey:hover {
 .btn.yellow:active:hover, 
 .btn.yellow:focus, 
 .btn.yellow:hover {
-    background-color: #fff;
-    border-color: #fdbb09;
-    text-shadow: 0 0 1px #fff;
-    color:#fdbb09;
+    background-color: #fdbb09;
+    text-shadow: 0 0 1px #fdbb09;
+    color: #ffffff;
 }
 
 .label-span {
