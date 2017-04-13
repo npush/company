@@ -4631,10 +4631,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     padding-left:20px; 
     height: 444px;
 
-   box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
-  -webkit-box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
-    -moz-box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
-    -khtml-box-shadow:0 0 10px 5px rgba(221, 221, 221, 1);      
+   box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.2);
+    -khtml-box-shadow:0 0 10px 7px rgba(0, 0, 0, 0.2);      
 
 
     transition: all 0.1s ease 0s;
@@ -4744,10 +4744,12 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   .product-wrap:nth-child(5n) .col-product:hover {
       margin-left:0px;
       right:0; 
+    padding-left:10px; 
 
   }
   .product-wrap:nth-child(5n-4) .col-product:hover  {
       margin-left:0px;
+     padding-left:10px; 
   }
 
 }
