@@ -378,4 +378,9 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
         );
         $this->getResponse()->setBody($content->toHtml());
     }
+
+    public function generateSitemapAction()
+    {
+        Mage::getModel('company/generateSitemap')->generateXml();
+    }
 }
