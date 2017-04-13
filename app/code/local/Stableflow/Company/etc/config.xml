@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Stableflow_Company>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Stableflow_Company>
     </modules>
     <global>
@@ -133,6 +133,16 @@
                 <to>/to_this/</to>
             </companies>
         </rewrite>-->
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <company>
+                        <class>Stableflow_Company_Controller_Router</class>
+                        <method>initControllerRouters</method>
+                    </company>
+                </observers>
+            </controller_front_init_routers>
+        </events>
     </global>
     <frontend>
         <events>
@@ -202,4 +212,33 @@
             </adminhtml>
         </routers>
     </admin>
+    <default>
+        <compnay>
+            <general>
+                <name>Companies</name>
+                <sidebar_right>1</sidebar_right>
+                <sidebar_left>1</sidebar_left>
+                <tag_limit>10</tag_limit>
+                <toplinks>1</toplinks>
+                <footer>1</footer>
+            </general>
+            <company>
+                <breadcrumbs>1</breadcrumbs>
+                <url_prefix>company</url_prefix>
+                <url_suffix>html</url_suffix>
+                <url_rewrite_list>companies</url_rewrite_list>
+                <allow_comment>1</allow_comment>
+                <meta_title>Company</meta_title>
+            </company>
+        </compnay>
+    </default>
+    <!--<crontab>
+        <jobs>
+            <companies_sitemap_generate>
+                <run>
+                    <model>company/observer::scheduledGenerateSitemaps</model>
+                </run>
+            </companies_sitemap_generate>
+        </jobs>
+    </crontab>-->
 </config>
