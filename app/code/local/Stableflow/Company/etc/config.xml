@@ -216,20 +216,13 @@
         <compnay>
             <general>
                 <name>Companies</name>
-                <sidebar_right>1</sidebar_right>
-                <sidebar_left>1</sidebar_left>
-                <tag_limit>10</tag_limit>
-                <toplinks>1</toplinks>
-                <footer>1</footer>
-            </general>
-            <company>
                 <breadcrumbs>1</breadcrumbs>
                 <url_prefix>company</url_prefix>
                 <url_suffix>html</url_suffix>
                 <url_rewrite_list>companies</url_rewrite_list>
                 <allow_comment>1</allow_comment>
                 <meta_title>Company</meta_title>
-            </company>
+            </general>
         </compnay>
     </default>
     <!--<crontab>

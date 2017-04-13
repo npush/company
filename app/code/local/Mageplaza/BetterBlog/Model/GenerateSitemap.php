@@ -10,7 +10,7 @@ class Mageplaza_BetterBlog_Model_GenerateSitemap extends Mage_Core_Model_Abstrac
      */
     protected $_filePath;
 
-    protected $_sitemapName = 'blog.xml';
+    protected $_sitemapName = 'sitemap_blog.xml';
 
     protected function _construct()
     {

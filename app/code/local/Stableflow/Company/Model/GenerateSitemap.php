@@ -10,7 +10,7 @@ class Stableflow_Company_Model_GenerateSitemap extends Mage_Core_Model_Abstract
      */
     protected $_filePath;
 
-    protected $_sitemapName = 'blog.xml';
+    protected $_sitemapName = 'sitemap_company.xml';
 
     protected function _construct()
     {
@@ -74,56 +74,21 @@ class Stableflow_Company_Model_GenerateSitemap extends Mage_Core_Model_Abstract
         $storeId = $this->getStoreId();
         $date = Mage::getSingleton('core/date')->gmtDate('Y-m-d');
 
-
         /**
-         * Generate blog categories sitemap
-         */
-        $changefreq = (string)Mage::getStoreConfig('sitemap/category/changefreq', $storeId);
-        $priority   = (string)Mage::getStoreConfig('sitemap/category/priority', $storeId);
-        $collection = Mage::getResourceModel('mageplaza_betterblog/category_collection')
-            ->addStoreFilter(Mage::app()->getStore())
-            ->addFieldToFilter('status', 1)
-        ;
-
-        $categories = new Varien_Object();
-        $categories->setItems($collection);
-        Mage::dispatchEvent('sitemap_betterblog_categories_generating_before', array(
-            'collection' => $categories
-        ));
-        foreach ($categories->getItems() as $item) {
-            $xml = sprintf(
-                '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-                htmlspecialchars($this->filterUrl($item->getCategoryUrl())),
-                $date,
-                $changefreq,
-                $priority
-            );
-            $io->streamWrite($xml);
-        }
-        unset($collection);
-
-        /**
-         * Generate blog post sitemap
+         * Generate company list sitemap
          */
         $changefreq = (string)Mage::getStoreConfig('sitemap/product/changefreq', $storeId);
         $priority = (string)Mage::getStoreConfig('sitemap/product/priority', $storeId);
-        $collection = Mage::getResourceModel('mageplaza_betterblog/post_collection')
-            ->setStoreId(Mage::app()->getStore()->getId())
+        $collection = Mage::getModel('company/company')->getCollection()
+            //->setStoreId(Mage::app()->getStore()->getId())
             ->addAttributeToSelect('*')
-            ->addAttributeToFilter('status', 1)
+            //->addAttributeToFilter('status', 1)
             ->setOrder('created_at', 'desc');
-        $posts = new Varien_Object();
-        $posts->setItems($collection);
 
-        Mage::dispatchEvent('sitemap_betterblog_generating_before', array(
-            'collection' => $posts,
-            'io' => $io,
-        ));
-
-        foreach ($posts->getItems() as $item) {
+        foreach($collection as $item){
             $xml = sprintf(
                 '<url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%.1f</priority></url>',
-                htmlspecialchars($this->filterUrl($item->getPostUrl())),
+                htmlspecialchars($this->filterUrl($item->getCompanyUrl())),
                 $date,
                 $changefreq,
                 $priority

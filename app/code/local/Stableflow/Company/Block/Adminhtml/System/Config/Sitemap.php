@@ -6,7 +6,7 @@ class Stableflow_Company_Block_Adminhtml_System_Config_Sitemap extends Mage_Admi
     protected function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
     {
         $this->setElement($element);
-        $url = $this->getUrl('adminhtml/company/generateSitemap');
+        $url = $this->getUrl('adminhtml/company_company/generateSitemap');
 
         $html = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setType('button')
