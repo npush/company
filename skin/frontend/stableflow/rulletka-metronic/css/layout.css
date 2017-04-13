@@ -4650,6 +4650,9 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     height: 170px;
     position: relative;
 }
+.col-product:hover .header-product {
+    margin-left: -10px;
+}
 
 /*.header-product img {
   padding: 0 17px;
@@ -4753,6 +4756,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   .product-wrap:nth-child(5n-4) .col-product:hover  {
       margin-left:0px;
      padding-left:20px;
+     width: 103%;  
   }
 
 }
@@ -4778,6 +4782,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   .product-wrap:nth-child(4n-3) .col-product:hover  {
       margin-left:0px;
      padding-left:20px; 
+     width: 103%;  
   }
 
 }
