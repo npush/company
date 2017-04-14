@@ -2354,7 +2354,8 @@ input[type="checkbox"], input[type="radio"] {
 .product-body-title {
    text-transform:none;
    color: #201f1f;
-   max-width: 600px;
+   max-width: 720px;
+   display: block;
 }
 
 .link {
@@ -2470,7 +2471,7 @@ input[type="checkbox"], input[type="radio"] {
   margin: 5px 10px;
 }
 .display-inline .stars-rating.stars-sm {
-  margin: 0px 15px 0px;
+  margin: 2px 15px 0px 0;
 }
 .timeline-icon .icon {
     font-size: 12px;
@@ -2916,7 +2917,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .basket-number-lg.basket-number span {
-    color: #595959;
+    color: #3f3f3f;
 /*    font-size: 17px;*/
 }
 
