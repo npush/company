@@ -16,9 +16,11 @@ class Resave_models extends Mage_Shell_Abstract
             ->addAttributeToSelect('id');
 
         foreach ($collection as $model) {
-            printf("%s \n", $model->getId());
-            $model = Mage::getModel('company/company')->load($model->getId());
-            $model->save();
+            $id = $model->getId();
+            printf("%s \n", $id);
+            $model = Mage::getModel('company/company')->load($id);
+            $model->setData('updated_at', Mage::getSingleton('core/date')->gmtDate());
+            $model->save($id);
         }
     }
 }
