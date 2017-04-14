@@ -1634,6 +1634,9 @@ Button
 .margin-top-min {
   margin-top: 5px;  
 }
+.margin-top-10 {
+  margin-top: 10px;  
+}
 .margin-top-md {
   margin-top: 15px;  
 }
@@ -2356,6 +2359,7 @@ input[type="checkbox"], input[type="radio"] {
    color: #201f1f;
    max-width: 720px;
    display: block;
+   line-height: 30px;
 }
 
 .link {
@@ -2471,7 +2475,7 @@ input[type="checkbox"], input[type="radio"] {
   margin: 5px 10px;
 }
 .display-inline .stars-rating.stars-sm {
-  margin: 2px 15px 0px 0;
+  margin: 3px 15px 0px 0;
 }
 .timeline-icon .icon {
     font-size: 12px;
@@ -2559,6 +2563,12 @@ input[type="checkbox"], input[type="radio"] {
   .type-radio .radio-group, .type-content .left-content {
       display: block;
   }
+
+
+  .timeline-product .timeline-body-title {
+      font-size: 18px;
+      line-height: 25px;
+  } 
 
 
 }

@@ -55,10 +55,15 @@
                         <?php echo $this->getChildHtml('product-rating') ?>
                         <div class="link-btn" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
                     </div>
-
+                        <?php $Attr = $_product->getResource()->getAttribute('manufacturer_number');?>
+                        <?php $codes = $Attr->getFrontend()->getValue($_product);?>
+                        <?php $label = $Attr->getStoreLabel();?>
+                        <?php $codes = explode('|', $codes);?>
                         <div class="line-number-id">
-                            <label>Код производителя:</label>
-                            <span>12312</span><span>12312</span>
+                            <label><?php echo  $label;?>:</label>
+                            <?php foreach ($codes as $code) : ?>
+                                <span><?php echo  $code;?>; </span>
+                            <?php endforeach; ?>
                         </div>
 
                         <div class="display-inline-all margin-45">
