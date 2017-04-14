@@ -4673,7 +4673,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   color:#1d4d7c;
 }
 
-.body-product a.title-body-product{
+.body-product a.title-body-product, .body-product > a {
   font-size: 16px;
   line-height: 20px;
   font-weight: bold;
@@ -4717,8 +4717,8 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 .footer-product .basket-number-lg.basket-number {
     color: #3f3f3f;
-    font-size: 25px;
-    line-height: 25px;
+    font-size: 22px;
+    line-height: 22px;
     margin: 0 3px 6px 0;
     vertical-align: bottom;
 }
