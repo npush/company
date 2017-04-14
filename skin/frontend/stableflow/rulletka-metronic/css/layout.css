@@ -5455,16 +5455,24 @@ li.level0:after {
   margin:0px;
   padding: 5px 0px;
   line-height: 20px;
-  border-bottom: dashed 1px #DDDDDD;
+  border-left: solid  1px #ebebeb;
+  border-right: solid  1px #ebebeb;
+  border-bottom: solid  1px #ebebeb; 
 }
 
+.content-text .line-dashed:first-child {
+  border-top: solid  1px #ebebeb; 
+}
+.content-text .line-dashed:last-child {
+  border-bottom: solid  1px #ebebeb; 
+}
 
 .line-dashed:nth-of-type(2n+1) {
-   background-color: #F0F5FB; 
+   background-color: #f6f6f6; 
 }
 
-.line-dashed:hover{
-  background-color: #D8E7F5 !important;
+.line-dashed:hover {
+  background-color: #ecebeb !important;
 }
 
 .dashed-style { 
@@ -5474,7 +5482,7 @@ li.level0:after {
   position:relative;
   display: inline-block;
   vertical-align: middle;
-  border-right: dashed 1px #DDDDDD;
+  border-right: dashed 1px #ebebeb;
 }
 
 .dashed-left-txt{
