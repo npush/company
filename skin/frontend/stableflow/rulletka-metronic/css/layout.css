@@ -2355,11 +2355,15 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .product-body-title {
-   text-transform:capitalize;
+   text-transform:none;
    color: #201f1f;
    max-width: 720px;
    display: block;
    line-height: 30px;
+}
+
+.product-body-title:first-letter {
+    font-size: 100%; 
 }
 
 .link {
