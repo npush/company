@@ -4630,7 +4630,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     padding-top:30px; 
     margin-left:-10px;
     padding-left:20px; 
-    padding-right:25px; 
+    padding-right:22px; 
     height: 630px;
 
    box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.2);
@@ -4653,9 +4653,6 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     position: relative;
 }
 
-.col-product:hover .header-product {
-    width: 99%;
-}
 
 /*.header-product img {
   padding: 0 17px;
@@ -4785,7 +4782,8 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   .product-wrap:nth-child(5n-4) .col-product:hover  {
       margin-left:0px;
      padding-left:20px;
-     width: 103%;  
+     width: 103%; 
+     padding-right: 20px; 
   }
 
 }
@@ -4812,6 +4810,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
       margin-left:0px;
      padding-left:20px; 
      width: 103%;  
+     padding-right: 20px;
   }
 
 }
@@ -4834,6 +4833,8 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   .product-wrap:nth-child(3n-2) .col-product:hover  {
       margin-left:0px;
      padding-left:20px; 
+     width: 103%;  
+     padding-right: 20px;
   }
 
   .footer-product .basket-number-lg.basket-number {
