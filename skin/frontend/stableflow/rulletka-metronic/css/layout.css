@@ -2363,7 +2363,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .product-body-title:first-letter {
-    font-size: 100%; 
+    text-transform: uppercase;
 }
 
 .link {
