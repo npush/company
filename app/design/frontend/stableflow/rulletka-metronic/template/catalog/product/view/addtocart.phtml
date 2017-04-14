@@ -28,9 +28,9 @@
 
 <?php if ($this->displayProductStockStatus()): ?>
     <?php if ($_product->isAvailable()): ?>
-        <div class="availability in-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('In stock') ?></span></div>
+        <!-- <div class="availability in-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('In stock') ?></span></div> -->
     <?php else: ?>
-        <div class="availability out-of-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('Out of stock') ?></span></div>
+        <!-- <div class="availability out-of-stock"><?php echo $this->__('') ?> <span class="availability-txt"><?php echo $this->__('Out of stock') ?></span></div> -->
     <?php endif; ?>
 <?php endif; ?>
 
@@ -39,8 +39,8 @@
         <label for="qty"><?php echo $this->__('') ?></label>
         <input type="hidden" name="qty" id="qty" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
     <?php endif; ?>
-    <button class="button btn-cart btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button" title="<?php echo $buttonTitle ?>" id="product-addtocart-button" onclick="productAddToCartForm.submit(this)"><i class="icon icon-shopping-cart"></i></button>
-    <button class="button btn-cart btn yellow btn-lg btn-width border-radius-none bold margin-top-min" type="button" title="<?php echo $buttonTitle ?>" onclick="addProductAndRedirect(this, '<?php echo $this->getUrl('checkout/onepage', array('_secure'=>true));?>')"><?php echo $this->__('Buy it now') ?></button>
+    <button class="button btn-cart btn yellow btn-lg btn-width bold margin-top-min" type="button" title="<?php echo $buttonTitle ?>" id="product-addtocart-button" onclick="productAddToCartForm.submit(this)"><i class="icon icon-shopping-cart"></i></button>
+    <button class="button btn-cart btn yellow btn-lg btn-width bold margin-top-min" type="button" title="<?php echo $buttonTitle ?>" onclick="addProductAndRedirect(this, '<?php echo $this->getUrl('checkout/onepage', array('_secure'=>true));?>')"><?php echo $this->__('Buy it now') ?></button>
     <script type="text/javascript">
         function addProductAndRedirect(form, redirectUrl){
             var input = jQuery("<input>")
