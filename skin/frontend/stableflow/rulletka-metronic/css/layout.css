@@ -5457,29 +5457,6 @@ li.level0:after {
   text-align: center;
 }
 
-.dashed-left-txt span {
-  display: inline-block;
-  padding: 0 5px;
-  position: relative;
-}
-.dashed-left-txt span:before {
-  content: ",";
-  position: absolute;
-  right: 2px;
-}
-.dashed-left-txt span:last-child:before {
-  content: "";
-}
-.dashed-left-txt span:first-child:before {
-  content: "";
-}
-.dashed-left-txt span:nth-child(2):after {
-  content: ",";
-  position: absolute;
-  right: auto;
-  left: -7px;
-}
-
 
 .back{
   background-color: #F0F5FB;
@@ -5490,4 +5467,41 @@ li.level0:after {
 }
 .content-text .line-dashed {
   max-width: 640px;
+}
+
+.line-number-id span {
+  display: inline-block;
+  padding: 0 5px;
+  position: relative;
+}
+.line-number-id span:before {
+  content: ";";
+  position: absolute;
+  right: 2px;
+}
+.line-number-id span:last-child:before {
+  content: "";
+}
+.line-number-id span:first-child:before {
+  content: "";
+}
+.line-number-id span:nth-child(2):after {
+  content: ";";
+  position: absolute;
+  right: auto;
+  left: -7px;
+}
+
+.line-number-id {
+  font-size: 13px;
+}
+
+.line-number-id label {
+  color: #3f3f3f;
+}
+.line-number-id span {
+  color: #b2b2b2;
+}
+.line-number-id span:hover {
+  color: #000;
 }
