@@ -4620,7 +4620,8 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   -ms-transition: all 0.4s ease 0s;
   -o-transition: all 0.4s ease 0s;
   -webkit-transition: all 0.4s ease 0s;
-    border:1px solid #ebebeb;
+    border-bottom:1px solid #ebebeb;
+    border-right:1px solid #ebebeb;
     padding: 10px;
 }
 .col-product:hover {
@@ -4729,10 +4730,12 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 .footer-product .btn-lg {
     padding: 7px 16px;
-    margin-right: 10px;
 }
 
-.col-product:hover .footer-product .btn-lg {
+.footer-product button.btn-lg {
+    margin-right: 10px;
+}
+.col-product:hover .footer-product button.btn-lg {
   margin-right: 20px;
 }
 
