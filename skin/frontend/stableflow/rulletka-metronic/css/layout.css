@@ -4670,16 +4670,16 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 .body-product a {
   color:#1d4d7c;
-  display:block;
-  margin-bottom: 10px;
-  max-height: 40px;
-  overflow: hidden;
 }
 
 .body-product a.title-body-product{
   font-size: 16px;
   line-height: 20px;
   font-weight: bold;
+  display:block;
+  margin-bottom: 20px;
+  height: 40px;
+  overflow: hidden;
 }
 
 .body-product a:first-letter {
@@ -4687,7 +4687,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .body-product-txt {
-  max-height: 55px;
+  max-height: 73px;
   overflow: hidden;
 }
 .body-product-txt p {
@@ -4705,9 +4705,13 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 .footer-product {
   position:absolute;
-  bottom:0;
+  bottom:30px;
   width:100%;
   left: 0;
+}
+
+.col-product:hover .footer-product {
+  bottom:20px;
 }
 
 .footer-product .basket-number-lg.basket-number {
@@ -4725,6 +4729,11 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 .footer-product .btn-lg {
     padding: 7px 16px;
+    margin-right: 10px;
+}
+
+.col-product:hover .footer-product .btn-lg {
+  margin-right: 20px;
 }
 
 .footer-product .basket-number.regular-price .btn-lg {
@@ -4732,7 +4741,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .footer-product .stars-rating {
-  margin: 20px 0 0 17px;
+  margin: 20px 0 0 10px;
+}
+.col-product:hover .footer-product .stars-rating {
+  margin-left: 20px;
 }
 
 .col-product:hover .body-product a {
@@ -4740,7 +4752,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .col-product:hover .body-product-txt {
-  max-height:190px;
+  max-height:195px;
 }
 
 .min-height-product {
