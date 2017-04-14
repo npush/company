@@ -55,8 +55,19 @@
                         <div class="btn  yellow btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
                         <?php echo $this->getChildHtml('product-rating') ?>
                     </div>
+
+                        <div>
+                            <a data-toggle="modal" data-product-name="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="link-underline"><?php echo $this->__('Ask for discount')?></a>
+                            <div class="clearfix margin-top-min">
+                                <div class="add-to-box">
+                                    <?php if($_product->isSaleable()): ?>
+                                        <?php echo $this->getChildHtml('addtocart') ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>     
+                        </div>                
+
                         <div class="timeline-body-content">
-                        <div class="timeline-conten-min-width txt-link margin-bottom-lg"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('product_view_notice')->toHtml();?> </div>
                         <?php if (null && $_product->getShortDescription()):?>
                             <div class="short-description">
                                 <h2><?php echo $this->__('Quick Overview') ?></h2>
@@ -64,32 +75,7 @@
                             </div>
                         <?php endif;?>
                         <?php echo $this->getChildHtml('attributes');?>
-                        <div class="row margin-top-biggest">
-                            <div class="col-md-6 col-sm-6">
-                                <!--<ul class="list-icon-navs">
-                                    <li>
-                                        <a href=""><i class="icon icon-home"></i><?php /*echo $this->__('Use in the design')*/?></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><i class="icon icon-photo"></i><?php /*echo $this->__('Photo / Video')*/?></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><i class="icon icon-comments"></i><?php /*echo $this->__('Comment`s')*/?></a>
-                                    </li>
-                                </ul>-->
-                            </div>
-                            <div class="col-md-6 col-sm-6 text-right">
-                                <div class="basket-number basket-number-lg"><?php echo $this->getChildHtml('product_type_data') ?></div>
-                                <a data-toggle="modal" data-product-name="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="link-underline"><?php echo $this->__('Ask for discount')?></a>
-                                <div class="clearfix margin-top-min">
-                                    <div class="add-to-box">
-                                        <?php if($_product->isSaleable()): ?>
-                                            <?php echo $this->getChildHtml('addtocart') ?>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <!-- END TIMELINE ITEM -->
