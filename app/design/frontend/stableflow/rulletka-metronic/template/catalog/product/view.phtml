@@ -37,8 +37,8 @@
                     </div>
                     <!-- product-view-rating.phtml -->
                     <div class="timeline-btn-product display-inline">
-                        <div class="btn  yellow btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
                         <?php echo $this->getChildHtml('product-rating') ?>
+                        <div class="link-btn" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>                        
                     </div>
                 </div>
                 <div class="timeline-badge">
@@ -52,8 +52,8 @@
                     </div>
                     <!-- product-view-rating.phtml -->
                     <div class="timeline-btn-product display-inline">
-                        <div class="btn  yellow btn-outline min-width" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
                         <?php echo $this->getChildHtml('product-rating') ?>
+                        <div class="link-btn" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
                     </div>
 
                         <div class="line-number-id">
@@ -63,7 +63,7 @@
 
                         <div class="display-inline">
                             <div class="basket-number basket-number-lg"><?php echo $this->getChildHtml('product_type_data') ?></div>
-                            <a data-toggle="modal" data-product-name="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="link-underline"><?php echo $this->__('Ask for discount')?></a>
+                            <a data-toggle="modal" data-product-name="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="link-btn"><?php echo $this->__('Ask for discount')?></a>
                             <div class="clearfix margin-top-min">
                                 <div class="add-to-box">
                                     <?php if($_product->isSaleable()): ?>

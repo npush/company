@@ -2349,7 +2349,7 @@ input[type="checkbox"], input[type="radio"] {
 .product-body-title {
    text-transform:none;
    color: #201f1f;
-   max-width: 670px;
+   max-width: 600px;
 }
 
 .link {
@@ -2376,6 +2376,13 @@ input[type="checkbox"], input[type="radio"] {
 
 .timeline-lg .timeline-body-title {
     font-size: 24px;
+}
+
+.link-btn {
+  color: #255e95;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: 'OpenSansSemiboldRegular';
 }
 
 .link-underline {
