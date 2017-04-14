@@ -61,8 +61,8 @@
                             <span>12312</span><span>12312</span>
                         </div>
 
-                        <div class="display-inline-all">
-                            <ul>
+                        <div class="display-inline-all margin-45">
+                            <ul class="basket-content">
                                 <li>
                                     <div class="basket-number basket-number-lg"><?php echo $this->getChildHtml('product_type_data') ?></div>          
                                 </li>
@@ -71,7 +71,7 @@
                                 </li>  
                             </ul>
 
-                            <div class="clearfix margin-top-min">
+                            <div class="clearfix">
                                 <div class="add-to-box">
                                     <?php if($_product->isSaleable()): ?>
                                         <?php echo $this->getChildHtml('addtocart') ?>

@@ -62,6 +62,7 @@ body {
 
 .display-inline li, .display-inline > *, .display-inline-all  > *  {
   display:inline-block;
+  vertical-align: top;
 }
 
 b, strong, .bold {
@@ -1652,6 +1653,10 @@ Button
   margin-top: 40px;
 }
 
+.margin-45 {
+  margin: 45px 0;
+}
+
 
 .border-radius-none {
     -webkit-border-radius: 0;
@@ -2464,7 +2469,9 @@ input[type="checkbox"], input[type="radio"] {
 .display-inline .stars-rating {
   margin: 5px 10px;
 }
-
+.display-inline .stars-rating.stars-sm {
+  margin: 0px 15px 0px;
+}
 .timeline-icon .icon {
     font-size: 12px;
     margin-left: 5px;
@@ -5514,5 +5521,10 @@ li.level0:after {
 }
 .line-number-id span:hover {
   color: #000;
+}
+
+.basket-content {
+  padding-right: 30px;
+  margin: 0;
 }
 
