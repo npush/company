@@ -4602,7 +4602,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     position: relative;
     float: left;
     width: 20%;
-    height: 316px;
+    height: 510px;
     overflow: visible;
     z-index: 1;
     background-color:white;
@@ -4613,7 +4613,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 .col-product {
     position: absolute; 
     width: 100%;
-    height: 316px;
+    height: 510px;
     background: #fff;
     transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
@@ -4630,7 +4630,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     margin-left:-10px;
     padding-left:20px; 
     padding-right:20px; 
-    height: 444px;
+    height: 630px;
 
    box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.2);
@@ -4648,7 +4648,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .header-product {
-    height: 170px;
+    height: 210px;
     position: relative;
 }
 
@@ -4665,6 +4665,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 .body-product {
   font-size:13px;
   line-height: 16px;
+  margin-top: 30px;
 }
 
 .body-product a {
@@ -4673,9 +4674,12 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   margin-bottom: 10px;
   max-height: 40px;
   overflow: hidden;
-  font-weight: bold;
+}
+
+.body-product a.title-body-product{
   font-size: 16px;
   line-height: 20px;
+  font-weight: bold;
 }
 
 .body-product a:first-letter {
@@ -4732,7 +4736,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .col-product:hover .body-product a {
-  max-height: 50px;
+  max-height: 40px;
 }
 
 .col-product:hover .body-product-txt {
