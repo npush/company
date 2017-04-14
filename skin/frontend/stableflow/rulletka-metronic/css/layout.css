@@ -4666,7 +4666,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 .body-product {
   font-size:13px;
-  line-height: 16px;
+  line-height: 17px;
   margin-top: 30px;
 }
 
@@ -4693,7 +4693,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   overflow: hidden;
 }
 .body-product-txt p {
-  margin-bottom: 2px;
+  margin-bottom: 1px;
   color: #595959;
 }
 
@@ -4702,7 +4702,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 }
 
 .body-product-txt p.link-details {
-    margin-top: 4px;
+    margin-top: 3px;
 }
 
 .footer-product {
