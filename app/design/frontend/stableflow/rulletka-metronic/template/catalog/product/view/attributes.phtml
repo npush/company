@@ -40,6 +40,7 @@
         <?php foreach ($_additional as $_data): ?>
             <?php if($_data['value']):?>
                 <?php if($_data['code'] == 'manufacturer_number') : ?>
+                    <?php continue ;?>
                     <p class="line-dashed line-number-id">
                         <span class="dashed-style">
                             <b><?php echo $this->escapeHtml($this->__($_data['label'])) ?></b>
