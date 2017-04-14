@@ -5474,7 +5474,8 @@ li.level0:after {
   padding: 0 5px;
   position: relative;
 }
-.line-number-id span:before {
+
+/*.line-number-id span:before {
   content: ";";
   position: absolute;
   right: 2px;
@@ -5490,7 +5491,7 @@ li.level0:after {
   position: absolute;
   right: auto;
   left: -7px;
-}
+}*/
 
 .line-number-id {
   font-size: 13px;
@@ -5500,8 +5501,10 @@ li.level0:after {
   color: #3f3f3f;
 }
 .line-number-id span {
-  color: #b2b2b2;
+  color: #a4a4a4;
+  cursor: pointer;
 }
 .line-number-id span:hover {
   color: #000;
 }
+
