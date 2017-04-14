@@ -4653,6 +4653,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     position: relative;
 }
 
+.col-product:hover .header-product {
+    width: 99%;
+}
+
 /*.header-product img {
   padding: 0 17px;
 }*/
@@ -4673,7 +4677,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   color:#1d4d7c;
 }
 
-.body-product a.title-body-product, .body-product > a {
+.body-product a.title-body-product {
   font-size: 16px;
   line-height: 20px;
   font-weight: bold;
