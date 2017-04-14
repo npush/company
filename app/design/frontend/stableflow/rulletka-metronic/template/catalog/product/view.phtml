@@ -61,9 +61,16 @@
                             <span>12312</span><span>12312</span>
                         </div>
 
-                        <div class="display-inline">
-                            <div class="basket-number basket-number-lg"><?php echo $this->getChildHtml('product_type_data') ?></div>
-                            <a data-toggle="modal" data-product-name="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="link-btn"><?php echo $this->__('Ask for discount')?></a>
+                        <div class="display-inline-all">
+                            <ul>
+                                <li>
+                                    <div class="basket-number basket-number-lg"><?php echo $this->getChildHtml('product_type_data') ?></div>          
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" data-product-name="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="link-btn"><?php echo $this->__('Ask for discount')?></a> 
+                                </li>  
+                            </ul>
+
                             <div class="clearfix margin-top-min">
                                 <div class="add-to-box">
                                     <?php if($_product->isSaleable()): ?>

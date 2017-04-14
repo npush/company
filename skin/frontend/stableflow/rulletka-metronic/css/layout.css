@@ -60,7 +60,7 @@ body {
   overflow-x: hidden;
 }
 
-.display-inline li, .display-inline > *  {
+.display-inline li, .display-inline > *, .display-inline-all  > *  {
   display:inline-block;
 }
 
