@@ -5471,7 +5471,7 @@ li.level0:after {
 
 .line-number-id span {
   display: inline-block;
-  padding: 0 5px;
+  padding: 0 3px;
   position: relative;
 }
 
@@ -5495,6 +5495,7 @@ li.level0:after {
 
 .line-number-id {
   font-size: 13px;
+  margin:10px 0;
 }
 
 .line-number-id label {

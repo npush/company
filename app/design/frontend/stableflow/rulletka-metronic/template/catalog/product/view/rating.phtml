@@ -15,7 +15,7 @@ $summaryData = Mage::getModel('review/review_summary')
     ->load($product_id);
 ?>
 
-<div class="stars-rating">
+<div class="stars-rating stars-sm">
     <?php $rating = $summaryData['rating_summary'] ? $summaryData['rating_summary'] : 0?>
     <?php //print_r($summaryData);?>
     <?php $numOfStar = intval($rating * 5 / 100);?>
