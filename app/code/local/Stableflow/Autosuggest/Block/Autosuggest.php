@@ -11,7 +11,10 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
 
     protected $searchResult = null;
 
+    protected $_suggestData = null;
+
     public function search(){
+        $this->getSuggestData();
         $query = Mage::helper('catalogsearch')->getQuery();
         $query->setStoreId(Mage::app()->getStore()->getId());
         if ($query->getRedirect()) {
@@ -63,6 +66,31 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
                     }
                 }
             }
+        }
+    }
+
+    public function getSuggestData()
+    {
+        if (!$this->_suggestData) {
+            $collection = $this->helper('catalogsearch')->getSuggestCollection();
+            $query = $this->helper('catalogsearch')->getQueryText();
+            $counter = 0;
+            $data = array();
+            foreach ($collection as $item) {
+                $_data = array(
+                    'title' => $item->getQueryText(),
+                    'row_class' => (++$counter)%2?'odd':'even',
+                    'num_of_results' => $item->getNumResults()
+                );
+
+                if ($item->getQueryText() == $query) {
+                    array_unshift($data, $_data);
+                }
+                else {
+                    $data[] = $_data;
+                }
+            }
+            $this->_suggestData = $data;
         }
     }
 
