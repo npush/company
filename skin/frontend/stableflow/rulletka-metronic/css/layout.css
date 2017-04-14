@@ -2346,6 +2346,12 @@ input[type="checkbox"], input[type="radio"] {
     font-family: 'OpenSansSemiboldRegular';
 }
 
+.product-body-title {
+   text-transform:none;
+   color: #201f1f;
+   max-width: 670px;
+}
+
 .link {
     color:#fdbb09;
     font-size:13px;
@@ -2743,10 +2749,10 @@ input[type="checkbox"], input[type="radio"] {
     border-color: transparent;
     color: #fff;
     border-radius:0;
-   box-shadow: 0 0 0 5px #fdbb09;
+/*   box-shadow: 0 0 0 5px #fdbb09;
   -webkit-box-shadow: 0 0 0 5px #fdbb09;
     -moz-box-shadow: 0 0 0 5px #fdbb09;
-    -khtml-box-shadow: 0 0 0 5px #fdbb09;  
+    -khtml-box-shadow: 0 0 0 5px #fdbb09;  */
     transition:all 0.1s ease 0s;
   -moz-transition: all 0.1s ease 0s;
   -ms-transition: all 0.1s ease 0s;
