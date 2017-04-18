@@ -5582,6 +5582,8 @@ li.level0:after {
   background-image: url(../images/rulletka-error-bg.png);
   background-position: center bottom;
   background-repeat: no-repeat;
+  left: 0;
+  height: 100%;
 }
 
 .page-error-title {
@@ -5615,4 +5617,27 @@ li.level0:after {
 .page-error-content .btn {
   margin:80px 0 20px 0;
 }
+
+@media (max-width: 768px)  { 
+
+  .page-error-title {
+    font-size: 100px;
+    line-height: 100px;
+  }
+
+  .page-error-content {
+    margin-top: -115px;
+  }
+
+  .page-error-content p {
+    font-size: 13px;
+    letter-spacing: 5px;
+  }
+
+  .page-error-content .btn {
+    margin:40px 0 20px 0;
+  }
+
+}
+
 /* AND page error */
