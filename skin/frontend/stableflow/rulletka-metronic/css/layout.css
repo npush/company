@@ -5586,7 +5586,7 @@ li.level0:after {
   background-image: url(../images/rulletka-error-bg.png);
   background-position: center bottom;
   background-repeat: no-repeat;
-  left: 0;
+  left: -155px;
   height: 100%;
 }
 
@@ -5608,6 +5608,14 @@ li.level0:after {
   top: 40%;
   margin-top: -195px;
   width: 100%;
+  left: -155px;
+}
+
+.page-sidebar-closed .page-error:before  {
+  left: 0;
+}
+.page-sidebar-closed .page-error-content {
+  left: auto;
 }
 .page-error-content > * {
   position: relative;
@@ -5623,6 +5631,14 @@ li.level0:after {
 
 .page-error-content .btn {
   margin:80px 0 20px 0;
+}
+
+@media (max-width: 991px) {
+  .page-error-content, .page-error:before,
+  .page-sidebar-closed .page-error-content, 
+  .page-sidebar-closed .page-error:before {
+      left: 0;
+  }
 }
 
 @media (max-width: 768px)  { 
