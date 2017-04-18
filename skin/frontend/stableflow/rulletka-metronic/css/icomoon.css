@@ -41,10 +41,20 @@
 .icon-arrow-point-to-right:before  {
     content: "\e902";
 }
+#category-sidebar-nav .icon-arrow-point-to-right:before  {
+    content: "\e900";
+}
+#category-sidebar-nav .active.icon-arrow-point-to-right:before {
+    content: "\e900";
+    transform: rotate(45deg);
+    -ms-transform:rotate(45deg); 
+    -webkit-transform:rotate(45deg);
+}
+
 #category-sidebar-nav .icon-arrow-point-to-right:before, .active.icon-arrow-point-to-right:before  {
     margin-right: 5px;
 }
-.icon-arrow-point-down:before, .active.icon-arrow-point-to-right:before {
+.icon-arrow-point-down:before {
     content: "\e900";
 }
 .icon-arrows:before {
