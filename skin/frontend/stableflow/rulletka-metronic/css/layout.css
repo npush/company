@@ -5126,7 +5126,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 }
 
-li.level0 {
+li.level0, .category-sidebar-nav {
     position:relative;
 }
 .category-sidebar-nav:before {
