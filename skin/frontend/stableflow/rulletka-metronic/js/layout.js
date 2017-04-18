@@ -38,6 +38,7 @@ var Layout = function ($) {
                     height = App.getViewPort().height - headerHeight - footerHeight;
                 } else {
                     height = sidebar.height() + 130;
+                    bbbb = - 100;
                 }
 
                 if ((height + headerHeight + footerHeight) <= App.getViewPort().height) {
@@ -45,7 +46,7 @@ var Layout = function ($) {
                     height = App.getViewPort().height - headerHeight;
                 }
             }
-            content.attr('style', 'min-height:' + height + 'px' - 10 );
+            content.attr('style', 'min-height:' + height + bbbb + 'px' );
         }
     };
 
