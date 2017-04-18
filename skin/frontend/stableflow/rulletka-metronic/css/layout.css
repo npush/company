@@ -5561,7 +5561,7 @@ li.level0:after {
 
 .page-error {
   text-align: center;
-  position: relative;
+  position: absolute;
   background: #eaeaea;
   background: -moz-linear-gradient(to bottom, #eaeaea 0%, #eaeaea 50%, #fafafa 50%, #fafafa 100%);
   background: -webkit-gradient(to bottom,
@@ -5572,6 +5572,10 @@ li.level0:after {
   background: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(
     startColorstr='#eaeaea', endColorstr='#fafafa',GradientType=0 );
+  width: 100%;
+  height: 100%;
+  top: 0;
+  margin-left: -20px;
 }
 
 .page-error:before  {
@@ -5605,7 +5609,10 @@ li.level0:after {
   margin-top: -195px;
   width: 100%;
 }
-
+.page-error-content > * {
+  position: relative;
+  z-index: 10;
+}
 .page-error-content p {
   color: #3f3f3f;
   font-size: 18px;
