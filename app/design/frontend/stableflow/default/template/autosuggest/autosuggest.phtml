@@ -16,7 +16,7 @@ $searchResult = $this->getSearchResult();
 ?>
 
 <div class="auto-suggest-content">
-<?php if($searchResult): ?>
+<?php if($searchResult->getSize() > 1): ?>
     <div class="suggest-word-content">
         <ul class="suggest-products">
             <?php if($popularSuggestion):?>
