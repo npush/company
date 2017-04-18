@@ -5116,7 +5116,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 #category-sidebar-nav li ul.level0 li{border-bottom:1px solid #484848;}
 #category-sidebar-nav li ul.level0 li.last{border:0 none;}
 /* Level 1 */
-/*#category-sidebar-nav li ul li ul{ display:none;padding:0 0px 0 10px;}*/
+#category-sidebar-nav li ul li ul{ display:none;/*padding:0 0px 0 10px;*/}
 
 @media (min-width: 992px) and (max-width: 1400px) {
 
