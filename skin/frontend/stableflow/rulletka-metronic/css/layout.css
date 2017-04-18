@@ -5569,6 +5569,7 @@ li.level0:after {
   color: #a4a4a4;
   cursor: pointer;
   position: relative;
+  margin: 0 3px;
 }
 .line-number-id span:before {  
   position: absolute;
