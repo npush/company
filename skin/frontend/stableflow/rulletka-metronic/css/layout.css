@@ -3098,6 +3098,7 @@ input[type="checkbox"], input[type="radio"] {
   width: 50%;
   display: inline-block;
   vertical-align: middle;
+  text-transform: lowercase;
 /*  overflow:hidden;*/
 /*  border-bottom: 1px dashed #595959;*/
 }
@@ -5562,10 +5563,20 @@ li.level0:after {
 .line-number-id label {
   color: #201f1f;
   margin-bottom: 0px;
+  font-weight: bold;
 }
 .line-number-id span {
   color: #a4a4a4;
   cursor: pointer;
+  position: relative;
+}
+.line-number-id span:before {  
+  position: absolute;
+  content: ";"
+  right:0;  
+}
+.line-number-id span:last-child:before {  
+  content: "." 
 }
 .line-number-id span:hover {
   color: #000;
