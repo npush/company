@@ -46,9 +46,10 @@
 }
 #category-sidebar-nav .active.icon-arrow-point-to-right:before {
     content: "\e900";
-    transform: rotate(45deg);
-    -ms-transform:rotate(45deg); 
-    -webkit-transform:rotate(45deg);
+    transform: rotate(180deg);
+    -ms-transform:rotate(180deg); 
+    -webkit-transform:rotate(180deg);
+    display: inline-block;
 }
 
 #category-sidebar-nav .icon-arrow-point-to-right:before, .active.icon-arrow-point-to-right:before  {
