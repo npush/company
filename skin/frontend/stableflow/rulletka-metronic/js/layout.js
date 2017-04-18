@@ -45,7 +45,7 @@ var Layout = function ($) {
                     height = App.getViewPort().height - headerHeight;
                 }
             }
-            content.attr('style', 'min-height:' + height - 200 + 'px');
+            content.attr('style', 'min-height:' + height - 80 + 'px');
         }
     };
 

@@ -5562,8 +5562,6 @@ li.level0:after {
 .page-error {
   text-align: center;
   position: relative;
-  background-position: center bottom;
-  background-repeat: no-repeat;
   background: #eaeaea;
   background: -moz-linear-gradient(to bottom, #eaeaea 0%, #eaeaea 50%, #fafafa 50%, #fafafa 100%);
   background: -webkit-gradient(to bottom,
@@ -5574,7 +5572,16 @@ li.level0:after {
   background: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(
     startColorstr='#eaeaea', endColorstr='#fafafa',GradientType=0 );
+}
+
+.page-error:before  {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  content: "";
   background-image: url(../images/rulletka-error-bg.png);
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
 .page-error-title {
@@ -5594,6 +5601,7 @@ li.level0:after {
   position: absolute;
   top: 50%;
   margin-top: -195px;
+  width: 100%;
 }
 
 .page-error-content p {
