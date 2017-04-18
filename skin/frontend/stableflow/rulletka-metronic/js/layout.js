@@ -37,7 +37,7 @@ var Layout = function ($) {
                 if (App.getViewPort().width < resBreakpointMd) {
                     height = App.getViewPort().height - headerHeight - footerHeight;
                 } else {
-                    height = sidebar.height() - 80;
+                    height = sidebar.height() + 130;
                 }
 
                 if ((height + headerHeight + footerHeight) <= App.getViewPort().height) {
@@ -45,7 +45,7 @@ var Layout = function ($) {
                     height = App.getViewPort().height - headerHeight;
                 }
             }
-            content.attr('style', 'min-height:' + height + 'px');
+            content.attr('style', 'min-height:' + height - 200 + 'px');
         }
     };
 
