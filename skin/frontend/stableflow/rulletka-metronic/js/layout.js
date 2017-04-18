@@ -37,7 +37,7 @@ var Layout = function ($) {
                 if (App.getViewPort().width < resBreakpointMd) {
                     height = App.getViewPort().height - headerHeight - footerHeight;
                 } else {
-                    height = sidebar.height() + 130;
+                    height = sidebar.height();
                 }
 
                 if ((height + headerHeight + footerHeight) <= App.getViewPort().height) {
