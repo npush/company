@@ -5562,19 +5562,19 @@ li.level0:after {
 .page-error {
   text-align: center;
   position: relative;
-  background-image: url(../images/rulletka-error-bg.png);
   background-position: center bottom;
   background-repeat: no-repeat;
-  background-color: #eaeaea;
-  background-color: -moz-linear-gradient(to bottom, #eaeaea 0%, #eaeaea 50%, #fafafa 50%, #fafafa 100%);
-  background-color: -webkit-gradient(to bottom,
+  background: #eaeaea;
+  background: -moz-linear-gradient(to bottom, #eaeaea 0%, #eaeaea 50%, #fafafa 50%, #fafafa 100%);
+  background: -webkit-gradient(to bottom,
     color-stop(0%,#eaeaea), color-stop(50%,#eaeaea), color-stop(50%,#fafafa), color-stop(100%,#fafafa));
-  background-color: -webkit-linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
-  background-color: -o-linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
-  background-color: -ms-linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
-  background-color: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
+  background: -webkit-linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
+  background: -o-linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
+  background: -ms-linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
+  background: linear-gradient(to bottom, #eaeaea 0%,#eaeaea 50%, #fafafa 50%,#fafafa 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(
     startColorstr='#eaeaea', endColorstr='#fafafa',GradientType=0 );
+  background-image: url(../images/rulletka-error-bg.png);
 }
 
 .page-error-title {
@@ -5587,6 +5587,19 @@ li.level0:after {
   padding-bottom: 33px;
   display: inline-block;
   color: #3f3f3f;
+}
+
+.page-error-content {
+  position: absolute;
+  top: 50%;
+  margin-top: -180px;
+}
+
+.page-error-content p {
+  color: #3f3f3f;
+  font-size: 18px;
+  letter-spacing: 2px;
+  font-family: 'gothapro-regular';
 }
 
 /* AND page error */
