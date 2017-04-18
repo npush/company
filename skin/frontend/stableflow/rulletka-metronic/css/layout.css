@@ -5274,9 +5274,6 @@ li.level0:after {
 
 /* SIMPLE */
 
-.container-baron {
-  padding: 0 15px;
-}
 
 .baron._simple .baron__track {
     opacity: 0;
@@ -5314,9 +5311,9 @@ li.level0:after {
     opacity: 0;
     position: absolute;
     z-index: 3;
-    top: 2px;
+    top: 10px;
     bottom: 2px;
-    right: 5px;
+    right: 15px;
     width: 5px;
     background-color: #2c2c2c;
     border-radius: 3px;
@@ -5326,6 +5323,17 @@ li.level0:after {
           -khtml-box-shadow:0 0 1px 0px #000 inset;      
     
     }
+
+.page-sidebar-closed  .baron._macosx .baron__track {
+  right: 5px;
+}
+
+.page-sidebar-closed .container-baron {
+  padding: 0 15px;
+}
+
+
+
 .baron._macosx._scrollbar .baron__track {
     opacity: 1;
     }
