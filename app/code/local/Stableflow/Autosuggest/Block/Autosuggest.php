@@ -14,18 +14,12 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
     protected $_suggestData = null;
 
     public function search(){
-        $this->getSuggestData();
-        $query = Mage::helper('catalogsearch')->getQuery();
-        $query->setStoreId(Mage::app()->getStore()->getId());
-        if ($query->getRedirect()) {
-            $query->save();
-        } else {
-            $query->prepare();
-        }
 
-        Mage::helper('catalogsearch')->checkNotes();
+        $layer = Mage::getSingleton('catalogsearch/layer');
+        $this->searchResult = $layer->getProductCollection();
+        return;
 
-        $catalogSearchModel = $query->getResultCollection();
+        $catalogSearchModel = $this->_getQuery()->getResultCollection();
         $catalogSearchModel->addAttributeToFilter('visibility', array('neq' => 1));
         $catalogSearchModel->addAttributeToSelect('manufacturer_number');
         $catalogSearchModel->addAttributeToSelect('name');
@@ -36,8 +30,6 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
         //$catalogSearchModel->setOrder(array('manufacturer_number', 'name'), 'asc');
         $catalogSearchModel->getSelect()->limit(Mage::helper('autosuggest/config')->getSearchItemCount());
 
-
-
         if(count($catalogSearchModel)){
             $this->searchResult = $catalogSearchModel;
         }
@@ -45,6 +37,16 @@ class Stableflow_Autosuggest_Block_Autosuggest extends Mage_Core_Block_Template{
 
     public function getSearchResult(){
         return $this->searchResult;
+    }
+
+    /**
+     * Retrieve query model object
+     *
+     * @return Mage_CatalogSearch_Model_Query
+     */
+    protected function _getQuery()
+    {
+        return $this->helper('catalogsearch')->getQuery();
     }
 
     public function popularSuggestions(){
