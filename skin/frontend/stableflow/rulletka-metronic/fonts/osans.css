@@ -137,3 +137,28 @@
     font-style: normal;
 
 }
+
+
+@font-face {
+    font-family: 'gothapro-bold';
+    src: url('gothapro-bold.eot');
+    src: url('gothapro-bold.eot?#iefix') format('embedded-opentype'),
+         url('gothapro-bold.woff') format('woff'),
+         url('gothapro-bold.ttf') format('truetype'),
+         url('gothapro-bold.svg#gothapro-bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'gothapro-regular';
+    src: url('gothapro-regular.eot');
+    src: url('gothapro-regular.eot?#iefix') format('embedded-opentype'),
+         url('gothapro-regular.woff') format('woff'),
+         url('gothapro-regular.ttf') format('truetype'),
+         url('gothapro-regular.svg#gothapro-regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
