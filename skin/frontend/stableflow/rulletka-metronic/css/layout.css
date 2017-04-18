@@ -5572,7 +5572,7 @@ li.level0:after {
 }
 .line-number-id span:before {  
   position: absolute;
-  content: ";"
+  content: ";";
   right:0;  
 }
 .line-number-id span:last-child:before {  
