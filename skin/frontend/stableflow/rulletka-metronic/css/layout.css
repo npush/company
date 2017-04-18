@@ -5130,23 +5130,28 @@ li.level0 {
 li.level0:before {
     content:"";
     left: 0;
-    bottom:0;
+    top: 53px;
     height:1px;
     width:100%;
     background-color:#333232;
     position:absolute;
 
 }
+li.level0:first-child:before {
+    top: 0px;
+}
 li.level0:after {
     content:"";
     left: 0;
-    bottom:-1px;
+    top: 54px;
     height:1px;
     width:100%;
     background-color:#535353;
     position:absolute;
 }
-
+li.level0:first-child:after {
+    top: 1px;
+}
 #category-sidebar-nav .active { color:#fdbb09;}
 
 .category-sidebar-nav a.level0 > .icon {
