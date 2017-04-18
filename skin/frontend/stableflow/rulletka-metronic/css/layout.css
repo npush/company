@@ -307,7 +307,7 @@ Page Header
 
 .page-logo.underline:before {
   left: 15px;
-  width: 380px;
+  width: 390px;
 } 
 .page-sidebar-closed .page-logo.underline:before {
   left: 15px;
@@ -316,7 +316,7 @@ Page Header
 
 .page-logo.underline:after {
   left: 15px;
-  width:380px;
+  width:390px;
 } 
 .page-sidebar-closed .page-logo.underline:after {
   left: 15px;
@@ -5109,7 +5109,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 #category-sidebar-nav li ul.level0{padding:10PX 0px 0 10px; display:none;}
 #category-sidebar-nav li ul.level0 a {font-size:16px;}
-#category-sidebar-nav li ul.level0 li a.show-cat.pull-right {font-size:18px;}
+#category-sidebar-nav li a.show-cat.pull-right {font-size:16px;}
 
 #category-sidebar-nav li ul.level0 li{border-bottom:1px dotted #535353;}
 #category-sidebar-nav li ul.level0 li.last{border:0 none;}
