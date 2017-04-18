@@ -60,6 +60,13 @@ body {
   overflow-x: hidden;
 }
 
+.none-underline {
+  text-decoration: none;
+}
+.none-underline:active,
+.none-underline:hover, .none-underline:focus {
+  text-decoration: underline;
+}
 .display-inline li, .display-inline > *, .display-inline-all  > *  {
   display:inline-block;
   vertical-align: top;
@@ -2079,19 +2086,20 @@ label.control-label {
 
 .icon-btn {
   position:relative;
-  color:#cfcfcf;
+  color:#ffffff;
   font-size:27px;
   display:block;
   height: 54px;
   text-align: center;
   padding: 7px;
   width: 54px;
-  border:1px solid #f9be0a;
+
+/*  border:1px solid #f9be0a;
   -webkit-border-radius: 50%;
   -moz-border-radius:  50%;
   -ms-border-radius: 50%;
   -o-border-radius:  50%;
-  border-radius:  50%;
+  border-radius:  50%;*/
 }
 .contact-menu {
     padding: 35px 0 30px 0;
@@ -2115,19 +2123,19 @@ label.control-label {
     margin-right: 5px;
 }
 .contact-menu .icon-btn .icon {
-    font-size: 27px;
+    font-size: 23px;
     margin-right: 0px;
 }
 
 .icon-btn .badge {
     position:absolute;
-    background-color: #3f3f3f;
+    background-color: #fbc009;
   -webkit-border-radius: 50%;
   -moz-border-radius:  50%;
   -ms-border-radius: 50%;
   -o-border-radius:  50%;
   border-radius:  50%;
-    color: #fff;
+    color: #3f3f3f;
     border:1px solid #f9be0a;
     font-size: 12px;
     line-height: 14px;
@@ -2135,7 +2143,7 @@ label.control-label {
     padding: 3px 6px;
     font-family: 'OpenSansBold';
     font-size:15px;
-    right: -8px;
+    right: 3px;
     top: -4px;
 }
 
