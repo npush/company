@@ -38,7 +38,7 @@ var Layout = function ($) {
                     height = App.getViewPort().height - headerHeight - footerHeight;
                 } else {
                     height = sidebar.height() + 130;
-                    bbbb = - 100;
+                    bbbb = - 100 + 'px';
                 }
 
                 if ((height + headerHeight + footerHeight) <= App.getViewPort().height) {
