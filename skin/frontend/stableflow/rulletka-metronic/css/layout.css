@@ -278,7 +278,7 @@ Page Header
   float: left;
   display: block;
   padding-left: 20px;
-  padding-right: 20px;
+  padding-right: 30px;
   position:relative;
 
 }
@@ -325,9 +325,10 @@ Page Header
 
 .page-header.navbar .page-logo p {
     color:#fff;
-    font-size:15px;
+    font-size:13px;
     text-align:center;
-    margin-bottom: 16px;
+    margin-bottom: 33px;
+    margin-top: 31px;
 }
 
 .page-sidebar-closed.page-sidebar-closed-hide-logo .page-header.navbar .page-logo {
@@ -911,6 +912,7 @@ li .sub-menu .title {
       float: left;
       position: fixed;
       margin-right: -100%; 
+      z-index: 28;
     }
     .page-full-width .page-sidebar {
       display: none !important; 
