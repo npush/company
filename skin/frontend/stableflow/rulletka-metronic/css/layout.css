@@ -307,7 +307,7 @@ Page Header
 
 .page-logo.underline:before {
   left: 15px;
-  width: 435px;
+  width: 380px;
 } 
 .page-sidebar-closed .page-logo.underline:before {
   left: 15px;
@@ -316,7 +316,7 @@ Page Header
 
 .page-logo.underline:after {
   left: 15px;
-  width: 435px;
+  width:380px;
 } 
 .page-sidebar-closed .page-logo.underline:after {
   left: 15px;
@@ -816,14 +816,14 @@ li .sub-menu .title {
 
 @media (min-width: 1401px) {
   .page-sidebar {
-    width: 465px;
+    width: 420px;
  }
   .page-content-wrapper .page-content {
-    margin-left: 465px;
+    margin-left: 420px;
  }
 
   .page-header.navbar .page-logo {
-    width: 465px;
+    width: 420px;
   }
   .page-sidebar.collapse {
     margin-top: 129px;
