@@ -58,12 +58,13 @@
                         <?php $Attr = $_product->getResource()->getAttribute('manufacturer_number');?>
                         <?php $codes = $Attr->getFrontend()->getValue($_product);?>
                         <?php $label = $Attr->getStoreLabel();?>
-                        <?php $codes = explode('|', $codes);?>
-                        <?php if($cnt = count($codes)) : ?>
+
+                        <?php if(strlen($codes)) : ?>
+                            <?php $codes = explode('|', $codes);?>
                             <div class="line-number-id">
                                 <label><?php echo  $label;?>:</label>
                                 <?php foreach ($codes as $code) : ?>
-                                    <span><?php echo  $code;?><?php echo $cnt > 1 ? '; ' : '';?></span>
+                                    <span><?php echo  $code;?><?php //echo $cnt > 1 ? '; ' : '';?></span>
                                 <?php endforeach; ?>
                             </div>
                         <?php endif ;?>    
