@@ -861,6 +861,11 @@ li .sub-menu .title {
   .page-header.navbar .page-logo {
     width: 335px;
   }
+
+   .contact-menu .phone-number, .contact-menu .basket-number {
+      font-size: 14px;
+   }
+
   .page-sidebar.collapse {
     margin-top: 172px;
   }
