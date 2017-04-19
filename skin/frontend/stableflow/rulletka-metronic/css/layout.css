@@ -60,11 +60,14 @@ body {
   overflow-x: hidden;
 }
 
-.none-underline {
+.link.none-underline, .none-underline {
   text-decoration: none;
+  cursor: pointer;
 }
 .none-underline:active,
-.none-underline:hover, .none-underline:focus {
+.none-underline:hover, .none-underline:focus,
+.link.none-underline:active,
+.link.none-underline:hover, .link.none-underline:focus {
   text-decoration: underline;
 }
 .display-inline li, .display-inline > *, .display-inline-all  > *  {
@@ -858,6 +861,11 @@ li .sub-menu .title {
   .page-header.navbar .page-logo {
     width: 335px;
   }
+
+   .contact-menu .phone-number, .contact-menu .basket-number {
+      font-size: 14px;
+   }
+
   .page-sidebar.collapse {
     margin-top: 172px;
   }
@@ -889,7 +897,7 @@ li .sub-menu .title {
   }
 
   .page-sidebar-closed .contact-menu {
-    padding: 20px 0 30px 0;
+    padding: 30px 0 30px 0;
   }
 
   .page-sidebar-closed .page-sidebar.collapse {
@@ -2061,19 +2069,19 @@ label.control-label {
     padding: 0 11px 0 20px;
 }
 .basket {
-    text-align:left;
+    text-align:right;
     cursor:pointer;
     margin-top: 17px;
-    padding: 0 20px;
 }
 .basket li {
     display:inline-block;
-    padding: 0 5px;
+    padding: 0 2px;
 }
 .basket-number {
   color:#fdc109;
 /*  font-family: 'OpenSansBold';*/
   font-size:17px;
+  vertical-align: bottom;
 }
 
 @media (min-width: 992px) {
@@ -2090,12 +2098,11 @@ label.control-label {
 .icon-btn {
   position:relative;
   color:#ffffff;
-  font-size:27px;
   display:block;
-  height: 54px;
+  height: 25px;
   text-align: center;
-  padding: 7px;
-  width: 54px;
+  padding: 0px;
+  width: 30px;
 
 /*  border:1px solid #f9be0a;
   -webkit-border-radius: 50%;
@@ -2104,8 +2111,17 @@ label.control-label {
   -o-border-radius:  50%;
   border-radius:  50%;*/
 }
+
+.float-block > * {
+  float: left;
+  vertical-align: top;
+}
+.float-block > .pull-right {
+  float: right;
+}
+
 .contact-menu {
-    padding: 35px 0 30px 0;
+    padding: 33px 38px 18px 20px;
 }
 
 .contact-menu .phone-number {
@@ -2140,14 +2156,13 @@ label.control-label {
   border-radius:  50%;
     color: #3f3f3f;
     border:1px solid #f9be0a;
-    font-size: 12px;
-    line-height: 14px;
+    line-height: 13px;
     min-width: 10px;
-    padding: 3px 6px;
+    padding: 2px 6px;
     font-family: 'OpenSansBold';
-    font-size:15px;
-    right: 3px;
-    top: -4px;
+    font-size:13px;
+    right: -7px;
+    top: -12px;
 }
 
 .basket:hover .icon-btn {
@@ -2165,7 +2180,13 @@ label.control-label {
   .page-sidebar-closed .basket {
       margin-top:0px;
       padding: 0 11px;
+      text-align: center;
   }
+
+  .page-sidebar-closed .float-block > * {
+      float: none !important;
+  }
+
 }
 
 .page-sidebar-closed .basket li {
@@ -2174,6 +2195,18 @@ label.control-label {
 
 .page-sidebar-closed #category-sidebar-nav li a {
   padding-left: 0px;
+}
+
+
+@media (max-width: 480px) {
+  .float-block > .pull-right, .float-block > * {
+      float: none !important;
+      text-align: left !important;
+  }
+  .float-block .basket {
+      text-align: left;
+  }
+
 }
 
 .type-content {
@@ -3701,7 +3734,6 @@ input[type="checkbox"], input[type="radio"] {
 
   .contact-menu .phone-number {
     display: block;
-    margin-bottom: 20px;
   }
 
 }
@@ -5201,7 +5233,8 @@ li.level0.active > ul:after {
 }
 
 #category-sidebar-nav .active { color:#fdbb09;background-color: #353535;}
-#category-sidebar-nav li:hover { color:#fdbb09; background-color: #353535;}
+#category-sidebar-nav li:hover { background-color: #353535;}
+#category-sidebar-nav li:hover > a  { color:#fdbb09; }
 
 #category-sidebar-nav ul.level0 li ul li a {
   position: relative;
