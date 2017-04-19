@@ -2070,12 +2070,13 @@ label.control-label {
 }
 .basket li {
     display:inline-block;
-    padding: 0 5px;
+    padding: 0 2px;
 }
 .basket-number {
   color:#fdc109;
 /*  font-family: 'OpenSansBold';*/
   font-size:17px;
+  vertical-align: bottom;
 }
 
 @media (min-width: 992px) {
@@ -2092,12 +2093,11 @@ label.control-label {
 .icon-btn {
   position:relative;
   color:#ffffff;
-  font-size:27px;
   display:block;
-  height: 54px;
+  height: 25px;
   text-align: center;
-  padding: 7px;
-  width: 54px;
+  padding: 0px;
+  width: 30px;
 
 /*  border:1px solid #f9be0a;
   -webkit-border-radius: 50%;
@@ -2151,14 +2151,13 @@ label.control-label {
   border-radius:  50%;
     color: #3f3f3f;
     border:1px solid #f9be0a;
-    font-size: 12px;
-    line-height: 14px;
+    line-height: 13px;
     min-width: 10px;
-    padding: 3px 6px;
+    padding: 2px 6px;
     font-family: 'OpenSansBold';
-    font-size:15px;
-    right: 3px;
-    top: -4px;
+    font-size:13px;
+    right: -7px;
+    top: -12px;
 }
 
 .basket:hover .icon-btn {
