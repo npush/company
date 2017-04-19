@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-md-3 col-sm-3 col-dropzone">
                     <?php //include "advertisement.phtml"?>
-                    <div class="panel panel-light text-center">
+                    <!--<div class="panel panel-light text-center">
                         <h4>Здесь <br> может быть <br> ваша реклама</h4>
                         <form action="index.html" class="dropzone dropzone-file-area" id="my-dropzone">
                             <i class="fa fa-download"></i>
@@ -68,7 +68,8 @@
                     <div class="panel panel-light text-center">
                         <h4>Здесь <br> может быть <br> ваша реклама</h4>
                         <button type="button" class="btn yellow btn-lg btn-semibold margin-top-max btn-text-sm btn-block">Подробнее</button>
-                    </div>
+                    </div>-->
+                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('advertisement_block_2')->toHtml();?>
                 </div>
             </div>
         </div>
