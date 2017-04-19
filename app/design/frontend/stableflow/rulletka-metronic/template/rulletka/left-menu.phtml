@@ -7,12 +7,12 @@
                     <div class="container-baron">
                         <!-- Contact menu -->
                         <div class="contact-menu">
-                            <ul class="inline-block clearfix">
+                            <ul class="float-block clearfix">
                                 <li>
                                     <span class="phone-number"><span class="min-sidebar"><?php echo Mage::getStoreConfig('general/store_information/phone');?></span></span>
                                     <div data-toggle="modal" href="#draggable" class="link none-underline min-sidebar"><?php echo $this->__('Ask question')?></div> 
                                 </li>
-                                <li>
+                                <li class="pull-right">
                                     <?php echo $this->getChildHtml('mini.cart'); ?>
                                 </li>
                             </ul>                            

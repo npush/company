@@ -892,7 +892,7 @@ li .sub-menu .title {
   }
 
   .page-sidebar-closed .contact-menu {
-    padding: 20px 38px 30px 20px;
+    padding: 35px 0 30px 0;
   }
 
   .page-sidebar-closed .page-sidebar.collapse {
@@ -2064,10 +2064,9 @@ label.control-label {
     padding: 0 11px 0 20px;
 }
 .basket {
-    text-align:left;
+    text-align:right;
     cursor:pointer;
     margin-top: 17px;
-    padding: 0 20px;
 }
 .basket li {
     display:inline-block;
@@ -2107,8 +2106,17 @@ label.control-label {
   -o-border-radius:  50%;
   border-radius:  50%;*/
 }
+
+.float-block > * {
+  float: left;
+  vertical-align: top;
+}
+.float-block > .pull-right {
+  float: right;
+}
+
 .contact-menu {
-    padding: 35px 0 30px 0;
+    padding: 20px 38px 30px 20px;
 }
 
 .contact-menu .phone-number {
