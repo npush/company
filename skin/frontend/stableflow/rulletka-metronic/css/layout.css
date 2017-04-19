@@ -60,11 +60,13 @@ body {
   overflow-x: hidden;
 }
 
-.none-underline {
+.link.none-underline, .none-underline {
   text-decoration: none;
 }
 .none-underline:active,
-.none-underline:hover, .none-underline:focus {
+.none-underline:hover, .none-underline:focus,
+.link.none-underline:active,
+.link.none-underline:hover, .link.none-underline:focus {
   text-decoration: underline;
 }
 .display-inline li, .display-inline > *, .display-inline-all  > *  {
