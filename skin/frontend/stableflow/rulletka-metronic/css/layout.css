@@ -1839,8 +1839,9 @@ button.btn.grey:hover {
     white-space: inherit;
 }
 .btn.default:hover {
-    border-color: #fff;
+    border-color: #fdbb09;
     color: #fff;
+    background-color: #fdbb09;
 }
 
 .btn.yellow, .label-yellow {
@@ -1988,6 +1989,9 @@ label.control-label {
   color:#fdcf09;
   font-size:20px;
     text-align: left;
+}
+.icon-email-filled-closed-envelope {
+  font-size:17px;
 }
 .contact-ul a {
   color: #fff;
