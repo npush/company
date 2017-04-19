@@ -4789,6 +4789,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   font-size:13px;
   line-height: 17px;
   margin-top: 30px;
+  max-width: 90%;
 }
 
 .body-product a {
@@ -4906,6 +4907,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
      width: 103%; 
      padding-right: 20px; 
   }
+
 
 }
 
@@ -5188,8 +5190,13 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 #category-sidebar-nav li a{font-size:18px; font-weight:normal; color:#fff; text-decoration:none; line-height: 25px;}
 #category-sidebar-nav li a:hover{color:#fdbb09;/*  text-decoration:underline; */}
 /* Level 0 */
-#category-sidebar-nav li.level0{line-height:25px; padding: 14px 0px 14px 0px;}
+#category-sidebar-nav li.level0 {line-height:25px; padding: 14px 0px 14px 0px;}
 .page-sidebar-closed #category-sidebar-nav li.level0 {padding-right: 16px;}
+
+
+#category-sidebar-nav li.level0 > ul {margin-top: 35px;}
+
+#category-sidebar-nav li.level0 > ul > li > a {padding-left: 20px;}
 
 #category-sidebar-nav li.level0 a.level0{ font-size: 18px; padding-left: 18px;}
 
@@ -5275,6 +5282,9 @@ li.level0.active > ul:after {
 #category-sidebar-nav .active { color:#fdbb09;background-color: #353535;}
 #category-sidebar-nav li:hover { background-color: #353535;}
 #category-sidebar-nav li:hover > a  { color:#fdbb09; }
+#category-sidebar-nav li:hover .sub-menu {
+  background-color: #3f3f3f;
+}
 
 #category-sidebar-nav ul.level0 li ul li a {
   position: relative;
