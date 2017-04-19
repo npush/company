@@ -3472,9 +3472,14 @@ input[type="checkbox"], input[type="radio"] {
 
 @media (min-width: 1300px) { 
 
+ .catalog-col-banner {
+    margin-right: -16px;
+ }
+
   .col-banner-max {
     width:80%;
   }
+
   .col-banner-min {
     width:20%;    
   }
