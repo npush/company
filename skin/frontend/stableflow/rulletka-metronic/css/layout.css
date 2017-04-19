@@ -892,7 +892,7 @@ li .sub-menu .title {
   }
 
   .page-sidebar-closed .contact-menu {
-    padding: 35px 0 30px 0;
+    padding: 30px 0 30px 0;
   }
 
   .page-sidebar-closed .page-sidebar.collapse {
@@ -2116,7 +2116,7 @@ label.control-label {
 }
 
 .contact-menu {
-    padding: 20px 38px 30px 20px;
+    padding: 30px 38px 5px 20px;
 }
 
 .contact-menu .phone-number {
