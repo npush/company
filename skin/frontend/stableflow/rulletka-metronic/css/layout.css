@@ -3470,11 +3470,11 @@ input[type="checkbox"], input[type="radio"] {
   max-width: 100%;
 }
 
-@media (min-width: 1300px) { 
+.catalog-col-banner {
+  margin-right: -16px;
+}
 
- .catalog-col-banner {
-    margin-right: -16px;
- }
+@media (min-width: 1300px) { 
 
   .col-banner-max {
     width:80%;
@@ -4723,6 +4723,11 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     z-index: 1;
     background-color:white;
 }
+
+.product-wrap-max-four {
+    width: 25%;  
+}
+
 .product-wrap:hover {
     z-index: 2;
 }
