@@ -33,6 +33,14 @@
       padding: 0;
   }
 
+ .banner-responsive img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+ } 
+
 
 a:active,
 a:hover, a:focus {
@@ -2125,7 +2133,7 @@ label.control-label {
 }
 
 .contact-menu {
-    padding: 33px 38px 18px 20px;
+    padding: 33px 45px 18px 20px;
 }
 
 .contact-menu .phone-number {
@@ -3462,6 +3470,17 @@ input[type="checkbox"], input[type="radio"] {
   max-width: 100%;
 }
 
+@media (min-width: 1300px) { 
+
+  .col-banner-max {
+    width:80%;
+  }
+  .col-banner-min {
+    width:20%;    
+  }
+
+}
+
 
 @media (max-width: 1300px) and (min-width: 990px) { 
 
@@ -3475,6 +3494,13 @@ input[type="checkbox"], input[type="radio"] {
   }
   .col-md-3.col-dropzone {
     width:40%;
+  }
+
+  .col-banner-max {
+    width:70%;
+  }
+  .col-banner-min {
+    width:30%;    
   }
 
 }

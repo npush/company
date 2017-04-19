@@ -23,7 +23,7 @@
     <div class="portlet light portlet-fit bordered">
         <div class="portlet-body">
             <div class="row">
-                <div class="col-md-9 col-sm-9 col-news">
+                <div class="col-md-9 col-sm-9 col-banner-max">
                     <?php $postColumn = 2 ; $i = 1; ?>
                     <?php foreach($_posts as $_post):?>
                         <?php echo ($i == 1) ? '<div class="row media-list">' : ''?>
@@ -55,7 +55,7 @@
                         <?php endif?>
                     <?php endforeach; ?>
                 </div>
-                <div class="col-md-3 col-sm-3 col-dropzone">
+                <div class="col-md-3 col-sm-3 col-banner-min">
                     <?php //include "advertisement.phtml"?>
                     <!--<div class="panel panel-light text-center">
                         <h4>Здесь <br> может быть <br> ваша реклама</h4>
@@ -69,7 +69,9 @@
                         <h4>Здесь <br> может быть <br> ваша реклама</h4>
                         <button type="button" class="btn yellow btn-lg btn-semibold margin-top-max btn-text-sm btn-block">Подробнее</button>
                     </div>-->
-                    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('advertisement_block_2')->toHtml();?>
+                    <div class="banner-responsive">
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('advertisement_block_2')->toHtml();?>
+                    </div>
                 </div>
             </div>
         </div>
