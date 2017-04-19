@@ -1809,12 +1809,12 @@ button.btn.grey:hover {
 }
 
 .form-control::-moz-placeholder {
-    color: #595959;
+    color: #3f3f3f;
     opacity: 1;
 }
 
 .has-error .form-control::-moz-placeholder {
-    color: #b81010;
+    color: #3f3f3f;
     opacity: 1;
 }
 
@@ -1936,6 +1936,7 @@ label.control-label {
 .form-control {
    height: 37px;
    font-size:13px;
+   color: #3f3f3f;
 }
 .input-number-box {
   display: inline-block;
@@ -5118,7 +5119,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 #category-sidebar-nav li.level0 a.level0{ font-size: 18px; padding-left: 18px;}
 
-#category-sidebar-nav li ul.level0{padding:10PX 0px 0 10px; display:none;}
+#category-sidebar-nav li ul.level0{ display:none;}
 #category-sidebar-nav li ul.level0 a {font-size:16px;}
 #category-sidebar-nav li a.show-cat.pull-right {font-size:16px;}
 
@@ -5135,7 +5136,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 }
 
-li.level0, .category-sidebar-nav {
+li.level0, .category-sidebar-nav, li.level0.active > ul {
     position:relative;
 }
 .category-sidebar-nav:before {
@@ -5177,24 +5178,57 @@ li.level0:after {
     position:absolute;
 }
 
-#category-sidebar-nav .active { color:#fdbb09;}
+li.level0.active > ul:before {
+    content:"";
+    left: 0;
+    bottom: 0px;
+    height:1px;
+    width:100%;
+    background-color:#333232;
+    position:absolute;
+
+}
+li.level0.active > ul:after {
+    content:"";
+    left: 0;
+    bottom: -1px;
+    height:1px;
+    width:100%;
+    background-color:#535353;
+    position:absolute;
+}
+
+#category-sidebar-nav .active { color:#fdbb09;background-color: #353535;}
 #category-sidebar-nav li:hover { color:#fdbb09; background-color: #353535;}
 
-#category-sidebar-nav ul li ul li a {
+#category-sidebar-nav ul.level0 li ul li a {
   position: relative;
-  font-size: 13px;
+  font-size: 15px;
+  padding-left: 12px;
 }
 #category-sidebar-nav ul li ul li a:before {
   position: absolute;
-  content: "-";
+  content: "—";
   left: 0;  
+  width: 7px;
+  overflow: hidden;
 }
 #category-sidebar-nav ul li ul li a.icon-arrow-point-to-right  {
   font-size: 16px;
+  padding-left: 0px;
 }
+
 #category-sidebar-nav ul li ul li a.icon-arrow-point-to-right:before  {
-  content: "";  
+    content: "\e900";
 }
+#category-sidebar-nav  ul li ul li a.active.icon-arrow-point-to-right:before {
+    content: "\e900";
+    transform: rotate(180deg);
+    -ms-transform:rotate(180deg); 
+    -webkit-transform:rotate(180deg);
+    display: inline-block;
+}
+
 
 .category-sidebar-nav a.level0 > .icon {
   font-size: 24px;
