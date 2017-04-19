@@ -20,9 +20,8 @@
 ?>
 <?php $seller = $this->getSellerData();?>
 <?php if (!empty($seller)):?>
-<div class="page-title">
-    <h1><?php echo $seller['firstname']." ".$seller['lastname'].$this->__(" store's Profile Page") ?></h1>
-</div>
+<h3 class="page-title category-title"><?php echo $seller['firstname']." ".$seller['lastname'].$this->__(" store's Profile Page") ?></h3>
+
 <div class="store-details">
     <div class="sub-heading"><h5><?php echo $this->__('About ').$seller['company_name']?></h5></div>
     <?php if(!empty($seller['company_banner'])):?>

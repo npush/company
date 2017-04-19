@@ -33,9 +33,7 @@
  */
 ?>
 <div class="multiple-checkout">
-    <div class="page-title">
-        <h1><?php echo $this->__('Select Shipping Method') ?></h1>
-    </div>
+    <h3 class="page-title category-title"><?php echo $this->__('Select Shipping Method') ?></h3>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="shipping_method_form">
         <?php foreach ($this->getAddresses() as $_index => $_address): ?>
