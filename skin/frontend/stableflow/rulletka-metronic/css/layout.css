@@ -2116,7 +2116,7 @@ label.control-label {
 }
 
 .contact-menu {
-    padding: 30px 38px 5px 20px;
+    padding: 33px 38px 18px 20px;
 }
 
 .contact-menu .phone-number {
@@ -2175,7 +2175,13 @@ label.control-label {
   .page-sidebar-closed .basket {
       margin-top:0px;
       padding: 0 11px;
+      text-align: center;
   }
+
+  .page-sidebar-closed .float-block > * {
+      float: none;
+  }
+
 }
 
 .page-sidebar-closed .basket li {
@@ -2184,6 +2190,14 @@ label.control-label {
 
 .page-sidebar-closed #category-sidebar-nav li a {
   padding-left: 0px;
+}
+
+
+@media (max-width: 480px) {
+  .float-block > .pull-right {
+      float: none !important;
+      text-align: left !important;
+  }
 }
 
 .type-content {
@@ -3711,7 +3725,6 @@ input[type="checkbox"], input[type="radio"] {
 
   .contact-menu .phone-number {
     display: block;
-    margin-bottom: 20px;
   }
 
 }
