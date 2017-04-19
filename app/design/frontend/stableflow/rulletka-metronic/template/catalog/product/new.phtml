@@ -29,14 +29,14 @@
 
 <div class="portlet light portlet-fit bordered portlet-full">
     <div class="portlet-body row">
-        <div class="col-md-9 col-sm-9 col-banner-max">
+        <div class="col-md-9 col-sm-9  catalog-col-banner  col-banner-max">
             <div class="product-content clearfix">
                 <?php $_helper = $this->helper('catalog/output');?>
                 <?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
                             
                 <?php $_columnCount = $this->getColumnCount(); ?>
                     <?php $i=0; foreach ($_products->getItems() as $_product): ?>
-                        <div class="product-wrap">
+                        <div class="product-wrap product-wrap-max-four">
                             <div class="col-product">
                                 <div class="header-product">
                                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
