@@ -2179,7 +2179,7 @@ label.control-label {
   }
 
   .page-sidebar-closed .float-block > * {
-      float: none;
+      float: none !important;
   }
 
 }
@@ -2194,10 +2194,14 @@ label.control-label {
 
 
 @media (max-width: 480px) {
-  .float-block > .pull-right {
+  .float-block > .pull-right, .float-block > * {
       float: none !important;
       text-align: left !important;
   }
+  .float-block .basket {
+      text-align: left;
+  }
+
 }
 
 .type-content {
