@@ -303,6 +303,8 @@ Page Header
     padding-bottom:10px;
     margin-bottom: 30px;
     padding-top: 0px;
+    text-align: left;
+    width: 100%;
 
   }
   .nav-header-top li {
@@ -310,6 +312,13 @@ Page Header
    display: inline-block;
 
   }
+
+  .page-sidebar-closed #category-sidebar-nav li.level0 {
+
+      text-align: left;
+
+  }
+
 }
 
 .page-header.navbar {
