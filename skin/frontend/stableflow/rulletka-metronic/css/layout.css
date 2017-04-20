@@ -5291,7 +5291,12 @@ li.level0.active > ul:after {
   font-size: 15px;
   padding-left: 40px;
 }
-#category-sidebar-nav ul li ul li a:before {
+
+#category-sidebar-nav ul.level0 li ul {
+  padding-top: 7px;
+}
+
+#category-sidebar-nav ul.level0 li ul li a:before {
   position: absolute;
   content: "—";
   left: 28px;  
@@ -5302,20 +5307,20 @@ li.level0.active > ul:after {
   left: 60px;  
 }
 #category-sidebar-nav ul.level0 li ul li ul li a {
-  padding-left: 60px;
+  padding-left: 70px;
 }
-#category-sidebar-nav ul li ul li a.icon-arrow-point-to-right  {
+#category-sidebar-nav ul.level0 li ul li a.icon-arrow-point-to-right  {
   font-size: 16px;
   padding-left: 0px;
 }
 
-#category-sidebar-nav ul li ul li a.icon-arrow-point-to-right:before  {
+#category-sidebar-nav ul.level0 li ul li a.icon-arrow-point-to-right:before  {
     content: "\e900";
     position: relative;
     width: auto;
     left: auto;
 }
-#category-sidebar-nav  ul li ul li a.active.icon-arrow-point-to-right:before {
+#category-sidebar-nav  ul.level0 li ul li a.active.icon-arrow-point-to-right:before {
     content: "\e900";
     transform: rotate(180deg);
     -ms-transform:rotate(180deg); 
