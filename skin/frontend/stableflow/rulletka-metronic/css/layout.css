@@ -313,11 +313,6 @@ Page Header
 
   }
 
-  .page-sidebar-closed #category-sidebar-nav li.level0 {
-
-      text-align: left;
-
-  }
 
 }
 
@@ -5271,8 +5266,6 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 /* Level 0 */
 #category-sidebar-nav li.level0 {line-height:25px; padding: 14px 0px 14px 0px;}
 #category-sidebar-nav li.level0.active {padding-bottom: 0;}
-.page-sidebar-closed #category-sidebar-nav li.level0 {text-align: center;}
-
 
 #category-sidebar-nav li.level0 > ul {margin-top: 35px;padding-bottom: 25px;}
 
