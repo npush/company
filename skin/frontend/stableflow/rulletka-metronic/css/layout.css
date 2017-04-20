@@ -5247,8 +5247,9 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 /* Level 1 */
 #category-sidebar-nav li ul li ul{ display:none;/*padding:0 0px 0 10px;*/}
 
-.page-sidebar-closed #category-sidebar-nav li a {
+.page-sidebar-closed #category-sidebar-nav  li.level0 a.level0 {
   padding-left: 0px;
+  margin-right: 0px;
 }
 
 @media (min-width: 992px) and (max-width: 1400px) {
