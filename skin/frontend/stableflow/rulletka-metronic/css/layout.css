@@ -203,6 +203,23 @@ b, strong, .bold {
   .form-control-feedback.lg-control {
       line-height: 30px;
   }
+
+  .navbar-form .input-box.form-group {
+    width: 210px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .navbar-form .input-box.form-group ~ .btn.btn-lg {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .btn-group-lg > .btn, .btn-lg {
+    padding: 5px 15px;
+    font-size: 14px;
+  }
+
 }
 
 .form-control-feedback {
@@ -277,6 +294,19 @@ Page Header
 @media (max-width: 1400px) {
   .top-menu .navbar-form {
       margin: 17px 0px 45px 3%;
+  }
+}
+
+@media (max-width: 991px) {
+  .nav-header-top {
+
+    padding-bottom:10px;
+
+  }
+  .nav-header-top li {
+
+   display: inline-block;
+
   }
 }
 
@@ -563,6 +593,7 @@ Horizontal Menu
   .top-menu .navbar-form {
     width: 99%;
     margin: 15px auto 10px;
+    float: none !important;
   }
 
 }
@@ -5324,7 +5355,7 @@ li.level0.active > ul:after {
 #category-sidebar-nav ul.level0 li ul li ul li a {
   padding-left: 70px;
 }
-#category-sidebar-nav ul.level0 li ul li ul li a {
+#category-sidebar-nav ul.level0 li ul li ul li ul li a {
   padding-left: 100px;
 }
 
