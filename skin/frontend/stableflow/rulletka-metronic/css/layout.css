@@ -5291,7 +5291,7 @@ li.level0.active > ul:after {
   font-size: 15px;
   padding-left: 12px;
 }
-#category-sidebar-nav ul li ul li ~ a:before {
+#category-sidebar-nav ul li ul li a:first-child:before {
   position: absolute;
   content: "—";
   left: 0;  
