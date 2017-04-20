@@ -5289,14 +5289,17 @@ li.level0.active > ul:after {
 #category-sidebar-nav ul.level0 li ul li a {
   position: relative;
   font-size: 15px;
-  padding-left: 12px;
+  padding-left: 22px;
 }
-#category-sidebar-nav ul li ul li a:first-child:before {
+#category-sidebar-nav ul li ul li a:before {
   position: absolute;
   content: "—";
   left: 0;  
   width: 7px;
   overflow: hidden;
+}
+#category-sidebar-nav ul li ul li a {
+  padding-left: 22px;
 }
 #category-sidebar-nav ul li ul li a.icon-arrow-point-to-right  {
   font-size: 16px;
@@ -5305,6 +5308,8 @@ li.level0.active > ul:after {
 
 #category-sidebar-nav ul li ul li a.icon-arrow-point-to-right:before  {
     content: "\e900";
+    position: relative;
+    width: auto;
 }
 #category-sidebar-nav  ul li ul li a.active.icon-arrow-point-to-right:before {
     content: "\e900";
