@@ -565,9 +565,7 @@
     background:transparent;
   }
 
-  .page-sidebar {
-    background-color: #28303b;
-    /* light sidebar */ }
+
     .page-sidebar .page-sidebar-menu > li > a {
       border-top: 1px solid #364150; }
     .page-sidebar .page-sidebar-menu > li:hover > a,
@@ -601,8 +599,6 @@
   /* 480px */
   .page-header.navbar {
     /* Top menu */ }
-    .page-header.navbar .top-menu {
-      background-color: #364150; }
       .page-header-fixed-mobile .page-header.navbar .top-menu {
         background-color: #2b3643; }
       .page-header.navbar .top-menu .navbar-nav > li.dropdown-user .dropdown-toggle {
