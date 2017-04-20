@@ -117,8 +117,7 @@ class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Ab
      * @return bool
      * @author Sam
      */
-    protected function isNumericUrlKey(Mage_Core_Model_Abstract $object)
-    {
+    protected function isNumericUrlKey(Mage_Core_Model_Abstract $object){
         return preg_match('/^[0-9]+$/', $object->getData('url_key'));
     }
 
@@ -130,8 +129,31 @@ class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Ab
      * @return bool
      * @author Sam
      */
-    protected function isValidUrlKey(Mage_Core_Model_Abstract $object)
-    {
+    protected function isValidUrlKey(Mage_Core_Model_Abstract $object){
         return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('url_key'));
+    }
+
+    protected function _updateAttribute($object, $attribute, $valueId, $value){
+        $table = $attribute->getBackend()->getTable();
+        if(!isset($this->_attributeValuesToSave[$table])){
+            $this->_attributeValuesToSave[$table] = array();
+        }
+
+        $entityIdField = $attribute->getBackend()->getEntityIdField();
+
+        $data = array(
+            'entity_type_id'    => $object->getEntityTypeId(),
+            $entityIdField      => $object->getId(),
+            'attribute_id'      => $attribute->getId(),
+            'value'             => $this->_prepareValueForSave($value, $attribute)
+        );
+
+        if($valueId){
+            $data['value_id'] = $valueId;
+        }
+
+        $this->_attributeValuesToSave[$table][] = $data;
+
+        return $this;
     }
 }
