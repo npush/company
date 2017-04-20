@@ -195,6 +195,16 @@ b, strong, .bold {
     line-height: 44px;
     width: 40px;
 }
+
+@media (max-width: 991px) {
+  .form-control.lg-control {
+      height: 30px;
+  }
+  .form-control-feedback.lg-control {
+      line-height: 30px;
+  }
+}
+
 .form-control-feedback {
     color: #a6a39f;
 }
@@ -5203,7 +5213,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 #category-sidebar-nav li ul.level0{ display:none;}
 #category-sidebar-nav li ul.level0 a {font-size:16px;}
-#category-sidebar-nav li a.show-cat.pull-right {font-size:16px; position: absolute; right: 0px;}
+#category-sidebar-nav li a.show-cat.pull-right {font-size:16px; position: absolute; right: 0px; margin-right: 0px;}
 
 #category-sidebar-nav li ul.level0 li{border-bottom:1px solid #484848;}
 #category-sidebar-nav li ul.level0 li.last{border:0 none;}
@@ -5557,6 +5567,10 @@ li.level0.active > ul:after {
   }
   .baron__track {
     display: none;
+  }
+
+  .baron.baron__root {
+  height: auto !important;
   }
 
   .page-footer {

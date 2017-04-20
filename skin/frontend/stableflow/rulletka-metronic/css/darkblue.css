@@ -565,9 +565,7 @@
     background:transparent;
   }
 
-  .page-sidebar {
-    background-color: #28303b;
-    /* light sidebar */ }
+
     .page-sidebar .page-sidebar-menu > li > a {
       border-top: 1px solid #364150; }
     .page-sidebar .page-sidebar-menu > li:hover > a,
