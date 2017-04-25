@@ -17,14 +17,14 @@
             <!-- TIMELINE ITEM -->
             <div class="timeline-badge">
                 <a href="<?php echo $company->getUrl();?>" target="_blank" class="company-link">
-                    <img class="timeline-badge-userpic" src="<?php echo $this->getImageUrl($company);?>">
+                    <img class="timeline-badge-userpic" src="<?php echo $_helper->getImageUrl($company);?>">
                 </a>
                 <a href="<?php echo $company->getUrl();?>" class="link-md link-underline" target="_blank"><?php echo $_helper->formatUrl($company->getUrl());?></a>
             </div>
             <div class="timeline-body clearfix">
                 <div class="timeline-body-head">
                     <div class="timeline-body-head-caption">
-                        <a class="timeline-body-title font-blue-madison" href="javascript:;"><?php echo $company->getName();?></a>
+                        <span class="timeline-body-title font-blue-madison"><?php echo $company->getName();?></span>
                     </div>
                 </div>
                 <?php echo $this->getChildHtml('company_rating'); ?>
