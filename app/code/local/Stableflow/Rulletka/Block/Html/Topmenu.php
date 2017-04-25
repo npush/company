@@ -6,7 +6,7 @@
  * Date: 4/24/17
  * Time: 2:34 PM
  */
-class Stableflow_Rulletka_Block_Html_Topmenu extends Mage_Page_Block_Html_Topmenu{
+class Stableflow_Rulletka_Block_Html_Topmenu extends Mage_Page_Block_Html_Topmenu {
 
     /**
      * Returns array of menu item's classes

@@ -68,4 +68,25 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
         $this->setUpdatedAt($now);
         return $this;
     }
+
+    /**
+     * Load entity by attribute
+     *
+     * @param Mage_Eav_Model_Entity_Attribute_Interface|integer|string|array $attribute
+     * @param null|string|array $value
+     * @param string $additionalAttributes
+     * @return bool|Mage_Catalog_Model_Abstract
+     */
+    public function loadByAttribute($attribute, $value, $additionalAttributes = '*')
+    {
+        $collection = $this->getResourceCollection()
+            ->addAttributeToSelect($additionalAttributes)
+            ->addAttributeToFilter($attribute, $value)
+            ->setPage(1,1);
+
+        foreach ($collection as $object) {
+            return $object;
+        }
+        return false;
+    }
 }

@@ -32,24 +32,22 @@
 ?>
 <?php
     $_helper = $this->helper('catalog/output');
-    $_product = $this->getProduct()
+    $_product = $this->getProduct();
+    $_companyHelper = $this->helper('company');
 ?>
 <?php if($_additional = $this->getAdditionalData()): ?>
     <div class="content-text margin-top-10">
         <!--<p class="text-margin"><?php /*echo $_helper->productAttribute($this->getProduct(), $_product->getDescription(), 'description') */?></p>-->
         <?php foreach ($_additional as $_data): ?>
-            <?php if($_data['value']):?>
-                <?php if($_data['code'] == 'manufacturer_number') : ?>
-                    <?php continue ;?>
-                    <p class="line-dashed line-number-id">
+            <?php if($_data['value'] && $_data['code'] != 'manufacturer_number') : ?>
+                <?php if($_data['code'] == 'manufacturer') : ?>
+                    <p class="line-dashed">
                         <span class="dashed-style">
                             <b><?php echo $this->escapeHtml($this->__($_data['label'])) ?></b>
                         </span>
                         <span class="dashed-left-txt">
-                            <?php $_codes = explode('|', $_data['value']); ?>
-                            <?php foreach($_codes as $_code) : ?>
-                                <?php echo '<span>' . $_code . ' </span>';?>
-                            <?php endforeach; ?>
+                            <?php $companyName = $_helper->productAttribute($_product, $_data['value'], $_data['code']); ?>
+                            <a href="<?php echo $_companyHelper->getCompanyUrl($companyName);?>"><?php echo $companyName; ?></a>
                         </span>
                     </p>
                 <?php else : ?>

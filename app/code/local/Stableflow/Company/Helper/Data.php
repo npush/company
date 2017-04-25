@@ -21,4 +21,44 @@ class Stableflow_Company_Helper_Data extends Mage_Core_Helper_Abstract
             return $match['domain'];
         return $url;
     }
+
+    /**
+     * Retrieve company view page url
+     *
+     * @param   mixed $company
+     * @return  string
+     */
+    public function getCompanyUrl($company){
+        if($company instanceof Stableflow_Company_Model_Company){
+            return $company->getProductUrl();
+        }
+        elseif (is_numeric($company)){
+            return Mage::getModel('company/company')->load($company)->getCompanyUrl();
+        }
+        elseif (is_string($company)){
+            $model =  Mage::getModel('company/company')->loadByAttribute('name', $company);
+            if($model){
+                return $model->getCompanyUrl();
+            }
+            return '#';
+        }
+        return false;
+    }
+
+    /**
+     * Retrieve base image url
+     *
+     * @return string
+     */
+    public function getImageUrl($company)
+    {
+        $url = false;
+        if (!$company->getImage()) {
+            $url = Mage::getDesign()->getSkinUrl('images/no_image.jpg');
+        }
+        elseif ($attribute = $company->getResource()->getAttribute('image')) {
+            $url = $attribute->getFrontend()->getUrl($company);
+        }
+        return $url;
+    }
 }
