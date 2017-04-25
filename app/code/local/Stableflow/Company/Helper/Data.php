@@ -57,7 +57,8 @@ class Stableflow_Company_Helper_Data extends Mage_Core_Helper_Abstract
             $url = Mage::getDesign()->getSkinUrl('images/no_image.jpg');
         }
         elseif ($attribute = $company->getResource()->getAttribute('image')) {
-            $url = $attribute->getFrontend()->getUrl($company);
+            //$url = $attribute->getFrontend()->getUrl($company);
+            $url = Mage::getBaseUrl('media') . 'company' . $company->getImage();
         }
         return $url;
     }
