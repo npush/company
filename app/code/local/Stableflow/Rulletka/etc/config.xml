@@ -19,6 +19,7 @@
             <page>
                 <rewrite>
                     <html_breadcrumbs>Stableflow_Rulletka_Block_Breadcrumbs</html_breadcrumbs>
+                    <html_topmenu>Stableflow_Rulletka_Block_Html_Topmenu</html_topmenu>
                 </rewrite>
             </page>
         </blocks>

@@ -368,7 +368,7 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
         $storeMediaUrl = Mage::app()->getStore($storeId)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
 
         $content = $this->getLayout()->createBlock(
-            'company/adminhtml_betterblog_helper_form_wysiwyg_content',
+            'company/adminhtml_company_helper_form_wysiwyg_content',
             '',
             array(
                 'editor_element_id' => $elementId,
