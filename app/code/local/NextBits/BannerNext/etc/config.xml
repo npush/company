@@ -46,22 +46,26 @@
     </admin>
     <adminhtml>
 		<menu>
-			<bannernext module="bannernext">
-				<title>Banner Next</title>
-				<sort_order>71</sort_order>               
+			<rulletka>
 				<children>
 					<items module="bannernext">
 						<title>Manage Banners</title>
 						<sort_order>0</sort_order>
-						<action>bannernext/adminhtml_bannernext</action>
+						<children>
+							<items module="bannernext">
+								<title>Manage Banners</title>
+								<sort_order>0</sort_order>
+								<action>bannernext/adminhtml_bannernext</action>
+							</items>
+							<items2 module="bannernext">
+								<title>Add Banner</title>
+								<sort_order>0</sort_order>
+								<action>bannernext/adminhtml_bannernext/new</action>
+							</items2>
+						</children>
 					</items>
-					<items2 module="bannernext">
-						<title>Add Banner</title>
-						<sort_order>0</sort_order>
-						<action>bannernext/adminhtml_bannernext/new</action>
-					</items2>
 				</children>
-			</bannernext>
+			</rulletka>
 		</menu>
 		<acl>
 			<resources>
