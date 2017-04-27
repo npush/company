@@ -5043,7 +5043,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   .product-wrap:nth-child(3n-2) .col-product:hover  {
       margin-left:0px;
      padding-left:20px; 
-     width: 103%;  
+     width: 102%;  
      padding-right: 20px;
   }
 
