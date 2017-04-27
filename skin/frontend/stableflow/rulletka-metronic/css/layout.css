@@ -4892,7 +4892,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   height: 40px;
   overflow: hidden;
 }
-
+.body-product a.title-body-product span {
+  width: 101%;
+  display: block;
+}
 .body-product a:first-letter {
     text-transform: uppercase;
 }
