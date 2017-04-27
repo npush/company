@@ -23,6 +23,9 @@ class Stableflow_Company_Block_Company extends Mage_Core_Block_Template{
     }
 
     public function getImageUrl($company){
-        return Mage::getBaseUrl('media') . 'company' . $company->getImage();
+        $image = $company->getImage();
+        if($image)
+            return Mage::getBaseUrl('media') . 'company' . $image;
+        return Mage::getBaseUrl('media') . 'company/placeholder/logo.png';
     }
 }

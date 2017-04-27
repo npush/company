@@ -72,7 +72,7 @@
                         </div>
                         <div class="body-product">
                             <a class="title-body-product" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
-                                <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a>
+                                <span><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></span></a>
                             <?php $this->getChild('product-attributes')->setData("product", $_product);?>
                             <?php echo $this->getChildHtml('product-attributes', false);?>
                         </div>
@@ -101,4 +101,28 @@
     </div>
     <?php echo $this->getChild('product_list_toolbar')->getPagerHtml();?>
 </div>
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);?>stableflow/jquery.3dot.js"></script>
+<script type="application/javascript">
+    jQuery(function() {
+        jQuery('.title-body-product').each(function(){
+            jQuery(this).dotdotdot(
+                {
+                    ellipsis: "... ",
+                    wrap: "letter",
+                    fallbackToLetter: true,
+                    after: null,
+                    watch: false,
+                    height: null,
+                    tolerance: 0,
+                    callback: function (isTruncated, orgContent) {
+                    },
+                    lastCharacter: {
+                        remove: [" ", ",", ";", ".", "!", "?", "-"],
+                        noEllipsis: []
+                    }
+                }
+            );
+        });
+    });
+</script>
 <?php endif; ?>
