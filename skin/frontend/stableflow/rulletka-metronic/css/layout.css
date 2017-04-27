@@ -2214,7 +2214,7 @@ label.control-label {
     min-width: 160px;
 }
 .page-sidebar-closed .page-header.navbar .page-logo {
-    height: 120px;
+    height: 130px;
 }
 
 .contact-menu .icon {
@@ -4872,9 +4872,9 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   left: 0;
 }
 
-.product-content {
+/*.product-content {
   overflow: hidden;
-}
+}*/
 
 .body-product {
   font-size:13px;
