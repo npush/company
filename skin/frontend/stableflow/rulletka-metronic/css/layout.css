@@ -2214,7 +2214,7 @@ label.control-label {
     min-width: 160px;
 }
 .page-sidebar-closed .page-header.navbar .page-logo {
-    height: 120px;
+    height: 130px;
 }
 
 .contact-menu .icon {
@@ -4830,15 +4830,15 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   -webkit-transition: all 0.4s ease 0s;
     border-bottom:1px solid #ebebeb;
     border-right:1px solid #ebebeb;
-    padding: 10px;
+    padding: 3%;
 }
 .col-product:hover {
     width: 106%;
-    margin-top:-20px;
-    padding-top:30px; 
-    margin-left:-10px;
-    padding-left:20px; 
-    padding-right:22px; 
+    margin-top: -3%;
+    padding-top: 6%;
+    margin-left: -3%;
+    padding-left: 6%;
+    padding-right: 6%;
     height: 630px;
 
    box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.2);
@@ -4872,11 +4872,15 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   left: 0;
 }
 
+/*.product-content {
+  overflow: hidden;
+}*/
+
 .body-product {
   font-size:13px;
   line-height: 17px;
   margin-top: 30px;
-  max-width: 90%;
+/*  max-width: 89%;*/
 }
 
 .body-product a {
@@ -4892,7 +4896,10 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
   height: 40px;
   overflow: hidden;
 }
-
+/*.body-product a.title-body-product span {
+  width: 101%;
+  display: block;
+}*/
 .body-product a:first-letter {
     text-transform: uppercase;
 }
@@ -4985,7 +4992,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
     padding-left:10px; 
   }*/
 
-  .product-wrap:nth-child(5n-4) .col-product {
+/*  .product-wrap:nth-child(5n-4) .col-product {
      padding-left:20px; 
   }
   .product-wrap:nth-child(5n-4) .col-product:hover  {
@@ -4993,7 +5000,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
      padding-left:20px;
      width: 103%; 
      padding-right: 20px; 
-  }
+  }*/
 
 
 }
@@ -5012,7 +5019,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 */
 
 
-  .product-wrap:nth-child(4n-3) .col-product {
+/*  .product-wrap:nth-child(4n-3) .col-product {
      padding-left:20px; 
   }
 
@@ -5021,7 +5028,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
      padding-left:20px; 
      width: 103%;  
      padding-right: 20px;
-  }
+  }*/
 
 }
 @media (min-width: 681px) and (max-width: 1550px)  { 
@@ -5036,16 +5043,16 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
   }*/
 
-  .product-wrap:nth-child(3n-2) .col-product {
+/*  .product-wrap:nth-child(3n-2) .col-product {
      padding-left:20px; 
   }
 
   .product-wrap:nth-child(3n-2) .col-product:hover  {
       margin-left:0px;
      padding-left:20px; 
-     width: 103%;  
+     width: 102%;  
      padding-right: 20px;
-  }
+  }*/
 
   .footer-product .basket-number-lg.basket-number {
       font-size: 18px;
