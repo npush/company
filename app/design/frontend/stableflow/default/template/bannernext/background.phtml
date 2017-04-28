@@ -50,7 +50,7 @@
 					slides 					:  	
 					[
 			<?php $i=1; $total = count($images); foreach($images as $image):	?>
-					{image : '<?php echo $this->helper('bannernext')->resizeImg($image['file']);?>', title : 'Image Credit: Maria Kazvan', thumb : '<?php echo $this->helper('bannernext')->resizeImg($image['file'],$width,$height);?>', url : '<?php echo $this->helper('bannernext')->resizeImg($image['file'],$width,$height);?>'}
+					{image : '<?php echo $this->helper('bannernext')->resizeImg($image['file']);?>', title : '', thumb : '<?php echo $this->helper('bannernext')->resizeImg($image['file'],$width,$height);?>', url : '<?php echo $this->helper('bannernext')->resizeImg($image['file'],$width,$height);?>'}
 					<?php if($i!=$total){ echo ',';} $i++; ?>
 			<?php endforeach;?>
 					]

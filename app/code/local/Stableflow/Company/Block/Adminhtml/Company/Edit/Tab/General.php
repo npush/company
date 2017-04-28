@@ -46,6 +46,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_General extends Mage_A
      */
     protected function _prepareLayout()
     {
+        return parent::_prepareLayout();
         Varien_Data_Form::setElementRenderer(
             $this->getLayout()->createBlock('adminhtml/widget_form_renderer_element')
         );
