@@ -34,7 +34,7 @@ class Stableflow_Company_Model_Resource_Form_Attribute extends Mage_Eav_Model_Re
      */
     protected function _construct()
     {
-        //$this->_init('company/form_attribute', 'attribute_id');
+        //$this->_init('company/address_form_attribute', 'attribute_id');
         $this->_init('company/eav_attribute', 'attribute_id');
     }
 }

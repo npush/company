@@ -58,6 +58,10 @@
                         <table>company_address_entity_char</table>
                     </address_entity_char>
 
+                    <address_form_attribute>
+                        <table>company_address_form_attribute</table>
+                    </address_form_attribute>
+
                     <product_entity>
                         <table>company_product_entity</table>
                     </product_entity>

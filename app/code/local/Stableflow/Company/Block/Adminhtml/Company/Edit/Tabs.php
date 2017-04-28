@@ -25,7 +25,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
         $attributes = Mage::getResourceModel('eav/entity_attribute_collection')
             ->setEntityTypeFilter($entity->getEntityTypeId());
 
-        //$attributes->getSelect()->order('additional_table.position', 'ASC');
+        $attributes->getSelect()->order('additional_table.sort_order', 'ASC');
 
         $this->addTab(
             'general',
@@ -38,7 +38,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                     ->toHtml(),
             )
         );
-/*        $this->addTab(
+        $this->addTab(
             'address',
             array(
                 'label'   => Mage::helper('company')->__('Company Address'),
@@ -48,7 +48,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 ->initForm()
                 ->toHtml(),
             )
-        );*/
+        );
         $this->addTab(
             'owner',
             array(
@@ -56,7 +56,6 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_owner'
                 )
-                //->setAttributes($attributes)
                 ->toHtml(),
             )
         );
@@ -67,7 +66,6 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_price'
                 )
-                //->setAttributes($attributes)
                 ->toHtml(),
             )
         );
@@ -78,7 +76,6 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_products'
                 )
-                    //->setAttributes($attributes)
                     ->toHtml(),
             )
         );
