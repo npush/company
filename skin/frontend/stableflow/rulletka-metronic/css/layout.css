@@ -5320,7 +5320,7 @@ ul.pgwSlider.narrow.listOnTheLeft > li,
 
 .page-sidebar-closed #category-sidebar-nav  li.level0 a.level0 {
   padding-left: 0px;
-  margin-right: 0px;
+  padding-right: 0px;
 }
 
 @media (min-width: 992px) and (max-width: 1400px) {
