@@ -5430,7 +5430,7 @@ li.level0.active > ul:after {
 #category-sidebar-nav ul.level0 li ul li ul li ul li a {
   padding-left: 80px;
   font-size: 13px;
-  line-height: 16px;
+  line-height: 24px;
 }
 
 #category-sidebar-nav ul.level0 li ul li a.icon-arrow-point-to-right  {
