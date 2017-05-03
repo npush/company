@@ -5421,16 +5421,16 @@ li.level0.active > ul:after {
   left: 50px;  
 }
 #category-sidebar-nav  ul.level0 li ul li ul li ul li a:before {
-  left: 70px;  
+  left: 65px;  
 }
 
 #category-sidebar-nav ul.level0 li ul li ul li a {
   padding-left: 60px;
 }
 #category-sidebar-nav ul.level0 li ul li ul li ul li a {
-  padding-left: 80px;
-  font-size: 13px;
-  line-height: 24px;
+  padding-left: 75px;
+/*  font-size: 13px;
+  line-height: 24px;*/
 }
 
 #category-sidebar-nav ul.level0 li ul li a.icon-arrow-point-to-right  {
