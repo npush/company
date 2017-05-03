@@ -42,11 +42,11 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
         $addressModel->setCountryId(Mage::helper('core')->getDefaultCountry($company->getStore()));
         /** @var $addressForm Mage_Customer_Model_Form */
         $addressForm = Mage::getModel('company/form');
-        $addressForm->setFormCode('company_address')
-            ->setEntity($addressModel)
-            ->initDefaultValues();
+        $addressForm->setFormCode('adminhtml_company_address')
+            ->setEntity($addressModel);
+            //->initDefaultValues();
 
-        $attributes = $addressForm->getAttributes();
+        $attributes = $addressModel->getAttributes();
         if(isset($attributes['street'])) {
             Mage::helper('adminhtml/addresses')
                 ->processStreetAttribute($attributes['street']);
@@ -75,21 +75,21 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
             $country->addClass('countries');
         }
 
-        if ($this->isReadonly()) {
+        /*if ($this->isReadonly()) {
             foreach ($addressModel->getAttributes() as $attribute) {
                 $element = $form->getElement($attribute->getAttributeCode());
                 if ($element) {
                     $element->setReadonly(true, true);
                 }
             }
-        }
+        }*/
 
-        $customerStoreId = null;
+        /*$customerStoreId = null;
         if ($customer->getId()) {
             $customerStoreId = Mage::app()->getWebsite($customer->getWebsiteId())->getDefaultStore()->getId();
-        }
+        }*/
 
-        $prefixElement = $form->getElement('prefix');
+        /*$prefixElement = $form->getElement('prefix');
         if ($prefixElement) {
             $prefixOptions = $this->helper('customer')->getNamePrefixOptions($customerStoreId);
             if (!empty($prefixOptions)) {
@@ -101,9 +101,9 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
                 );
                 $prefixField->setValues($prefixOptions);
             }
-        }
+        }*/
 
-        $suffixElement = $form->getElement('suffix');
+        /*$suffixElement = $form->getElement('suffix');
         if ($suffixElement) {
             $suffixOptions = $this->helper('customer')->getNameSuffixOptions($customerStoreId);
             if (!empty($suffixOptions)) {
@@ -115,10 +115,10 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
                 );
                 $suffixField->setValues($suffixOptions);
             }
-        }
+        }*/
 
-        $addressCollection = $customer->getAddresses();
-        $this->assign('customer', $customer);
+        $addressCollection = $company->getAddress();
+        $this->assign('company', $company);
         $this->assign('addressCollection', $addressCollection);
         $form->setValues($addressModel->getData());
         $this->setForm($form);
