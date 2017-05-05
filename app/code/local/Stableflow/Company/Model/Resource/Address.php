@@ -18,6 +18,10 @@ class Stableflow_Company_Model_Resource_Address extends Mage_Eav_Model_Entity_Ab
         );
     }
 
+    public function getMainTable(){
+        return $this->getEntityTable();
+    }
+
     protected function _getDefaultAttributes(){
         return array(
             'entity_id',
@@ -27,7 +31,32 @@ class Stableflow_Company_Model_Resource_Address extends Mage_Eav_Model_Entity_Ab
             'updated_at',
             'increment_id',
             'store_id',
-            'is_active'
+            'is_active',
+            'parent_id'
         );
+    }
+
+    protected function _updateAttribute($object, $attribute, $valueId, $value){
+        $table = $attribute->getBackend()->getTable();
+        if(!isset($this->_attributeValuesToSave[$table])){
+            $this->_attributeValuesToSave[$table] = array();
+        }
+
+        $entityIdField = $attribute->getBackend()->getEntityIdField();
+
+        $data = array(
+            'entity_type_id'    => $object->getEntityTypeId(),
+            $entityIdField      => $object->getId(),
+            'attribute_id'      => $attribute->getId(),
+            'value'             => $this->_prepareValueForSave($value, $attribute)
+        );
+
+        if($valueId){
+            $data['value_id'] = $valueId;
+        }
+
+        $this->_attributeValuesToSave[$table][] = $data;
+
+        return $this;
     }
 }

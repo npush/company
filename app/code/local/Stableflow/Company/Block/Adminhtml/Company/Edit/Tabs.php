@@ -19,7 +19,6 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
 
     protected function _prepareLayout()
     {
-        $company = $this->getCompany();
         $entity = Mage::getModel('eav/entity_type')
             ->load('company_company', 'entity_type_code');
         $attributes = Mage::getResourceModel('eav/entity_attribute_collection')

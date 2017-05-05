@@ -13,29 +13,88 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
         $this->setTemplate('company/tab/addresses.phtml');
     }
 
+    protected function _prepareLayout()
+    {
+        $this->setChild('delete_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData(array(
+                    'label'  => Mage::helper('customer')->__('Delete Address'),
+                    'name'   => 'delete_address',
+                    'element_name' => 'delete_address',
+                    'disabled' => $this->isReadonly(),
+                    'class'  => 'delete' . ($this->isReadonly() ? ' disabled' : '')
+                ))
+        );
+        $this->setChild('add_address_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData(array(
+                    'label'  => Mage::helper('customer')->__('Add New Address'),
+                    'id'     => 'add_address_button',
+                    'name'   => 'add_address_button',
+                    'element_name' => 'add_address_button',
+                    'disabled' => $this->isReadonly(),
+                    'class'  => 'add'  . ($this->isReadonly() ? ' disabled' : ''),
+                    'onclick'=> 'customerAddresses.addNewAddress()'
+                ))
+        );
+        $this->setChild('cancel_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData(array(
+                    'label'  => Mage::helper('customer')->__('Cancel'),
+                    'id'     => 'cancel_add_address'.$this->getTemplatePrefix(),
+                    'name'   => 'cancel_address',
+                    'element_name' => 'cancel_address',
+                    'class'  => 'cancel delete-address'  . ($this->isReadonly() ? ' disabled' : ''),
+                    'disabled' => $this->isReadonly(),
+                    'onclick'=> 'customerAddresses.cancelAdd(this)',
+                ))
+        );
+        return parent::_prepareLayout();
+    }
+
+    public function getDeleteButtonHtml()
+    {
+        return $this->getChildHtml('delete_button');
+    }
+
+    public function getCancelButtonHtml()
+    {
+        return $this->getChildHtml('cancel_button');
+    }
+
+    public function getAddNewButtonHtml()
+    {
+        return $this->getChildHtml('add_address_button');
+    }
+
+    public function getTemplatePrefix()
+    {
+        return '_template_';
+    }
+
     /**
      * Check block is readonly.
      *
      * @return boolean
      */
     public function isReadonly(){
-        $customer = Mage::registry('current_customer');
-        return $customer->isReadonly();
+        $company = Mage::registry('current_company');
+        return false;//$company->isReadonly();
     }
 
     /**
      * Initialize form object
      *
-     * @return Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses
+     * @return Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address
      */
     public function initForm()
     {
-        /* @var $customer Mage_Customer_Model_Customer */
+        /* @var $customer Stableflow_Company_Model_Company */
         $company = Mage::registry('current_company');
 
         $form = new Varien_Data_Form();
         $fieldset = $form->addFieldset('address_fieldset', array(
-                'legend'    => Mage::helper('customer')->__("Edit Company's Address"))
+                'legend'    => Mage::helper('company')->__("Edit Company's Address"))
         );
 
         $addressModel = Mage::getModel('company/address');
@@ -47,10 +106,10 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
             //->initDefaultValues();
 
         $attributes = $addressModel->getAttributes();
-        if(isset($attributes['street'])) {
+        /*if(isset($attributes['street'])) {
             Mage::helper('adminhtml/addresses')
                 ->processStreetAttribute($attributes['street']);
-        }
+        }*/
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
             $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
@@ -75,14 +134,14 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
             $country->addClass('countries');
         }
 
-        /*if ($this->isReadonly()) {
+        if ($this->isReadonly()) {
             foreach ($addressModel->getAttributes() as $attribute) {
                 $element = $form->getElement($attribute->getAttributeCode());
                 if ($element) {
                     $element->setReadonly(true, true);
                 }
             }
-        }*/
+        }
 
         /*$customerStoreId = null;
         if ($customer->getId()) {
@@ -117,13 +176,18 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
             }
         }*/
 
-        $addressCollection = $company->getAddress();
+        $addressCollection = $company->getAddresses();
         $this->assign('company', $company);
         $this->assign('addressCollection', $addressCollection);
         $form->setValues($addressModel->getData());
         $this->setForm($form);
 
         return $this;
+    }
+
+    public function getRegionsUrl()
+    {
+        return $this->getUrl('*/json/countryRegion');
     }
 
     /**

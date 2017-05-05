@@ -156,4 +156,62 @@ class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Ab
 
         return $this;
     }
+
+    /**
+     * Save company addresses and set default addresses in attributes backend
+     *
+     * @param Varien_Object $company
+     * @return Mage_Eav_Model_Entity_Abstract
+     */
+    protected function _afterSave(Varien_Object $company)
+    {
+        $this->_saveAddresses($company);
+        return parent::_afterSave($company);
+    }
+
+    /**
+     * Save/delete company address
+     *
+     * @param Stableflow_Company_Model_Company $company
+     * @return Stableflow_Company_Model_Resource_Company
+     */
+    protected function _saveAddresses(Stableflow_Company_Model_Company $company)
+    {
+        $defaultBillingId   = $company->getData('default_billing');
+        $defaultShippingId  = $company->getData('default_shipping');
+        foreach ($company->getAddresses() as $address) {
+            if ($address->getData('_deleted')) {
+                if ($address->getId() == $defaultBillingId) {
+                    $company->setData('default_billing', null);
+                }
+                if ($address->getId() == $defaultShippingId) {
+                    $company->setData('default_shipping', null);
+                }
+                $address->delete();
+            } else {
+                $address->setParentId($company->getId())
+                    ->setStoreId($company->getStoreId())
+                    ->setIsCustomerSaveTransaction(true)
+                    ->save();
+                if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling())
+                    && $address->getId() != $defaultBillingId
+                ) {
+                    $company->setData('default_billing', $address->getId());
+                }
+                if (($address->getIsPrimaryShipping() || $address->getIsDefaultShipping())
+                    && $address->getId() != $defaultShippingId
+                ) {
+                    $company->setData('default_shipping', $address->getId());
+                }
+            }
+        }
+        if ($company->dataHasChangedFor('default_billing')) {
+            $this->saveAttribute($company, 'default_billing');
+        }
+        if ($company->dataHasChangedFor('default_shipping')) {
+            $this->saveAttribute($company, 'default_shipping');
+        }
+
+        return $this;
+    }
 }
