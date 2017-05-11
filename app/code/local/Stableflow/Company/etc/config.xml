@@ -97,6 +97,10 @@
                     <company_activity>
                         <table>company_activity</table>
                     </company_activity>
+
+                    <company_owner>
+                        <table>company_to_owner</table>
+                    </company_owner>
                 </entities>
             </company_resource>
         </models>
