@@ -19,12 +19,12 @@ $installer->startSetup();
     'comment' => 'Is WYSIWYG Enabled'
 ));*/
 
-$installer->getConnection()->addColumn($installer->getTable('company/address_entity'), 'parent_id', array(
+/*$installer->getConnection()->addColumn($installer->getTable('company/address_entity'), 'parent_id', array(
     'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
     'unsigned' => true,
     'nullable' => false,
     'comment' => 'Parent Id'
-));
+));*/
 
 $installer->addForeignKey(
     $installer->getFkName('customer/entity', 'entity_id', 'company/address_entity','parent_id'),
