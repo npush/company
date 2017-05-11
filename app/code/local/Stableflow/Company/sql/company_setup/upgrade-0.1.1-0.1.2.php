@@ -27,7 +27,7 @@ $installer->getConnection()->addColumn($installer->getTable('company/address_ent
 ));
 
 $installer->addForeignKey(
-    $installer->getFkName('customer/customer', 'entity_id', 'company/address_entity','parent_id'),
+    $installer->getFkName('customer/entity', 'entity_id', 'company/address_entity','parent_id'),
     'entity_id',
     $installer->getTable('company/address_entity'),
     'parent_id',
