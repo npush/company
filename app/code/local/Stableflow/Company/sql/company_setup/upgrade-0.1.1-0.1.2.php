@@ -24,7 +24,7 @@ $installer->startSetup();
     'unsigned' => true,
     'nullable' => false,
     'comment' => 'Parent Id'
-));*/
+));
 
 $installer->addForeignKey(
     $installer->getFkName('customer/entity', 'entity_id', 'company/address_entity','parent_id'),
@@ -34,7 +34,7 @@ $installer->addForeignKey(
     Varien_Db_Ddl_Table::ACTION_CASCADE,
     Varien_Db_Ddl_Table::ACTION_CASCADE
 );
-
+*/
 $table = $installer->getConnection()
     ->newTable($installer->getTable('company/company_owner'))
     ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
