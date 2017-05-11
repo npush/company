@@ -5998,5 +5998,27 @@ li.level0.active > ul:after {
 /* AND page error */
 
 /* banner slider */
+.banner-slider {
+  margin:-25px 20px 0 20px;
+}
 
+.banner-slider .box_skitter_large {
+    height: auto !important;
+}
+
+.banner-slider .box_skitter .info_slide_dots .image_number {
+    width: 12px;
+    height: 12px;
+}
+.banner-slider .info_slide_dots {
+  left: 5%;
+  bottom: 30px;
+}
+
+.banner-slider .image_number {
+  background-color: #cccccc !important;
+}
+.banner-slider .image_number.image_number_select, .banner-slider .image_number:hover {
+  background-color: #fdbb09 !important;
+}
 /* AND banner slider */
