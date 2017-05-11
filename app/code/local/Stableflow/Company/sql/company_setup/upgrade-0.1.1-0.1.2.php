@@ -11,13 +11,13 @@
 $installer = $this;
 $installer->startSetup();
 
-/*$installer->getConnection()->addColumn($installer->getTable('company/eav_attribute'), 'is_wysiwyg_enabled', array(
+$installer->getConnection()->addColumn($installer->getTable('company/eav_attribute'), 'is_wysiwyg_enabled', array(
     'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
     'unsigned' => true,
     'nullable' => false,
     'default' => '0',
     'comment' => 'Is WYSIWYG Enabled'
-));*/
+));
 
 $installer->getConnection()->addColumn($installer->getTable('company/address_entity'), 'parent_id', array(
     'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
