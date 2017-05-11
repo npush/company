@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Stableflow_Company>
-            <version>0.1.1</version>
+            <version>0.1.2</version>
         </Stableflow_Company>
     </modules>
     <global>
@@ -97,6 +97,10 @@
                     <company_activity>
                         <table>company_activity</table>
                     </company_activity>
+
+                    <company_owner>
+                        <table>company_to_owner</table>
+                    </company_owner>
                 </entities>
             </company_resource>
         </models>
