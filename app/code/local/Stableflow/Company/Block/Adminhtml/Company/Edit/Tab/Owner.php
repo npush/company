@@ -8,17 +8,13 @@
  */
 class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Owner extends Mage_Adminhtml_Block_Widget_Grid{
 
-    /*public function __construct(){
-        parent::__construct();
-        $this->setTemplate('company/tab/owner.phtml');
-    }*/
-
     public function __construct()
     {
         parent::__construct();
         $this->setId('company_owners_grid');
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
+        //$this->setTemplate('company/tab/owner.phtml');
     }
 
     public function getCompany()

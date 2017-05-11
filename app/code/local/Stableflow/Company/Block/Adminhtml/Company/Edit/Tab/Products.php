@@ -7,7 +7,7 @@
  * Time: 5:13 PM
  */
 
-class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_Adminhtml_Block_Widget_Form{
+class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_Adminhtml_Block_Widget_Grid{
 
     /**
      * 
@@ -15,7 +15,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
     public function __construct(){
         parent::__construct();
 
-        $this->setId('catalog_category_products');
+        $this->setId('company_products_grid');
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
         //$this->setTemplate('company/tab/products.phtml');
@@ -70,23 +70,23 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
 
     protected function _prepareCollection()
     {
-        if ($this->getCategory()->getId()) {
+        if ($this->getCompany()->getId()) {
             $this->setDefaultFilter(array('in_category'=>1));
         }
-        $collection = Mage::getModel('catalog/product')->getCollection()
+        $collection = Mage::getModel('company/product')->getCollection()
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('sku')
             ->addAttributeToSelect('price')
-            ->addStoreFilter($this->getRequest()->getParam('store'))
-            ->joinField('position',
+            //->addStoreFilter($this->getRequest()->getParam('store'))
+            /*->joinField('position',
                 'catalog/category_product',
                 'position',
                 'product_id=entity_id',
                 'category_id='.(int) $this->getRequest()->getParam('id', 0),
-                'left');
+                'left')*/;
         $this->setCollection($collection);
 
-        if ($this->getCategory()->getProductsReadonly()) {
+        if ($this->getCompany()->getProductsReadonly()) {
             $productIds = $this->_getSelectedProducts();
             if (empty($productIds)) {
                 $productIds = 0;
@@ -99,7 +99,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
 
     protected function _prepareColumns()
     {
-        if (!$this->getCategory()->getProductsReadonly()) {
+        if (!$this->getCompany()->getIsReadonly()) {
             $this->addColumn('in_category', array(
                 'header_css_class' => 'a-center',
                 'type'      => 'checkbox',
@@ -131,14 +131,6 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
             'index'     => 'price'
         ));
-        $this->addColumn('position', array(
-            'header'    => Mage::helper('catalog')->__('Position'),
-            'width'     => '1',
-            'type'      => 'number',
-            'index'     => 'position',
-            'editable'  => !$this->getCategory()->getProductsReadonly()
-            //'renderer'  => 'adminhtml/widget_grid_column_renderer_input'
-        ));
 
         return parent::_prepareColumns();
     }
@@ -152,7 +144,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
     {
         $products = $this->getRequest()->getPost('selected_products');
         if (is_null($products)) {
-            $products = $this->getCategory()->getProductsPosition();
+            $products = $this->getCompany()->getProductsPosition();
             return array_keys($products);
         }
         return $products;
