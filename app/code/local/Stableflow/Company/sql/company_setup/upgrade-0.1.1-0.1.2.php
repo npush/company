@@ -19,7 +19,7 @@ $installer->startSetup();
     'comment' => 'Is WYSIWYG Enabled'
 ));*/
 
-/*$installer->getConnection()->addColumn($installer->getTable('company/address_entity'), 'parent_id', array(
+$installer->getConnection()->addColumn($installer->getTable('company/address_entity'), 'parent_id', array(
     'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
     'unsigned' => true,
     'nullable' => false,
@@ -34,7 +34,7 @@ $installer->addForeignKey(
     Varien_Db_Ddl_Table::ACTION_CASCADE,
     Varien_Db_Ddl_Table::ACTION_CASCADE
 );
-*/
+
 $table = $installer->getConnection()
     ->newTable($installer->getTable('company/company_owner'))
     ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
