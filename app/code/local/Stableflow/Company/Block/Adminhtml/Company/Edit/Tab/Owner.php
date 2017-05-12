@@ -50,15 +50,15 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Owner extends Mage_Adm
         }
         $collection = Mage::getModel('catalog/product')->getCollection()
             ->addAttributeToSelect('name')
-            ->addAttributeToSelect('sku')
-            ->addAttributeToSelect('price')
+            ->addAttributeToSelect('email')
+            /*->addAttributeToSelect('price')
             ->addStoreFilter($this->getRequest()->getParam('store'))
             ->joinField('position',
                 'catalog/category_product',
                 'position',
                 'product_id=entity_id',
                 'category_id='.(int) $this->getRequest()->getParam('id', 0),
-                'left');
+                'left')*/;
         $this->setCollection($collection);
 
         if ($this->getCompany()->getIsReadonly()) {
@@ -85,19 +85,20 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Owner extends Mage_Adm
             ));
         }
         $this->addColumn('entity_id', array(
-            'header'    => Mage::helper('catalog')->__('ID'),
+            'header'    => Mage::helper('company')->__('ID'),
             'sortable'  => true,
             'width'     => '60',
             'index'     => 'entity_id'
         ));
         $this->addColumn('name', array(
-            'header'    => Mage::helper('catalog')->__('Name'),
+            'header'    => Mage::helper('company')->__('Name'),
+            'width'     => '160',
             'index'     => 'name'
         ));
         $this->addColumn('sku', array(
-            'header'    => Mage::helper('catalog')->__('Email'),
-            'width'     => '80',
-            'index'     => 'sku'
+            'header'    => Mage::helper('company')->__('Email'),
+            'width'     => '160',
+            'index'     => 'email'
         ));
         return parent::_prepareColumns();
     }
