@@ -52,11 +52,40 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
     protected $_addresses = null;
 
     /**
-     * Customer addresses collection
+     * Company addresses collection
      *
      * @var Stableflow_Company_Model_Entity_Address_Collection
      */
     protected $_addressesCollection;
+
+    /**
+     * Company owners array
+     *
+     * @var array
+     */
+    protected $_owners = null;
+
+    /**
+     * Company owners collection
+     *
+     * @var Stableflow_Company_Model_Resource_Owner_Collection
+     */
+    protected $_ownersCollection;
+
+    /**
+     * Company products array
+     *
+     * @var array
+     */
+    protected $_products = null;
+
+    /**
+     * Company products collection
+     *
+     * @var Stableflow_Company_Model_Entity_Product_Collection
+     */
+    protected $_productsCollection;
+
 
     /**
      * Is model deleteable
@@ -80,38 +109,35 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
     protected $_cacheTag = self::CACHE_TAG;
 
     /**
+     * Name of object id field
+     *
+     * @var string
+     */
+    protected $_idFieldName = 'entity_id';
+
+    /**
      * Initialize company model
      */
     protected function _construct(){
         $this->_init('company/company');
     }
 
-    public function getId(){
-        return $this->getData('entity_id');
-    }
-
     public function getCompanyList(){
         return $this->getResource()->getCollection();
     }
 
-    public function getCompanyProducts(){
-        $companyId = $this->getCompanyId();
-    }
-
-    public function getCompanyProductById(){
-
-    }
-
+    /**
+     * TODO Remove this!!
+     * Retrieve company address array
+     *
+     * @return array
+     */
     public function getAddress(){
         $address = Mage::getModel('company/address')
             ->getCollection()
             ->addAttributeToSelect('*')
             ->addAttributeToFilter('entity_id', $this->getData('address_id'));
         return $address;
-    }
-
-    public function getCompanyId(){
-        return $this->getId();
     }
 
     /**
@@ -248,6 +274,55 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
             }
         }
         return $addresses;
+    }
+
+    /**
+     * Retrieve company owner`s
+     *
+     * @return array
+     */
+    public function getOwners(){
+
+    }
+
+    /**
+     * Retrieve primary owner
+     *
+     * @return Stableflow_Company_Model_Owner
+     */
+    public function getPrimaryOwner(){
+
+    }
+
+    public function getOwnersCollection(){
+        return Mage::getModel('company/owner_collection');
+    }
+
+    /**
+     * Add owner to owners collection
+     *
+     * @param   Stableflow_Company_Model_Owner $owner
+     * @return  Stableflow_Company_Model_Company
+     */
+    public function addOwner(Stableflow_Company_Model_Owner $owner)
+    {
+        $this->getOwnersCollection()->addItem($owner);
+        $this->getOwners();
+        $this->_owners[] = $owner;
+        return $this;
+    }
+
+    /**
+     * Retrieve company products`s
+     *
+     * @return array
+     */
+    public function getProducts(){
+
+    }
+
+    public function getProductsCollection(){
+        return Mage::getModel('company/product_collection');
     }
 
     /**
