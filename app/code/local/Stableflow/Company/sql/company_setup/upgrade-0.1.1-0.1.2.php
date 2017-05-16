@@ -19,21 +19,23 @@ $installer->getConnection()->addColumn($installer->getTable('company/eav_attribu
     'comment' => 'Is WYSIWYG Enabled'
 ));
 
-$installer->getConnection()->addColumn($installer->getTable('company/address_entity'), 'parent_id', array(
+$installer->getConnection()
+    ->addColumn($installer->getTable('company/address_entity'), 'parent_id', array(
     'type' => Varien_Db_Ddl_Table::TYPE_INTEGER,
     'unsigned' => true,
     'nullable' => false,
-    'comment' => 'Parent Id'
-));
+    'comment' => 'Parent Id')
+    );
+$installer->getConnection()
+    ->addConstraint($installer->getFkName('company/address_entity','parent_id','customer/entity', 'entity_id'),
+        $installer->getTable('company/address_entity'),
+        'parent_id',
+        $installer->getTable('customer/entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
+        Varien_Db_Ddl_Table::ACTION_CASCADE
+    );
 
-$installer->addForeignKey(
-    $installer->getFkName('customer/entity', 'entity_id', 'company/address_entity','parent_id'),
-    'entity_id',
-    $installer->getTable('company/address_entity'),
-    'parent_id',
-    Varien_Db_Ddl_Table::ACTION_CASCADE,
-    Varien_Db_Ddl_Table::ACTION_CASCADE
-);
 
 $table = $installer->getConnection()
     ->newTable($installer->getTable('company/company_owner'))
@@ -63,13 +65,16 @@ $table = $installer->getConnection()
         'nullable'  => false,
     ), 'Updated At')
     ->addForeignKey($installer->getFkName('company/company_owner', 'company_id', 'company/company_entity', 'entity_id'),
-        'company_id', $installer->getTable('company/company_entity'), 'entity_id',
+        'company_id',
+        $installer->getTable('company/company_entity'),
+        'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->setComment('Company Id')
+    ->setComment('Company Owner table')
     ->addForeignKey($installer->getFkName('company/company_owner', 'costumer_id', 'customer/entity', 'entity_id'),
-        'costumer_id', $installer->getTable('customer/entity'), 'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
-    ->setComment('Customer Id');
+        'costumer_id',
+        $installer->getTable('customer/entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE);
 $installer->getConnection()->createTable($table);
 
 
