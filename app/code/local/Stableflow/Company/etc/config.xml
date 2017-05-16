@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Stableflow_Company>
-            <version>0.1.2</version>
+            <version>0.1.3</version>
         </Stableflow_Company>
     </modules>
     <global>
@@ -191,6 +191,17 @@
         </translate>
     </frontend>
     <adminhtml>
+        <events>
+            <customer_save_after>
+                <observers>
+                    <update_relation_table>
+                        <type>singleton</type>
+                        <class>company/observer</class>
+                        <method>updateOwner</method>
+                    </update_relation_table>
+                </observers>
+            </customer_save_after>
+        </events>
         <layout>
             <updates>
                 <company>
