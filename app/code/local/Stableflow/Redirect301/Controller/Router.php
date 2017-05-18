@@ -44,6 +44,8 @@ class Stableflow_Redirect301_Controller_Router extends Mage_Core_Controller_Vari
 
         $path = trim($request->getPathInfo(), '/');
 
+        $returnStatus = false;
+
         if ($path) {
             $p = explode('/', $path);
         } else {
@@ -52,14 +54,21 @@ class Stableflow_Redirect301_Controller_Router extends Mage_Core_Controller_Vari
 
         if($p[0] == 'product'  && is_numeric($p[1])){
             $paramName = 'old_product_id';
+            $returnStatus = true;
         }
 
         if($p[0] == 'catalog' && is_numeric($p[1])){
             $paramName = 'old_catalog_id';
+            $returnStatus = true;
         }
 
         if($p[0] == 'productType' && is_numeric($p[1])){
             $paramName = 'old_product_type_id';
+            $returnStatus = true;
+        }
+
+        if(!$returnStatus){
+            return $returnStatus;
         }
 
         $realModule = 'Stableflow_Redirect301';
