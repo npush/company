@@ -38,21 +38,21 @@ class Stableflow_Redirect301_IndexController extends Mage_Core_Controller_Front_
             $rewrite = Mage::getModel('core/url_rewrite')
                 ->getResource()
                 ->getRequestPathByIdPath("product/$data", Mage::app()->getStore()->getId());
-            $this->getResponse()->setRedirect(Mage::getUrl($rewrite), 301)->sendResponse();
+            $this->getResponse()->setRedirect(Mage::getBaseUrl() . $rewrite, 301)->sendResponse();
             return;
         }
         if($old_id = Mage::app()->getRequest()->getParam('old_catalog_id')){
             $rewrite = Mage::getModel('core/url_rewrite')
                 ->getResource()
                 ->getRequestPathByIdPath("category/$old_id", Mage::app()->getStore()->getId());
-            $this->getResponse()->setRedirect(Mage::getUrl($rewrite), 301)->sendResponse();
+            $this->getResponse()->setRedirect(Mage::getBaseUrl() . $rewrite, 301)->sendResponse();
             return;
         }
         if($old_id = Mage::app()->getRequest()->getParam('old_product_type_id')){
             $rewrite = Mage::getModel('core/url_rewrite')
                 ->getResource()
                 ->getRequestPathByIdPath("category/1$old_id", Mage::app()->getStore()->getId());
-            $this->getResponse()->setRedirect(Mage::getUrl($rewrite), 301)->sendResponse();
+            $this->getResponse()->setRedirect(Mage::getBaseUrl() . $rewrite, 301)->sendResponse();
             return;
         }
         $this->_redirect('/');
