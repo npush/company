@@ -57,17 +57,6 @@
             </controller_front_init_routers>
         </events>-->
     </global>
-    <frontend>
-        <routers>
-            <redirect301>
-                <use>standard</use>
-                <args>
-                    <module>Stableflow_Redirect301</module>
-                    <frontName>redirect</frontName>
-                </args>
-            </redirect301>
-        </routers>
-    </frontend>
     <default>
         <web>
             <routers>
