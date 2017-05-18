@@ -22,24 +22,24 @@ class Stableflow_Redirect301_IndexController extends Mage_Core_Controller_Front_
      * Redirect from old url
      */
     public function redirectAction(){
+        $url = null;
         if($old_id = Mage::app()->getRequest()->getParam('old_product_id')) {
             $id = Mage::getResourceModel('redirect301/redirect')->getRedirect($old_id);
             $url = Mage::helper('redirect301')->getRedirectUrl('product', $id);
-            $this->getResponse()->setRedirect(Mage::getBaseUrl() . $url, 301)->sendResponse();
-            return;
         }
         if($old_id = Mage::app()->getRequest()->getParam('old_catalog_id')){
             $url = Mage::helper('redirect301')->getRedirectUrl('category', $old_id);
-            $this->getResponse()->setRedirect(Mage::getBaseUrl() . $url, 301)->sendResponse();
-            return;
         }
         if($old_id = Mage::app()->getRequest()->getParam('old_product_type_id')){
-            // add 1 to old id
+            // add 1 to productType_id
             $id = '1'.$old_id;
             $url = Mage::helper('redirect301')->getRedirectUrl('category', $id);
+        }
+        if($url){
             $this->getResponse()->setRedirect(Mage::getBaseUrl() . $url, 301)->sendResponse();
             return;
+        }else {
+            $this->_redirect('/');
         }
-        $this->_redirect('/');
     }
 }

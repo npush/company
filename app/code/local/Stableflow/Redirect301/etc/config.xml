@@ -46,16 +46,6 @@
                 <class>Stableflow_Redirect301_Helper</class>
             </redirect301>
         </helpers>
-<!--        <events>
-            <controller_front_init_routers>
-                <observers>
-                    <company>
-                        <class>Stableflow_Redirect301_Controller_Router</class>
-                        <method>initControllerRouters</method>
-                    </company>
-                </observers>
-            </controller_front_init_routers>
-        </events>-->
     </global>
     <default>
         <web>

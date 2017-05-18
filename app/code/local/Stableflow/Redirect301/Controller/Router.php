@@ -10,19 +10,6 @@ class Stableflow_Redirect301_Controller_Router extends Mage_Core_Controller_Vari
 {
 
     /**
-     * init routes
-     *
-     * @access public
-     * @param Varien_Event_Observer $observer
-     * @return Stableflow_Redirect301_Controller_Router
-     */
-    public function initControllerRouters($observer){
-        $front = $observer->getEvent()->getFront();
-        $front->addRouter('redirect301', $this);
-        return $this;
-    }
-
-    /**
      * Validate and match entities and modify request
      *
      * @access public
