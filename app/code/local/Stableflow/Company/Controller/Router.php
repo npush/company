@@ -14,7 +14,7 @@ class Stableflow_Company_Controller_Router extends Mage_Core_Controller_Varien_R
      *
      * @access public
      * @param Varien_Event_Observer $observer
-     * @return Mageplaza_BetterBlog_Controller_Router
+     * @return Stableflow_Company_Controller_Router
      */
     public function initControllerRouters($observer){
         $front = $observer->getEvent()->getFront();

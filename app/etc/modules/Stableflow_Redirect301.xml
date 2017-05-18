@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Stableflow_Redirect301>
+            <codePool>local</codePool>
+            <active>true</active>
+        </Stableflow_Redirect301>
+    </modules>
+</config>
