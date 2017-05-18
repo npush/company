@@ -71,7 +71,7 @@ jQuery(document).ready(function() {
 							<a <?php if(!empty($image['link'])): ?> href="<?php echo $image['link'];?>"<?php else:?> href="#" <?php endif;?> >
 								<img src="<?php echo $this->helper('bannernext')->resizeImg($image['file'],$width,$height);?>" <?php if(!empty($image['label'])): ?> alt="<?php echo $image['label'];?>"<?php endif?>/>
 							</a>
-							<?php if(strpos($image['html'], '<!--') === false && !empty($image['html'])): ?>
+							<?php if(!empty($image['html']) && strpos($image['html'], '<!--') === false): ?>
 								<div class="label_text">
 									<p><?php echo $image['html']?></p>
 								</div>
