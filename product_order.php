@@ -50,9 +50,14 @@ $query = 'SELECT `value_id`,  `value` FROM ' . $productTable . ' WHERE value LIK
 $data = $readConnection->fetchPairs($query);
 foreach($data as $value_id => $value){
     $result = str_replace(array_keys($repaceValues), $repaceValues, $value);
-    if($result != $value){
-        $witeQuery = 'UPDATE ' . $productTable . ' SET `value` = "' . $result . '" WHERE value_id = '. $value_id;
-        $writeConnection->query($witeQuery);
-        $result = null;
+    try{
+        if($result != $value){
+            $witeQuery = 'UPDATE ' . $productTable . ' SET `value` = \'' . $result . '\' WHERE value_id = '. $value_id;
+            $writeConnection->query($witeQuery);
+            $result = null;
+        }
+    }catch (Exception $e){
+        Mage::log($e, null, 'fix.log');
     }
+
 }
