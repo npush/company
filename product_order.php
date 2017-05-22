@@ -34,8 +34,8 @@ $repaceValues = array(
     '°C'            => '&deg;C',
     '°С'            => '&deg;C',        // Russian "C"
     '&sup2.'        => '&sup2;.',
-    '&sup2 '        => '&sup2;.',
-    '&sup2)'        => '&sup2;.',
+    '&sup2 '        => '&sup2; ',
+    '&sup2)'        => '&sup2;)',
 );
 
 /** @var  $resource Mage_Core_Model_Resource*/
