@@ -40,6 +40,13 @@ $repaceValues = array(
     '&amp;sup2,'    => '&sup2;,',
     '&amp;sup2 '    => '&sup2; ',
     '&amp;sup2)'    => '&sup2;)',
+    '&sup3.'        => '&sup3;.',
+    '&sup3 '        => '&sup3; ',
+    '&sup3)'        => '&sup3;)',
+    '&amp;sup3.'    => '&sup3;.',
+    '&amp;sup3,'    => '&sup3;,',
+    '&amp;sup3 '    => '&sup3; ',
+    '&amp;sup3)'    => '&sup3;)',
 );
 
 /** @var  $resource Mage_Core_Model_Resource*/
