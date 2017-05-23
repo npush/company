@@ -36,7 +36,8 @@ $repaceValues = array(
     '&sup2.'        => '&sup2;.',
     '&sup2 '        => '&sup2; ',
     '&sup2)'        => '&sup2;)',
-    '&amp;sup2.'    => '&sup2;)',
+    '&amp;sup2.'    => '&sup2;.',
+    '&amp;sup2,'    => '&sup2;,',
     '&amp;sup2 '    => '&sup2; ',
     '&amp;sup2)'    => '&sup2;)',
 );
