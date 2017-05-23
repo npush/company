@@ -36,6 +36,9 @@ $repaceValues = array(
     '&sup2.'        => '&sup2;.',
     '&sup2 '        => '&sup2; ',
     '&sup2)'        => '&sup2;)',
+    '&amp;sup2.'    => '&sup2;)',
+    '&amp;sup2 '    => '&sup2; ',
+    '&amp;sup2)'    => '&sup2;)',
 );
 
 /** @var  $resource Mage_Core_Model_Resource*/
@@ -47,7 +50,7 @@ $writeConnection = $resource->getConnection('core_write');
 
 $productTable = 'catalog_product_entity_text';
 
-$query = 'SELECT `value_id`,  `value` FROM ' . $productTable . ' WHERE value LIKE "%deg%" OR value LIKE "%&sup2%" OR value LIKE "°С"' ;
+$query = 'SELECT `value_id`,  `value` FROM ' . $productTable . ' WHERE value LIKE "%deg%" OR value LIKE "%&sup2%" OR value LIKE "%°С%"' ;
 $data = $readConnection->fetchPairs($query);
 foreach($data as $value_id => $value){
     $result = str_replace(array_keys($repaceValues), $repaceValues, $value);
