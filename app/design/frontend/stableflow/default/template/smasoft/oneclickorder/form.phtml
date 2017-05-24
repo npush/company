@@ -90,7 +90,7 @@ $action = $this->getAction()->getFullActionName();
             }
         },
         saveOrder:function () {
-            if(agreementsForm.validator && agreementsForm.validator.validate()){
+            if(agreementsForm.validator && !agreementsForm.validator.validate()){
                     $('#one_click_order').hide();
                 }
 
