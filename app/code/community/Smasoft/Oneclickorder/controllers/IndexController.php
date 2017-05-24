@@ -198,8 +198,12 @@ class Smasoft_Oneclickorder_IndexController extends Mage_Core_Controller_Front_A
         }
 
         $this->getOnepage()->getQuote()->setIsActive(0)->save();
-        if ($helper->isSendEmail()) {
-            Mage::helper('smasoft_oneclickorder/email')->sendOrderEmailToAdmin($order);
+        try{
+            if ($helper->isSendEmail()) {
+                Mage::helper('smasoft_oneclickorder/email')->sendOrderEmailToAdmin($order);
+            }
+        }catch(Exception $e){
+            Mage::log($e, null, 'oneClickOrder.error');
         }
 
         Mage::getSingleton('checkout/session')->setOneclickOrderId($order->getId());
