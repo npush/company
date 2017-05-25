@@ -49,10 +49,10 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => false,
     ), 'Company Id')
-    ->addColumn('costumer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+    ->addColumn('customer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
         'nullable'  => false,
-    ), 'Costumer Id')
+    ), 'Customer Id')
     ->addColumn('is_active', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'unsigned'  => true,
         'nullable'  => false,
@@ -71,7 +71,7 @@ $table = $installer->getConnection()
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Company Owner table')
     ->addForeignKey($installer->getFkName('company/company_owner', 'costumer_id', 'customer/entity', 'entity_id'),
-        'costumer_id',
+        'customer_id',
         $installer->getTable('customer/entity'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE);

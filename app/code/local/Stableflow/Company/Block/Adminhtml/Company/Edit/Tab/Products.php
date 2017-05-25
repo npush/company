@@ -27,7 +27,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
      * @return boolean
      */
     public function isReadonly(){
-        $customer = Mage::registry('current_customer');
+        $customer = Mage::registry('current_company');
         return $customer->isReadonly();
     }
 
@@ -71,9 +71,12 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
     protected function _prepareCollection()
     {
         if ($this->getCompany()->getId()) {
-            $this->setDefaultFilter(array('in_category'=>1));
+            /*$this->setDefaultFilter(array(
+                'in_category'   => 1
+            ));*/
         }
         $collection = Mage::getModel('company/product')->getCollection()
+            ->addCompanyFilter($this->getCompany())
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('sku')
             ->addAttributeToSelect('price')

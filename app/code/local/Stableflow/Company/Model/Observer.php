@@ -50,7 +50,8 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer{
     }
 
     public function updateOwner($event){
-        var_dump($event);die('save_customer');
+        $customer = $event->getCustomer();
+        Mage::getModel('company/owner')->addOwner($customer);
     }
 
 }

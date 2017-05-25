@@ -84,4 +84,27 @@ class Stableflow_Company_IndexController extends Mage_Core_Controller_Front_Acti
         $this->renderLayout();
     }
 
+    public function debugmoduleAction(){
+        echo 'hello';
+        $company = Mage::getModel('company/company')->load(23);
+        $products = Mage::getModel('company/product')->getProducts($company);
+        foreach ($products as $product) {
+            print_r($product);
+        }
+        die();
+        $owner = Mage::getModel('company/owner')->getOwnerById(3);
+        print_r($owner);
+        die();
+        $collection = Mage::getModel('company/owner')->getOwnersCollection();
+        foreach($collection as $obj){
+            print_r($obj);
+        }
+        die();
+
+        $company = Mage::getModel('company/company')->load(3);
+        $customer = Mage::getModel('customer/customer')->load(3);
+        $owner = Mage::getModel('company/owner')->addOwner($customer, $company);
+        var_dump($owner);
+    }
+
 }

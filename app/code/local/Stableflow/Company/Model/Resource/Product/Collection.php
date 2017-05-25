@@ -8,8 +8,33 @@
  */
 class Stableflow_Company_Model_Resource_Product_Collection extends Mage_Eav_Model_Entity_Collection_Abstract{
 
+    /**
+     * Relation table (catalog_product_entity to company_product_entity)
+     * @var string
+     */
+    protected $_relationTable = null;
 
-    protected function _construct(){
+    protected $_productIdArray = null;
+
+    protected function _construct()
+    {
         $this->_init('company/product');
+        $this->_relationTable = $this->getTable('company/company_product');
+    }
+
+    /**
+     * Return id`s
+     * @param $company
+     */
+
+    public function addCompanyFilter($company)
+    {
+        $adapter = $this->getConnection();
+        $select = $adapter->select()
+            ->from($this->_relationTable, 'company_product_id')
+            ->where('company_id = :company_id');
+        $this->_productIdArray = $adapter->fetchCol($select, array(':company_id' => $company->getId()));
+        $this->addFieldToFilter('entity_id', array('in' => $this->_productIdArray));
+        return $this;
     }
 }
