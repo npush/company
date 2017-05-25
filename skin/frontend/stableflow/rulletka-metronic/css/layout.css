@@ -2455,7 +2455,6 @@ input[type="checkbox"], input[type="radio"] {
    z-index:1;
 }
 
-
 .timeline-badge-userpic {
     bottom: 0;
     display: block;
@@ -2486,6 +2485,12 @@ input[type="checkbox"], input[type="radio"] {
 
 .product-body-title:first-letter {
     text-transform: uppercase;
+}
+
+.image-main-default {
+  min-height: 237px;
+  position: relative;
+  border: 1px solid #c2c2c2;
 }
 
 .link {
