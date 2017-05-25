@@ -2769,14 +2769,14 @@ input[type="checkbox"], input[type="radio"] {
     position: relative;
     vertical-align: top;
 }
-.stars-sm .radio-label::before  {
+.stars-rating.stars-sm .radio-label::before  {
     font-size: 13px;
 }
-.stars-sm .radio-label {
+.stars-rating.stars-sm .radio-label {
     padding: 7px 6px;
 }
 
-.stars-sm {
+.stars-rating.stars-sm {
   margin: 10px 0 5px;
 }
 
