@@ -46,12 +46,14 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Owner extends Mage_Adm
     protected function _prepareCollection()
     {
         if ($this->getCompany()->getId()) {
-            $this->setDefaultFilter(array('in_category'=>1));
+            $this->setDefaultFilter(array(
+                'company_id'    => $this->getCompany()->getId()
+            ));
         }
-        $collection = Mage::getModel('catalog/product')->getCollection()
-            ->addAttributeToSelect('name')
+        $collection = Mage::getModel('company/owner')->getCollection()
+            /*->addAttributeToSelect('name')
             ->addAttributeToSelect('email')
-            /*->addAttributeToSelect('price')
+            ->addAttributeToSelect('price')
             ->addStoreFilter($this->getRequest()->getParam('store'))
             ->joinField('position',
                 'catalog/category_product',
@@ -95,10 +97,15 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Owner extends Mage_Adm
             'width'     => '160',
             'index'     => 'name'
         ));
-        $this->addColumn('sku', array(
+        $this->addColumn('email', array(
             'header'    => Mage::helper('company')->__('Email'),
             'width'     => '160',
             'index'     => 'email'
+        ));
+        $this->addColumn('created_at', array(
+            'header'    => Mage::helper('company')->__('Created At'),
+            'width'     => '60',
+            'index'     => 'created_at'
         ));
         return parent::_prepareColumns();
     }

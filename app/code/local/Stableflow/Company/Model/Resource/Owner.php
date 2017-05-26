@@ -14,7 +14,7 @@ class Stableflow_Company_Model_Resource_Owner extends Mage_Core_Model_Resource_D
 
     protected function _construct()
     {
-        $this->_init('company/owner', 'entity_id');
+        $this->_init('company/company_owner', 'entity_id');
         $this->_customerTable = $this->getTable('customer/entity');
     }
 }

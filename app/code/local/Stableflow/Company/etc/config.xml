@@ -87,17 +87,20 @@
                     <eav_attribute>
                         <table>company_eav_attribute</table>
                     </eav_attribute>
+                    <!-- Deprecated Must deleted-->
                     <company_to_products>
                         <table>company_to_products</table>
                     </company_to_products>
-
+                    <!--  -->
                     <company_type>
                         <table>company_type</table>
                     </company_type>
                     <company_activity>
                         <table>company_activity</table>
                     </company_activity>
-
+                    <company_product>
+                        <table>company_to_products</table>
+                    </company_product>
                     <company_owner>
                         <table>company_to_owner</table>
                     </company_owner>
@@ -191,7 +194,7 @@
         </translate>
     </frontend>
     <adminhtml>
-        <events>
+        <!--<events>
             <customer_save_after>
                 <observers>
                     <update_relation_table>
@@ -201,7 +204,7 @@
                     </update_relation_table>
                 </observers>
             </customer_save_after>
-        </events>
+        </events>-->
         <layout>
             <updates>
                 <company>
