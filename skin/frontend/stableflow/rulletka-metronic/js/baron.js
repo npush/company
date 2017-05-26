@@ -5,7 +5,7 @@
         return this || (1, eval)('this')
     }())
 
-    var $ = scopedWindow.$
+    //var $ = scopedWindow.$
     var _baron = baron // Stored baron value for noConflict usage
     var Item = {}
     var pos = ['left', 'top', 'right', 'bottom', 'width', 'height']
