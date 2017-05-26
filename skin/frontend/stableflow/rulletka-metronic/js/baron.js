@@ -1,4 +1,4 @@
-(function() {
+(function($) {
     'use strict'
 
     var scopedWindow = (function() {
@@ -1417,7 +1417,7 @@
 
         return this
     }
-}())
+}(jQuery))
 
 // removeIf(production)
 baron.fn.log = function(level, msg, nodes) {
