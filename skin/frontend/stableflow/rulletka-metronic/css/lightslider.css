@@ -259,6 +259,8 @@
     margin: 10px auto;
     vertical-align: top;
     float: left;
+    position: relative;
+    height: 100%
 }
 
 .lSSlideOuter .lightSlider img {
