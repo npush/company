@@ -1,11 +1,11 @@
-(function($) {
+(function() {
     'use strict'
 
     var scopedWindow = (function() {
         return this || (1, eval)('this')
     }())
 
-    //var $ = scopedWindow.$
+    var $ = scopedWindow.jQuery;
     var _baron = baron // Stored baron value for noConflict usage
     var Item = {}
     var pos = ['left', 'top', 'right', 'bottom', 'width', 'height']
@@ -1417,7 +1417,7 @@
 
         return this
     }
-}(jQuery))
+}())
 
 // removeIf(production)
 baron.fn.log = function(level, msg, nodes) {
