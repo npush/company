@@ -256,9 +256,11 @@
 }
 .lSSlideOuter .lightSlider > * {
     display: inline-block;
-    margin: 10px auto;
+    padding: 10px 0;
     vertical-align: top;
     float: left;
+    position: relative;
+    height: 100%
 }
 
 .lSSlideOuter .lightSlider img {
