@@ -205,9 +205,9 @@ b, strong, .bold {
   }
 
   .navbar-form .input-box.form-group {
-    width: 210px;
-    display: inline-block;
-    vertical-align: top;
+      width: 58%;
+      display: inline-block;
+      vertical-align: top;
   }
 
   .navbar-form .input-box.form-group ~ .btn.btn-lg {
@@ -306,7 +306,18 @@ Page Header
       display: none;
   }
   .navbar-form-mob {
-    display: block;
+      display: inline-block;
+      width: 70%;
+      vertical-align: top;
+      margin-left: 6%;
+      margin-top: 17px;
+  }
+  .page-logo .logo  {
+      display: inline-block;
+  }
+  .navbar-form-mob .btn-lg {
+      padding: 5px 5px;
+      font-size: 13px;
   }
   .nav-header-top {
 
@@ -324,6 +335,12 @@ Page Header
   }
 
 
+}
+
+@media (max-width: 768px)  {
+  .navbar-form .form-control {
+      width: 100%;
+  }
 }
 
 .page-header.navbar {
@@ -557,7 +574,9 @@ Horizontal Menu
   .page-header.navbar {
     padding: 0 20px 0 20px;
     position: relative;
-    clear: both;    
+    clear: both;  
+    height: 60px;
+    min-height: 60px;
     }
     .page-header.navbar .page-logo {
       width: auto;
@@ -577,7 +596,7 @@ Horizontal Menu
     display: inline-block;
     position: absolute;
     right: 12px;
-    top: 15px;
+    top: 14px;
   }
 
   .page-header.navbar .page-logo p {
