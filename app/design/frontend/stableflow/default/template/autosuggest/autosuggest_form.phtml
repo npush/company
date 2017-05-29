@@ -22,27 +22,25 @@
  * @package     Autosearch
  * @copyright   Copyright (c) Dropfin (http://www.dropfin.com)
  */
-
-$autosearch = $this->helper('autosuggest/config');
-
 ?>
-
-<div class="navbar-form pull-left">
-    <form id="search_mini_form" action="<?php echo $autosearch->getResultUrl() ?>" method="get">
-            <div class="input-box form-group has-feedback">
-                <input id="search" type="text" name="<?php echo $autosearch->getQueryParamName() ?>" value="<?php echo $autosearch->getEscapedQueryText() ?>" class="input-text required-entry form-control lg-control" maxlength="<?php echo $autosearch->getMaxQueryLength();?>" placeholder="<?php echo $autosearch->getSearchBoxDefaultText() ?>" />
-                <i class="icon icon-tool form-control-feedback lg-control"></i>                
-                <div id="auto_search_loader" style="display: none;">
-                    <img alt="" src="<?php echo $this->getSkinUrl('dropfin/autosearch/images/ajax-loader.gif');?>">
-                </div>
-                <div id="search_autocomplete" class="search-autocomplete"></div>
+<?php
+$autosearch = $this->helper('autosuggest/config');
+$formId = $this->getData('formId');
+?>
+<form id="search_mini_form-<?php echo $formId?>" action="<?php echo $autosearch->getResultUrl() ?>" method="get">
+        <div class="input-box form-group has-feedback">
+            <input id="search" type="text" name="<?php echo $autosearch->getQueryParamName() ?>" value="<?php echo $autosearch->getEscapedQueryText() ?>" class="input-text required-entry form-control lg-control" maxlength="<?php echo $autosearch->getMaxQueryLength();?>" placeholder="<?php echo $autosearch->getSearchBoxDefaultText() ?>" />
+            <i class="icon icon-tool form-control-feedback lg-control"></i>
+            <div id="auto_search_loader" style="display: none;">
+                <img alt="" src="<?php echo $this->getSkinUrl('dropfin/autosearch/images/ajax-loader.gif');?>">
             </div>
-            <button type="submit"  class="btn yellow btn-lg  "><span><span><?php echo $this->__('Search') ?></span></span></button>
-        <script type="text/javascript">
-        //<![CDATA[
-            var searchForms = new autoSearchForm('search_mini_form', 'search', '<?php echo $autosearch->getSearchBoxDefaultText() ?>');
-            searchForms.initAutocomplete('<?php echo $autosearch->getSuggestUrl() ?>', 'search_autocomplete', '<?php echo $autosearch->searchQueryLength() ?>');
-        //]]>
-        </script>
-    </form>
-</div>
+            <div id="search_autocomplete" class="search-autocomplete"></div>
+        </div>
+        <button type="submit"  class="btn yellow btn-lg  "><span><span><?php echo $this->__('Search') ?></span></span></button>
+    <script type="text/javascript">
+    //<![CDATA[
+        var searchForms = new autoSearchForm('search_mini_form-<?php echo $formId;?>', 'search', '<?php echo $autosearch->getSearchBoxDefaultText() ?>');
+        searchForms.initAutocomplete('<?php echo $autosearch->getSuggestUrl() ?>', 'search_autocomplete', '<?php echo $autosearch->searchQueryLength() ?>');
+    //]]>
+    </script>
+</form>

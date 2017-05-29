@@ -76,4 +76,8 @@ class Stableflow_Autosuggest_Helper_Config extends Mage_Core_Helper_Abstract{
     public function getSearchBoxSettings() {
         return Mage::getStoreConfig(self::XML_PATH_SUGGESTION_SEARCH_BOX_SETTINGS);
     }
+
+    public function getRandomId(){
+        return rand(100, 999);
+    }
 }

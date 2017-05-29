@@ -37,6 +37,12 @@
                 <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large logo-default" />
                 <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small logo-min-default" />
             </a>
+            <div class="navbar-form-2 pull-left-2">
+                <?php $html = $this->getChild('topSearch');?>
+                <?php $html->setData('formId', rand(100, 999));?>
+                <?php echo $html->toHtml();?>
+                <?php //echo $this->getChildHtml('topSearch') ?>
+            </div>
             <p><?php echo Mage::getStoreConfig('design/head/default_description'); ?></p>
             <div class="menu-toggler sidebar-toggler">
                 <i class="icon icon-arrow-point-to-left"></i>
@@ -53,7 +59,11 @@
         <!-- END RESPONSIVE MENU TOGGLER -->
         <!-- BEGIN TOP NAVIGATION MENU -->
         <div class="top-menu">
-            <?php echo $this->getChildHtml('topSearch') ?>
+            <div class="navbar-form pull-left">
+                <?php $html->setData('formId', rand(100, 999));?>
+                <?php echo $html->toHtml();?>
+                <?php //echo $this->getChildHtml('topSearch') ?>
+            </div>
             <?php echo $this->getChildHtml('topLinks') ?>
         </div>
         <!-- END TOP NAVIGATION MENU -->
