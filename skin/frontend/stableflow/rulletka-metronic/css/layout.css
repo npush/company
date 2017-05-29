@@ -3467,6 +3467,27 @@ input[type="checkbox"], input[type="radio"] {
   margin: 5px 0 5px;
 }
 
+@media (max-width: 768px) { 
+
+  .panel-group .panel-list {
+    padding: 15px 20px 15px;
+  }
+
+  .panel-list .accordion-toggle {
+      font-size: 16px;
+      color: #1d4d7c;
+      text-transform: uppercase;
+      position: relative;
+      padding-right: 20px;
+      width: 100%;  
+  }
+
+  .panel-list .accordion-toggle:before {
+    font: 25px FontAwesome;
+  }
+
+}
+
 .img-catalog {
     float: right;
     position: relative;
