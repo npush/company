@@ -100,6 +100,10 @@ Default layout, loads most of the pages
                 <block type="page/template_links" name="top.links" as="topLinks"/>
             </block>
 
+            <block type="core/text_list" name="after_header" as="after_header" translate="label">
+                <label>after header</label>
+            </block>
+
             <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
 
             <block type="core/messages" name="global_messages" as="global_messages"/>
