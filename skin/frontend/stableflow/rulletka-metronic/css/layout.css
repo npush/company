@@ -66,6 +66,7 @@ body {
   background-color:#3f3f3f;
   font-size:15px;
   overflow-x: hidden;
+  min-width: 320px;
 }
 
 .link.none-underline, .none-underline {
