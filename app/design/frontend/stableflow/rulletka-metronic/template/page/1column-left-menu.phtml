@@ -32,33 +32,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
 <head>
-<?php echo $this->getChildHtml('head') ?>
-
+    <?php echo $this->getChildHtml('head') ?>
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
-
-<div id="old" style="display: none;"> 
-    <div id="header">
-        <h1>Для просмотра сайта Rulletka используйте, пожалуйста, версии браузера 10,11</h1>
-    </div> 
-
-    <ul id="modern-browser"> 
-        
-        <hr class="delim" />
-        
-        <li class="ie8"> 
-            <h2>Новый Internet Explorer</h2> 
-            <div class="descriptiontext">
-                Современная версия браузера от компании Microsoft. Бесплатно предоставляется всем желающим и свободен для распространения. Если слова «браузер» и «Internet Explorer» для вас не знакомы, установите эту программу.
-                <ul class="file"> 
-                    <li class="microsoft" style="padding-left: 0px;"><a href="http://www.microsoft.com/rus/windows/internet-explorer/">Перейти к загрузке Internet Explorer</a></li> 
-                </ul> 
-            </div> 
-        </li>
-        
-    </ul> 
-</div> 
-
+<?php echo $this->getChildHtml('check-browser') ?>
 <?php echo $this->getChildHtml('after_body_start') ?>
 <div class="wrapper">
     <?php echo $this->getChildHtml('global_notices') ?>
@@ -67,7 +44,6 @@
     <div class="page-container">
         <?php echo $this->getChildHtml('left_menu') ?>
         <div class="page-content-wrapper">
-            <?php //echo $this->getChildHtml('global_messages') ?>
             <div class="page-content <?php echo Mage::getBlockSingleton('page/html_header')->getIsHomePage() ? 'bg-gray-light': '' ?>">
                 <div class="site-messages">
                     <?php echo $this->getChildHtml('global_messages') ?>

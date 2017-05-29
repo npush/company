@@ -28,4 +28,12 @@ window.onload = function() {
         forward: '.baron__down',
         backward: '.baron__up'
     });
+
+    var $block = jQuery('.page-logo');
+    var $window = jQuery(window);
+    jQuery('.baron__root').height($window.height() - ($block.height() + 40));
+    jQuery(window).resize(function(){
+        jQuery('.baron__root').height($window.height() - ($block.height() + 40));
+    });
+
 };

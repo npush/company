@@ -88,7 +88,7 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
 
 
     /**
-     * Is model deleteable
+     * Is model deletable
      *
      * @var boolean
      */

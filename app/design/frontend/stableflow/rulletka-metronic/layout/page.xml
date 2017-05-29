@@ -87,6 +87,8 @@ Default layout, loads most of the pages
 
             </block>
 
+            <block type="core/template" name="check-browser" template="rulletka/check-browser.phtml"/>
+
             <block type="core/text_list" name="after_body_start" as="after_body_start" translate="label">
                 <label>Page Top</label>
             </block>
@@ -131,18 +133,17 @@ Default layout, loads most of the pages
             </block>
 
             <block type="core/text_list" name="modal_popup" as="modal_popup">
-                <block type="core/template" name="modal_success" template="rulletka/modal/login.phtml"/>
+                <!--<block type="core/template" name="modal_success" template="rulletka/modal/login.phtml"/>-->
                 <block type="core/template" name="modal_ask_as"   template="rulletka/modal/ask_as.phtml">
                     <block type="studioforty9_recaptcha/explicit" name="studioforty9.recaptcha.explicit"  as="recaptcha" template="studioforty9/recaptcha/explicit.phtml"/>
                 </block>
-                <block type="core/template" name="modal_register" template="rulletka/modal/register.phtml"/>
+                <!--<block type="core/template" name="modal_register" template="rulletka/modal/register.phtml"/>-->
                 <block type="core/template" name="modal_review" template="rulletka/modal/review.phtml"/>
             </block>
 
             <block type="core/text_list" name="before_body_end" as="before_body_end" translate="label">
                 <label>Page Bottom</label>
                 <block type="page/html_cookieNotice" name="global_cookie_notice" as ="global_cookie_notice" template="page/html/cookienotice.phtml" before="-" />
-
                 <block type="studioforty9_recaptcha/explicit" name="recaptcha.init" template="studioforty9/recaptcha/explicit-init.phtml"/>
             </block>
         </block>
