@@ -1229,7 +1229,7 @@ li .sub-menu .title {
     margin: 20px;
     position: relative;
     overflow: hidden !important;
-    overflow-y: auto !important;
+    overflow-y: hidden !important;
     display: block !important; 
   }
   .page-sidebar.navbar-collapse.navbar-no-scroll {
