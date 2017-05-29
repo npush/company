@@ -72,4 +72,4 @@ autoSearchForm.prototype = {
         }
         this.form.submit();
     }
-}
+};
