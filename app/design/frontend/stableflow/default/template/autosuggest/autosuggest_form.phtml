@@ -34,13 +34,13 @@ $formId = $this->getData('formId');
             <div id="auto_search_loader" style="display: none;">
                 <img alt="" src="<?php echo $this->getSkinUrl('dropfin/autosearch/images/ajax-loader.gif');?>">
             </div>
-            <div id="search_autocomplete" class="search-autocomplete"></div>
+            <div id="search_autocomplete-<?php echo $formId?>" class="search-autocomplete"></div>
         </div>
-        <button type="submit"  class="btn yellow btn-lg  "><span><span><?php echo $this->__('Search') ?></span></span></button>
+        <button type="submit"  class="btn yellow btn-lg"><span><span><?php echo $this->__('Search') ?></span></span></button>
     <script type="text/javascript">
     //<![CDATA[
         var searchForms = new autoSearchForm('search_mini_form-<?php echo $formId;?>', 'search', '<?php echo $autosearch->getSearchBoxDefaultText() ?>');
-        searchForms.initAutocomplete('<?php echo $autosearch->getSuggestUrl() ?>', 'search_autocomplete', '<?php echo $autosearch->searchQueryLength() ?>');
+        searchForms.initAutocomplete('<?php echo $autosearch->getSuggestUrl() ?>', 'search_autocomplete-<?php echo $formId?>', '<?php echo $autosearch->searchQueryLength() ?>');
     //]]>
     </script>
 </form>
