@@ -3,7 +3,7 @@
 <config>
     <modules>
         <Stableflow_QuickContact>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Stableflow_QuickContact>
     </modules>
     <frontend>
@@ -61,11 +61,11 @@
         </resources>
         <template>
             <email>
-                <quickcontact_general_email_template translate="label" module="quickcontact">
+                <quickcontact_general_template_email translate="label" module="quickcontact">
                     <label>Contact Form</label>
                     <file>quickcontact_form.html</file>
                     <type>html</type>
-                </quickcontact_general_email_template>
+                </quickcontact_general_template_email>
             </email>
         </template>
     </global>
@@ -105,7 +105,9 @@
         <quickcontact>            
             <email>
 				<dock_link>1</dock_link>
-                <template_email>quickcontact_general_email_template</template_email>
+                <template_email>quickcontact_general_template_email</template_email>
+                <recipient_email><![CDATA[hello@example.com]]></recipient_email>
+                <sender_email_identity>custom2</sender_email_identity>
             </email>
         </quickcontact>
     </default>
