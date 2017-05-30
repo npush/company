@@ -12,12 +12,11 @@
 <table cellpadding="0" cellspacing="0" border="0">
     <tr>
         <td class="action-content">
-            <p>
-                <strong>Name:</strong> {{var data.name}}
-                <strong>Email:</strong> {{var data.email}}
-                <strong>Telephone:</strong> {{var data.telephone}}
-            </p>
-            <strong>Comment:</strong> <p class="highlighted-text">{{htmlescape var $data.comment}}</p>
+            <strong>Name:</strong> {{var data.name}}
+            <strong>Email:</strong> {{var data.email}}
+            <strong>Telephone:</strong> {{var data.telephone}}
+            <strong>Comment:</strong>
+            <p class="highlighted-text">{{htmlescape var=$data.comment}}</p>
         </td>
     </tr>
 </table>
