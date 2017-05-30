@@ -61,11 +61,11 @@
         </resources>
         <template>
             <email>
-                <quickcontact_email_email_template translate="label" module="quickcontact">
+                <quickcontact_general_email_template translate="label" module="quickcontact">
                     <label>Contact Form</label>
                     <file>quickcontact_form.html</file>
-                    <type>text</type>
-                </quickcontact_email_email_template>
+                    <type>html</type>
+                </quickcontact_general_email_template>
             </email>
         </template>
     </global>
