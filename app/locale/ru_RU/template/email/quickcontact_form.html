@@ -5,8 +5,18 @@
 "var data.telephone":"Sender Telephone",
 "var data.comment":"Comment"}
 @-->
-Имя: {{var data.name}}
-Email: {{var data.email}}
-Телефон: {{var data.telephone}}
 
-Коментарий: {{var data.comment}}
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <p><strong>Name:</strong> {{var data.name}}</p>
+            <p><strong>Email:</strong> {{var data.email}}</p>
+            <p><strong>Telephone:</strong> {{var data.telephone}}</p>
+            <p><strong>Comment:</strong></p>
+            <p class="highlighted-text">{{htmlescape var=$data.comment}}</p>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer"}}

@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
 	<default>
+		<reference name="after_header">
+			<block type="bannernext/banner" name="bannernext_before_content" template="bannernext/banner.phtml" after="-" >
+				<action method="setPosition"><name>BEFORE_CONTENT</name></action>
+			</block>
+		</reference>
 		<block type="bannernext/banner" name="bannernext_content_top" template="bannernext/banner.phtml" before="-" >
 		  <action method="setPosition"><name>CONTENT_TOP</name></action>
 		</block>
