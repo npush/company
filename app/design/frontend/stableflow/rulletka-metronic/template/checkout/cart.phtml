@@ -109,15 +109,24 @@
     jQuery(document).ready(function () {
         jQuery(".qty-block").each(function (index, element) {
             var input = jQuery(element).find(':input');
-            var elemetInc = jQuery(element).find("a[id ^= 'incQty_']");
-            var elemetDec = jQuery(element).find("a[id ^= 'decQty_']");
-            jQuery(elemetInc).click(function () {
+            var elementInc = jQuery(element).find("a[id ^= 'incQty_']");
+            var elementDec = jQuery(element).find("a[id ^= 'decQty_']");
+            //var elementQty = jQuery(element).find("input[id ^= 'qty_']");
+            jQuery(elementInc).click(function () {
                 var value = parseInt(jQuery(input).val()) + parseInt(1);
                 jQuery(input).val(value);
             });
-            jQuery(elemetDec).click(function () {
+            jQuery(elementDec).click(function () {
                 var value = parseInt(jQuery(input).val()) - parseInt(1);
                 if(value >= 1) jQuery(input).val(value);
+            });
+            jQuery(input).keyup(function(e){
+                var qtyVal = jQuery(e.target).val();
+                if(Math.floor(qtyVal) == qtyVal && jQuery.isNumeric(qtyVal))
+                {
+                    return;
+                }
+                jQuery(e.target).val(qtyVal.slice(0,-1));
             });
         });
     });
