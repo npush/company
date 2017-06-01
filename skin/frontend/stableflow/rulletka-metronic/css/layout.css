@@ -6118,3 +6118,13 @@ li.level0.active > ul:after {
   margin: 11px 0;
 }
 /* ANDsearch-autocomplete */
+
+
+
+
+/* style-default !!!!! */
+.style-default ul, .style-default ol {
+  list-style: inherit;
+  padding-left: 40px;
+}
+/* AND style-default !!!!! */
