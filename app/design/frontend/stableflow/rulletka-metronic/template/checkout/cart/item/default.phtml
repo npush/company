@@ -142,36 +142,12 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     <?php endif; ?>
     <td>
-        <div class="pagination-panel pagination-panel-table">
-            <a href="javascript:" id="subtractQty" class="btn icon-default prev"><i class="icon icon-arrow-point-to-left"></i></a>
-            <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty pagination-panel-input form-control input-inline input-default input-mini" maxlength="5" id="qty"/>
-            <a href="javascript:" id="addQty" class="btn icon-default next"><i class="icon icon-arrow-point-to-right"></i></a>
+        <div class="pagination-panel pagination-panel-table qty-block">
+            <a href="javascript:" id="decQty_<?php echo $_item->getId() ?>" class="btn icon-default prev"><i class="icon icon-arrow-point-to-left"></i></a>
+            <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty pagination-panel-input form-control input-inline input-default input-mini" maxlength="5" id="qty_<?php echo $_item->getId() ?>"/>
+            <a href="javascript:" id="incQty_<?php echo $_item->getId() ?>" class="btn icon-default next"><i class="icon icon-arrow-point-to-right"></i></a>
         </div>
     </td>
-    <script type="text/javascript">
-        jQuery("#addQty").click(function() {
-            var value = parseInt(jQuery("#qty").val())+ parseInt(1);
-            jQuery("#qty").val(value);
-        });
-
-        jQuery("#subtractQty").click(function() {
-            if(jQuery("#qty").val() > 1 ) {
-                var value = parseInt(jQuery("#qty").val())- parseInt(1);
-                jQuery("#qty").val(value);
-            }
-        });
-        jQuery("#qty").blur(function(){
-            if(jQuery("#qty").val() == "" || jQuery("#qty").val() == 0 )
-                jQuery("#qty").val(1);
-        });
-        jQuery(document).ready(function () {
-            jQuery("#qty").keypress(function (e) {
-                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                    return false;
-                }
-            });
-        });
-    </script>
     <td class="basket-number basket-number-lg">
         <?php $_incl = $this->helper('checkout')->getSubtotalInclTax($_item); ?>
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>

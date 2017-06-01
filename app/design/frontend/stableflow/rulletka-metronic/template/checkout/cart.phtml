@@ -61,26 +61,6 @@
                                     </tbody>
                                 </table>
                             </fieldset>
-
-                            <script type="text/javascript">
-                                //<![CDATA[
-                                jQuery(document).ready(function () {
-                                    jQuery(".qty_td").each(function (index, element) {
-                                        var input = jQuery(element).find(':input');
-                                        var elemetIncr = jQuery(element).find("a[id ^= 'incrQty_']");
-                                        var elemetDecr = jQuery(element).find("a[id ^= 'decrQty_']");
-                                        jQuery(elemetIncr).click(function () {
-                                            var value = parseInt(jQuery(input).val()) + parseInt(1);
-                                            jQuery(input).val(value);
-                                        });
-                                        jQuery(elemetDecr).click(function () {
-                                            var value = parseInt(jQuery(input).val()) - parseInt(1);
-                                            if(value >= 1) jQuery(input).val(value);
-                                        });
-                                    });
-                                });
-                                //]]>
-                            </script>
                         </div>
                     </div>
                 </div>
@@ -124,3 +104,22 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function () {
+        jQuery(".qty-block").each(function (index, element) {
+            var input = jQuery(element).find(':input');
+            var elemetInc = jQuery(element).find("a[id ^= 'incQty_']");
+            var elemetDec = jQuery(element).find("a[id ^= 'decQty_']");
+            jQuery(elemetInc).click(function () {
+                var value = parseInt(jQuery(input).val()) + parseInt(1);
+                jQuery(input).val(value);
+            });
+            jQuery(elemetDec).click(function () {
+                var value = parseInt(jQuery(input).val()) - parseInt(1);
+                if(value >= 1) jQuery(input).val(value);
+            });
+        });
+    });
+    //]]>
+</script>
