@@ -53,4 +53,15 @@ class Smasoft_Oneclickorder_Block_Form extends Smasoft_Oneclickorder_Block_Abstr
     {
         return $this->getModuleHelper()->isSaveMagentoOrder() && $this->isGuest();
     }
+
+    /**
+     *
+     */
+    public function isShowNameField()
+    {
+        if($this->isGuest()){
+            return true;
+        }
+        return false;
+    }
 }

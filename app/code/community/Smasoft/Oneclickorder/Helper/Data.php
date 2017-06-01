@@ -21,6 +21,7 @@ class Smasoft_Oneclickorder_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_EMAIL = 'smasoft_oneclickorder/general/email';
     const XML_PATH_CHANGE_ONEPAGE_CHECKOUT = 'smasoft_oneclickorder/checkout/change_onepage';
     const XML_PATH_ALLOW_COUNTRIES = 'smasoft_oneclickorder/general/allow_countries';
+    const XML_PATH_EMAIL_FOR_GUEST = 'smasoft_oneclickorder/general/email_for_guest';
 
     /**
      * Is OneClick Order functionality enabled
@@ -96,6 +97,13 @@ class Smasoft_Oneclickorder_Helper_Data extends Mage_Core_Helper_Abstract
         return $collection;
     }
 
+    /**
+     * Send email if guest
+     */
 
+    public function isSendEmailForGuest()
+    {
+        return Mage::getStoreConfig(self::XML_PATH_EMAIL_FOR_GUEST);
+    }
 }
 	 

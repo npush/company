@@ -3,7 +3,7 @@
 <config>
     <modules>
         <Smasoft_Oneclickorder>
-            <version>0.1.1</version>
+            <version>0.1.2</version>
         </Smasoft_Oneclickorder>
     </modules>
     <global>
@@ -181,6 +181,7 @@
                 <send_email>0</send_email>
                 <template_admin>smasoft_oneclickorder_general_template_admin</template_admin>
                 <allow_countries>US,GB,UA,RU</allow_countries>
+                <email_for_guest>0</email_for_guest>
             </general>
             <checkout>
                 <change_onepage>0</change_onepage>

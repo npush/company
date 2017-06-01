@@ -80,7 +80,7 @@ class Smasoft_Oneclickorder_IndexController extends Mage_Core_Controller_Front_A
         $model->save();
         Mage::register('oneclickorder_order_instance', $model, true);
 // save for Guest
-        if (isset($data['email'])) {
+        if ($model->getCustomerId() && isset($data['email'])) {
             $newBillingAddress = Mage::getModel('sales/quote_address');
             $newBillingAddress->setEmail($data['email']);
             $this->getOnepage()->getQuote()->setBillingAddress($newBillingAddress)->save();
