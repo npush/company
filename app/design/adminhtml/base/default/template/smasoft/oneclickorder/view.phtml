@@ -65,15 +65,13 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                             </td>
                         <?php else: ?>
                             <td class="value">
-                                <strong><?php echo Mage::helper('customer')->__('Guest') ?></strong><br>
+                                <strong><?php echo Mage::helper('customer')->__('Guest') ?>:</strong><br>
                                 <span><?php echo $_order->getData('guest_name');?></span>
                             </td>
                             </tr>
                             <tr>
                             <td class="label"><label><?php echo Mage::helper('sales')->__('Email') ?></label></td>
-                            <td class="value">
-                                <span><?php echo $_order->getData('guest_email');?></span>
-                            </td>
+                            <td class="value"><a href="mailto:<?php echo $_order->getData('guest_email') ?>"><strong><?php echo $_order->getData('guest_email') ?></strong></a></td>
                         <?php endif; ?>
                     </tr>
                     <?php if (!$customer->getIsGuest()):?>

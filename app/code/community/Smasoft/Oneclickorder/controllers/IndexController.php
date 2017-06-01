@@ -136,6 +136,9 @@ class Smasoft_Oneclickorder_IndexController extends Mage_Core_Controller_Front_A
         if (isset($data['email']) && !Zend_Validate::is($data['email'], 'Zend_Validate_EmailAddress')) {
             $this->_errors[] = $helper->__('Please enter a valid email address.');
         }
+        if (isset($data['guest_email']) && !Zend_Validate::is($data['guest_email'], 'Zend_Validate_EmailAddress')) {
+            $this->_errors[] = $helper->__('Please enter a valid email address.');
+        }
         return !(bool)count($this->_errors);
     }
 
