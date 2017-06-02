@@ -38,6 +38,19 @@ class Smasoft_Oneclickorder_Helper_Email extends Mage_Core_Helper_Abstract
         $recipientName = Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_STORE_NAME);
         $customer = $order->getCustomer();
 
+        $recipients = Array(
+            $recipientEmail => $recipientName
+        );
+
+        $customerEmail = $customer->getEmail();
+
+        if($customerEmail){
+
+        }
+
+
+
+
         $mailTemplate->setDesignConfig(array('area' => 'frontend'))
             ->sendTransactional(
             $template,

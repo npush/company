@@ -10,9 +10,10 @@
 
 class Stableflow_QuickContact_IndexController extends Mage_Core_Controller_Front_Action
 {		
-    const XML_PATH_EMAIL_RECIPIENT  = 'contacts/email/recipient_email';
-    const XML_PATH_EMAIL_SENDER     = 'contacts/email/sender_email_identity';
-    const XML_PATH_EMAIL_TEMPLATE   = 'quickcontact/email/template_email';
+    const XML_PATH_EMAIL_RECIPIENT      = 'contacts/email/recipient_email';
+    const XML_PATH_EMAIL_SENDER         = 'contacts/email/sender_email_identity';
+    const XML_PATH_EMAIL_TEMPLATE       = 'quickcontact/email/template_email';
+    const XML_PATH_EMAIL_TEMPLATE_PRICE = 'quickcontact/email/template_email_price';
 	
     public function indexAction()
     {
