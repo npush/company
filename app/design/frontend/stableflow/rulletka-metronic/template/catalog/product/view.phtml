@@ -18,6 +18,8 @@
 <script type="text/javascript">
     //var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-568cdc40e9eab41d"
+        async="async"></script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
 <div class="portlet light portlet-fit bordered">
     <div class="portlet-title"></div>
@@ -98,6 +100,9 @@
                         <?php echo $this->getChildHtml('attributes');?>
 
                     </div>
+                </div>
+                <div class="product-view-sharing-button clearfix">
+                    <div class="addthis_sharing_toolbox"></div>
                 </div>
                 <!-- END TIMELINE ITEM -->
             </div>

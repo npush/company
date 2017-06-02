@@ -24,7 +24,8 @@ $_helper    = $this->helper('catalog/output');
                         <div class="panel panel-list">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a class="accordion-toggle accordion-toggle-styled collapsed " data-toggle="collapse"  aria-expanded="false" data-parent="#accordion3" href="#collapse_3_<?php echo $_childCategory->getId()?>"> <?php echo $this->htmlEscape($_childCategory->getName()) ?> </a>
+                                    <a class="text-accordion-toggle" href="<?php echo $_childCategory->getUrl()?>"><?php echo $this->htmlEscape($_childCategory->getName()) ?> </a>
+                                    <a class="accordion-toggle accordion-toggle-styled collapsed " data-toggle="collapse"  aria-expanded="false" data-parent="#accordion3" href="#collapse_3_<?php echo $_childCategory->getId()?>"></a>
                                 </h4>
                             </div>
                             <div id="collapse_3_<?php echo $_childCategory->getId()?>" class="panel-collapse <?php echo $i ? ' in' : ' collapse'; ?>" aria-expanded="false"  style="display: none; height: 0px;">
@@ -44,7 +45,8 @@ $_helper    = $this->helper('catalog/output');
                                         <?php $productCollection->addCountToCategories($categories);?>
                                         <?php foreach($categories as $_category): ?>
                                             <?php if($_category->hasChildren()): ?>
-                                                <p><a class="accordion-toggle accordion-toggle-styled collapsed text-transform"  aria-expanded="false" data-toggle="collapse" data-parent="#collapse_3_<?php echo $_childCategory->getId()?>" href="#collapse_3_<?php echo $_category->getId()?>"> <?php echo $this->htmlEscape($_category->getName()) ?> <span>(<?php echo $_category->getProductCount()?>)</span>: </a></p>
+                                                <p><a class="text-transform" href="<?php echo $_childCategory->getUrl()?>"><?php echo $this->htmlEscape($_category->getName()) ?> <span>(<?php echo $_category->getProductCount()?>)</span>:</a>
+                                                    <a class="accordion-toggle accordion-toggle-styled collapsed text-transform"  aria-expanded="false" data-toggle="collapse" data-parent="#collapse_3_<?php echo $_childCategory->getId()?>" href="#collapse_3_<?php echo $_category->getId()?>"></a></p>
                                                 <!-- print recursion -->
                                                 <div id="collapse_3_<?php echo $_category->getId();?>" class="panel-collapse collapse" aria-expanded="false" style="display: none; height: 0px;">
                                                     <?php echo $this->getRecursionChild($_category);?>

@@ -3429,6 +3429,14 @@ input[type="checkbox"], input[type="radio"] {
   position:relative;
   padding-right: 35px;
 }
+
+.panel-title .text-accordion-toggle {
+    font-size:20px;
+    color:#1d4d7c;
+    text-transform:uppercase;
+    position:relative;
+}
+
 .panel-list .accordion-toggle:hover, .panel-list .accordion-toggle:focus {
   text-decoration:none;
 }
