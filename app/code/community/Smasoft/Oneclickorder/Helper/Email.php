@@ -42,10 +42,12 @@ class Smasoft_Oneclickorder_Helper_Email extends Mage_Core_Helper_Abstract
             $recipientEmail => $recipientName
         );
 
-        $customerEmail = $customer->getEmail();
 
-        if($customerEmail){
 
+        if($customer && $customerEmail = $customer->getEmail()){
+            array_push($recipients, array(
+                $customerEmail => $customer->getName()
+            ));
         }
 
 
@@ -55,8 +57,8 @@ class Smasoft_Oneclickorder_Helper_Email extends Mage_Core_Helper_Abstract
             ->sendTransactional(
             $template,
             'general',
-            $recipientEmail,
-            $recipientName,
+            array_keys($recipients), //$recipientEmail,
+            array_values($recipients), //$recipientName,
             array(
                 'customer' => $customer,
                 'order' => $order,
