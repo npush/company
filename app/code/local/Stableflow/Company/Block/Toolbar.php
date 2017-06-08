@@ -10,7 +10,7 @@ class Stableflow_Company_Block_Toolbar extends Mage_Catalog_Block_Product_List_T
 {
     public function getPagerHtml()
     {
-        $pagerBlock = $this->getLayout()->createBlock('page/html_pager');
+        $pagerBlock = $this->getLayout()->createBlock('company/pager');
         if ($pagerBlock instanceof Varien_Object)
         {
             /* here you can customize your toolbar like h*/
@@ -25,5 +25,21 @@ class Stableflow_Company_Block_Toolbar extends Mage_Catalog_Block_Product_List_T
             return $pagerBlock->toHtml();
         }
         return '';
+    }
+
+    /**
+     * Return current URL with rewrites and additional parameters
+     *
+     * @param array $params Query parameters
+     * @return string
+     */
+    public function getPagerUrl($params=array())
+    {
+        $urlParams = array();
+        $urlParams['_current']  = true;
+        $urlParams['_escape']   = true;
+        $urlParams['_use_rewrite']   = false;
+        $urlParams['_query']    = $params;
+        return $this->getUrl('company/company/productList', $urlParams);
     }
 }

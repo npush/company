@@ -23,7 +23,7 @@ class Stableflow_Company_Block_Company_Product_Toolbar extends Mage_Catalog_Bloc
         $urlParams = array();
         $urlParams['_current']  = true;
         $urlParams['_escape']   = true;
-        $urlParams['_use_rewrite']   = true;
+        $urlParams['_use_rewrite']   = false;
         $urlParams['_query']    = $params;
         return $this->getUrl('company/company/productList', $urlParams);
     }
