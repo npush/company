@@ -1040,6 +1040,7 @@ li .sub-menu .title {
     .page-sidebar.collapse {
       display: block;
       max-height: none !important;
+      min-height: 100%;
     }
 
     .page-sidebar-fixed .page-sidebar {
