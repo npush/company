@@ -12,7 +12,7 @@ class Stableflow_AjaxCart_CartController extends Mage_Checkout_CartController
 {
     public function addAction()
     {
-        if (!Mage::getStoreConfig('sf_ajaxcart/general/enabled') || !Mage::getStoreConfig('sf_ajaxcart/ajax/ajax_enabled')):
+        if ($this->getRequest()->getParam('return_url') || !Mage::getStoreConfig('sf_ajaxcart/general/enabled') || !Mage::getStoreConfig('sf_ajaxcart/ajax/ajax_enabled')):
             return parent::addAction();
         endif;
 

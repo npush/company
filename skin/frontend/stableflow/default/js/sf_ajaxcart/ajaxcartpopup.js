@@ -53,10 +53,15 @@ var cartpopup = Class.create({
     observeSubmit: function() {
         this.submiturl = $("product_addtocart_form").readAttribute("action");
         $("product_addtocart_form").writeAttribute("action", "javascript:thiscartpopup.submitAction()");
+        //Event.observe('product_addtocart_form', 'submit', function(event) {
+        //    Event.stop(event);
+        //});
+        //$("product-addtocart-button").writeAttribute("onclick", "thiscartpopup.submitAction()");
     },
     submitAction: function() {
         var formdata = $("product_addtocart_form").serialize(true);
         var id = false;
+        console.log(id, formdata, this.submiturl);
         this.addToCart(id, formdata, this.submiturl)
     },
     updateQuantityAction: function() {
