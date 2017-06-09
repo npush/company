@@ -5,11 +5,41 @@
             <version>0.1.0</version>
         </Stableflow_AjaxCart>
     </modules>
+    <global>
+        <blocks>
+            <sf_ajaxcart>
+                <class>Stableflow_AjaxCart_Block</class>
+            </sf_ajaxcart>
+        </blocks>
+        <helpers>
+            <sf_ajaxcart>
+                <class>Stableflow_AjaxCart_Helper</class>
+            </sf_ajaxcart>
+        </helpers>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <sf_ajaxcart>
+                    <file>sf_ajaxcart.xml</file>
+                </sf_ajaxcart>
+            </updates>
+        </layout>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <Stableflow_AjaxCart before="Mage_Checkout">Stableflow_AjaxCart</Stableflow_AjaxCart>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+    </frontend>
     <default>
         <sf_ajaxcart>
-            <configurations module="sf_ajaxcart">
+            <general module="sf_ajaxcart">
                 <enabled>1</enabled>
-            </configurations>
+            </general>
         </sf_ajaxcart>
     </default>
 </config>

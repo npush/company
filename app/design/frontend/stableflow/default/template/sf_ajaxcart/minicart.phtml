@@ -1,0 +1,32 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 6/9/17
+ * Time: 2:54 PM
+ */
+?>
+
+<?php
+$_cartQty = $this->getSummaryCount();
+if(empty($_cartQty)) {
+    $_cartQty = 0;
+}
+?>
+
+<div class="basket clearfix" id="minicart">
+    <ul>
+        <li class="basket-number">
+            <span class="label"><?php echo $this->__('') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
+            <?php if ($_subtotalInclTax = $this->getSubtotalInclTax()): ?>
+                <br />(<?php echo Mage::helper('checkout')->formatPrice($_subtotalInclTax) ?> <?php echo Mage::helper('tax')->getIncExcText(true) ?>)
+            <?php endif; ?>
+        </li>
+        <li>
+            <a class="icon-btn" href="<?php echo $this->helper('checkout/cart')->getCartUrl(); ?>">
+                <i class="icon icon-shopping-cart"></i>
+                <span class="badge badge-info"> <?php echo $_cartQty; ?> </span>
+            </a>
+        </li>
+    </ul>
+</div>
