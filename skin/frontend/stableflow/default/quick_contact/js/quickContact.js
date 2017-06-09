@@ -10,7 +10,8 @@ jQuery(document).ready(function(){
 					email: jQuery('#email').val(),
 					telephone: jQuery('#telephone').val(),
 					comment: jQuery('#comment').val(),
-					product_name: jQuery('#product_name').val()
+					product_name: jQuery('#product_name').val(),
+					product_url: jQuery('#product_url').val()
 				}, function (data) {
 					jQuery('#contactForm #submit').attr('disabled', 'true');
 					jQuery('.response').remove();

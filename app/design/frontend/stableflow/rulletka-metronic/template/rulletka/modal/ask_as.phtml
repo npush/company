@@ -43,6 +43,7 @@
                     <div class="form-group" style="display: none">
                         <label class="control-label"><?php echo Mage::helper('contacts')->__('Product Name') ?><span class="has-span">*</span></label>
                         <input name="product_name" id="product_name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Product Name')) ?>" value="" class="input-text required-entry form-control radius-none" type="text" readonly/>
+                        <input class="input-text form-control" name="product_url" id="product_url"  value="" type="hidden"/>
                     </div>
                     <div class="form-group">
                         <label class="control-label"><?php echo Mage::helper('contacts')->__('Name') ?><span class="has-span">*</span></label>
@@ -94,11 +95,15 @@
 
         //get data-id attribute of the clicked element
         var productName = jQuery(e.relatedTarget).data('product-name');
+        var productUrl = jQuery(e.relatedTarget).data('product-url');
         var productNameBlock = jQuery(e.currentTarget).find('input[name="product_name"]');
+        var productUrlBlock = jQuery(e.currentTarget).find('input[name="product_url"]');
         if(productName) {
             productNameBlock.prop('enabled', true);
             productNameBlock.val(productName);
             productNameBlock.parent(".form-group").css("display", "block");
+            productUrlBlock.prop('enabled', true);
+            productUrlBlock.val(productUrl);
         }else{
             productNameBlock.parent(".form-group").css("display", "none");
             productNameBlock.prop('disabled', true);

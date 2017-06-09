@@ -47,7 +47,7 @@
                     <action method="addToParentGroup"><group>detailed_info</group></action>
                     <action method="setTitle" translate="value"><value>Product List</value></action>
                     <block type="company/toolbar" name="product_list_toolbar" template="company/product/toolbar.phtml">
-                        <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                        <block type="company/pager" name="product_list_toolbar_pager"/>
                     </block>
                     <action method="setColumnCount"><count>4</count></action>
                     <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>

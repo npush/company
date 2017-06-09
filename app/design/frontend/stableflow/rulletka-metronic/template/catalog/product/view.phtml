@@ -18,6 +18,8 @@
 <script type="text/javascript">
     //var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-568cdc40e9eab41d"
+        async="async"></script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
 <div class="portlet light portlet-fit bordered">
     <div class="portlet-title"></div>
@@ -38,7 +40,7 @@
                     <!-- product-view-rating.phtml -->
                     <div class="timeline-btn-product display-inline">
                         <?php echo $this->getChildHtml('product-rating') ?>
-                        <div class="link-btn" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>                        
+                        <div class="link-btn"  data-product-url="<?php echo $_product->getProductUrl()?>" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
                     </div>
                 </div>
                 <div class="timeline-badge">
@@ -53,7 +55,7 @@
                     <!-- product-view-rating.phtml -->
                     <div class="timeline-btn-product display-inline">
                         <?php echo $this->getChildHtml('product-rating') ?>
-                        <div class="link-btn" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
+                        <div class="link-btn" data-product-name="<?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName(), 'name')?>" data-product-url="<?php echo $_product->getProductUrl()?>" data-toggle="modal" href="#draggable"><?php echo $this->__('Ask question')?></div>
                     </div>
                         <?php $Attr = $_product->getResource()->getAttribute('manufacturer_number');?>
                         <?php $codes = $Attr->getFrontend()->getValue($_product);?>
@@ -75,7 +77,7 @@
                                     <div class="basket-number basket-number-lg"><?php echo $this->getChildHtml('product_type_data') ?></div>          
                                 </li>
                                 <li>
-                                    <a data-toggle="modal" data-product-name="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="link-btn"><?php echo $this->__('Ask for discount')?></a> 
+                                    <a data-toggle="modal"  data-product-url="<?php echo $_product->getProductUrl()?>" data-product-name="<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name')?>" href="#draggable" class="link-btn"><?php echo $this->__('Ask for discount')?></a>
                                 </li>  
                             </ul>
 
@@ -98,6 +100,9 @@
                         <?php echo $this->getChildHtml('attributes');?>
 
                     </div>
+                </div>
+                <div class="product-view-sharing-button clearfix">
+                    <div class="addthis_sharing_toolbox"></div>
                 </div>
                 <!-- END TIMELINE ITEM -->
             </div>

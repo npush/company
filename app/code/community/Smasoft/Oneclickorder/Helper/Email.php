@@ -17,6 +17,7 @@
 class Smasoft_Oneclickorder_Helper_Email extends Mage_Core_Helper_Abstract
 {
     const XML_PATH_ADMIN_EMAIL_TEMPLATE = 'smasoft_oneclickorder/general/template_admin';
+    const XML_PATH_CUSTOMER_EMAIL_TEMPLATE = 'smasoft_oneclickorder/general/template_customer';
 
     /**
      * @param Smasoft_Oneclickorder_Model_Order $order
@@ -50,6 +51,28 @@ class Smasoft_Oneclickorder_Helper_Email extends Mage_Core_Helper_Abstract
                 'invoice' => $order->getQuote()
             )
         );
+
+        if($customer && $customerEmail = $customer->getEmail()){
+            $recipientEmail = $customerEmail;
+            $recipientName = $customer->getName();
+        }else{
+            $recipientEmail = $order->getData('guest_email');
+            $recipientName = $order->getData('guest_name');
+        }
+        $template = Mage::getStoreConfig(self::XML_PATH_CUSTOMER_EMAIL_TEMPLATE);
+
+        $mailTemplate->setDesignConfig(array('area' => 'frontend'))
+            ->sendTransactional(
+                $template,
+                'general',
+                $recipientEmail,
+                $recipientName,
+                array(
+                    'customer' => $customer,
+                    'order' => $order,
+                    'invoice' => $order->getQuote()
+                )
+            );
 
         $translate->setTranslateInline(true);
         return $this;

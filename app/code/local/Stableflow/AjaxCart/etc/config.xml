@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Stableflow_AjaxCart>
+            <version>0.1.0</version>
+        </Stableflow_AjaxCart>
+    </modules>
+    <default>
+        <sf_ajaxcart>
+            <configurations module="sf_ajaxcart">
+                <enabled>1</enabled>
+            </configurations>
+        </sf_ajaxcart>
+    </default>
+</config>
