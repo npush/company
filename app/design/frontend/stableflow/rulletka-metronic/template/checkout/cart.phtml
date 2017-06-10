@@ -36,7 +36,7 @@
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php echo $this->getChildHtml('form_before') ?>
     <div class="portlet-body form">
-        <form action="<?php echo $this->getFormActionUrl() ?>" method="post">
+        <form id="cartForm" action="<?php echo $this->getFormActionUrl() ?>" method="post">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -129,6 +129,19 @@
                 jQuery(e.target).val(qtyVal.slice(0,-1));
             });
         });
+        jQuery('#cartForm').keydown(function(e) {
+            var key = e.charCode || e.keyCode || 0;
+            if (key == 13) {
+                alert("I told you not to, why did you do it?");
+                e.preventDefault();
+            }
+        });
+//        jQuery(window).keydown(function(event){
+//            if(event.keyCode == 13) {
+//                event.preventDefault();
+//                return false;
+//            }
+//        });
     });
     //]]>
 </script>
