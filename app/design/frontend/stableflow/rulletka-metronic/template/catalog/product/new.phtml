@@ -57,7 +57,7 @@
                                     <div class="display-inline pull-right">
                                         <div class="basket-number basket-number-lg"><?php echo $this->getPriceHtml($_product, true) ?></div>
                                         <?php if($_product->isSaleable()): ?>
-                                        <button type="button" class="btn yellow btn-lg btn-width border-radius-none bold margin-top-min" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><i class="icon icon-shopping-cart"></i>
+                                        <button type="button" class="btn btn-cart yellow btn-lg btn-width border-radius-none bold margin-top-min" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><i class="icon icon-shopping-cart"></i>
                                             <?php else: ?>
                                                 <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                                             <?php endif; ?>
