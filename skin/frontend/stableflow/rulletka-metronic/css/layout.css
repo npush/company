@@ -73,6 +73,11 @@ body {
   min-width: 320px;
 }
 
+.border-top {
+  border-top: 2px solid #fdbb09;
+  padding-top: 20px;
+}
+
 .link.none-underline, .none-underline {
   text-decoration: none;
   cursor: pointer;
