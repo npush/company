@@ -34,10 +34,10 @@
                 <div class="media">
                     <div class="media-body">
                         <h4 class="media-heading">
+                            <span class="c-date"><?php echo $this->formatDate($_comment->getCreatedAt(), 'long' );?></span>
                             <span class="author">
                                 <?php echo $this->__('User %s wrote:', $this->escapeHtml($_comment->getName()))?>                             
-                            </span>
-                            <span class="c-date"><?php echo $this->formatDate($_comment->getCreatedAt(), 'long' );?></span>
+                            </span>                            
                         </h4>
                         <p><strong><?php echo $this->escapeHtml($_comment->getTitle()) ?></strong></p>
                         <?php echo nl2br($this->escapeHtml($_comment->getComment())) ?>
