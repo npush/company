@@ -87,14 +87,14 @@ Mage::log('before response', null, 'Ajax-cart.log');
     {
         parent::deleteAction();
 
-        if ($this->getRequest()->getParam('ajaxcartpopupreq')):
+        if ($this->getRequest()->getParam('ajaxcartpopupreq')) {
             $result = 'success';
-            foreach (Mage::getSingleton('checkout/session')->getMessages()->getItems() as $message):
-                if ($message->getType() == 'error'):
+            foreach (Mage::getSingleton('checkout/session')->getMessages()->getItems() as $message) {
+                if ($message->getType() == 'error') {
                     $result = Mage::helper('checkout/cart')->getCartUrl();
-                endif;
+                }
                 break;
-            endforeach;
+            }
 
             $this->getResponse()
                 ->clearHeaders()
@@ -104,28 +104,28 @@ Mage::log('before response', null, 'Ajax-cart.log');
                 ->setHttpResponseCode(200)
                 ->isRedirect(0);
 
-            if ($this->getRequest()->getParam('iscartpage')):
+            if ($this->getRequest()->getParam('iscartpage')) {
                 $totals = '';
-                if ($result == 'success'):
+                if ($result == 'success') {
                     $totals = $this->getLayout()->createBlock('checkout/cart_totals')->setTemplate('checkout/cart/totals.phtml')->toHtml();
-                endif;
+                }
 
                 $this->getResponse()->setBody(Zend_Json::encode(array(
                     'result' => $result,
                     'totals' => $totals
                 )));
-            else:
+            }else {
                 $linktext = '';
                 $popuphtml = '';
                 $emptycart = '';
                 $minicarthtml = "";
-                if ($result == 'success'):
+                if ($result == 'success') {
                     $this->loadLayout()->_initLayoutMessages('checkout/session');
                     $linktext = $this->_getLinkText();
                     $popuphtml = $this->getLayout()->getBlock('ajaxcartpopup')->toHtml();
                     $minicarthtml = $this->getLayout()->getBlock('mini.cart')->toHtml();
                     $emptycart = Mage::helper('sf_ajaxcart')->getCartCount() ? false : true;
-                endif;
+                }
 
                 $this->getResponse()->setBody(Zend_Json::encode(array(
                     'result' => $result,
@@ -134,23 +134,23 @@ Mage::log('before response', null, 'Ajax-cart.log');
                     'minicarthtml' => $minicarthtml,
                     'emptycart' => $emptycart
                 )));
-            endif;
-        endif;
+            }
+        }
     }
 
     public function updatePostAction()
     {
         parent::updatePostAction();
 
-        if ($this->getRequest()->getParam('ajaxcartpopupreq') && $this->getRequest()->getParam('ajaxupdatequantity')):
+        if ($this->getRequest()->getParam('ajaxcartpopupreq') && $this->getRequest()->getParam('ajaxupdatequantity')){
             $result = 'success';
             $this->loadLayout()->_initLayoutMessages('checkout/session');
-            foreach (Mage::getSingleton('checkout/session')->getMessages()->getItems() as $message):
-                if ($message->getType() == 'error' || $message->getType() == 'exception'):
+            foreach (Mage::getSingleton('checkout/session')->getMessages()->getItems() as $message) {
+                if ($message->getType() == 'error' || $message->getType() == 'exception') {
                     $result = Mage::helper('checkout/cart')->getCartUrl();
-                endif;
+                }
                 break;
-            endforeach;
+            }
 
             $this->getResponse()
                 ->clearHeaders()
@@ -160,7 +160,7 @@ Mage::log('before response', null, 'Ajax-cart.log');
                 ->setHttpResponseCode(200)
                 ->isRedirect(0);
 
-            if ($this->getRequest()->getParam('iscartpage')):
+            if ($this->getRequest()->getParam('iscartpage')) {
                 $totals = '';
                 if ($result == 'success'):
                     $totals = $this->getLayout()->createBlock('checkout/cart_totals')->setTemplate('checkout/cart/totals.phtml')->toHtml();
@@ -170,18 +170,18 @@ Mage::log('before response', null, 'Ajax-cart.log');
                     'result' => $result,
                     'totals' => $totals
                 )));
-            else:
+            }else {
                 $linktext = '';
                 $popuphtml = '';
                 $emptycart = '';
                 $minicarthtml = '';
-                if ($result == 'success'):
+                if ($result == 'success') {
                     $this->loadLayout()->_initLayoutMessages('checkout/session');
                     $linktext = $this->_getLinkText();
                     $popuphtml = $this->getLayout()->getBlock('ajaxcartpopup')->toHtml();
                     $minicarthtml = $this->getLayout()->getBlock('mini.cart')->toHtml();
                     $emptycart = Mage::helper('sf_ajaxcart')->getCartCount() ? false : true;
-                endif;
+                }
 
                 $this->getResponse()->setBody(Zend_Json::encode(array(
                     'result' => $result,
@@ -190,19 +190,19 @@ Mage::log('before response', null, 'Ajax-cart.log');
                     'minicarthtml' => $minicarthtml,
                     'emptycart' => $emptycart
                 )));
-            endif;
-        endif;
+            }
+        }
     }
 
     private function _getLinkText()
     {
-        if ($block = $this->getLayout()->getBlock('minicart_head')):
+        if ($block = $this->getLayout()->getBlock('minicart_head')) {
             $cartlink = $block->toHtml();
             preg_match('/<a.+skip-cart.+>(.+)<\/a>/Us', $cartlink, $linktext);
-        else:
+        }else {
             $toplinks = $this->getLayout()->getBlock('top.links')->toHtml();
             preg_match('/<a.+top-link-cart.+>(.+)<\/a>/Us', $toplinks, $linktext);
-        endif;
+        }
 
         return $linktext[1];
     }
