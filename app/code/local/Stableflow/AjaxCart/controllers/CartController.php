@@ -18,9 +18,9 @@ class Stableflow_AjaxCart_CartController extends Mage_Checkout_CartController
 
         $items = Mage::getSingleton('checkout/cart')->init()->getItems();
         $countbefore = count($items);
-Mage::log('before parent::addAction()', null, 'Ajax-cart.log');
+//Mage::log('before parent::addAction()', null, 'Ajax-cart.log');
         parent::addAction();
-Mage::log('after parent::addAction()', null, 'Ajax-cart.log');
+
         $this->getResponse()
             ->clearHeaders()
             ->clearBody();
@@ -40,33 +40,33 @@ Mage::log('after parent::addAction()', null, 'Ajax-cart.log');
         $itemid = '';
         $deleteurl = '';
         $product = $this->_initProduct();
-        if ($result == 'success'):
+        if($result == 'success'){
             $this->loadLayout()->_initLayoutMessages('checkout/session');
             $message = Mage::app()->getLayout()->getMessagesBlock()->toHtml();
             $message = strip_tags($message);
             $linktext = $this->_getLinkText();
             $popuphtml = $this->getLayout()->getBlock('ajaxcartpopup')->toHtml();
             $minicarthtml = $this->getLayout()->getBlock('mini.cart')->toHtml();
-            if (Mage::app()->getRequest()->getParam('imagedetail')):
-                $imageurl = (string) Mage::helper('catalog/image')->init($product, 'small_image')->resize(135);
+            if (Mage::app()->getRequest()->getParam('imagedetail')) {
+                $imageurl = (string)Mage::helper('catalog/image')->init($product, 'small_image')->resize(135);
                 $productname = addslashes($product->getName());
-            endif;
-        elseif ($this->getRequest()->getParam('isproductpage')):
+            }
+        }elseif($this->getRequest()->getParam('isproductpage')) {
             $this->loadLayout()->_initLayoutMessages('checkout/session');
             $message = Mage::app()->getLayout()->getMessagesBlock()->toHtml();
             $message = strip_tags($message);
-        else:
+        }else{
             $result = $product->getProductUrl();
-        endif;
+        }
 
         Mage::helper('sf_ajaxcart')->updateCartCount();
 
-        if (Mage::helper('sf_ajaxcart')->getCartItemCount() > $countbefore):
+        if (Mage::helper('sf_ajaxcart')->getCartItemCount() > $countbefore) {
             $allitems = Mage::getSingleton('checkout/cart')->getItems()->getData();
             $itemid = array_pop($allitems);
             $itemid = $itemid['item_id'];
             $deleteurl = Mage::helper('sf_ajaxcart')->getDeleteUrl($itemid);
-        endif;
+        }
 
         $this->getResponse()->setBody(Zend_Json::encode(array(
             'result' => $result,
