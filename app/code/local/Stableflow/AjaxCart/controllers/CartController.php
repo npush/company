@@ -12,13 +12,14 @@ class Stableflow_AjaxCart_CartController extends Mage_Checkout_CartController
 {
     public function addAction()
     {
+Mage::log('before all', null, 'Ajax-cart.log');
         if ($this->getRequest()->getParam('return_url') || !Mage::getStoreConfig('sf_ajaxcart/general/enabled') || !Mage::getStoreConfig('sf_ajaxcart/ajax/ajax_enabled')):
             return parent::addAction();
         endif;
 
         $items = Mage::getSingleton('checkout/cart')->init()->getItems();
         $countbefore = count($items);
-//Mage::log('before parent::addAction()', null, 'Ajax-cart.log');
+Mage::log('before parent::addAction()', null, 'Ajax-cart.log');
         parent::addAction();
 
         $this->getResponse()
