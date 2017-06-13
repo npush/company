@@ -341,9 +341,9 @@ var cartpopup = Class.create({
         var height = size.height;
         var width = size.width;
         var posleft = left + (width / 2) - ($("cartpopup").getWidth() / 2);
-        var mainleft = $$("div.main")[0].viewportOffset();
+        var mainleft = $$("div.page-container")[0].viewportOffset();
         mainleft = mainleft.left;
-        var mainright = mainleft + $$("div.main")[0].getWidth();
+        var mainright = mainleft + $$("div.page-container")[0].getWidth();
         if (posleft < mainleft) {
             posleft = mainleft;
         } else if ((posleft + $("cartpopup").getWidth()) > mainright) {
