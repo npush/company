@@ -26,6 +26,8 @@ var cartpopup = Class.create({
             return $$("a.skip-cart")[0];
         } else if ($$("a.top-link-cart")[0]) {
             return $$("a.top-link-cart")[0];
+        } else if ($$("i.minicart")[0]) {
+            return $$("i.minicart")[0];
         }
     },
     initPopup: function() {
@@ -281,7 +283,6 @@ var cartpopup = Class.create({
     },
     updateMiniCart: function(html){
         if(html){
-            console.log(html);
             $("minicart").update(html);
         }
 
