@@ -31,7 +31,7 @@ Mage::log('before parent::addAction()', null, 'Ajax-cart.log');
 
         $lastmessage = Mage::getSingleton('checkout/session')->getMessages()->getLastAddedMessage();
         $result = $lastmessage->getType() == 'success' ? 'success' : false;
-
+Mage::log($lastmessage, null, 'Ajax-cart.log');
         $message = '';
         $linktext = '';
         $popuphtml = '';
@@ -41,6 +41,7 @@ Mage::log('before parent::addAction()', null, 'Ajax-cart.log');
         $itemid = '';
         $deleteurl = '';
         $product = $this->_initProduct();
+Mage::log($result, null, 'Ajax-cart.log');
         if($result == 'success'){
             $this->loadLayout()->_initLayoutMessages('checkout/session');
             $message = Mage::app()->getLayout()->getMessagesBlock()->toHtml();
@@ -68,7 +69,7 @@ Mage::log('before parent::addAction()', null, 'Ajax-cart.log');
             $itemid = $itemid['item_id'];
             $deleteurl = Mage::helper('sf_ajaxcart')->getDeleteUrl($itemid);
         }
-
+Mage::log('before response', null, 'Ajax-cart.log');
         $this->getResponse()->setBody(Zend_Json::encode(array(
             'result' => $result,
             'message' => $message,
