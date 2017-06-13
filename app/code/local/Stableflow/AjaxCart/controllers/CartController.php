@@ -18,9 +18,9 @@ class Stableflow_AjaxCart_CartController extends Mage_Checkout_CartController
 
         $items = Mage::getSingleton('checkout/cart')->init()->getItems();
         $countbefore = count($items);
-
+Mage::log('before parent::addAction()', null, 'Ajax-cart.log');
         parent::addAction();
-
+Mage::log('before parent::addAction()', null, 'Ajax-cart.log');
         $this->getResponse()
             ->clearHeaders()
             ->clearBody();
