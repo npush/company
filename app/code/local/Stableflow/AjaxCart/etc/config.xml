@@ -36,22 +36,22 @@
         </routers>
         <translate>
             <modules>
-                <Stableflow_Autosuggest>
+                <Stableflow_Ajaxcart>
                     <files>
                         <default>Stableflow_Ajaxcart.csv</default>
                     </files>
-                </Stableflow_Autosuggest>
+                </Stableflow_Ajaxcart>
             </modules>
         </translate>
     </frontend>
     <adminhtml>
         <translate>
             <modules>
-                <Stableflow_Autosuggest>
+                <Stableflow_Ajaxcart>
                     <files>
                         <default>Stableflow_Ajaxcart.csv</default>
                     </files>
-                </Stableflow_Autosuggest>
+                </Stableflow_Ajaxcart>
             </modules>
         </translate>
     </adminhtml>

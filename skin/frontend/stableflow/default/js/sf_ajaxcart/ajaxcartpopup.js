@@ -165,6 +165,11 @@ var cartpopup = Class.create({
                                 notice += "<div class=\"ajaxnotice_checkout\"><img src=\"" + this.checkoutbutton + "\" alt=\"\" \\><div>" + this.checkouttext + "</div></div>";
                                 notice += "</a>";
                             }
+                            if (this.closeButton) {
+                                notice += "<a href=\"javascript:void(null)\" onclick=\"thiscartpopup.hideNotice()\">";
+                                notice += "<div class=\"ajaxnotice_cart\"><img src=\"" + this.closeButton + "\" alt=\"\" \\><div>" + this.closeButtonttext + "</div></div>";
+                                notice += "</a>";
+                            }
                             notice += "<div class=\"ajaxnotice_clearer\"></div>";
                             notice += "</div>";
                         } else {
