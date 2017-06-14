@@ -133,14 +133,12 @@
             var key = e.charCode || e.keyCode || 0;
             if (key == 13) {
                 e.preventDefault();
+                var form = jQuery('#cartForm');
+                from.append("<input type='hidden' name='update_cart_action' value='update_qty' />");
+                form.submit();
+
             }
         });
-//        jQuery(window).keydown(function(event){
-//            if(event.keyCode == 13) {
-//                event.preventDefault();
-//                return false;
-//            }
-//        });
     });
     //]]>
 </script>
