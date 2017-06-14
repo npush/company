@@ -28,6 +28,8 @@
 class Smasoft_Oneclickorder_Model_Order extends Mage_Core_Model_Abstract
 {
 
+    protected $_idFieldName = 'entity_id';
+
     /**
      * Initialize resources
      */

@@ -157,17 +157,17 @@ var cartpopup = Class.create({
                             notice += "<div class=\"ajaxnotice_buttons\">";
                             if (this.cartbutton) {
                                 notice += "<a href=\"" + this.carturl + "\">";
-                                notice += "<div class=\"ajaxnotice_cart\"><img src=\"" + this.cartbutton + "\" alt=\"\" \\><div>" + this.carttext + "</div></div>";
+                                notice += "<div class=\"btn yellow btn-sm btn-width border-radius-none bold\"><div>" + this.carttext + "</div></div>";
                                 notice += "</a>";
                             }
                             if (this.checkoutbutton) {
                                 notice += "<a href=\"" + this.checkouturl + "\">";
-                                notice += "<div class=\"ajaxnotice_checkout\"><img src=\"" + this.checkoutbutton + "\" alt=\"\" \\><div>" + this.checkouttext + "</div></div>";
+                                notice += "<div class=\"btn yellow btn-sm btn-width border-radius-none bold\"><div>" + this.checkouttext + "</div></div>";
                                 notice += "</a>";
                             }
                             if (this.closeButton) {
                                 notice += "<a href=\"javascript:void(null)\" onclick=\"thiscartpopup.hideNotice()\">";
-                                notice += "<div class=\"ajaxnotice_cart\"><img src=\"" + this.closeButton + "\" alt=\"\" \\><div>" + this.closeButtonttext + "</div></div>";
+                                notice += "<div class=\"btn yellow btn-sm btn-width border-radius-none bold\"><div>" + this.closeButtonttext + "</div></div>";
                                 notice += "</a>";
                             }
                             notice += "<div class=\"ajaxnotice_clearer\"></div>";

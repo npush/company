@@ -48,7 +48,8 @@ class Smasoft_Oneclickorder_Helper_Email extends Mage_Core_Helper_Abstract
             array(
                 'customer' => $customer,
                 'order' => $order,
-                'invoice' => $order->getQuote()
+                'invoice' => $order->getQuote(),
+                'order_id' => (string)$order->getId(),
             )
         );
 
@@ -70,7 +71,8 @@ class Smasoft_Oneclickorder_Helper_Email extends Mage_Core_Helper_Abstract
                 array(
                     'customer' => $customer,
                     'order' => $order,
-                    'invoice' => $order->getQuote()
+                    'invoice' => $order->getQuote(),
+                    'order_id' => (string)$order->getId(),
                 )
             );
 
