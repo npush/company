@@ -34,7 +34,27 @@
                 </args>
             </checkout>
         </routers>
+        <translate>
+            <modules>
+                <Stableflow_Autosuggest>
+                    <files>
+                        <default>Stableflow_Ajaxcart.csv</default>
+                    </files>
+                </Stableflow_Autosuggest>
+            </modules>
+        </translate>
     </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Stableflow_Autosuggest>
+                    <files>
+                        <default>Stableflow_Ajaxcart.csv</default>
+                    </files>
+                </Stableflow_Autosuggest>
+            </modules>
+        </translate>
+    </adminhtml>
     <default>
         <sf_ajaxcart>
             <general module="sf_ajaxcart">
