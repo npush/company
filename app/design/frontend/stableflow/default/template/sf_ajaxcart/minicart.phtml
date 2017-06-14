@@ -14,7 +14,7 @@ if(empty($_cartQty)) {
 }
 ?>
 
-<div class="basket clearfix" id="minicart">
+<div class="basket clearfix">
     <ul>
         <li class="basket-number">
             <span class="label"><?php echo $this->__('') ?></span> <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>
