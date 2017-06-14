@@ -409,7 +409,7 @@ var cartpopup = Class.create({
         this.getCartElement().observe(this.getOpenMethod(), this.popuphandler);
     },
     mousePopupHandler: function(e) {
-        this.displayPopup();
+//        this.displayPopup();
     },
     mouseHidePopup: function() {
         this.hidehandler =  this.mouseHideHandler.bind(this);
