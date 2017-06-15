@@ -44,7 +44,7 @@
         </reference>
     </amshopby_index_index>
 
-    <catalog_category_layered> 
+    <catalog_category_layered>
         <remove name="catalog.leftnav" />
         <remove name="enterprisecatalog.leftnav"/> 
         <reference name="left">
@@ -57,7 +57,7 @@
                 <action method="setBlockId"><id>amshopby-filters-bottom-cms</id></action>
             </block>
         </reference>
-    </catalog_category_layered> 
+    </catalog_category_layered>
 
     
 <!--    <catalogsearch_result_index>
