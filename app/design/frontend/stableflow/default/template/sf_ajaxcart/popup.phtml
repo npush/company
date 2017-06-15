@@ -50,9 +50,10 @@
     </div>
     <script type="text/javascript">
         //<![CDATA[
-        /*jQuery('.amshopby-page-container').bind("DOMSubtreeModified",function(){
-            thiscartpopup.afterInit();
-        });*/
+        jQuery('.amshopby-page-container').bind("DOMSubtreeModified",function(){
+            //thiscartpopup.afterInit();
+            console.log('reload');
+        });
         thiscartpopup.afterInit();
         Event.observe(window, "resize", function() {
             thiscartpopup.positionAll();
