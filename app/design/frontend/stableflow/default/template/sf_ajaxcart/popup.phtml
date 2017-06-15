@@ -50,6 +50,9 @@
     </div>
     <script type="text/javascript">
         //<![CDATA[
+        jQuery('.amshopby-page-container').bind("DOMSubtreeModified",function(){
+            thiscartpopup.afterInit();
+        });
         thiscartpopup.afterInit();
         Event.observe(window, "resize", function() {
             thiscartpopup.positionAll();
