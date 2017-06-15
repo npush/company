@@ -79,7 +79,7 @@ $_helper = $this->helper('catalog/output');
         <?php //echo $this->getChild('product_list_toolbar')->getPagerHtml();?>
     </div>
     <script type="application/javascript">
-        if(thiscartpopup){
+        if(typeof(thiscartpopup) != "undefined"){
             thiscartpopup.afterInit();
         }
     </script>

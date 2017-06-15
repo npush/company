@@ -90,6 +90,11 @@
                             });
                         });
                     </script>
+                    <script type="application/javascript">
+                        if(typeof(thiscartpopup) != "undefined"){
+                            thiscartpopup.afterInit();
+                        }
+                    </script>
                 <?php endif; ?>
             </div> 
         </div>
@@ -102,8 +107,3 @@
 
     </div>
 </div>
-<script type="application/javascript">
-    if(thiscartpopup){
-        thiscartpopup.afterInit();
-    }
-</script>

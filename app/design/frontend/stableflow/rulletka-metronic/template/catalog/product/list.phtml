@@ -125,9 +125,9 @@
         });
     });
 </script>
-<script type="application/javascript">
-    if(thiscartpopup){
-        thiscartpopup.afterInit();
-    }
-</script>
+    <script type="application/javascript">
+        if(typeof(thiscartpopup) != "undefined"){
+            thiscartpopup.afterInit();
+        }
+    </script>
 <?php endif; ?>
