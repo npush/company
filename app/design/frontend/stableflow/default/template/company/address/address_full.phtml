@@ -18,8 +18,14 @@
        <?php echo $address->getData('telephone');?>
     </span>
 </p>
-<p><span class="bold"><?php echo $this->__('Email:')?> </span><a class="link-underline" href="<?php echo $address->getEmail(); ?>"><?php echo $address->getEmail(); ?></a></p>
-<p><span class="bold"><?php echo $this->__('Site:')?> </span><a class="link-underline" href="<?php echo $company->getUrl(); ?>"><?php echo $_helper->formatUrl($company->getUrl()); ?></a></p>
+<p>
+    <span class="bold"><?php echo $this->__('Email:')?> </span>
+        <?php $emails = explode(',', $address->getEmail())?>
+        <?php foreach($emails as $email): ?>
+            <a class="link-underline" href="mailto:<?php echo trim($email); ?>" target="_top"><?php echo trim($email); ?></a>
+        <?php endforeach;?>
+</p>
+<p><span class="bold"><?php echo $this->__('Site:')?> </span><a class="link-underline" href="<?php echo $company->getUrl(); ?>" target="_blank"><?php echo $_helper->formatUrl($company->getUrl()); ?></a></p>
 
 <div class="content-text content-description-outside">
     <?php echo $company->getDescription()?>
