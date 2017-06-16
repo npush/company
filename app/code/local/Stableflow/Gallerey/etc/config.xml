@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Stableflow_Gallerey>
+            <version>0.1.0</version>
+        </Stableflow_Gallerey>
+    </modules>
+    <global>
+        <blocks>
+            <sf_gallerey>
+                <class>Stableflow_Gallerey_Block</class>
+            </sf_gallerey>
+        </blocks>
+        <helpers>
+            <sf_gallerey>
+                <class>Stableflow_Gallerey_Helper</class>
+            </sf_gallerey>
+        </helpers>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <sf_gallerey>
+                    <file>sf_gallerey.xml</file>
+                </sf_gallerey>
+            </updates>
+        </layout>
+    </frontend>
+</config>
