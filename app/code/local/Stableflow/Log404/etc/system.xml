@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <sf_log404 translate="label" module="sf_log404">
+            <label>LOG 404</label>
+            <tab>rulletka</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>90</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <is_enabled translate="label comment">
+                            <label>Is Enabled</label>
+                            <comment><![CDATA[Enable log about the 404 pages?]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </is_enabled>
+                        <notification_type translate="label comment">
+                            <label>Notification Type</label>
+                            <comment><![CDATA[Save  to the log file? or DB]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>sf_log404/source_notification_type</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <is_enabled>1</is_enabled>
+                            </depends>
+                        </notification_type>
+                        <logfile_name translate="label comment">
+                            <label>Logfile Name</label>
+                            <comment><![CDATA[Name of the file, by the default "log404.log" ]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <is_enabled>1</is_enabled>
+                                <!--<notification_type>0</notification_type>-->
+                            </depends>
+                        </logfile_name>
+                    </fields>
+                </general>
+            </groups>
+        </sf_log404>
+    </sections>
+</config>

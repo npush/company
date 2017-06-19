@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Stableflow_Log404>
+            <codePool>local</codePool>
+            <active>true</active>
+        </Stableflow_Log404>
+    </modules>
+</config>

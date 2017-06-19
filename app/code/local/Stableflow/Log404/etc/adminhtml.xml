@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <config>
+    <menu>
+        <rulletka>
+            <children>
+                <sf_log404 translate="title" module="sf_log404">
+                    <title>Log 404 error</title>
+                    <action>adminhtml/log404</action>
+                </sf_log404>
+            </children>
+        </rulletka>
+    </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <sf_log404 translate="title" module="sf_log404">
+                                            <title>Log 404 error</title>
+                                        </sf_log404>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </config>
