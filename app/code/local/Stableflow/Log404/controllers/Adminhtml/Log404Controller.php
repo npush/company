@@ -6,6 +6,7 @@
  * Date: 6/19/17
  * Time: 4:31 PM
  */
+
 class Stableflow_Log404_Adminhtml_Log404Controller extends Mage_Adminhtml_Controller_Action
 {
     public function indexAction()
@@ -25,9 +26,9 @@ class Stableflow_Log404_Adminhtml_Log404Controller extends Mage_Adminhtml_Contro
     {
         $this->loadLayout()
             ->_setActiveMenu('rulletka/log404')
-            ->_title($this->__('Sales'))->_title($this->__('Baz'))
-            ->_addBreadcrumb($this->__('Sales'), $this->__('Sales'))
-            ->_addBreadcrumb($this->__('Baz'), $this->__('Baz'));
+            ->_title($this->__('Rulletka'))->_title($this->__('Log404'))
+            ->_addBreadcrumb($this->__('Rulletka'), $this->__('Rulletka'))
+            ->_addBreadcrumb($this->__('Log404'), $this->__('Log404'));
 
         return $this;
     }

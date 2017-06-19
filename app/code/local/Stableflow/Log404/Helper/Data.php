@@ -6,6 +6,7 @@
  * Date: 6/19/17
  * Time: 11:34 AM
  */
+
 class Stableflow_Log404_Helper_Data extends Mage_Core_Helper_Data
 {
     const DEFAULT_LOGFILE_NAME = 'log404.log';

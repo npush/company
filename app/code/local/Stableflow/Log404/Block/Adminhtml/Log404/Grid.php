@@ -6,6 +6,7 @@
  * Date: 6/19/17
  * Time: 4:26 PM
  */
+
 class Stableflow_Log404_Block_Adminhtml_Log404_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     protected $collection;

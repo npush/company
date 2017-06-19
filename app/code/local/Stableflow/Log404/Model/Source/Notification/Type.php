@@ -6,6 +6,7 @@
  * Date: 6/19/17
  * Time: 12:14 PM
  */
+
 class Stableflow_Log404_Model_Source_Notification_Type
 {
     public function toOptionArray()

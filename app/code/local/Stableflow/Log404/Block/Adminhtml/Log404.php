@@ -6,6 +6,7 @@
  * Date: 6/19/17
  * Time: 4:23 PM
  */
+
 class Stableflow_Log404_Block_Adminhtml_Log404 extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     public function __construct()
@@ -15,5 +16,6 @@ class Stableflow_Log404_Block_Adminhtml_Log404 extends Mage_Adminhtml_Block_Widg
         $this->_headerText = $this->__('Log 404');
 
         parent::__construct();
+        $this->_removeButton('add');
     }
 }
