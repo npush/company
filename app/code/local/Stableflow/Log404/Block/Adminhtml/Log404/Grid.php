@@ -49,6 +49,8 @@ class Stableflow_Log404_Block_Adminhtml_Log404_Grid extends Mage_Adminhtml_Block
         $this->addColumn('requested_url',
             array(
                 'header'=> $this->__('Requested Url'),
+                'align' =>'right',
+                'width' => '600px',
                 'index' => 'requested_url'
             )
         );
@@ -56,6 +58,8 @@ class Stableflow_Log404_Block_Adminhtml_Log404_Grid extends Mage_Adminhtml_Block
         $this->addColumn('referrer_url',
             array(
                 'header'=> $this->__('Referrer Url'),
+                'align' =>'right',
+                'width' => '600px',
                 'index' => 'referrer_url'
             )
         );
@@ -63,6 +67,8 @@ class Stableflow_Log404_Block_Adminhtml_Log404_Grid extends Mage_Adminhtml_Block
         $this->addColumn('description',
             array(
                 'header'=> $this->__('Description'),
+                'align' =>'right',
+                'width' => '180px',
                 'index' => 'description'
             )
         );
@@ -71,6 +77,8 @@ class Stableflow_Log404_Block_Adminhtml_Log404_Grid extends Mage_Adminhtml_Block
         $this->addColumn('created_at',
             array(
                 'header'=> $this->__('Created At'),
+                'align' =>'right',
+                'width' => '170px',
                 'index' => 'created_at'
             )
         );
