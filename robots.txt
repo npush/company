@@ -1,5 +1,4 @@
 Sitemap: http://www.ruletka.biz/sitemap.xml
-Disallow: /index.php/
 Disallow: /checkout/
 Disallow: /review/
 Disallow: /customer/
