@@ -91,6 +91,7 @@ shell/abstract.php
 shell/compiler.php
 shell/indexer.php
 shell/log.php
+sitemap/
 sitemap.xml
 skin/adminhtml/default/default/
 skin/adminhtml/default/enterprise

@@ -1,4 +1,4 @@
-Sitemap: http://www.ruletka.biz/sitemap.xml
+Sitemap: http://www.rulletka.biz/sitemap.xml
 Disallow: /checkout/
 Disallow: /review/
 Disallow: /customer/
