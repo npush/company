@@ -465,16 +465,99 @@ Page Header
   padding-top: 12px; 
 }
 
+
+
 .page-header .menu-toggler .icon-bar {
     display: block;
     width: 22px;
     height: 2px;
     border-radius: 1px;
-        background-color: #fff;
+    background-color: #fff;
 }
 .page-header .menu-toggler  .icon-bar + .icon-bar {
     margin-top: 4px;
 }
+
+.sandwich span {
+  position: relative;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  background-color: #ffffff;
+  border: none;
+  display: block;
+}
+
+.sw-topper {
+  top: 0;
+  transition: transform 0.5s, top 0.2s;
+  -moz-transition: transform 0.5s, top 0.2s;
+  -ms-transition: transform 0.5s, top 0.2s;
+  -o-transition: transform 0.5s, top 0.2s;
+  -webkit-transition: transform 0.5s, top 0.2s;
+  display: block;
+}
+
+.sw-bottom {
+  top: 4px;
+  transition: transform 0.5s, top 0.2s;
+  -moz-transition: transform 0.5s, top 0.2s;
+  -ms-transition: transform 0.5s, top 0.2s;
+  -o-transition: transform 0.5s, top 0.2s;
+  -webkit-transition: transform 0.5s, top 0.2s;
+  transition-delay: 0.2s, 0s;
+  -webkit-transition-delay: 0.2s, 0s;
+}
+
+.sw-footer {
+  top: 8px;
+  transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  transition-delay: 0.1s;
+  -webkit-transition-delay: 0.1s;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";
+  filter: alpha(opacity=1);
+  -khtml-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  top: 1;
+}
+
+.collapsed .sw-topper {
+  top: 0px;
+  transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  /* IE 9 */
+  -webkit-transform: rotate(-45deg);
+}
+
+.collapsed .sw-bottom {
+  top: 4px;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  /* IE 9 */
+  -webkit-transform: rotate(45deg);
+}
+
+.collapsed .sw-footer {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  -khtml-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+  top: 0;
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -webkit-transform: rotate(180deg);
+}
+
+
 
 .page-header.navbar .menu-toggler {
   display: block;
