@@ -16,7 +16,7 @@
 
 .bx-wrapper {
 margin: 0 auto 60px;
-max-width: 400px !important;
+max-width: 80% !important;
 padding: 0;
 position: relative;
 }
@@ -238,33 +238,9 @@ text-align: center;
 
 
 
-/*responsive*/
 
 
-@media only screen and (max-width: 480px){
-.bx-wrapper {
-  max-width: 260px !important;
-}
 
-}
-@media only screen and (min-width: 481px) and (max-width: 770px) {
-.bx-wrapper {
- max-width: 200px !important;
-}
-
-}
-@media only screen and (min-width: 771px) and (max-width: 966px) {
-.bx-wrapper {
-  max-width: 257px !important;
-}
-
-}
-@media only screen and (min-width: 967px) and (max-width: 1024px) {
-.bx-wrapper {
-  max-width: 346px !important;
-}
-
-}
 
 
 .product-image-gallery .zoomWrapper {
