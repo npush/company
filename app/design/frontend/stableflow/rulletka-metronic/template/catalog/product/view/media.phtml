@@ -35,12 +35,13 @@ $_helper = $this->helper('catalog/output');
 </div>
 
 <?php if (count($this->getGalleryImages()) > 0): ?>
-    <div class="more-views">
+    <div class="more-views" id="gal1">
         <ul class="product-image-thumbs bxslider-media">
             <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
                 <?php if ($this->isGalleryImageVisible($_image)): ?>
                     <li>
-                        <a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>" onclick="javascript:gallery.loadImage(<?php echo $i; ?>)">
+                        <a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>"
+                           data-image="" data-zoom-image="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>">
                             <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>"
                                  width="75" height="75" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
                         </a>
