@@ -3586,6 +3586,12 @@ input[type="checkbox"], input[type="radio"] {
   }
 
 }
+@media (max-width: 480px) { 
+
+  .panel-list .accordion-toggle {
+      font-size: 13px;
+  }
+}
 
 .img-catalog {
     float: right;
