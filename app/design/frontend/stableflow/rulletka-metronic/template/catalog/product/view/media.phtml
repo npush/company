@@ -51,26 +51,26 @@ $_helper = $this->helper('catalog/output');
                 <?php $i++; endforeach; ?>
         </ul>
     </div>
+    <script>
+        jQuery(document).ready(function(){
+            jQuery('.bxslider-media').bxSlider({
+                infiniteLoop: false,
+                minSlides: 3,
+                maxSlides: 4,
+                slideWidth: 79,
+                slideMargin: 10
+            });
+        });
 
+    </script>
 <?php endif; ?>
 
 <?php echo $this->getChildHtml('after'); ?>
 
 
-<?php if (count($this->getGalleryImages()) > 3): ?>
-<script>
-    jQuery(document).ready(function(){
-        jQuery('.bxslider-media').bxSlider({
-            infiniteLoop: false,
-            minSlides: 3,
-            maxSlides: 4,
-            slideWidth: 79,
-            slideMargin: 10
-        });
-    });
+<?php //if (count($this->getGalleryImages()) > 3): ?>
 
-</script>
-<?php endif;?>
+<?php //endif;?>
 
 <script type="application/javascript">
     //initiate the plugin and pass the id of the div containing gallery images
