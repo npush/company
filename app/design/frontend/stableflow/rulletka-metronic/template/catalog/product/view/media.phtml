@@ -79,7 +79,7 @@ $_helper = $this->helper('catalog/output');
         cursor: 'pointer',
         galleryActiveClass: 'active',
         imageCrossfade: true,
-        loadingIcon: '../images/loading.gif'
+        loadingIcon: '<?php echo $this->getSkinUrl(); ?>images/loading.gif'
     });
 
     //pass the images to Fancybox
