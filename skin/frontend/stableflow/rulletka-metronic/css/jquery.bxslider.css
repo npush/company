@@ -270,6 +270,7 @@ text-align: center;
 .product-image-gallery .zoomWrapper {
 	height: 380px !important;
 	width: 100% !important;
+	position: relative;
 }
 
 .product-image-gallery .zoomWrapper img {

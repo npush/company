@@ -4676,6 +4676,13 @@ input[type="checkbox"], input[type="radio"] {
       margin: 15px 5px;
   }
 }
+
+@media (max-width: 768px) {
+  .content-text p.line-dashed {
+      word-wrap: break-word;
+  }
+}
+
 @media (max-width: 520px) {
   .content-text p.line-dashed {
       margin-bottom: 5px;
