@@ -144,11 +144,17 @@ text-align: center;
 .bx-wrapper .bx-controls-direction .bx-prev:before {
 	content: "\e901";
 	color: #5783ae;
+	top: 16px;
+	left: 19px;
+
 }
 
 .bx-wrapper .bx-controls-direction .bx-next:before {
 	content: "\e902";
 	color: #5783ae;	
+	top: 16px;
+	right: 15px;
+
 }
 
 .bx-wrapper .bx-controls-direction a.disabled {
@@ -241,13 +247,13 @@ text-align: center;
 
 @media only screen and (max-width: 480px){
 .bx-wrapper {
-  max-width: 168px !important;
+  max-width: 260px !important;
 }
 
 }
 @media only screen and (min-width: 481px) and (max-width: 770px) {
 .bx-wrapper {
- max-width: 257px !important;
+ max-width: 200px !important;
 }
 
 }
