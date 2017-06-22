@@ -278,7 +278,7 @@ text-align: center;
 }
 
 
-@media (min-width: 681px) and (max-width: 1500px) {
+@media (min-width: 541px) and (max-width: 1500px) {
 	.product-image-gallery .zoomWrapper {
 		height: 190px !important;
 	}
