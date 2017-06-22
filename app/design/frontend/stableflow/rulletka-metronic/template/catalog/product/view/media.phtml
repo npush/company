@@ -43,7 +43,7 @@ $_helper = $this->helper('catalog/output');
                         <a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>"
                            data-image="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(450); ?>"
                            data-zoom-image="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>">
-                            <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>"
+                            <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(75); ?>"
                                  width="75" height="75" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
                         </a>
                     </li>
