@@ -75,6 +75,12 @@ $_helper = $this->helper('catalog/output');
 <script type="application/javascript">
     //initiate the plugin and pass the id of the div containing gallery images
     jQuery("#image-main").elevateZoom({
+        responsive: true,
+        lensSize: 200,
+        zoomWindowWidth: 450,
+        zoomWindowHeight: 450,
+        zoomWindowOffetx: 10,
+        zoomWindowOffety: 0,
         gallery:'gallery_01',
         cursor: 'pointer',
         galleryActiveClass: 'active',
@@ -82,10 +88,4 @@ $_helper = $this->helper('catalog/output');
         loadingIcon: '<?php echo $this->getSkinUrl(); ?>images/loading.gif'
     });
 
-    //pass the images to Fancybox
-    jQuery("#image-main").bind("click", function(e) {
-        var ez =   jQuery('#image-main').data('elevateZoom');
-        jQuery.fancybox(ez.getGalleryList());
-        return false;
-    });
 </script>
