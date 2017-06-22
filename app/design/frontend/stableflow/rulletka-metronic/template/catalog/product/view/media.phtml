@@ -35,7 +35,7 @@ $_helper = $this->helper('catalog/output');
 </div>
 
 <?php if (count($this->getGalleryImages()) > 0): ?>
-    <div class="more-views" id="gal1">
+    <div class="more-views" id="gallery_01">
         <ul class="product-image-thumbs bxslider-media">
             <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
                 <?php if ($this->isGalleryImageVisible($_image)): ?>
@@ -53,7 +53,7 @@ $_helper = $this->helper('catalog/output');
     <script>
         jQuery(document).ready(function(){
             jQuery('.bxslider-media').bxSlider({
-                infiniteLoop: false,
+                infiniteLoop: true,
                 minSlides: 3,
                 maxSlides: 4,
                 slideWidth: 79,
