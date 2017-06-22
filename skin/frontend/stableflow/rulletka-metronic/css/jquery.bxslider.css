@@ -50,7 +50,7 @@ position: relative;
 
 .bx-wrapper .bx-loading {
 	min-height: 50px;
-	background: url(../../image/images/bx_loader.gif) center center no-repeat #fff;
+	background: url(../images/loading.gif) center center no-repeat #fff;
 	height: 100%;
 	width: 100%;
 	position: absolute;
@@ -99,13 +99,31 @@ text-align: center;
 /* DIRECTION CONTROLS (NEXT / PREV) */
 
 .bx-wrapper .bx-prev {
-  background: url("../images/prev.png") no-repeat scroll 0 0 / 100% auto rgba(0, 0, 0, 0);
+  /*background: url("../images/prev.png") no-repeat scroll 0 0 / 100% auto rgba(0, 0, 0, 0);*/
   left: -37px;
+	content: "\e901";
+	color: #5783ae;
+	cursor: pointer;
+	height: 30px;
+	position: absolute;
+	text-align: left;
+	top: 50%;
+	width: 30px;
+	margin-top: -15px;
 }
 
 .bx-wrapper .bx-next {
-  background: url("../images/next.png") no-repeat scroll 0 0 / 100% auto rgba(0, 0, 0, 0);
+  /*background: url("../images/next.png") no-repeat scroll 0 0 / 100% auto rgba(0, 0, 0, 0);*/
   right: -37px;
+	content: "\e901";
+	color: #5783ae;
+	cursor: pointer;
+	height: 30px;
+	position: absolute;
+	text-align: left;
+	top: 50%;
+	width: 30px;
+	margin-top: -15px;
 }
 
 
