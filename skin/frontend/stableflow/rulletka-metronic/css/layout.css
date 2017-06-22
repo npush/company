@@ -529,7 +529,7 @@ Page Header
 }
 
 .collapsed .sw-topper {
-  top: 0px;
+  top: 5px;
   transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   /* IE 9 */
@@ -537,7 +537,7 @@ Page Header
 }
 
 .collapsed .sw-bottom {
-  top: 4px;
+  top: 3px;
   transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   /* IE 9 */
