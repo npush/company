@@ -129,14 +129,22 @@ text-align: center;
 
 
 .bx-wrapper .bx-controls-direction a {
-height: 32px;
-margin-top: -16px;
-outline: 0 none;
-position: absolute;
-text-indent: -9999px;
-top: 40px;
-width: 32px;
-z-index: 9999;
+	height: 32px;
+	margin-top: -16px;
+	outline: 0 none;
+	position: absolute;
+	top: 40px;
+	width: 32px;
+	z-index: 9999;
+	color: #5783ae;
+}
+
+.bx-wrapper .bx-controls-direction .bx-prev {
+	content: "\e901";
+}
+
+.bx-wrapper .bx-controls-direction .bx-next {
+	content: "\e902";
 }
 
 .bx-wrapper .bx-controls-direction a.disabled {
