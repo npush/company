@@ -275,8 +275,15 @@ text-align: center;
 .product-image-gallery .zoomWrapper img {
 	position: absolute;
 	max-width: 80%;
-	left: 10%;
-
+	height: auto;
+	display: block;
+	margin: auto;
+	max-height: 350px;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
 
@@ -297,6 +304,10 @@ text-align: center;
 
 	}
 
+	.product-image-gallery .zoomWrapper img {
+		max-height: 190px;
+	}
+
 }
 
 @media (max-width: 540px) { 
@@ -315,4 +326,9 @@ text-align: center;
 		right: 15px;
 
 	}
+
+	.product-image-gallery .zoomWrapper img {
+		max-height: 300px;
+	}	
+
 }
