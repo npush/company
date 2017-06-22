@@ -37,6 +37,7 @@ position: relative;
     	-ms-transform: translatez(0);
     	-o-transform: translatez(0);
     	transform: translatez(0);
+    	z-index: 101;
 }
 
 .bx-wrapper .bx-pager,
