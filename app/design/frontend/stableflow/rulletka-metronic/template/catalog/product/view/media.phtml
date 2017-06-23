@@ -43,7 +43,7 @@ $_helper = $this->helper('catalog/output');
                 <?php if ($this->isGalleryImageVisible($_image)): ?>
                     <li>
                         <a class="thumb-link elevatezoom-gallery" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>"
-                           data-update="" data-image-index="<?php echo $i; ?>"
+                           data-image-index="<?php echo $i; ?>"
                            data-image="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(450); ?>"
                            data-zoom-image="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>">
                             <img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(75); ?>"
@@ -68,6 +68,10 @@ $_helper = $this->helper('catalog/output');
     </script>
 <?php endif; ?>
 
+<a id="inline" href="#data">This shows content of element who has id="data"</a>
+
+<div style="display:none"><div id="data">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
+
 <?php echo $this->getChildHtml('after'); ?>
 
 
@@ -91,10 +95,10 @@ $_helper = $this->helper('catalog/output');
         loadingIcon: '<?php echo $this->getSkinUrl(); ?>images/loading.gif'
     });
 
-   /* jQuery("#image-main").bind("click", function(e){
-        var ez = jQuery('#image-main').elevateZoom();
+    jQuery("#image-main").bind("click", function(e){
+        var ez = jQuery("#image-main").data('elevateZoom');
         //ez.closeAll();
-        jQuery.fancybox(ez.getGalleryList());
+        jQuery.fancybox.open(ez.getGalleryList());
         return false;
-    });*/
+    });
 </script>
