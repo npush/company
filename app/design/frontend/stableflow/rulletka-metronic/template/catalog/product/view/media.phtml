@@ -93,13 +93,15 @@ $_helper = $this->helper('catalog/output');
 
     jQuery("#image-main").bind("click", function(e){
         var ez = jQuery("#image-main").data('elevateZoom');
-        //ez.closeAll();
-        var img = ez.getGalleryList();
-        jQuery(img).each(function(i, val){
-            img[i] = {
-                src: val.href,
-                type : 'image'
-            };
+        ez.closeAll();
+        var img= [];
+        jQuery(ez.getGalleryList()).each(function(i, val){
+            if(val.href) {
+                img[i] = {
+                    src: val.href,
+                    type: 'image'
+                };
+            }
         });
         jQuery.fancybox.defaults.thumbs = {
             autoStart   : true,   // Display thumbnails on opening
