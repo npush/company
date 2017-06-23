@@ -101,6 +101,10 @@ $_helper = $this->helper('catalog/output');
                 type : 'image'
             };
         });
+        jQuery.fancybox.defaults.thumbs = {
+            autoStart   : true,   // Display thumbnails on opening
+                hideOnClose : true     // Hide thumbnail grid when closing animation starts
+        };
         jQuery.fancybox.open(img);
         return false;
     });
