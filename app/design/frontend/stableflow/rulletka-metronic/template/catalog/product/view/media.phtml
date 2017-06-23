@@ -74,7 +74,7 @@ $_helper = $this->helper('catalog/output');
 <?php //if (count($this->getGalleryImages()) > 3): ?>
 
 <?php //endif;?>
-
+<?php if($_product->getImage() && $_product->getImage() != 'no_selection'): ?>
 <script type="application/javascript">
     //initiate the plugin and pass the id of the div containing gallery images
     jQuery("#image-main").elevateZoom({
@@ -105,9 +105,10 @@ $_helper = $this->helper('catalog/output');
         });
         jQuery.fancybox.defaults.thumbs = {
             autoStart   : true,   // Display thumbnails on opening
-                hideOnClose : true     // Hide thumbnail grid when closing animation starts
+            hideOnClose : true     // Hide thumbnail grid when closing animation starts
         };
         jQuery.fancybox.open(img);
         return false;
     });
 </script>
+<?php endif;?>
