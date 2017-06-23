@@ -68,10 +68,6 @@ $_helper = $this->helper('catalog/output');
     </script>
 <?php endif; ?>
 
-<a id="inline" href="#data">This shows content of element who has id="data"</a>
-
-<div style="display:none"><div id="data">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div></div>
-
 <?php echo $this->getChildHtml('after'); ?>
 
 
@@ -98,6 +94,14 @@ $_helper = $this->helper('catalog/output');
     jQuery("#image-main").bind("click", function(e){
         var ez = jQuery("#image-main").data('elevateZoom');
         //ez.closeAll();
+        var img = ez.getGalleryList();
+        jQuery(img).each(function(i, val){
+            img[i] = {
+                src: val.href,
+                type : 'image'
+            };
+        });
+        console.log(img);
         jQuery.fancybox.open(ez.getGalleryList());
         return false;
     });
