@@ -3,6 +3,4 @@ Disallow: /checkout/
 Disallow: /review/
 Disallow: /customer/
 Disallow: /catalogsearch/
-Disallow: /catalog/product/view/
-Disallow: /catalog/category/view/
 Disallow: /catalog/product_compare/
