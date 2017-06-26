@@ -6,7 +6,7 @@
  * Date: 3/7/17
  * Time: 1:33 PM
  */
-class Stableflow_Company_Block_Company_Topicality extends Mage_Core_Block_Template{
+class Stableflow_Company_Block_Company_Offers_Topicality extends Mage_Core_Block_Template{
 
     protected $_currentCompany = null;
 
