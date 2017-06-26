@@ -111,7 +111,7 @@
         <div class="tabbable tabbable-tabdrop">
             <div id="tabs">
                 <ul class="nav nav-tabs">
-                    <?php $i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $groupTab => $html):?>
+                    <?php $html_render = '';$i = 1; foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $groupTab => $html):?>
                         <li>
                             <?php
                             if ($title = $this->getChildData($groupTab, 'title'));
