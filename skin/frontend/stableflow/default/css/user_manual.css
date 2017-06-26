@@ -2,6 +2,9 @@
 
 .line-pdf {
     margin-top: 10px;
+    position: relative;
+    z-index: 101;
+
 }
 
 .line-pdf .tooltip-pdf a{
