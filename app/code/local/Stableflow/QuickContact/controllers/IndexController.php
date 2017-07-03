@@ -56,8 +56,9 @@ class Stableflow_QuickContact_IndexController extends Mage_Core_Controller_Front
 				
 				if (!isset($postObject['telephone']) || strlen($postObject['telephone'])<1) {
 					$postObject['telephone'] = '';
-				}		
-				
+				}
+
+            Mage::helper('quickcontact')->logRequest();
                		
 				$mailTemplate = Mage::getModel('core/email_template');				
 				$mailTemplate->setDesignConfig(array('area' => 'frontend'))
