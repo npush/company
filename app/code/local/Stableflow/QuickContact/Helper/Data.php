@@ -39,7 +39,7 @@ class Stableflow_QuickContact_Helper_Data extends Mage_Core_Helper_Abstract
         $userAgent = Mage::helper('core/http')->getHttpUserAgent();
         $userIP = Mage::helper('core/http')->getRemoteAddr();
         $userHeaders = Mage::helper('core/http')->getRemoteAddrHeaders();
-        $messege = sprintf('from IP:%s, UserAgent: %s, Headers: %s', $userIP, $userAgent, $userHeaders);
-        Mage::log($messege, Zend_Log::INFO, 'contatus.log');
+        $message = sprintf('from IP:%s, UserAgent: %s, Headers: %s', $userIP, $userAgent, $userHeaders);
+        Mage::log($message, Zend_Log::INFO, 'contact-us.log');
     }
 }
