@@ -47,11 +47,11 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label"><?php echo Mage::helper('contacts')->__('Name') ?><span class="has-span">*</span></label>
-                        <input name="name" id="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry form-control radius-none" type="text" />
+                        <input name="name" id="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry validate-alpha form-control radius-none" type="text" />
                     </div>
                     <div class="form-group">
                         <label class="control-label"><?php echo Mage::helper('contacts')->__('Telephone') ?></label>
-                        <input name="telephone" id="telephone" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Telephone')) ?>" value="" class="form-control radius-none input-text" type="tel" />
+                        <input name="telephone" id="telephone" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Telephone')) ?>" value="" class="form-control radius-none validate-phoneStrict input-text" type="tel" placeholder="(123) 456-7890"/>
                     </div>
                     <div class="form-group">
                         <label class="control-label"><?php echo Mage::helper('contacts')->__('Email') ?><span class="has-span">*</span> </label>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label"><?php echo Mage::helper('contacts')->__('Comment') ?><span class="has-span">*</span> </label>
-                        <textarea name="comment" id="comment" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" class="form-control radius-none required-entry input-text" cols="5" rows="3"></textarea>
+                        <textarea name="comment" id="comment" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" class="form-control radius-none required-entry validate-no-html-tags input-text" cols="5" rows="3"></textarea>
                     </div>
                     <div class="form-group">
                         <p class="txt-sm">
@@ -87,6 +87,9 @@
 <script type="text/javascript">
     //<![CDATA[
     var contactForm = new VarienForm('contactForm', true);
+    Validation.add('validate-phone-num', 'Please enter a valid phone. For example (000) 12 3456.', function(v) {
+        return Validation.get('IsEmpty').test(v) || /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/.test(v)
+    })
     //]]>
 </script>
 <script type="text/javascript">
