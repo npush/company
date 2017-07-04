@@ -29,34 +29,46 @@ class Stableflow_QuickContact_IndexController extends Mage_Core_Controller_Front
 		$translate = Mage::getSingleton('core/translate');
         $translate->setTranslateInline(false);
 		try {
-                $postObject = new Varien_Object();
-                $postObject->setData($post);
+            $postObject = new Varien_Object();
+            $postObject->setData($post);
 
-                $error = false;
+            $error = false;
 
-                if (!Zend_Validate::is(trim($post['name']) , 'NotEmpty')) {
-                    $error = true;
-                }
+            if (!Zend_Validate::is(trim($post['name']) , 'Alpha')) {
+                $error = true;
+            }
 
-                if (!Zend_Validate::is(trim($post['comment']) , 'NotEmpty')) {
-                    $error = true;
-                }
+            if (!Zend_Validate::is(trim($post['comment']) , 'NotEmpty')) {
+                $error = true;
+            }
 
-                if (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
-                    $error = true;
-                }
+            if (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
+                $error = true;
+            }
 
-                if (Zend_Validate::is(trim($post['hideit']), 'NotEmpty')) {
-                    $error = true;
-                }
+            /*if (!Zend_Validate::is(trim($post['telephone']), 'Regex', '/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/')) {
+                $error = true;
+            }*/
 
-                if ($error) {
-                    throw new Exception();
-                }
-				
-				if (!isset($postObject['telephone']) || strlen($postObject['telephone'])<1) {
-					$postObject['telephone'] = '';
-				}
+            if (Zend_Validate::is(trim($post['hideit']), 'NotEmpty')) {
+                $error = true;
+            }
+
+            if(trim($post['comment']) != strip_tags(trim($post['comment']))) {
+                $error = true;
+            }
+
+            if(trim($post['name']) != strip_tags(trim($post['name']))) {
+                $error = true;
+            }
+
+            if ($error) {
+                throw new Exception();
+            }
+
+            if (!isset($postObject['telephone']) || strlen($postObject['telephone'])<1) {
+                $postObject['telephone'] = '';
+            }
 
             Mage::helper('quickcontact')->logRequest();
                		
