@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <rulletka translate="title" module="sf_blackip">
+            <children>
+                <first_page module="sf_blackip">
+                    <title>Black IP</title>
+                    <sort_order>150</sort_order>
+                    <action>adminhtml/blackip_index</action>
+                    <children>
+                        <viewBlocked module="sf_blackip">
+                            <title>Black Ip List</title>
+                            <sort_order>100</sort_order>
+                            <action>adminhtml/blackip_index/blocked</action>
+                        </viewBlocked>
+                    </children>
+                    <children>
+                        <blockOne module="sf_blackip">
+                            <title>Block ip classes</title>
+                            <sort_order>200</sort_order>
+                            <action>adminhtml/blackip_index/oneip</action>
+                        </blockOne>
+                    </children>
+                    <children>
+                        <blockOne module="sf_blackip">
+                            <title>Settings</title>
+                            <sort_order>500</sort_order>
+                            <action>adminhtml/system_config/edit/section/sf_blackip</action>
+                        </blockOne>
+                    </children>
+                </first_page>
+            </children>
+        </rulletka>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <sf_blackip translate="title" module="sf_blackip">
+                                        <title>Black IP list</title>
+                                        <sort_order>100</sort_order>
+                                    </sf_blackip>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
