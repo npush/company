@@ -17,9 +17,9 @@ $_helper = $this->helper('catalog/output');
 <link rel="stylesheet" href="<?php echo $this->getSkinUrl(); ?>css/jquery.fancybox.css" type="text/css" />
 
 <div class="product-image product-image-zoom">
-    <div class="product-image-gallery">
+    <div class="product-image-gallery  image-main-default">
         <img id="image-main"
-             class="gallery-image visible"
+             class="timeline-badge-userpic gallery-image visible"
              src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(450) ?>"
              alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
              title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>"
