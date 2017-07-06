@@ -2619,6 +2619,7 @@ input[type="checkbox"], input[type="radio"] {
   min-height: 237px;
   position: relative;
   border: 1px solid #c2c2c2;
+  margin-bottom: 15px;
 }
 
 .link {
