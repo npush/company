@@ -16,6 +16,13 @@ class Stableflow_BlackIp_Model_Observer extends Mage_Core_Model_Observer
         $ip = Mage::helper('core/http')->getRemoteAddr();
         if($helper->checkIfBlocked($ip)){
             header('HTTP/1.0 403 Access Denied/Forbidden');
+            /** @var Mage_Cms_Model_Resource_Block_Collection $collection */
+            $collection = Mage::getModel('cms/block')->getCollection();
+            $collection->addStoreFilter(1);
+            $collection->addFieldToFilter('identifier', 'blacklist');
+
+            $block = $collection->getFirstItem();
+            echo $block->getData('content');
             exit();
         }
         return;

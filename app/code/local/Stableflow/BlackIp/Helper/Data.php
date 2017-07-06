@@ -15,13 +15,15 @@ class Stableflow_BlackIp_Helper_Data extends Mage_Core_Helper_Data
      * @return bool
      */
     public function checkIfBlocked($ip){
-        return false;
-        if(stripos($ip, '.')===false){
-            $ip = long2ip($ip);
-        }
+
 
         $arrIp = explode('.', $ip);
-
+        $model = Mage::getModel('sf_blackip/blacklist')->getCollection();
+        $item = $model->addFieldToFilter('black_ip', $ip)->getFirstItem();
+        if($item->getData()){
+            return true;
+        }
+        return false;
         if(file_exists($this->cacheFile)) {
             $arrBlocked = unserialize(file_get_contents($this->cacheFile));
         }

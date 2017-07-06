@@ -14,17 +14,10 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist extends Mage_Adminhtml_Block_
         $this->_blockGroup = 'sf_blackip';
 
         $this->_headerText = Mage::helper('sf_blackip')->__('Black ip list');
-        $this->_addButton("view_list", array(
-            'label' => Mage::helper('sf_blackip')->__('View list'),
-            'onclick' => "setLocation('" . $this->getUrl('*/*/index') . "')")
-        );
-        $this->_addButton("view_blocked", array(
-            'label' => Mage::helper('sf_blackip')->__('add blocked'),
-            'onclick' => "setLocation('" . $this->getUrl('*/*/blocked') . "')")
-        );
-        $this->_addButton("one_ip", array(
-            'label' => Mage::helper('sf_blackip')->__('Block ip classes'),
-            'onclick' => "setLocation('" . $this->getUrl('*/*/oneip') . "')")
+        $this->_addButton("Add New IP", array(
+                'label' => Mage::helper('sf_blackip')->__('Add New IP'),
+                'onclick' => "setLocation('" . $this->getUrl('*/*/addNew') . "')",
+            )
         );
 
         parent::__construct();

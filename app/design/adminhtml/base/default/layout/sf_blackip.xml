@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout version="0.1.0">
     <adminhtml_blackip_index_index>
-        <!--<reference name="js">
-            <block type="core/template" template="briel/visitoripsecurity/inline-edit.phtml" />
-        </reference>-->
+        <reference name="js">
+            <block type="core/template" template="sf_blackip/inline-edit.phtml" />
+        </reference>
         <reference name="content">
             <block type="sf_blackip/adminhtml_blacklist" name="blacklist" />
         </reference>
     </adminhtml_blackip_index_index>
+    <adminhtml_blackip_index_addnew>
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addCss">
+                <name>lib/prototype/windows/themes/magento.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="sf_blackip/adminhtml_blacklist_edit" name="new-ip" template="sf_blackip/popup-edit.phtml" />
+        </reference>
+    </adminhtml_blackip_index_addnew>
+
+
+
     <adminhtml_visitoripsecurity_blocked>
         <reference name="js">
             <block type="core/template" template="briel/visitoripsecurity/inline-edit.phtml" />

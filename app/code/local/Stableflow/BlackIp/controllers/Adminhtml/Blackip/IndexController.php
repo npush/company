@@ -25,6 +25,19 @@ class Stableflow_BlackIp_Adminhtml_Blackip_IndexController extends Mage_Adminhtm
 
     }
 
+    public function addnewAction() {
+
+        $this->loadLayout();
+        /*$this->_addContent($this->getLayout()->createBlock('form/adminhtml_form_edit'))
+            ->_addLeft($this->getLayout()->createBlock('form/adminhtml_form_edit_tabs'));*/
+
+        //$this->_addContent($this->getLayout()->createBlock('visitoripsecurity/adminhtml_visitoripsecurity_grid'));
+        $this->renderLayout();
+        //exit();
+
+    }
+
+
     public function blockedAction() {
 
         $this->_initAction();
@@ -41,5 +54,60 @@ class Stableflow_BlackIp_Adminhtml_Blackip_IndexController extends Mage_Adminhtm
         $this->renderLayout();
         //exit();
 
+    }
+
+    public function saveAction()
+    {
+        $storeId = $this->getRequest()->getParam('store');
+        $redirectBack = $this->getRequest()->getParam('back', false);
+        $companyId = $this->getRequest()->getParam('id');
+        $isEdit = (int)($this->getRequest()->getParam('id') != null);
+        $data = $this->getRequest()->getPost();
+        if ($data) {
+
+        }
+    }
+
+    public function deleteAction() {
+        if( $this->getRequest()->getParam('id') > 0 ) {
+            try {
+                $model = Mage::getModel('sf_blackip/blacklist');
+
+                $model->setId($this->getRequest()->getParam('id'))
+                    ->delete();
+
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Item was successfully deleted'));
+                $this->_redirect('*/*/');
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+            }
+        }
+        $this->_redirect('*/*/');
+    }
+
+    public function massDeleteAction()
+    {
+        $companyIds = $this->getRequest()->getParam('sf_blackip');
+        if (!is_array($companyIds)) {
+            $this->_getSession()->addError($this->__('Please select IP.'));
+        } else {
+            try {
+                foreach ($companyIds as $companyId) {
+                    $company = Mage::getSingleton('sf_blackip/blacklist')->load($companyId);
+/*                    Mage::dispatchEvent(
+                        'company_controller_company_delete',
+                        array('company' => $company)
+                    );*/
+                    $company->delete();
+                }
+                $this->_getSession()->addSuccess(
+                    Mage::helper('company')->__('Total of %d record(s) have been deleted.', count($companyIds))
+                );
+            } catch (Exception $e) {
+                $this->_getSession()->addError($e->getMessage());
+            }
+        }
+        $this->_redirect('*/*/index');
     }
 }

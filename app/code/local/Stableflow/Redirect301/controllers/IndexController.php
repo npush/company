@@ -35,6 +35,9 @@ class Stableflow_Redirect301_IndexController extends Mage_Core_Controller_Front_
             $id = '1'.$old_id;
             $url = Mage::helper('redirect301')->getRedirectUrl('category', $id);
         }
+        if($old_id = Mage::app()->getRequest()->getParam('old_article_id')){
+            $url = Mage::helper('redirect301')->getRedirectUrl('article', $old_id);
+        }
         if($url){
             $this->getResponse()->setRedirect(Mage::getBaseUrl() . $url, 301)->sendResponse();
             return;

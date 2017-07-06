@@ -54,6 +54,11 @@ class Stableflow_Redirect301_Controller_Router extends Mage_Core_Controller_Vari
             $returnStatus = true;
         }
 
+        if($p[0] == 'article' && is_numeric($p[1])){
+            $paramName = 'old_article_id';
+            $returnStatus = true;
+        }
+
         if(!$returnStatus){
             return $returnStatus;
         }

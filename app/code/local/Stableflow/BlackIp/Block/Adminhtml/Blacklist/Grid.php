@@ -19,7 +19,7 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist_Grid extends Mage_Adminhtml_B
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(false);
 
-        $this->_headerText = Mage::helper('sf_blackip')->__('Ip logs');
+        $this->_headerText = Mage::helper('sf_blackip')->__('Black Ip list');
 
     }
     protected function _prepareCollection(){
@@ -67,34 +67,22 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist_Grid extends Mage_Adminhtml_B
 
     protected function _prepareColumns()
     {
+        $this->addColumn('entity_id', array(
+            'header'    => Mage::helper('sf_blackip')->__('ID'),
+            'index'     => 'entity_id',
+            'width'     => '30px',
+            'align'     => 'left',
+            'type'   => 'number'
+        ));
 
         $this->addColumn('black_ip', array(
             'header'    => Mage::helper('sf_blackip')->__('IP address'),
             'index'     => 'black_ip',
             'width'     => '80px',
             'align'		=> 'center',
-            //'renderer'  => 'sf_blackip/adminhtml_blackip_renderer_google'
+            'renderer'  => 'sf_blackip/adminhtml_widget_grid_column_renderer_google'
         ));
 
-        $this->addColumn('action',
-            array(
-                'header'    =>  Mage::helper('customer')->__('View'),
-                'width'     => '50px',
-                'type'      => 'action',
-                'getter'    => 'getRemoteAddr',
-                'align'		=> 'center',
-                'actions'   => array(
-                    array(
-                        'caption'   => Mage::helper('customer')->__('View'),
-                        'url'       => array('base'=> '*/*/logurl'),
-                        'field'     => 'remote_addr'
-                    )
-                ),
-                'filter'    => false,
-                'sortable'  => false,
-                'index'     => 'view',
-                'is_system' => true,
-            ));
         $this->addColumn('comment', array(
 
             'header'    => Mage::helper('sf_blackip')->__('Notes'),
@@ -102,7 +90,7 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist_Grid extends Mage_Adminhtml_B
             'width'     => '80px',
             'index'     => 'comment',
             'type'      => 'text',
-            //'renderer'  => 'sf_blackip/adminhtml_blackip_renderer_notes'
+            'renderer'  => 'sf_blackip/adminhtml_widget_grid_column_renderer_inline'
         ));
 
 
@@ -116,24 +104,10 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist_Grid extends Mage_Adminhtml_B
             'index'     => 'creation_time',
             'sortable'  => true
         ));
-        /*
-        $this->addColumn('last_url', array(
-                'header'    => Mage::helper('visitoripsecurity')->__('Last url'),
-                'align'     => 'center',
-                'width'     => '120px',
-                'type'      => 'text',
-                'default'   => '--',
-                'index'     => 'last_url',
-                'filter'    => false,
-                'sortable'  => false,
-                'renderer'  => 'visitoripsecurity/adminhtml_visitoripsecurity_renderer_lasturl'
-        ));
-        */
-        //$this->print_a($this);
-        //var_dump($this);
 
         return parent::_prepareColumns();
     }
+
     protected function _addColumnFilterToCollection($column)
     {
         $rs = Mage::getSingleton('core/resource');
@@ -188,6 +162,21 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist_Grid extends Mage_Adminhtml_B
             }
         }
     }
+
+    protected function _prepareMassaction(){
+        $this->setMassactionIdField('entity_id');
+        $this->getMassactionBlock()->setFormFieldName('sf_blackip');
+        $this->getMassactionBlock()->addItem(
+            'delete',
+            array(
+                'label'=> Mage::helper('sf_blackip')->__('Delete'),
+                'url'  => $this->getUrl('*/*/massDelete'),
+                'confirm'  => Mage::helper('sf_blackip')->__('Are you sure?')
+            )
+        );
+        return $this;
+    }
+
     public function getRowUrl($row)
     {
         //return $this->getUrl('*/*/edit', array('id' => $row->getId()));
