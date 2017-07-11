@@ -24,11 +24,13 @@ if($installer->getConnection()->isTableExists($installer->getTable('sf_blackip/b
             'primary'   => true,
         ), 'Entity Id')
         ->addColumn('black_ip', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        ), 'Black IP')
+            'nullable'  => false,
+        ), 'Black-IP')
         ->addColumn('comment', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
             'nullable'  => false,
         ), 'Comment')
         ->addColumn('creation_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+            'nullable'  => false,
         ), 'Black IP Creation Time')
         ->setComment('Black List IP Table');
     $installer->getConnection()->createTable($table);
