@@ -30,6 +30,7 @@ if($installer->getConnection()->isTableExists($installer->getTable('sf_blackip/b
             'nullable'  => false,
         ), 'Comment')
         ->addColumn('creation_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+            'nullable'  => false,
         ), 'Black IP Creation Time')
         ->setComment('Black List IP Table');
     $installer->getConnection()->createTable($table);
