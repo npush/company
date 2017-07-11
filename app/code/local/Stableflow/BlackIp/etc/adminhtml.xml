@@ -11,16 +11,16 @@
                         <viewBlocked module="sf_blackip">
                             <title>Black Ip List</title>
                             <sort_order>100</sort_order>
-                            <action>adminhtml/blackip_index/blocked</action>
+                            <action>adminhtml/blackip_index</action>
                         </viewBlocked>
                     </children>
-                    <children>
+                    <!--<children>
                         <blockOne module="sf_blackip">
                             <title>Block ip classes</title>
                             <sort_order>200</sort_order>
                             <action>adminhtml/blackip_index/oneip</action>
                         </blockOne>
-                    </children>
+                    </children>-->
                     <children>
                         <blockOne module="sf_blackip">
                             <title>Settings</title>
