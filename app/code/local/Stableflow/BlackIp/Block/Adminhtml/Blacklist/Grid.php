@@ -14,7 +14,7 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist_Grid extends Mage_Adminhtml_B
 
         $this->setId('blacklistGrid');
         // This is the primary key of the database
-        $this->setDefaultSort('url_c');
+        $this->setDefaultSort('entity_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(false);

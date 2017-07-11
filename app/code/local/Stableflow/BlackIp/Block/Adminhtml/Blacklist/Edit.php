@@ -22,19 +22,5 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist_Edit extends Mage_Adminhtml_B
             'label',
             Mage::helper('sf_blackip')->__('Delete IP')
         );
-        $this->_addButton(
-            'saveandcontinue',
-            array(
-                'label'   => Mage::helper('sf_blackip')->__('Save And Continue Edit'),
-                'onclick' => 'saveAndContinueEdit()',
-                'class'   => 'save',
-            ),
-            -100
-        );
-        $this->_formScripts[] = "
-            function saveAndContinueEdit() {
-                editForm.submit($('edit_form').action+'back/edit/');
-            }
-        ";
     }
 }

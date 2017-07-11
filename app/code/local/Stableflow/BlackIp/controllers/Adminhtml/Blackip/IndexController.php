@@ -60,12 +60,23 @@ class Stableflow_BlackIp_Adminhtml_Blackip_IndexController extends Mage_Adminhtm
     {
         $storeId = $this->getRequest()->getParam('store');
         $redirectBack = $this->getRequest()->getParam('back', false);
-        $companyId = $this->getRequest()->getParam('id');
-        $isEdit = (int)($this->getRequest()->getParam('id') != null);
         $data = $this->getRequest()->getPost();
         if ($data) {
+            unset($data['form_key']);
+            $data['creation_time'] = Varien_Date::now();
+            $model = Mage::getModel('sf_blackip/blacklist');
+            $model->addData($data);
+            try{
+                $model->save();
+                $this->_getSession()->addSuccess(
+                    Mage::helper('sf_blackip')->__('IP was saved')
+                );
+            }
+            catch(Mage_Core_Exception $e){
 
+            }
         }
+        $this->_redirect('*/*/', array('store'=>$storeId));
     }
 
     public function deleteAction() {

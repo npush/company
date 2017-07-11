@@ -11,7 +11,7 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist_Edit_Form extends Mage_Adminh
     protected function _prepareForm() {
 
         $form = new Varien_Data_Form(array(
-                'id' => 'edit_form',
+                'id' => 'editForm',
                 'action' => $this->getUrl('*/*/save'),
                 'method' => 'post',
                 'enctype' => 'multipart/form-data',
@@ -38,32 +38,25 @@ class Stableflow_BlackIp_Block_Adminhtml_Blacklist_Edit_Form extends Mage_Adminh
         );*/
 
         $base_fieldset->addField('black_ip', 'text', array(
-            'label'     => Mage::helper('sf_blackip')->__('blackip'),
+            'label'     => Mage::helper('sf_blackip')->__('Blocked IP'),
             'class'     => 'required-entry',
             'required'  => true,
             'name'      => 'black_ip',
-            'onclick' => "",
-            'onchange' => "alert('on change');",
             'style'   => "border:10px",
-            'value'  => 'hello !!',
-            'disabled' => false,
-            'readonly' => false,
-            'after_element_html' => '<small>black_ip</small>',
-            'tabindex' => 1
+            'value'  => '',
+            'after_element_html' => '<small>enter IP (separated by . "dot")for blocking</small>',
+            'tabindex' => 1,
+            'comment'   => 'Enter . separated IP'
         ));
 
         $base_fieldset->addField('comment', 'text', array(
-            'label'     => Mage::helper('sf_blackip')->__('comment'),
+            'label'     => Mage::helper('sf_blackip')->__('Comment'),
             'class'     => 'required-entry',
             'required'  => true,
             'name'      => 'comment',
-            'onclick' => "",
-            'onchange' => "alert('on change');",
             'style'   => "border:10px",
-            'value'  => 'hello !!',
-            'disabled' => false,
-            'readonly' => false,
-            'after_element_html' => '<small>black_ip</small>',
+            'value'  => '',
+            'after_element_html' => '<small>your comment</small>',
             'tabindex' => 1
         ));
 
