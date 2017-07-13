@@ -58,6 +58,13 @@ class Stableflow_QuickContact_IndexController extends Mage_Core_Controller_Front
                 $error = true;
             }
 
+            if(preg_match_all(
+                '/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/',
+                trim($post['comment'])
+                )){
+                $error = true;
+            }
+
             if(trim($post['name']) != strip_tags(trim($post['name']))) {
                 $error = true;
             }
