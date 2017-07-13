@@ -44,8 +44,9 @@ class Stableflow_Company_Model_Product extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Retrive Company product collection
+     * Retrieve Company product collection
      * @param Stableflow_Company_Model_Company $company
+     * @return Stableflow_Company_Model_Resource_Product_Collection
      */
     public function getProducts(Stableflow_Company_Model_Company $company)
     {
