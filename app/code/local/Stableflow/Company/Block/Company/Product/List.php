@@ -24,6 +24,7 @@ class Stableflow_Company_Block_Company_Product_List extends Mage_Catalog_Block_P
     }
 
     protected function getCompanyProducts($companyId){
+        $a = Mage::getModel('company/company')->load($companyId)->getProducts();
         $productIds = null;
         $productCollection = Mage::getModel('company/relation')
             ->getCollection()

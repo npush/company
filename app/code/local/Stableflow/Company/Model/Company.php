@@ -318,7 +318,9 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
      * @return array
      */
     public function getProducts(){
-
+        //return $this->_getResource()->getProducts($this->getId());
+        $id = $this->getId();
+        return Mage::getModel('company/product')->getProducts($this);
     }
 
     public function getProductsCollection(){

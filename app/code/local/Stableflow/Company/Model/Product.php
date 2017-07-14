@@ -58,4 +58,32 @@ class Stableflow_Company_Model_Product extends Mage_Core_Model_Abstract
         return $this->_productsCollection;
     }
 
+    /**
+     * Retrieve Catalog product collection
+     * @param array $productsIds
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
+    public function getCatalogProductCollection($productsIds){
+        return Mage::getResourceModel('catalog/product_collection')
+            ->addFieldToFilter('entity_id', array('in',$productsIds))
+            ->addFieldToFilter('is_active', 1);
+    }
+
+    /**
+     * Get Catalog Product By ID
+     * @param int $id Catalog Product ID
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getCatalogProduct($id){
+        return Mage::getModel('catalog/product')->load($id);
+    }
+
+    /**
+     * Get Companies That sell this product
+     * @return Stableflow_Company_Model_Resource_Company_Collection
+     */
+    public function getProductSellsCompanies(){
+        return Mage::getResourceModel('company/product_collection')
+            ->addFieldToFilter('');
+    }
 }
