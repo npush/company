@@ -14,6 +14,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
         $this->setId('company_info_tabs');
         $this->setDestElementId('edit_form');
         $this->setTitle(Mage::helper('company')->__('Company Information'));
+        //$this->setTemplate('widget/tabshoriz.phtml');
     }
 
 
@@ -73,7 +74,8 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
             array(
                 'label'   => Mage::helper('company')->__('Company Products List'),
                 'content' => $this->getLayout()->createBlock(
-                    'company/adminhtml_company_edit_tab_products'
+                    'company/adminhtml_company_edit_tab_products',
+                    'company.product.grid'
                 )
                     ->toHtml(),
             )

@@ -15,7 +15,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
     public function __construct(){
         parent::__construct();
 
-        $this->setId('company_products_grid');
+        $this->setId('company_products');
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
         //$this->setTemplate('company/tab/products.phtml');
