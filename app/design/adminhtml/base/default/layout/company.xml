@@ -37,4 +37,38 @@
             <block type="core/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
         </reference>
     </adminhtml_company_company_edit>
+    <adminhtml_company_company_editproduct>
+        <remove name="menu" />
+        <remove name="header" />
+        <remove name="footer" />
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addCss">
+                <name>lib/prototype/windows/themes/magento.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="company/adminhtml_product_edit" name="product_edit"/>
+        </reference>
+    </adminhtml_company_company_editproduct>
+    <adminhtml_company_company_saveproduct>
+        <remove name="menu" />
+        <remove name="header" />
+        <remove name="footer" />
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addCss">
+                <name>lib/prototype/windows/themes/magento.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="company/adminhtml_product_edit" name="product_edit"/>
+        </reference>
+    </adminhtml_company_company_saveproduct>
 </layout>

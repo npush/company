@@ -45,6 +45,12 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
         return $company;
     }
 
+    protected function _initProduct(){
+        $productId = (int)$this->getRequest()->getParam('id');
+        $product = Mage::getModel('company/product')->load($productId);
+        return $product;
+    }
+
     /**
      * default action for company controller
      *
@@ -451,5 +457,35 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     public function generateSitemapAction()
     {
         Mage::getModel('company/generateSitemap')->generateXml();
+    }
+
+    public function editProductAction()
+    {
+        $this->_initProduct();
+        $this->loadLayout();
+        $this->getLayout()->removeOutputBlock('header');
+        $this->renderLayout();
+    }
+    public function saveProductAction()
+    {
+        $storeId = $this->getRequest()->getParam('store');
+        $productId = $this->getRequest()->getParam('id');
+        $redirectBack = $this->getRequest()->getParam('back', false);
+        $data = $this->getRequest()->getPost();
+        if ($data) {
+            $model = Mage::getModel('company/product')->load($productId);
+            $model->addData($data);
+            try{
+                $model->save();
+                $this->_getSession()->addSuccess(
+                    Mage::helper('company')->__('Product was saved')
+                );
+            }
+            catch(Mage_Core_Exception $e){
+
+            }
+        }
+        $this->loadLayout();
+        $this->renderLayout();
     }
 }

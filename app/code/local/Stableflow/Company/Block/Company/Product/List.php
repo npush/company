@@ -9,40 +9,24 @@
 
 class Stableflow_Company_Block_Company_Product_List extends Mage_Catalog_Block_Product_List{
 
+    protected $_productIds;
+
     protected function _getProductCollection()
     {
         if (is_null($this->_productCollection)) {
             $layer = $this->getLayer();
-            $productIds = $this->getCompanyProducts(Mage::registry('current_company')->getId());
-            $productCollection = Mage::getModel('catalog/product')->getCollection()
-                ->addAttributeToSelect('*')
-                ->addFieldToFilter('entity_id', array('in' => $productIds));
-            //$productCollection->getSelect()->order("find_in_set(entity_id,'".implode(',',$productIds)."')");
-            $this->_productCollection = $productCollection;
+            $companyId = Mage::registry('current_company')->getId();
+            $productIds = Mage::getModel('company/product')->getCatalogProductIds($companyId);
+            if(!$productIds) $productIds = null;
+            $this->_productCollection = Mage::getModel('company/product')->getCatalogProductCollection($productIds)->addAttributeToSelect('*');
         }
         return $this->_productCollection;
-    }
-
-    protected function getCompanyProducts($companyId){
-        $a = Mage::getModel('company/company')->load($companyId)->getProducts();
-        $productIds = null;
-        $productCollection = Mage::getModel('company/relation')
-            ->getCollection()
-            ->addFieldToFilter('company_id', $companyId);
-        foreach($productCollection as $productRelation){
-            $productIds[] = $productRelation->getProductId();
-        }
-        return $productIds;
     }
 
     public function getPriceHtml($product){
         $productId = $product->getId();
         $companyId = Mage::registry('current_company')->getId();
-        $rel = Mage::getModel('company/relation')->getCollection()
-            ->addFieldToFilter('product_id', $productId)
-            ->addFieldToFilter('company_id' , $companyId)
-            ->getFirstItem();
-        $price = Mage::getModel('company/product')->load($rel->getData('company_product_id'));
-        return Mage::helper('core')->formatPrice($price->getData('price'),true);
+        $product = Mage::getModel('company/product')->getProductByCatalogProductId($productId, $companyId);
+        return Mage::helper('core')->formatPrice($product->getData('price'),true);
     }
 }
