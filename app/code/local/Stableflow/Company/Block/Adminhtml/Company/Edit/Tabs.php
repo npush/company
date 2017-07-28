@@ -60,16 +60,6 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
             )
         );
         $this->addTab(
-            'price',
-            array(
-                'label'   => Mage::helper('company')->__('Company Prices'),
-                'content' => $this->getLayout()->createBlock(
-                    'company/adminhtml_company_edit_tab_price'
-                )
-                ->toHtml(),
-            )
-        );
-        $this->addTab(
             'products',
             array(
                 'label'   => Mage::helper('company')->__('Company Products List'),
@@ -80,7 +70,26 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                     ->toHtml(),
             )
         );
-
+        $this->addTab(
+            'price',
+            array(
+                'label'   => Mage::helper('company')->__('Company Prices'),
+                'content' => $this->getLayout()->createBlock(
+                    'company/adminhtml_company_edit_tab_price'
+                )
+                    ->toHtml(),
+            )
+        );
+        $this->addTab(
+            'parser',
+            array(
+                'label'   => Mage::helper('company')->__('Parser Configuration'),
+                'content' => $this->getLayout()->createBlock(
+                    'company/adminhtml_company_edit_tab_parser'
+                )
+                    ->toHtml(),
+            )
+        );
 
         return parent::_beforeToHtml();
     }

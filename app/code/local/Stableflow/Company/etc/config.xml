@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Stableflow_Company>
-            <version>0.1.4</version>
+            <version>0.1.5</version>
         </Stableflow_Company>
     </modules>
     <global>
@@ -87,23 +87,45 @@
                     <eav_attribute>
                         <table>company_eav_attribute</table>
                     </eav_attribute>
-                    <!-- Deprecated Must deleted-->
-                    <company_to_products>
-                        <table>company_to_products</table>
-                    </company_to_products>
-                    <!--  -->
+
+        <!-- Deprecated Must deleted-->
+        <company_to_products>
+            <table>company_to_products</table>
+        </company_to_products>
+                            <company_product>
+            <table>company_to_products</table>
+        </company_product>
+        <!--  -->
+
                     <company_type>
                         <table>company_type</table>
                     </company_type>
                     <company_activity>
                         <table>company_activity</table>
                     </company_activity>
-                    <company_product>
-                        <table>company_to_products</table>
-                    </company_product>
                     <company_owner>
                         <table>company_to_owner</table>
                     </company_owner>
+                    <!-- Parser -->
+                    <price_type>
+                        <table>company_price_type</table>
+                    </price_type>
+                    <parser_config>
+                        <table>company_parser_config</table>
+                    </parser_config>
+                    <parser_config>
+                        <table>company_parser_config</table>
+                    </parser_config>
+                    <parser_tasks>
+                        <table>company_parser_tasks</table>
+                    </parser_tasks>
+                    <parser_log>
+                        <table>company_parser_log</table>
+                    </parser_log>
+                    <parser_queue>
+                        <table>company_parser_queue</table>
+                    </parser_queue>
+                    <!--  -->
                 </entities>
             </company_resource>
         </models>
