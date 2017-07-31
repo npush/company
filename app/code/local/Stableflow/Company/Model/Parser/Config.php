@@ -15,14 +15,30 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
         $this->_init('company/parser_config');
     }
 
-    public function getConfig($companyId, $pricetypeId){
+    /**
+     * @param $companyId
+     * @param $priceTypeId
+     * @return Stableflow_Company_Model_Parser_Config
+     */
+    public function getConfig($companyId, $priceTypeId){
+        $this->_getResource()->getConfig($companyId, $priceTypeId);
         return $this;
     }
 
+    /**
+     * Retrieve PriceType Collection
+     * @param $companyId
+     * @return Stableflow_Company_Model_Resource_Parser_Price_Type_Collection
+     */
     public function gePriceTypeCollection($companyId){
         return Mage::getModel('company/parser_price_type')->getPriceTypeCollection($companyId);
     }
 
+    /**
+     * Retrieve Config Collection object
+     * @param $companyId
+     * @return Stableflow_Company_Model_Resource_Parser_Config_Collection
+     */
     public function getConfigCollection($companyId){
         if(!$this->_configCollection) {
             $this->_configCollection = $this->getCollection()
