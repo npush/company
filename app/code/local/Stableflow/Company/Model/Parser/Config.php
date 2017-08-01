@@ -9,20 +9,28 @@
 class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
 {
 
+    const STATUS_ENABLED    = 1;
+    const STATUS_DISABLED   = 2;
+
     protected $_configCollection = null;
 
-    protected function _construct(){
+    protected $_priceType = null;
+
+    /**
+     * Standard resource model init
+     */
+    protected function _construct()
+    {
         $this->_init('company/parser_config');
     }
 
     /**
-     * @param $companyId
-     * @param $priceTypeId
-     * @return Stableflow_Company_Model_Parser_Config
+     * @return Stableflow_Company_Model_Parser_Price_Type|null
      */
-    public function getConfig($companyId, $priceTypeId){
-        $this->_getResource()->getConfig($companyId, $priceTypeId);
-        return $this;
+    public function getPriceType()
+    {
+        $this->_priceType = Mage::getModel('company/parser_price_type')->load($this->getData('price_type_id'));
+        return $this->_priceType;
     }
 
     /**
@@ -30,7 +38,8 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
      * @param $companyId
      * @return Stableflow_Company_Model_Resource_Parser_Price_Type_Collection
      */
-    public function gePriceTypeCollection($companyId){
+    public function gePriceTypeCollection($companyId)
+    {
         return Mage::getModel('company/parser_price_type')->getPriceTypeCollection($companyId);
     }
 
@@ -39,7 +48,8 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
      * @param $companyId
      * @return Stableflow_Company_Model_Resource_Parser_Config_Collection
      */
-    public function getConfigCollection($companyId){
+    public function getConfigCollection($companyId)
+    {
         if(!$this->_configCollection) {
             $this->_configCollection = $this->getCollection()
                 ->addTypeFilter()
@@ -48,7 +58,33 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
         return $this->_configCollection;
     }
 
-    public function getStatus(){
+    /**
+     * @param Stableflow_Company_Model_Parser_Config_Settings $data
+     */
+    public function setSettings(Stableflow_Company_Model_Parser_Config_Settings $data)
+    {
+        $this->setData('config', $data);
+    }
+
+    /**
+     * @return Stableflow_Company_Model_Parser_Config_Settings
+     */
+    public function getSettings()
+    {
+        return $this->getData('config');
+    }
+
+    public function addNewConfig()
+    {
+
+    }
+
+    /**
+     * Check config status
+     * @return mixed
+     */
+    public function getStatus()
+    {
         if (is_null($this->_getData('is_active'))) {
             $this->setData('is_active', Stableflow_Company_Model_Parser_Config_Status::STATUS_ENABLED);
         }
@@ -64,4 +100,5 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
     {
         return $this->getStatus() == Stableflow_Company_Model_Parser_Config_Status::STATUS_ENABLED;
     }
+
 }

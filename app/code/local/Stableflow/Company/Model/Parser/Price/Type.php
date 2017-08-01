@@ -13,6 +13,9 @@ class Stableflow_Company_Model_Parser_Price_Type extends Mage_Core_Model_Abstrac
 
     protected $_typeCollection = null;
 
+    /**
+     * Standard resource model init
+     */
     protected function _construct(){
         $this->_init('company/parser_price_type');
     }

@@ -13,6 +13,13 @@ class Stableflow_Company_Model_Parser extends Mage_Core_Model_Abstract
 
     protected $_config = null;
 
+    protected function _construct()
+    {
+        $this->_init('company/parser');
+    }
+
+
+
     /**
      * Get task status
      *
@@ -26,17 +33,49 @@ class Stableflow_Company_Model_Parser extends Mage_Core_Model_Abstract
         return $this->_getData('status_id');
     }
 
-    public function getCompanyId(){
+    public function setCompanyId(Stableflow_Company_Model_Company $company)
+    {
+        $this->_companyId = $company->getId();
+    }
+
+    public function getCompanyId()
+    {
         return $this->_companyId;
     }
 
-    public function getTasks(){}
+    /**
+     * Retrieve tasks collection
+     * @param $companyId
+     * @return Stableflow_Company_Model_Resource_Parser_Config_Collection
+     */
+    public function getTasksCollection($companyId)
+    {
+        $configCollection = Mage::getModel('company/parser_config')->getConfigCollection($companyId);
+        $ids = array();
+        foreach($configCollection as $config){
+            $ids[] = $config->getId();
+        }
+        return $this->getCollection()
+            ->addFieldToFilter('config_id', array('in' => $ids));
+    }
+
+    public function loadTask($id)
+    {
+        return Mage::getModel('company/parser_task')->load($id);
+    }
 
     public function getPriceType(){}
 
-    public function getConfig($companyId){
-        $this->_config = Mage::getModel('company/parser_config')->load($companyId);
+    public function getConfig()
+    {
+        return $this->_config;
     }
 
+    public function addTaskToQueue($taskId)
+    {
+
+    }
+
+    public function getTaskStatus(){}
     public function getQueue(){}
 }

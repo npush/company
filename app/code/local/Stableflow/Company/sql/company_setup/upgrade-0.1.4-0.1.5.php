@@ -89,6 +89,10 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => false,
     ), 'Config Id')
+//    ->addColumn('company_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+//        'unsigned'  => true,
+//        'nullable'  => false,
+//    ), 'Company Id')
     ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 256, array(
         'unsigned'  => true,
         'nullable'  => false,
@@ -106,12 +110,19 @@ $table = $installer->getConnection()
     ->addColumn('time_spent', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
         'nullable'  => false,
+        'default' => ''
     ), 'Time Spent')
-    ->addForeignKey($installer->getFkName('company/parser_tasks', 'config_id', 'company/parser_config', 'entity_id'),
-        'config_id',
-        $installer->getTable('company/parser_config'),
+    ->addForeignKey($installer->getFkName('company/price_type', 'company_id', 'company/company_entity', 'entity_id'),
+        'company_id',
+        $installer->getTable('company/company_entity'),
         'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE);
+        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
+//    ->addForeignKey($installer->getFkName('company/parser_tasks', 'config_id', 'company/parser_config', 'entity_id'),
+//        'config_id',
+//        $installer->getTable('company/parser_config'),
+//        'entity_id',
+//        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
+;
 $installer->getConnection()->createTable($table);
 
 $table = $installer->getConnection()
