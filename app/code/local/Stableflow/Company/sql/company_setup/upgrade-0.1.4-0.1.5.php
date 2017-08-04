@@ -32,6 +32,7 @@ $table = $installer->getConnection()
     ), 'Description')
     ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'nullable'  => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
     ), 'Created At')
     ->addForeignKey($installer->getFkName('company/price_type', 'company_id', 'company/company_entity', 'entity_id'),
         'company_id',
@@ -66,9 +67,11 @@ $table = $installer->getConnection()
     ), 'Is Active')
     ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'nullable'  => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
     ), 'Created At')
     ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'nullable'  => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT_UPDATE
     ), 'Updated At')
     ->addForeignKey($installer->getFkName('company/parser_config', 'price_type_id', 'company/price_type', 'entity_id'),
         'price_type_id',
@@ -103,6 +106,7 @@ $table = $installer->getConnection()
     ), 'status Id')
     ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'nullable'  => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
     ), 'Created At')
     ->addColumn('process_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
         'nullable'  => false,
@@ -157,7 +161,7 @@ $table = $installer->getConnection()
     ->addColumn('company_product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
         'nullable'  => false,
-    ), 'Updated At')
+    ), 'Company Product Id')
     ->addForeignKey($installer->getFkName('company/parser_log', 'task_id', 'company/parser_tasks', 'entity_id'),
         'task_id',
         $installer->getTable('company/parser_config'),

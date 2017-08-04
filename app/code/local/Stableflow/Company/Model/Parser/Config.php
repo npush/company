@@ -29,33 +29,45 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
      */
     public function getPriceType()
     {
-        $this->_priceType = Mage::getModel('company/parser_price_type')->load($this->getData('price_type_id'));
+        if(is_null($this->_priceType)) {
+            $this->_priceType = Mage::getModel('company/parser_price_type')->load($this->getData('price_type_id'));
+        }
         return $this->_priceType;
     }
 
     /**
      * Retrieve PriceType Collection
-     * @param $companyId
+     * @param $companyId|null
      * @return Stableflow_Company_Model_Resource_Parser_Price_Type_Collection
      */
-    public function gePriceTypeCollection($companyId)
+    public function getPriceTypeCollection($companyId = null)
     {
         return Mage::getModel('company/parser_price_type')->getPriceTypeCollection($companyId);
     }
 
     /**
      * Retrieve Config Collection object
-     * @param $companyId
+     * @param $companyId|null
      * @return Stableflow_Company_Model_Resource_Parser_Config_Collection
      */
-    public function getConfigCollection($companyId)
+    public function getConfigCollection($companyId = null)
     {
-        if(!$this->_configCollection) {
-            $this->_configCollection = $this->getCollection()
-                ->addTypeFilter()
-                ->addFieldToFilter('company_id', $companyId);
+        $this->_configCollection = $this->getCollection()
+            ->addTypeFilter();
+        if(!is_null($companyId)) {
+            $this->_configCollection->addFieldToFilter('company_id', $companyId);
         }
         return $this->_configCollection;
+    }
+
+    /**
+     * Get config Ids by company Id
+     * @param $companyId
+     * @return array
+     */
+    public function getConfigIds($companyId)
+    {
+        return $this->_getResource()->getConfigIds($companyId);
     }
 
     /**
@@ -79,14 +91,19 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
 
     }
 
+    public function getParserInstance()
+    {
+        return 'Object';
+    }
+
     /**
      * Check config status
      * @return mixed
      */
     public function getStatus()
     {
-        if (is_null($this->_getData('is_active'))) {
-            $this->setData('is_active', Stableflow_Company_Model_Parser_Config_Status::STATUS_ENABLED);
+        if(is_null($this->_getData('is_active'))){
+            $this->setData('is_active', Stableflow_Company_Model_Parser_Config::STATUS_ENABLED);
         }
         return $this->_getData('is_active');
     }
@@ -98,7 +115,7 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
      */
     public function isActive()
     {
-        return $this->getStatus() == Stableflow_Company_Model_Parser_Config_Status::STATUS_ENABLED;
+        return $this->getStatus() == Stableflow_Company_Model_Parser_Config::STATUS_ENABLED;
     }
 
 }

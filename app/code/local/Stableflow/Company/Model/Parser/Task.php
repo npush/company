@@ -15,6 +15,8 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     protected $_config = null;
 
+    protected $_taskCollection = null;
+
     protected $_startParsingTime = null;
 
     /**
@@ -46,9 +48,19 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function getLog(){}
 
-    public function getTaskComplete(){}
+    public function getTasksCollection($company_id = null, $status = null)
+    {
 
-    public function getTaskWithErrors(){}
+        $collection = $this->getCollection();
+        if(!is_null($company_id)){
+            $configIds = Mage::getModel('company/parser_config')->getConfigIds($company_id);
+            $collection->addFieldToFilter('config_id', array('in' => $configIds));
+        }
+        if(!is_null($status)){
+            $collection->addFieldToFilter('status_id', array('eq' => $status));
+        }
+        return $collection;
+    }
 
     public function addToQueue()
     {
@@ -62,5 +74,24 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
             return $queue->save()->getId();
         }
         return false;
+    }
+
+    public function run()
+    {
+        $parser = $this->getConfig()->getParserInstance();
+        /** @var Stableflow_Pricelists_Model_Pricelist $pricelist */
+        $file = Mage::getBaseDir('media') . DS . $priceList->getPathToFile();
+        $parser->init($file, $config['mapping']);
+        $parser->parseFile((int) $config['row']);
+        $status = $parser->updatePrice();
+
+        if($status['status']) {
+            $result['type'] = 'success';
+            $result['message'] = Mage::helper('stableflow_pricelists')->__('Configuration saved. Prices successfully updated.');
+            $result['message'] .= Mage::helper('stableflow_pricelists')->__(" Skipped Items: {$status['skipped']}, Saved Items: {$status['saved']}, Total: {$status['total']}");
+        } else {
+            $result['type'] = 'error';
+            $result['message'] = "code required";
+        }
     }
 }

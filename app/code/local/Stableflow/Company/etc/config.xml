@@ -273,9 +273,16 @@
         <jobs>
             <companies_sitemap_generate>
                 <run>
+                    <schedule><cron_expr>0 0 1 * *</cron_expr></schedule>
                     <model>company/observer::generateSiteMap</model>
                 </run>
             </companies_sitemap_generate>
+            <companies_parser_jobs>
+                <run>
+                    <schedule><cron_expr>* 0 * * *</cron_expr></schedule>
+                    <model>company/observer::updatePriceLists</model>
+                </run>
+            </companies_parser_jobs>
         </jobs>
     </crontab>
 </config>

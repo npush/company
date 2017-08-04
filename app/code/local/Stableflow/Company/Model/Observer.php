@@ -54,4 +54,7 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer{
         Mage::getModel('company/owner')->addOwner($customer);
     }
 
+    public function updatePriceLists(){
+        Mage::log("Import",null, 'PriceLists.log');
+    }
 }

@@ -21,6 +21,13 @@ class Stableflow_Company_Model_Resource_Parser_Config extends Mage_Core_Model_Re
         $this->_typeTable = $this->getTable('company/price_type');
     }
 
+    /**
+     * When load model join price type table
+     * @param string $field
+     * @param mixed $value
+     * @param Mage_Core_Model_Abstract $object
+     * @return Zend_Db_Select
+     */
     protected function _getLoadSelect($field, $value, $object)
     {
         $select = parent::_getLoadSelect($field, $value, $object);
@@ -34,6 +41,23 @@ class Stableflow_Company_Model_Resource_Parser_Config extends Mage_Core_Model_Re
         return $select;
     }
 
+    public function getConfigIds($company_id)
+    {
+        $select = $this->_getReadAdapter()->select()
+            ->from($this->getMainTable(), 'price_type_id')
+            ->joinLeft(
+                array('price_type' => $this->_typeTable),
+                $this->getMainTable() . '.price_type_id = price_type.entity_id')
+            ->where('company_id = :company_id');
+        $bind = array(':company_id' => (string)$company_id);
+        return $this->_getReadAdapter()->fetchCol($select, $bind);
+    }
+
+    /**
+     * Perform Serialize config object
+     * @param Stableflow_Company_Model_Parser_Config $object
+     * @return $this
+     */
     protected function _beforeSave(Stableflow_Company_Model_Parser_Config $object)
     {
         parent::_beforeSave($object);
@@ -44,6 +68,11 @@ class Stableflow_Company_Model_Resource_Parser_Config extends Mage_Core_Model_Re
         return $this;
     }
 
+    /**
+     * Perform unserialize after load
+     * @param Stableflow_Company_Model_Parser_Config $object
+     * @return $this
+     */
     protected function _afterLoad(Stableflow_Company_Model_Parser_Config $object)
     {
         parent::_afterLoad($object);

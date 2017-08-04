@@ -40,9 +40,13 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         return false;
     }
 
-    public function getQueue()
+    public function getQueue($status = null)
     {
-        return $this->getCollection();
+        $collection = $this->getCollection();
+        if(!is_null($status)){
+            $collection->addFieldToFilter('status_id', $status);
+        }
+        return $collection;
     }
 
     public function getTask($taskId)
@@ -50,7 +54,14 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         return Mage::getModel('company/parser_task')->load($taskId);
     }
 
-    public function PerformQueue(){}
+    public function PerformQueue()
+    {
+        $queue = $this->getQueue(Stableflow_Company_Model_Parser_Queue::STATUS_PENDING);
+        foreach($queue as $_taskQueue){
+            $task = $this->getTask($_taskQueue->getData('task_id'));
+            $task->run();
+        }
+    }
 
     protected function _beforeSave()
     {

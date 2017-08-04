@@ -16,15 +16,41 @@ class Stableflow_Company_Model_Parser_Price_Type extends Mage_Core_Model_Abstrac
     /**
      * Standard resource model init
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_init('company/parser_price_type');
     }
 
-    public function getPriceTypeCollection($companyId){
-        if(!$this->_typeCollection) {
-            $this->_typeCollection = $this->getCollection()
-                ->addFieldToFilter('company_id', $companyId);
+    /**
+     * @param null $companyId
+     * @return null|Stableflow_Company_Model_Resource_Parser_Price_Type_Collection
+     */
+    public function getPriceTypeCollection($companyId = null){
+        $this->_typeCollection = $this->getCollection();
+        if(!is_null($companyId)){
+            $this->_typeCollection->addFieldToFilter('company_id', $companyId);
         }
         return $this->_typeCollection;
+    }
+
+    public function setDescription($description){
+        $this->setData('description', trim($description));
+    }
+
+    /**
+     * Check config status
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        if(is_null($this->_getData('is_active'))){
+            $this->setData('is_active', Stableflow_Company_Model_Parser_Price_Type::STATUS_ENABLED);
+        }
+        return $this->_getData('is_active');
+    }
+
+    public function isActive()
+    {
+        return $this->getStatus() == Stableflow_Company_Model_Parser_Price_Type::STATUS_ENABLED;
     }
 }
