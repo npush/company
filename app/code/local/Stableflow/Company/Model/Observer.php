@@ -6,9 +6,10 @@
  * Date: 12/9/16
  * Time: 5:55 PM
  */
-class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer{
-
-    public function addMenuItems($observer){
+class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer
+{
+    public function addMenuItems($observer)
+    {
         $menu = $observer->getMenu();
         $tree = $menu->getTree();
 
@@ -41,7 +42,8 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer{
         }
     }
 
-    public function generateSiteMap(){
+    public function generateSiteMap()
+    {
         try {
             Mage::getModel('company/generateSitemap')->generateXml();
         }catch(Mage_Core_Exception $e){
@@ -49,12 +51,29 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer{
         }
     }
 
-    public function updateOwner($event){
+    public function updateOwner($event)
+    {
         $customer = $event->getCustomer();
         Mage::getModel('company/owner')->addOwner($customer);
     }
 
-    public function updatePriceLists(){
+    public function updatePriceLists()
+    {
         Mage::log("Import",null, 'PriceLists.log');
+    }
+
+    public function addButtonToGrid($event)
+    {
+        $container = $event->getBlock();
+        if(null !== $container && $container->getType() == 'company/adminhtml_company_edit') {
+            $data = array(
+                'label'     => 'My button',
+                'class'     => 'some-class',
+                'onclick'   => 'setLocation(\' '  . Mage::getUrl('*/*', array('param' => 'value')) . '\')',
+            );
+            $container->addButton('my_button_identifier', $data);
+        }
+
+        return $this;
     }
 }

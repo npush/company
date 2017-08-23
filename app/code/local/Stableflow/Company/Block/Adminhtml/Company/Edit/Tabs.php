@@ -82,8 +82,8 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_parser'
                 )->toHtml(),
-                'url'   => $this->getUrl('*/parser_parser/parserGrid', array('_current' => true)),
-                'class'    => 'ajax'
+                //'url'   => $this->getUrl('*/parser_parser/parserGrid', array('_current' => true)),
+                //'class'    => 'ajax'
             )
         );
 
