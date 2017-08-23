@@ -91,10 +91,6 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
 
     }
 
-    public function getParserInstance()
-    {
-        return 'Object';
-    }
 
     /**
      * Check config status

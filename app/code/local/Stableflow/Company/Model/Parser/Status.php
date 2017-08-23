@@ -72,37 +72,14 @@ class Stableflow_Company_Model_Parser_Status extends Mage_Core_Model_Abstract
 
 
     /**
-     * Update status value for product
+     * Update status value
      *
-     * @param   int $productId
-     * @param   int $storeId
+     * @param   int $taskId
      * @param   int $value
-     * @return  Mage_Catalog_Model_Product_Status
+     * @return  Stableflow_Company_Model_Parser_Status
      */
-    public function updateProductStatus($productId, $storeId, $value)
+    public function updateProductStatus($taskId, $value)
     {
-        Mage::getSingleton('catalog/product_action')
-            ->updateAttributes(array($productId), array('status' => $value), $storeId);
-
-        // add back compatibility event
-        $status = $this->_getResource()->getProductAttribute('status');
-        if ($status->isScopeWebsite()) {
-            $website = Mage::app()->getStore($storeId)->getWebsite();
-            $stores  = $website->getStoreIds();
-        } else if ($status->isScopeStore()) {
-            $stores = array($storeId);
-        } else {
-            $stores = array_keys(Mage::app()->getStores());
-        }
-
-        foreach ($stores as $storeId) {
-            Mage::dispatchEvent('catalog_product_status_update', array(
-                'product_id'    => $productId,
-                'store_id'      => $storeId,
-                'status'        => $value
-            ));
-        }
-
         return $this;
     }
 }

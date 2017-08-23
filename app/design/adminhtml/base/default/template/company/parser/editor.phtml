@@ -1,0 +1,73 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 8/23/17
+ * Time: 1:33 PM
+ */
+?>
+<div id="editor_holder"></div>
+<?php $settings = $this->getSettings()?>
+<script type="text/javascript">
+    var element = document.getElementById('editor_holder');
+    var options = {
+        schema: {
+            type: "object",
+            title: "Parser Configuration",
+            properties: {
+                "field_map-price": {
+                    title: "Price",
+                    type: "string",
+                    "format": "text"
+                },
+                "field_map-item_price": {
+                    title: "Item price",
+                    type: "string",
+                    "format": "text"
+                },
+                "field_map-box": {
+                    title: "Item in box",
+                    type: "string",
+                    "format": "text"
+                },
+                "field_map-name": {
+                    title: "Custom product`s name",
+                    type: "string",
+                    "format": "text"
+                },
+                "field_map-code": {
+                    title: "Custom product`s code",
+                    type: "string",
+                    "format": "text"
+                },
+                "field_map-qty_in_stock": {
+                    title: "qty product",
+                    type: "string",
+                    "format": "text"
+                },
+                "settings-header_row": {
+                    title: "Number of header row",
+                    type: "string",
+                    "format": "text"
+                },
+                "settings-start_row": {
+                    title: "Number of start row",
+                    type: "string",
+                    "format": "text"
+                },
+                "settings-currency": {
+                    title: "Currency",
+                    type: "string",
+                    "format": "text"
+                },
+                "settings-change_currency": {
+                    title: "Change Currency",
+                    type: "string",
+                    "format": "text"
+                }
+            }
+        }
+    };
+    var editor = new JSONEditor(element, options);
+</script>
+<button id="submit_config">Save Setting</button>

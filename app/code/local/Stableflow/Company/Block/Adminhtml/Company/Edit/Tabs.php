@@ -33,9 +33,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 'label'   => Mage::helper('company')->__('General Information'),
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_general'
-                )
-                    ->setAttributes($attributes)
-                    ->toHtml(),
+                )->setAttributes($attributes)->toHtml(),
             )
         );
         $this->addTab(
@@ -55,8 +53,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 'label'   => Mage::helper('company')->__('Company Owners'),
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_owner'
-                )
-                ->toHtml(),
+                )->toHtml(),
             )
         );
         $this->addTab(
@@ -66,8 +63,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_products',
                     'company.product.grid'
-                )
-                    ->toHtml(),
+                )->toHtml(),
             )
         );
         $this->addTab(
@@ -76,8 +72,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 'label'   => Mage::helper('company')->__('Company Prices'),
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_price'
-                )
-                    ->toHtml(),
+                )->toHtml(),
             )
         );
         $this->addTab(
@@ -86,8 +81,9 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                 'label'   => Mage::helper('company')->__('Parser Configuration'),
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_parser'
-                )
-                    ->toHtml(),
+                )->toHtml(),
+                'url'   => $this->getUrl('*/parser_parser/parserGrid', array('_current' => true)),
+                'class'    => 'ajax'
             )
         );
 

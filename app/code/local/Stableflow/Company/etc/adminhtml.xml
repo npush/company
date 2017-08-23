@@ -8,23 +8,49 @@
                 <company_new translate="title" module="company">
                     <title>Add New Company</title>
                     <action>adminhtml/company_company/new</action>
-                    <sort_order>0</sort_order>
+                    <sort_order>10</sort_order>
                 </company_new>
                 <company translate="title" module="company">
                     <title>Manage Company</title>
                     <action>adminhtml/company_company/index</action>
-                    <sort_order>2</sort_order>
+                    <sort_order>20</sort_order>
                 </company>
                 <company_attributes translate="title" module="company">
                     <title>Company Attributes</title>
                     <action>adminhtml/company_company/attribute</action>
-                    <sort_order>7</sort_order>
+                    <sort_order>70</sort_order>
                 </company_attributes>
                 <settings module="company" translate="title">
                     <title>Settings</title>
-                    <sort_order>1000</sort_order>
+                    <sort_order>100</sort_order>
                     <action>adminhtml/system_config/edit/section/company</action>
                 </settings>
+                <price_parser translite="title" modue="company">
+                    <title>Price Parser</title>
+                    <sort_order>80</sort_order>
+                    <children>
+                        <parser_queue translite="title" modue="company">
+                            <title>Parser Queue</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/parser_queue/queue</action>
+                        </parser_queue>
+                        <parser_task translite="title" modue="company">
+                            <title>All Task List</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/parser_parser/task</action>
+                        </parser_task>
+                        <parser_log translite="title" modue="company">
+                            <title>Parser Log</title>
+                            <sort_order>30</sort_order>
+                            <action>adminhtml/parser_parser/log</action>
+                        </parser_log>
+                        <parser_settings translite="title" modue="company">
+                            <title>Settings</title>
+                            <sort_order>100</sort_order>
+                            <action>adminhtml/system_config/edit/section/company/parser</action>
+                        </parser_settings>
+                    </children>
+                </price_parser>
             </children>
         </company>
     </menu>

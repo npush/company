@@ -1,0 +1,40 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 8/23/17
+ * Time: 11:21 AM
+ */
+?>
+<script type="text/javascript">
+    //<![CDATA[
+    function editConfigurationField(fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/openConfigurationPopup') ?>', {
+            method: 'post',
+            parameters: { id: fieldId},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("Parser Configuration")?>',
+                        width:650,
+                        height:500,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
+    function saveConfigurationField(button, fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/updateConfiguration') ?>', {
+            method: 'post',
+            parameters: { id: fieldId, settings: editor.getValue() }
+        });
+    }
+    //]]>
+</script>

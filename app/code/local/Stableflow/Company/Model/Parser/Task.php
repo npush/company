@@ -19,6 +19,8 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     protected $_startParsingTime = null;
 
+    protected $_file;
+
     /**
      * Standard resource model init
      */
@@ -76,13 +78,18 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         return false;
     }
 
+
+    public function getParserInstance()
+    {
+        return Stableflow_Company_Model_Parser_Adapter::factory($this->_config, $this->_file);
+    }
+
     public function run()
     {
-        $parser = $this->getConfig()->getParserInstance();
-        /** @var Stableflow_Pricelists_Model_Pricelist $pricelist */
-        $file = Mage::getBaseDir('media') . DS . $priceList->getPathToFile();
-        $parser->init($file, $config['mapping']);
-        $parser->parseFile((int) $config['row']);
+        $parser = $this->getParserInstance();
+
+        $parser->init();
+        $parser->parse();
         $status = $parser->updatePrice();
 
         if($status['status']) {

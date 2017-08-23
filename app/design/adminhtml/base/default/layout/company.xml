@@ -7,7 +7,6 @@
             </action>
         </reference>
         <reference name="content">
-            <!-- We also reference our block by namespacename_modulename/adminhtml_controllername, and name it uniquely -->
             <block type="company/adminhtml_company" name="company_company" />
         </reference>
     </adminhtml_company_company_index>
@@ -17,12 +16,16 @@
         </block>
     </adminhtml_company_company_grid>
     <adminhtml_company_company_edit>
-        <update handle="editor"/>
         <reference name="menu">
             <action method="setActive">
                 <menupath>company/company/edit</menupath>
             </action>
         </reference>
+        <reference name="head">
+            <action method="setCanLoadTinyMce"><load>1</load></action>
+            <action method="addJs"><script>jsonedit/jsoneditor.js</script></action>
+        </reference>
+        <update handle="editor"/>
         <reference name="content">
             <block type="company/adminhtml_company_edit" name="company_edit"/>
         </reference>
@@ -30,11 +33,9 @@
             <block type="adminhtml/store_switcher" name="store_switcher" before="-"/>
             <block type="company/adminhtml_company_edit_tabs" name="company_tabs"/>
         </reference>
-        <reference name="head">
-            <action method="setCanLoadTinyMce"><load>1</load></action>
-        </reference>
         <reference name="js">
-            <block type="core/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
+            <block type="adminhtml/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
+            <block type="adminhtml/template" name="edit.configuration.js" template="company/parser/edit-config-js.phtml" />
         </reference>
     </adminhtml_company_company_edit>
     <adminhtml_company_company_editproduct>
@@ -71,4 +72,22 @@
             <block type="company/adminhtml_product_edit" name="product_edit"/>
         </reference>
     </adminhtml_company_company_saveproduct>
+<!-- Parser path -->
+    <adminhtml_parser_queue_queue>
+        <reference name="content">
+            <block type="company/adminhtml_parser_queue_grid" name="queue_grid"/>
+        </reference>
+    </adminhtml_parser_queue_queue>
+
+    <adminhtml_parser_parser_task>
+        <reference name="content">
+            <block type="company/adminhtml_parser_task_grid" name="task_grid"/>
+        </reference>
+    </adminhtml_parser_parser_task>
+
+    <adminhtml_parser_parser_log>
+        <reference name="content">
+            <block type="company/adminhtml_parser_log_grid" name="log_grid"/>
+        </reference>
+    </adminhtml_parser_parser_log>
 </layout>

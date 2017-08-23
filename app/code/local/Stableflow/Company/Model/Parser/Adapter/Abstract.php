@@ -43,28 +43,36 @@ abstract class Stableflow_Company_Model_Parser_Adapter_Abstract implements Seeka
     protected $_source;
 
     /**
+     * Parser settings
+     * @var Stableflow_Company_Model_Parser_Config_Settings
+     */
+    protected $_settings;
+
+    /**
      * Adapter object constructor.
      *
-     * @param string $source Source file path.
+     * @param Stableflow_Company_Model_Parser_Config_Settings $options.
+     * @param string $file  Source file path
      * @throws Mage_Core_Exception
-     * @return void
      */
-    final public function __construct($source)
+    final public function __construct(Stableflow_Company_Model_Parser_Config_Settings $options, $file)
     {
         register_shutdown_function(array($this, 'destruct'));
 
-        if (!is_string($source)) {
+        if (!is_string($file)) {
             Mage::throwException(Mage::helper('company')->__('Source file path must be a string'));
         }
-        if (!is_readable($source)) {
-            Mage::throwException(Mage::helper('company')->__("%s file does not exists or is not readable", $source));
+        if (!is_readable($file)) {
+            Mage::throwException(Mage::helper('company')->__("%s file does not exists or is not readable", $file));
         }
-        $this->_source = $source;
+
+        $this->_source = $file;
+        $this->_settings = $options;
 
         $this->_init();
 
         // validate column names consistency
-        if (is_array($this->_colNames) && !empty($this->_colNames)) {
+        /*if (is_array($this->_colNames) && !empty($this->_colNames)) {
             $this->_colQuantity = count($this->_colNames);
 
             if (count(array_unique($this->_colNames)) != $this->_colQuantity) {
@@ -72,7 +80,7 @@ abstract class Stableflow_Company_Model_Parser_Adapter_Abstract implements Seeka
             }
         } else {
             Mage::throwException(Mage::helper('company')->__('Column names is empty or is not an array'));
-        }
+        }*/
     }
 
     /**

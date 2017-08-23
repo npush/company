@@ -9,13 +9,13 @@
 class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Model_Parser_Adapter_Abstract
 {
 
+    protected $_logFileName = 'xml-parser.log';
 
-    /**
-     * Source file handler.
-     *
-     * @var resource
-     */
-    protected $_fileHandler;
+    protected $_objPHPExcel = null;
+
+    protected $_sheet;
+
+    protected $_startRow;
 
     /**
      * Method called as last step of object instance creation. Can be overrided in child classes.
@@ -24,7 +24,8 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      */
     protected function _init()
     {
-        $this->_fileHandler = fopen($this->_source, 'r');
+        Mage::log("Initialize parser", Zend_Log::INFO, $this->_logFileName);
+        $this->init();
         $this->rewind();
         return $this;
     }
@@ -34,9 +35,12 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      */
     public function destruct()
     {
-        if (is_resource($this->_fileHandler)) {
-            fclose($this->_fileHandler);
+        if ($this->_objPHPExcel) {
+            $this->_objPHPExcel->disconnectWorksheets();
+            unset($this->_objPHPExcel);
         }
+        $memUse = sprintf(" Peak memory usage: %d MB", (memory_get_peak_usage(true) / 1024 / 1024));
+        Mage::log($memUse, Zend_Log::INFO, $this->_logFileName);
     }
 
     /**
@@ -53,27 +57,44 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     public function seek($position)
     {}
 
-
-    public function init()
+    /**
+     * Initialize PHPExcel Reader
+     */
+    protected function init()
     {
-        $includePath = Mage::getBaseDir() . "/lib/PhpExcel/Classes";
-        set_include_path(get_include_path() . PS . $includePath);
-
+        require_once Mage::getBaseDir() . "/lib/PHPExcel/Classes/PHPExcel/IOFactory.php";
         try {
-            $inputFileType = PHPExcel_IOFactory::identify($this->_pathToFile);
+            $inputFileType = PHPExcel_IOFactory::identify($this->_source);
             $objReader = PHPExcel_IOFactory::createReader($inputFileType);
-            $objPHPExcel = $objReader->load($this->_pathToFile);
-        } catch (\PHPExcel_Exception $e) {
+            $objReader->setReadDataOnly(true);
+            $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
+            PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
+            $this->_objPHPExcel = $objReader->load($this->_source);
+        } catch (PHPExcel_Exception $e) {
             die($e->getMessage());
         }
     }
 
     function parse()
     {
-        $sheet = $objPHPExcel->getSheet(0);
-        $highestRow = (int)($lastRow) ? ($lastRow + $firstRow) - 1 : $sheet->getHighestRow();
+        Mage::log("Parse...", Zend_Log::INFO, $this->_logFileName);
+        $firstRow = $this->_settings->getStartRow(0);
+        $sheet = $this->_objPHPExcel->getSheet(0);
+        $highestRow = $sheet->getHighestRow();
         $highestColumn = $sheet->getHighestColumn();
         $data = [];
+
+        foreach ($sheet->getRowIterator() as $row) {
+            $cellIterator = $row->getCellIterator();
+            $cellIterator->setIterateOnlyExistingCells(false); // This loops all cells,
+            // even if it is not set.
+            // By default, only cells
+            // that are set will be
+            // iterated.
+            foreach ($cellIterator as $cell) {
+                $data[]= $cell->getValue();
+            }
+        }
 
         for ($row = (int) $firstRow; $row <= $highestRow; $row++) {
             $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
@@ -102,4 +123,5 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         return $data;
     }
 
+    public function validateConfig(){}
 }
