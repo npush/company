@@ -79,11 +79,11 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
             'parser',
             array(
                 'label'   => Mage::helper('company')->__('Parser Configuration'),
-                'content' => $this->getLayout()->createBlock(
-                    'company/adminhtml_parser_config'
-                )->toHtml(),
-                //'url'   => $this->getUrl('*/parser_parser/parserConfigGrid', array('_current' => true)),
-                //'class'    => 'ajax'
+//                'content' => $this->getLayout()->createBlock(
+//                    'company/adminhtml_parser_config'
+//                )->toHtml(),
+                'url'   => $this->getUrl('*/parser_parser/parserConfigGrid', array('_current' => true)),
+                'class'    => 'ajax'
             )
         );
 

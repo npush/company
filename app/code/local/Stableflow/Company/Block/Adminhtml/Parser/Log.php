@@ -10,7 +10,7 @@
  * Date: 8/25/17
  *
  */
-class Stablflow_Company_Block_Adminhtml_Parser_Log extends Mage_Adminhtml_Block_Widget_Grid_Container
+class Stableflow_Company_Block_Adminhtml_Parser_Log extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     public function __construct()
     {

@@ -36,6 +36,7 @@
         <reference name="js">
             <block type="adminhtml/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
             <block type="adminhtml/template" name="edit.configuration.js" template="company/parser/edit-config-js.phtml" />
+            <block type="adminhtml/template" name="edit.price.type.js" template="company/parser/edit-price-type-js.phtml" />
         </reference>
     </adminhtml_company_company_edit>
     <adminhtml_company_company_editproduct>
@@ -75,19 +76,28 @@
 <!-- Parser path -->
     <adminhtml_parser_queue_queue>
         <reference name="content">
-            <block type="company/adminhtml_parser_queue_grid" name="queue_grid"/>
+            <block type="company/adminhtml_parser_queue" name="queue_grid"/>
         </reference>
     </adminhtml_parser_queue_queue>
 
     <adminhtml_parser_parser_task>
         <reference name="content">
-            <block type="company/adminhtml_parser_task_grid" name="task_grid"/>
+            <block type="company/adminhtml_parser_task" name="task_grid"/>
         </reference>
     </adminhtml_parser_parser_task>
 
     <adminhtml_parser_parser_log>
         <reference name="content">
-            <block type="company/adminhtml_parser_log_grid" name="log_grid"/>
+            <block type="company/adminhtml_parser_log" name="log_grid"/>
         </reference>
     </adminhtml_parser_parser_log>
+
+    <edit_price_type>
+        <reference name="content">
+            <block type="company/adminhtml_parser_priceType" name="price_type_grid"/>
+        </reference>
+    </edit_price_type>
+    <add_price_type_form>
+        <block type="company/adminhtml_parser_priceTypeForm" name="price_type_form"/>
+    </add_price_type_form>
 </layout>

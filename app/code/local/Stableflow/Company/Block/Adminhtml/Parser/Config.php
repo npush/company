@@ -10,7 +10,7 @@
  * Date: 8/25/17
  *
  */
-class Stablflow_Company_Block_Adminhtml_Parser_Config extends Mage_Adminhtml_Block_Widget_Grid_Container
+class Stableflow_Company_Block_Adminhtml_Parser_Config extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
     public function __construct()
     {
@@ -19,5 +19,11 @@ class Stablflow_Company_Block_Adminhtml_Parser_Config extends Mage_Adminhtml_Blo
         $this->_headerText = Mage::helper('company')->__('Parser Settings');
         parent::__construct();
         $this->_updateButton('add', 'label', Mage::helper('company')->__('Add Settings'));
+        $this->_updateButton('add', 'onclick',  'setLocation(\'' . $this->getUrl('*/parser_parser/newSettings') .'\')');
+        $this->addButton('type', array(
+            'label'     => Mage::helper('company')->__('Manage Type'),
+            'onclick'   => 'editPriceType()',
+            'class'     => 'add'
+        ));
     }
 }

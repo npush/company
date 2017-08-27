@@ -56,6 +56,11 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         $this->renderLayout();
     }
 
+    public function parserConfigGrid()
+    {
+
+    }
+
     /**
      * Open configuration popup window
      * Json Editor
@@ -66,7 +71,7 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
 //      $this->renderLayout();
         $fieldId = (int) $this->getRequest()->getParam('id');
         $config = Mage::getModel('company/parser_config')->load($fieldId);
-        $block = $this->getLayout()->createBlock('core/template')->setTemplate('company/parser/editor.phtml');
+        $block = $this->getLayout()->createBlock('adminhtml/template')->setTemplate('company/parser/editor.phtml');
         $block->setData('settings', $config->getSettings());
         echo $block->toHtml();
     }
@@ -83,5 +88,29 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
             $model->setConfig($config);
             $model->save();
         }
+    }
+
+    public function editPriceTypeAction()
+    {
+        $companyId = (int) $this->getRequest()->getParam('id');
+        $this->loadLayout('edit_price_type');
+        $block = $this->getLayout()->getBlock('price_type_grid');
+        Mage::register('company_id', $companyId);
+        echo $block->toHtml();
+
+    }
+
+    public function addPriceTypeAction()
+    {
+        $companyId = (int) $this->getRequest()->getParam('id');
+        $this->loadLayout('add_price_type_form');
+        $block = $this->getLayout()->getBlock('price_type_form');
+        Mage::register('company_id', $companyId);
+        echo $block->toHtml();
+    }
+
+    public function savePriceTypeAction()
+    {
+
     }
 }
