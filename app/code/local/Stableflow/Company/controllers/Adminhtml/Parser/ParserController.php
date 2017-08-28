@@ -56,10 +56,11 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         $this->renderLayout();
     }
 
-    public function parserConfigGrid()
+    public function parserConfigGridAction()
     {
-
-    }
+        $this->loadLayout(array('default', 'parser_configuration_grid'));
+        $block = $this->getLayout()->getBlock('price_configuration_grid');
+        $this->getResponse()->setBody($block->toHtml());    }
 
     /**
      * Open configuration popup window
@@ -88,6 +89,11 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
             $model->setConfig($config);
             $model->save();
         }
+    }
+
+    public function newConfigurationPopupAction()
+    {
+
     }
 
     public function editPriceTypeAction()

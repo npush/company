@@ -37,6 +37,7 @@
             <block type="adminhtml/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
             <block type="adminhtml/template" name="edit.configuration.js" template="company/parser/edit-config-js.phtml" />
             <block type="adminhtml/template" name="edit.price.type.js" template="company/parser/edit-price-type-js.phtml" />
+            <block type="adminhtml/template" name="new.configuration.js" template="company/parser/new-configuration-js.phtml" />
         </reference>
     </adminhtml_company_company_edit>
     <adminhtml_company_company_editproduct>
@@ -92,6 +93,37 @@
         </reference>
     </adminhtml_parser_parser_log>
 
+    <adminhtml_parser_parser_configuration>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_config" name="price_configuration_grid"/>
+            <block type="adminhtml/widget_grid_serializer" name="configuration_grid_serializer">
+                <reference name="configuration_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.related</grid_block_name>
+                        <data_callback>getSelectedRelatedProducts</data_callback>
+                        <hidden_input_name>links[related]</hidden_input_name>
+                        <reload_param_name>products_related</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_parser_parser_configuration>
+
+    <adminhtml_parser_parser_configurationgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/catalog_product_edit_tab_related" name="catalog.product.edit.tab.related"/>
+        </block>
+    </adminhtml_parser_parser_configurationgrid>
+
+
+    <parser_configuration_grid>
+        <reference name="content">
+            <block type="company/adminhtml_parser_config" name="price_configuration_grid"/>
+        </reference>
+    </parser_configuration_grid>
     <edit_price_type>
         <reference name="content">
             <block type="company/adminhtml_parser_priceType" name="price_type_grid"/>

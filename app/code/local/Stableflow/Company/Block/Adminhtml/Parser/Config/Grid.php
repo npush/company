@@ -32,7 +32,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('company/parser_config')->getConfigCollection($this->getCompany()->getId());
+        $collection = Mage::getModel('company/parser_config')->getConfigCollection(1);
 
         $this->setCollection($collection);
 
@@ -42,6 +42,14 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
 
     protected function _prepareColumns()
     {
+        $this->addColumn('in_config', array(
+            'header_css_class'  => 'a-center',
+            'type'              => 'checkbox',
+            'name'              => 'in_config',
+            'values'            => '',
+            'align'             => 'center',
+            'index'             => 'entity_id'
+        ));
         $this->addColumn('entity_id', array(
             'header'    => Mage::helper('company')->__('ID'),
             'sortable'  => true,
@@ -116,6 +124,6 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
+        return $this->getUrl('*/parser_parser/configGrid', array('_current'=>true));
     }
 }
