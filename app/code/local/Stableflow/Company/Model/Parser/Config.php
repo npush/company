@@ -16,6 +16,8 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
 
     protected $_priceType = null;
 
+    protected $_settings = null;
+
     /**
      * Standard resource model init
      */
@@ -52,8 +54,7 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
      */
     public function getConfigCollection($companyId = null)
     {
-        $this->_configCollection = $this->getCollection()
-            ->addTypeFilter();
+        $this->_configCollection = $this->getCollection()->addTypeFilter();
         if(!is_null($companyId)) {
             $this->_configCollection->addFieldToFilter('company_id', $companyId);
         }
@@ -71,9 +72,9 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Stableflow_Company_Model_Parser_Config_Settings $data
+     * @param array $data
      */
-    public function setSettings(Stableflow_Company_Model_Parser_Config_Settings $data)
+    public function setSettings($data)
     {
         $this->setData('config', $data);
     }
@@ -84,6 +85,11 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
     public function getSettings()
     {
         return $this->getData('config');
+    }
+
+    public function getSettingsObject()
+    {
+        return Mage::getModel('company/parser_config_settings', $this->getData('config'));
     }
 
     public function addNewConfig()
@@ -114,4 +120,13 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
         return $this->getStatus() == Stableflow_Company_Model_Parser_Config::STATUS_ENABLED;
     }
 
+    public function getValues()
+    {
+        foreach($this->_configCollection as $_config){
+            $values[] =  array(
+                'value'     => $_config->getId(),
+                'label'     => $_config->getData('description'),
+            );
+        }
+    }
 }

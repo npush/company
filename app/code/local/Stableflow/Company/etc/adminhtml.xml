@@ -37,7 +37,7 @@
                         <parser_task translite="title" modue="company">
                             <title>All Task List</title>
                             <sort_order>20</sort_order>
-                            <action>adminhtml/parser_parser/task</action>
+                            <action>adminhtml/parser_task/taskList</action>
                         </parser_task>
                         <parser_log translite="title" modue="company">
                             <title>Parser Log</title>

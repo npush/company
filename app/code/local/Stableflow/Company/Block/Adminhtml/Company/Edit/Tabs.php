@@ -27,38 +27,27 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
 
         $attributes->getSelect()->order('additional_table.sort_order', 'ASC');
 
-        $this->addTab(
-            'general',
-            array(
+        $this->addTab('general', array(
                 'label'   => Mage::helper('company')->__('General Information'),
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_general'
                 )->setAttributes($attributes)->toHtml(),
-            )
-        );
-        $this->addTab(
-            'address',
-            array(
+        ));
+        $this->addTab('address', array(
                 'label'   => Mage::helper('company')->__('Company Address'),
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_address'
                 )
                 ->initForm()
                 ->toHtml(),
-            )
-        );
-        $this->addTab(
-            'owner',
-            array(
+        ));
+        $this->addTab('owner', array(
                 'label'   => Mage::helper('company')->__('Company Owners'),
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_owner'
                 )->toHtml(),
-            )
-        );
-        $this->addTab(
-            'products',
-            array(
+        ));
+        $this->addTab('products', array(
                 'label'   => Mage::helper('company')->__('Company Products List'),
                 'url'   => $this->getUrl('*/*/companyProductList', array('_current' => true)),
                 'class'    => 'ajax'
@@ -66,25 +55,23 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
 //                    'company/adminhtml_company_edit_tab_products',
 //                    'company.product.grid'
 //                )->toHtml(),
-            )
-        );
-        $this->addTab(
-            'price',
-            array(
+        ));
+        $this->addTab('price', array(
                 'label'   => Mage::helper('company')->__('Company Prices'),
                 'content' => $this->getLayout()->createBlock(
                     'company/adminhtml_company_edit_tab_price'
                 )->toHtml(),
-            )
-        );
-        $this->addTab(
-            'parser',
-            array(
+        ));
+        $this->addTab('parser', array(
                 'label'   => Mage::helper('company')->__('Parser Configuration'),
-                'url'   => $this->getUrl('*/parser_parser/parserConfigGrid', array('_current' => true)),
+                'url'   => $this->getUrl('*/parser_parser/parserConfiguration', array('_current' => true)),
                 'class'    => 'ajax'
-            )
-        );
+        ));
+        $this->addTab('task', array(
+                'label'   => Mage::helper('company')->__('Parser Task Manage'),
+                'url'   => $this->getUrl('*/parser_task/companyTask', array('_current' => true)),
+                'class'    => 'ajax'
+        ));
 
         return parent::_beforeToHtml();
     }

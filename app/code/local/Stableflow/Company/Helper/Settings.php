@@ -15,6 +15,10 @@ class Stableflow_Company_Helper_Settings extends Mage_Core_Helper_Data
 
     public function convertFromJson($settings)
     {
-
+        $empty = array();
+        foreach($settings as $key => $value){
+            $path = explode('-', $key);
+            $empty[$path[0]][$path[1]] = $value;
+        }
     }
 }

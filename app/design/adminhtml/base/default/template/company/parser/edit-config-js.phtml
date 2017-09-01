@@ -10,16 +10,16 @@
     //<![CDATA[
     function editConfigurationField(fieldId)
     {
-        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/openConfigurationPopup') ?>', {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/editParserSetting') ?>', {
             method: 'post',
             parameters: { id: fieldId},
             onSuccess: function(response) {
                 if (200 == response.status){
                     win = new Window({
                         className: 'magento',
-                        title: '<?php echo Mage::helper('company')->__("Parser Configuration")?>',
-                        width:650,
-                        height:500,
+                        title: '<?php echo Mage::helper('company')->__("Parser Setting")?>',
+                        width:550,
+                        height:650,
                         destroyOnClose: true,
                         recenterAuto:false
                     });
@@ -29,11 +29,17 @@
             }
         });
     }
-    function saveConfigurationField(button, fieldId)
+    function saveParserSetting(editor)
     {
-        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/updateConfiguration') ?>', {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/saveParserSetting') ?>', {
             method: 'post',
-            parameters: { id: fieldId, settings: editor.getValue() }
+            parameters: { settings: JSON.stringify(editor.getValue()) },
+            onSuccess: function(response){
+                if(200 == response.status){
+                    editor.destroy();
+                    win.close();
+                }
+            }
         });
     }
     //]]>

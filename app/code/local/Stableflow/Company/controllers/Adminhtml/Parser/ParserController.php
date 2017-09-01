@@ -56,63 +56,68 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         $this->renderLayout();
     }
 
-    public function parserConfigGridAction()
+    public function parserConfigurationAction()
     {
-        $this->loadLayout(array('default', 'parser_configuration_grid'));
-        $block = $this->getLayout()->getBlock('price_configuration_grid');
-        $this->getResponse()->setBody($block->toHtml());    }
+        $this->loadLayout();
+        $this->getLayout()->getBlock('parser_configuration_grid');
+            //->setProductsGrouped($this->getRequest()->getPost('products_grouped', null));
+        $this->renderLayout();
+    }
+
 
     /**
-     * Open configuration popup window
+     * Open Setting editor window
      * Json Editor
      */
-    public function openConfigurationPopupAction()
+    public function editParserSettingAction()
     {
-//      $this->loadLayout('popup');
-//      $this->renderLayout();
         $fieldId = (int) $this->getRequest()->getParam('id');
         $config = Mage::getModel('company/parser_config')->load($fieldId);
-        $block = $this->getLayout()->createBlock('adminhtml/template')->setTemplate('company/parser/editor.phtml');
-        $block->setData('settings', $config->getSettings());
-        echo $block->toHtml();
+        $a = $config->getSettingsObject();
+        $this->loadLayout();
+        $this->getLayout()->getBlock('parser_settings_editor')->setData('settings', $config->getSettings());
+        $this->renderLayout();
     }
 
     /**
-     * Update configuration save and update
+     * Save Parser Setting
      * @throws Exception
      */
-    public function updateConfigurationAction(){
+    public function saveParserSettingAction()
+    {
         $fieldId = (int) $this->getRequest()->getParam('id');
-        $config = $this->getRequest()->getParam('settings');
+        $config = json_decode($this->getRequest()->getParam('settings'), true);
+        $fieldId = 3;
         if ($fieldId) {
             $model = Mage::getModel('company/parser_config')->load($fieldId);
-            $model->setConfig($config);
+            $model->setSettings($config);
             $model->save();
         }
     }
 
-    public function newConfigurationPopupAction()
+    public function addParserConfigurationAction()
     {
-
+        $this->loadLayout();
+        $this->renderLayout();
     }
 
-    public function editPriceTypeAction()
+    public function viewPriceTypeAction()
     {
         $companyId = (int) $this->getRequest()->getParam('id');
-        $this->loadLayout('edit_price_type');
-        $block = $this->getLayout()->getBlock('price_type_grid');
         Mage::register('company_id', $companyId);
-        echo $block->toHtml();
+        $this->loadLayout();
+        $this->getLayout()->getBlock('price_type_grid');
+        $this->renderLayout();
 
     }
 
     public function addPriceTypeAction()
     {
         $companyId = (int) $this->getRequest()->getParam('id');
-        $this->loadLayout('add_price_type_form');
-        $block = $this->getLayout()->getBlock('price_type_form');
+        $this->loadLayout();
+        $this->getLayout()->getBlock('price_type_form');
         Mage::register('company_id', $companyId);
-        echo $block->toHtml();
+        $this->renderLayout();
     }
 
     public function savePriceTypeAction()

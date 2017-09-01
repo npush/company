@@ -95,6 +95,6 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Grid extends Mage_Admi
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current' => true));
+        return $this->getUrl('*/parser_parser/viewPriceType', array('_current' => true));
     }
 }

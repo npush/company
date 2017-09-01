@@ -8,9 +8,9 @@
 ?>
 <script type="text/javascript">
     //<![CDATA[
-    function editPriceType()
+    function viewPriceType()
     {
-        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/editPriceType') ?>', {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/viewPriceType') ?>', {
             method: 'post',
             parameters: { id: '<?php echo Mage::registry('current_company')->getId()?>'},
             onSuccess: function(response) {

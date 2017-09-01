@@ -2,24 +2,24 @@
 /**
  * Created by nick
  * Project magento1.dev
- * Date: 8/28/17
- * Time: 11:49 AM
+ * Date: 8/31/17
+ * Time: 3:51 PM
  */
 ?>
 <script type="text/javascript">
     //<![CDATA[
-    function addParserConfiguration(fieldId)
+    function addNewTask(fieldId)
     {
-        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/addParserConfiguration') ?>', {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_task/companyTaskAdd') ?>', {
             method: 'post',
             parameters: { id: fieldId},
             onSuccess: function(response) {
                 if (200 == response.status){
                     win = new Window({
                         className: 'magento',
-                        title: '<?php echo Mage::helper('company')->__("New Configuration")?>',
+                        title: '<?php echo Mage::helper('company')->__("New Task")?>',
                         width:650,
-                        height:500,
+                        height:300,
                         destroyOnClose: true,
                         recenterAuto:false
                     });
@@ -29,9 +29,9 @@
             }
         });
     }
-    function saveNewConfiguration(button, fieldId)
+    function saveNewTask(button, fieldId)
     {
-        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/saveNewConfiguration') ?>', {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/saveNewTask') ?>', {
             method: 'post',
             parameters: { id: fieldId, settings: editor.getValue() }
         });

@@ -16,10 +16,10 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
     {
         parent::__construct();
 
-        $this->setId('parser_config');
+        $this->setId('parser_configuration');
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
-        //$this->setTemplate('company/tab/products.phtml');
+        $this->setSaveParametersInSession(true);
     }
 
     /**
@@ -42,10 +42,10 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
 
     protected function _prepareColumns()
     {
-        $this->addColumn('in_config', array(
+        $this->addColumn('select', array(
             'header_css_class'  => 'a-center',
             'type'              => 'checkbox',
-            'name'              => 'in_config',
+            'name'              => 'select',
             'values'            => '',
             'align'             => 'center',
             'index'             => 'entity_id'
@@ -65,7 +65,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
             'index'     => 'description'
         ));
         $this->addColumn('config', array(
-            'header'    => Mage::helper('company')->__('Config String'),
+            'header'    => Mage::helper('company')->__('Setting String'),
             'index'     => 'config',
             'width'     => '300px',
             'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_Config'
@@ -74,26 +74,22 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
             'header'    => Mage::helper('company')->__('Status'),
             'index'     => 'is_active',
             'width'     => '120px',
-            'align'     => 'right'
+            'align'     => 'right',
+            'type'      => 'options',
+            'options'   => Mage::getSingleton('company/parser_config_status')->getOptionArray(),
         ));
-        $this->addColumn(
-            'created_at',
-            array(
+        $this->addColumn('created_at', array(
                 'header' => Mage::helper('company')->__('Created at'),
                 'index'  => 'created_at',
                 'width'  => '120px',
                 'type'   => 'datetime',
-            )
-        );
-        $this->addColumn(
-            'updated_at',
-            array(
+        ));
+        $this->addColumn('updated_at', array(
                 'header' => Mage::helper('company')->__('Updated at'),
                 'index'  => 'updated_at',
                 'width'  => '120px',
                 'type'   => 'datetime',
-            )
-        );
+        ));
         $this->addColumn('action',array(
                 'header'    => Mage::helper('company')->__('Edit'),
                 'width'     => '5%',
@@ -101,7 +97,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
                 'getter'     => 'getId',
                 'actions'   => array(
                     array(
-                        'caption' => Mage::helper('company')->__('Edit Settings'),
+                        'caption' => Mage::helper('company')->__('Edit Configuration'),
                         'url'     => array('base'=>'*/parser_parser/openConfigurationPopup'),
                         'popup'   => true,
                         'field'   => 'id'
@@ -122,8 +118,13 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
         return parent::_prepareColumns();
     }
 
+    /**
+     * Determine ajax url for grid refresh
+     *
+     * @return string
+     */
     public function getGridUrl()
     {
-        return $this->getUrl('*/parser_parser/configGrid', array('_current'=>true));
+        return $this->getUrl('*/parser_parser/parserConfiguration', array('_current'=>true));
     }
 }

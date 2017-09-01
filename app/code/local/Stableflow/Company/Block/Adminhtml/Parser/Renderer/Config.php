@@ -11,7 +11,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Renderer_Config extends Mage_Adm
     public function render(Varien_Object $row)
     {
         //$html = parent::render($row);
-        $html = '<button onclick="editConfigurationField('. $row->getId() .'); return false">' . Mage::helper('company')->__('Edit Config') . '</button>';
+        $html = '<button onclick="editConfigurationField('. $row->getId() .'); return false">' . Mage::helper('company')->__('Edit Settings') . '</button>';
         return $html;
     }
 }

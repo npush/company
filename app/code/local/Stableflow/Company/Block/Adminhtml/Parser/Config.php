@@ -16,19 +16,21 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config extends Mage_Adminhtml_Bl
     {
         $this->_blockGroup = 'company';
         $this->_controller = 'adminhtml_parser_config';
-        $this->_headerText = Mage::helper('company')->__('Parser Settings');
+        $this->_headerText = Mage::helper('company')->__('Parser Configuration');
+
         parent::__construct();
+
         $this->addButton('delete', array(
-            'label'     => Mage::helper('company')->__('Delete Settings'),
-            'onclick'   => '',
+            'label'     => Mage::helper('company')->__('Delete Configuration'),
+            'onclick'   => 'deleteConfiguration()',
             'class'     => 'delete'
         ));
-        $this->_updateButton('add', 'label', Mage::helper('company')->__('Add Settings'));
-        //$this->_updateButton('add', 'onclick',  'setLocation(\'' . $this->getUrl('*/parser_parser/newSettings') .'\')');
-        $this->_updateButton('add', 'onclick',  'newConfiguration()');
+        $this->_updateButton('add', 'label', Mage::helper('company')->__('New Configuration'));
+        $this->_updateButton('add', 'onclick',  'addParserConfiguration()');
+
         $this->addButton('type', array(
-            'label'     => Mage::helper('company')->__('Manage Type'),
-            'onclick'   => 'editPriceType()',
+            'label'     => Mage::helper('company')->__('Manage Price Type'),
+            'onclick'   => 'viewPriceType()',
             'class'     => 'add'
         ));
     }
