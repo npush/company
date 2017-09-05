@@ -35,10 +35,7 @@
         </reference>
         <reference name="js">
             <block type="adminhtml/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
-            <block type="adminhtml/template" name="edit.configuration.js" template="company/parser/edit-config-js.phtml" />
-            <block type="adminhtml/template" name="edit.price.type.js" template="company/parser/edit-price-type-js.phtml" />
-            <block type="adminhtml/template" name="new.configuration.js" template="company/parser/new-configuration-js.phtml" />
-            <block type="adminhtml/template" name="new.configuration.js" template="company/parser/new-task-js.phtml" />
+            <block type="adminhtml/template" name="edit.configuration.js" template="company/parser/js.phtml" />
         </reference>
     </adminhtml_company_company_edit>
     <adminhtml_company_company_editproduct>
@@ -75,6 +72,11 @@
             <block type="company/adminhtml_product_edit" name="product_edit"/>
         </reference>
     </adminhtml_company_company_saveproduct>
+    <adminhtml_company_company_productlist>
+        <reference name="content">
+            <block type="company/adminhtml_product" name="task_grid"/>
+        </reference>
+    </adminhtml_company_company_productlist>
 <!-- Parser path -->
     <adminhtml_parser_queue_queue>
         <reference name="content">
@@ -93,18 +95,18 @@
             <block type="company/adminhtml_parser_log" name="log_grid"/>
         </reference>
     </adminhtml_parser_parser_log>
-
+<!-- TABS -->
     <adminhtml_parser_parser_parserconfiguration>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="company/adminhtml_parser_config" name="parser_configuration_grid"/>
         </block>
     </adminhtml_parser_parser_parserconfiguration>
 
-    <adminhtml_parser_parser_addparserconfiguration>
+    <adminhtml_parser_parser_editconfiguration>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="company/adminhtml_parser_config_edit" name="parser_configuration_edit"/>
         </block>
-    </adminhtml_parser_parser_addparserconfiguration>
+    </adminhtml_parser_parser_editconfiguration>
 
     <adminhtml_parser_parser_editparsersetting>
         <block type="core/text_list" name="root" output="toHtml">
@@ -112,27 +114,33 @@
         </block>
     </adminhtml_parser_parser_editparsersetting>
 
-    <adminhtml_parser_parser_viewpricetype>
+    <adminhtml_parser_parser_pricetype>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="company/adminhtml_parser_priceType" name="price_type_grid"/>
+            <block type="company/adminhtml_parser_priceType" name="parser_price_type_grid"/>
         </block>
-    </adminhtml_parser_parser_viewpricetype>
+    </adminhtml_parser_parser_pricetype>
 
-    <adminhtml_parser_parser_addpricetype>
+    <adminhtml_parser_parser_editpricetype>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="company/adminhtml_parser_priceTypeForm" name="price_type_form"/>
+            <block type="company/adminhtml_parser_priceType_edit" name="price_type_form"/>
         </block>
-    </adminhtml_parser_parser_addpricetype>
+    </adminhtml_parser_parser_editpricetype>
 
-    <adminhtml_parser_task_companytask>
+    <adminhtml_parser_task_task>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="company/adminhtml_parser_task" name="parser_task_grid"/>
         </block>
-    </adminhtml_parser_task_companytask>
+    </adminhtml_parser_task_task>
 
-    <adminhtml_parser_task_companytaskadd>
+    <adminhtml_parser_task_edittask>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="company/adminhtml_parser_task_edit" name="parser_task_edit"/>
         </block>
-    </adminhtml_parser_task_companytaskadd>
+    </adminhtml_parser_task_edittask>
+
+    <adminhtml_parser_log_tasklog>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_log" name="parser_task_log_grid"/>
+        </block>
+    </adminhtml_parser_log_tasklog>
 </layout>

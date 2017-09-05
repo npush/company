@@ -19,5 +19,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Log extends Mage_Adminhtml_Block
         $this->_headerText = Mage::helper('company')->__('Parser log');
 
         parent::__construct();
+
+        $this->_removeButton('add');
     }
 }

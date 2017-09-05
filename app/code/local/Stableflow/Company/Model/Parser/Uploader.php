@@ -32,7 +32,13 @@ class Stableflow_Company_Model_Parser_Uploader extends Mage_Core_Model_File_Uplo
     {
         $this->setAllowRenameFiles(true);
         $this->setAllowCreateFolders(true);
+
+        // Set the file upload mode
+        // false -> get the file directly in the specified folder
+        // true -> get the file in the product like folders
+        //	(file.jpg will go in something like /media/f/i/file.jpg)
         $this->setFilesDispersion(true);
+        //$this->setAllowedExtensions(array('jpg','jpeg','gif','png'));
         $this->setAllowedExtensions(array_keys($this->_allowedMimeTypes));
         $this->setValidMimeTypes();
         $this->_uploadType = self::SINGLE_STYLE;

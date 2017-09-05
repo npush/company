@@ -49,7 +49,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
         ));
         $this->addTab('products', array(
                 'label'   => Mage::helper('company')->__('Company Products List'),
-                'url'   => $this->getUrl('*/*/companyProductList', array('_current' => true)),
+                'url'   => $this->getUrl('*/*/productList', array('_current' => true)),
                 'class'    => 'ajax'
 //                'content' => $this->getLayout()->createBlock(
 //                    'company/adminhtml_company_edit_tab_products',
@@ -62,6 +62,11 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
                     'company/adminhtml_company_edit_tab_price'
                 )->toHtml(),
         ));
+        $this->addTab('price_type', array(
+            'label'   => Mage::helper('company')->__('Parser Price Type'),
+            'url'   => $this->getUrl('*/parser_parser/priceType', array('_current' => true)),
+            'class'    => 'ajax'
+        ));
         $this->addTab('parser', array(
                 'label'   => Mage::helper('company')->__('Parser Configuration'),
                 'url'   => $this->getUrl('*/parser_parser/parserConfiguration', array('_current' => true)),
@@ -69,8 +74,13 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
         ));
         $this->addTab('task', array(
                 'label'   => Mage::helper('company')->__('Parser Task Manage'),
-                'url'   => $this->getUrl('*/parser_task/companyTask', array('_current' => true)),
+                'url'   => $this->getUrl('*/parser_task/task', array('_current' => true)),
                 'class'    => 'ajax'
+        ));
+        $this->addTab('log', array(
+            'label'   => Mage::helper('company')->__('Parser Log'),
+            'url'   => $this->getUrl('*/parser_log/taskLog', array('_current' => true)),
+            'class'    => 'ajax'
         ));
 
         return parent::_beforeToHtml();

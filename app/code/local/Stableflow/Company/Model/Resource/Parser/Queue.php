@@ -8,7 +8,8 @@
  */
 class Stableflow_Company_Model_Resource_Parser_Queue extends Mage_Core_Model_Resource_Db_Abstract
 {
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_init('company/parser_queue', 'entity_id');
     }
 

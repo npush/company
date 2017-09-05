@@ -26,12 +26,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config extends Mage_Adminhtml_Bl
             'class'     => 'delete'
         ));
         $this->_updateButton('add', 'label', Mage::helper('company')->__('New Configuration'));
-        $this->_updateButton('add', 'onclick',  'addParserConfiguration()');
+        $this->_updateButton('add', 'onclick',  'newConfiguration()');
 
-        $this->addButton('type', array(
-            'label'     => Mage::helper('company')->__('Manage Price Type'),
-            'onclick'   => 'viewPriceType()',
-            'class'     => 'add'
-        ));
     }
 }

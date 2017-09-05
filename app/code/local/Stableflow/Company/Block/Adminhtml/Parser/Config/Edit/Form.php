@@ -13,7 +13,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Edit_Form extends Mage_Ad
             array(
                 'id'         => 'edit_form',
                 'action'     => $this->getUrl(
-                    '*/*/save',
+                    '*/*/saveConfiguration',
                     array(
                         'id' => $this->getRequest()->getParam('id'),
                         'store' => $this->getRequest()->getParam('store')

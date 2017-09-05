@@ -11,10 +11,7 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
     /**
      * constructor - set the used module name
      *
-     * @access protected
-     * @return void
      * @see Mage_Core_Controller_Varien_Action::_construct()
-     * @author nick
      */
     protected function _construct()
     {
@@ -23,8 +20,8 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
 
     protected function _initTask()
     {
-        $taskId  = (int) $this->getRequest()->getParam('id');
-        $task    = Mage::getModel('company/parser_task');
+        $taskId  = (int) $this->getRequest()->getParam('task_id');
+        $task = Mage::getModel('company/parser_task');
 
         if ($taskId) {
             $task->load($taskId);
@@ -33,19 +30,29 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
         return $task;
     }
 
-    public function taskListAction()
+
+    /**
+     * View List of all task`s
+     */
+    public function taskAction()
     {
+        $companyId = $this->getRequest()->getParam('id');
+        Mage::register('current_company', $companyId);
         $this->loadLayout();
         $this->renderLayout();
     }
 
-    public function companyTaskAction()
+    /**
+     * new task action
+     *
+     * @return void
+     */
+    public function newTaskAction()
     {
-        $this->loadLayout();
-        $this->renderLayout();
+        $this->_forward('editTask');
     }
 
-    public function companyTaskAddAction()
+    public function editTaskAction()
     {
         $this->_initTask();
         $config = Mage::getModel('company/parser_config')->getConfigCollection(1);
@@ -56,6 +63,66 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
             );
         }
         Mage::register('config', $values);
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
+    public function saveTaskAction()
+    {
+        $model = $this->_initTask();
+        $path = $this->_uploadFile();
+        $file = $path['file'];
+        try{
+            if ($model->getCreatedTime == NULL || $model->getUpdateTime() == NULL) {
+                $model->setCreatedTime(now())->setUpdateTime(now());
+            } else {
+                $model->setUpdateTime(now());
+            }
+            $model->setData('config_id', 1);
+            $model->setData('name', $file);
+            $model->save();
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('company')->__('Task was successfully saved'));
+            Mage::getSingleton('adminhtml/session')->setFormData(false);
+            $this->_redirect('*/company_company/edit', array('id' => $this->getRequest()->getParam('id')));
+        }catch (Exception $e){
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            $this->_redirect('*/company_company/edit', array('id' => $this->getRequest()->getParam('id')));
+        }
+    }
+
+    public function deleteTaskAction()
+    {
+
+    }
+
+    public function massDeleteTaskAction()
+    {
+
+    }
+
+    public function massStatusTaskAction()
+    {
+
+    }
+
+    protected function _uploadFile()
+    {
+        if(isset($_FILES['name']['name']) && $_FILES['name']['name'] != '') {
+            try {
+                /* Starting upload */
+                $uploader = new Stableflow_Company_Model_Parser_Uploader('name');
+                $uploader->init();
+                $path = $uploader->save($_FILES['name']['name'] );
+                return $path;
+            } catch (Exception $e) {
+
+            }
+        }
+    }
+
+
+    public function taskListAction()
+    {
         $this->loadLayout();
         $this->renderLayout();
     }

@@ -17,7 +17,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Edit_Form extends Mage_Admi
             'id'      => 'edit_form',
             'method'  => 'post',
             'enctype' => 'multipart/form-data',
-            'action'  => $this->getUrl('*/*/new', array('_current' => true)),
+            'action'  => $this->getUrl('*/parser_task/saveTask', array('_current' => true)),
         ));
 
         $form->setUseContainer(true);
@@ -31,21 +31,22 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Edit_Form extends Mage_Admi
         $task = Mage::registry('current_task');
         $config = Mage::registry('config');
         $fieldset = $this->getForm()->addFieldset('taskparam_form', array(
-            'legend' => Mage::helper('bannernext')->__('Task Params')
+            'legend' => Mage::helper('company')->__('Task Parameters')
         ));
-        $fieldset->addField('name', 'file', array(
+        $fieldset->addType('text-file', Mage::getConfig()->getBlockClassName('company/adminhtml_parser_helper_file'));
+        $fieldset->addField('name', 'text-file', array(
             'label' => Mage::helper('company')->__('File'),
-//            'value'  => '',
+            'value'  => '',
             'class' => 'required-entry',
             'required' => true,
-            'disabled' => false,
-            'readonly' => true,
+//            'readonly' => true,
             'name' => 'name',
 
         ));
         $fieldset->addField('config_id', 'select', array(
             'label' => Mage::helper('company')->__('Select Configuration'),
             'name'  => 'config_id',
+            'class' => 'required-entry',
             'required' => true,
             'values' => $config
         ));

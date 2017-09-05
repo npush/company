@@ -11,14 +11,23 @@ class Stableflow_Company_Adminhtml_Parser_QueueController extends Mage_Adminhtml
     /**
      * constructor - set the used module name
      *
-     * @access protected
-     * @return void
      * @see Mage_Core_Controller_Varien_Action::_construct()
-     * @author nick
      */
     protected function _construct()
     {
         $this->setUsedModuleName('Stableflow_Company_Parser');
+    }
+
+    protected function _initQueue()
+    {
+        $queueId  = (int) $this->getRequest()->getParam('queue_id');
+        $queue = Mage::getModel('company/parser_queue');
+
+        if ($queueId) {
+            $queue->load($queueId);
+        }
+        Mage::register('current_queue', $queue);
+        return $queue;
     }
 
     /**
@@ -42,5 +51,10 @@ class Stableflow_Company_Adminhtml_Parser_QueueController extends Mage_Adminhtml
             ->_title($this->__('Queue List'));
         $this->loadLayout();
         $this->renderLayout();
+    }
+
+    public function editQueueAction()
+    {
+
     }
 }

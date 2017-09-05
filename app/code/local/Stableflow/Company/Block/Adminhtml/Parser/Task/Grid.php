@@ -71,14 +71,15 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
                 'actions' => array(
                     array(
                         'caption' => Mage::helper('company')->__('Edit'),
-                        //'url'     => array('base'=> '*/parser_task/companyTaskAdd'),
-                        'field'   => 'id',
-                        'onclick' => 'return alert()'
+                        'url' => array('base'=> '*/parser_task/editTask'),
+                        'field' => 'id',
+                        'popup' => true
                     ),
                     array(
-                        'caption' => Mage::helper('company')->__('Enable'),
-                        'url'     => array('base'=> '*/*/edit'),
-                        'field'   => 'id'
+                        'caption' => Mage::helper('company')->__('Add To Queue'),
+                        'url' => array('base'=> '*/*/addTaskToQueue'),
+                        'field' => 'id',
+                        'popup' => true
                     )
                 ),
                 'filter'    => false,

@@ -21,6 +21,6 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task extends Mage_Adminhtml_Bloc
         parent::__construct();
 
         $this->_updateButton('add', 'label', Mage::helper('company')->__('Add Task'));
-        $this->_updateButton('add', 'onclick',  'addNewTask(1)');
+        $this->_updateButton('add', 'onclick',  'newTask()');
     }
 }

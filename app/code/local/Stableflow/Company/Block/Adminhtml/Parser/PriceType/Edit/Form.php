@@ -6,7 +6,7 @@
  * Date: 8/25/17
  * Time: 10:45 PM
  */
-class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Form extends Mage_Adminhtml_Block_Widget_Form{
+class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Edit_Form extends Mage_Adminhtml_Block_Widget_Form{
 
     protected function _prepareForm(){
         $form = new Varien_Data_Form(
@@ -31,9 +31,14 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Form extends Mage_Admi
                 'class' => 'fieldset-wide',
             )
         );
-        $fieldset->addField('stores', 'textarea', array(
+        $fieldset->addField('stores', 'text', array(
             'label' => Mage::helper('company')->__('Description'),
             'name' => 'description',
+            'values' => ''
+        ));
+        $fieldset->addField('is_active', 'select', array(
+            'label' => Mage::helper('company')->__('Status'),
+            'name' => 'is_active',
             'values' => ''
         ));
         $form->setDataObject(Mage::getModel('company/parser_price_type'));

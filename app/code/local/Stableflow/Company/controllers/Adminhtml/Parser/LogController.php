@@ -11,14 +11,23 @@ class Stableflow_Company_Adminhtml_Parser_LogController extends Mage_Adminhtml_C
     /**
      * constructor - set the used module name
      *
-     * @access protected
-     * @return void
      * @see Mage_Core_Controller_Varien_Action::_construct()
-     * @author nick
      */
     protected function _construct()
     {
-        $this->setUsedModuleName('Stableflow_Company_Parser');
+        $this->setUsedModuleName('Stableflow_Company_Parser_Log');
+    }
+
+    protected function _initLog()
+    {
+        $log = false;
+        $logId  = (int) $this->getRequest()->getParam('log_id');
+        if ($logId) {
+            $log = Mage::getModel('company/parser_price_log');
+            $log->load($logId);
+            Mage::register('current_log', $log);
+        }
+        return $log;
     }
 
     /**
@@ -32,6 +41,15 @@ class Stableflow_Company_Adminhtml_Parser_LogController extends Mage_Adminhtml_C
     {
         $this->_title($this->__('Company'))
             ->_title($this->__('Prise parser'));
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
+    /**
+     * View List of parser log
+     */
+    public function taskLogAction()
+    {
         $this->loadLayout();
         $this->renderLayout();
     }

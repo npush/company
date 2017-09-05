@@ -16,11 +16,13 @@ class Stableflow_Company_Model_Parser_Log extends Mage_Core_Model_Abstract
     /**
      * Standard resource model init
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_init('company/parser_log');
     }
 
-    public function getErrorsLinesIds($taskId = null){}
+    public function getErrorsLinesIds($taskId = null)
+    {
 
-
+    }
 }

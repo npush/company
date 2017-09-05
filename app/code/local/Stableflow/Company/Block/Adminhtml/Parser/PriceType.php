@@ -15,7 +15,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType extends Mage_Adminhtml
         $this->_headerText = Mage::helper('company')->__('Parser Settings');
         parent::__construct();
         $this->_updateButton('add', 'label', Mage::helper('company')->__('Add Price Type'));
-        $this->_updateButton('add', 'onclick',  'addPriceType()');
+        $this->_updateButton('add', 'onclick',  'newPriceType()');
 
     }
 }

@@ -46,14 +46,16 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Grid extends Mage_Admi
             'index' => 'entity_id'
         ));
         $this->addColumn('description', array(
-            'header' => Mage::helper('company')->__('Config Description'),
+            'header' => Mage::helper('company')->__('Type Description'),
             'index' => 'description'
         ));
         $this->addColumn('is_active', array(
             'header' => Mage::helper('company')->__('Status'),
             'index' => 'is_active',
             'width' => '120px',
-            'align' => 'right'
+            'align' => 'right',
+            'type'      => 'options',
+            'options'   => Mage::getSingleton('company/parser_price_status')->getOptionArray(),
         ));
         $this->addColumn(
             'created_at',
@@ -72,14 +74,14 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Grid extends Mage_Admi
                 'getter' => 'getId',
                 'actions' => array(
                     array(
-                        'caption' => Mage::helper('company')->__('Edit Settings'),
-                        'url' => array('base' => '*/parser_parser/openConfigurationPopup'),
+                        'caption' => Mage::helper('company')->__('Edit Type'),
+                        'url' => array('base' => '*/parser_parser/editPriceType'),
                         'popup' => true,
                         'field' => 'id'
                     ),
                     array(
-                        'caption' => Mage::helper('company')->__('Delete Configuration'),
-                        'url' => array('base' => '*/parser_parser/deleteConfig'),
+                        'caption' => Mage::helper('company')->__('Delete Type'),
+                        'url' => array('base' => '*/parser_parser/deletePriceType'),
                         'popup' => true,
                         'field' => 'id'
                     )
@@ -95,6 +97,6 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Grid extends Mage_Admi
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/parser_parser/viewPriceType', array('_current' => true));
+        return $this->getUrl('*/parser_parser/priceType', array('_current' => true));
     }
 }

@@ -12,10 +12,7 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * constructor - set the used module name
      *
-     * @access protected
-     * @return void
      * @see Mage_Core_Controller_Varien_Action::_construct()
-     * @author nick
      */
     protected function _construct()
     {
@@ -25,9 +22,7 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * init the company
      *
-     * @access protected
      * @return Stableflow_Company_Model_Company
-     * @author nick
      */
     protected function _initCompany()
     {
@@ -54,9 +49,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * default action for company controller
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function indexAction()
     {
@@ -69,9 +61,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * new company action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function newAction()
     {
@@ -81,9 +70,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * edit company action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function editAction()
     {
@@ -131,8 +117,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * save company action
      *
-     * @access public
-     * @return void
      */
     public function saveAction()
     {
@@ -267,9 +251,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * delete company
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function deleteAction()
     {
@@ -292,9 +273,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * mass delete companys
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function massDeleteAction()
     {
@@ -324,9 +302,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * mass status change - action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function massStatusAction()
     {
@@ -361,9 +336,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * grid action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function gridAction()
     {
@@ -374,10 +346,8 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * restrict access
      *
-     * @access protected
      * @return bool
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
-     * @author Sam
      */
     protected function _isAllowed()
     {
@@ -387,9 +357,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * Export companys in CSV format
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function exportCsvAction()
     {
@@ -402,9 +369,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * Export companys in Excel format
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function exportExcelAction()
     {
@@ -417,9 +381,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * Export companys in XML format
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function exportXmlAction()
     {
@@ -432,9 +393,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * wysiwyg editor action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function wysiwygAction()
     {
@@ -457,6 +415,12 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     public function generateSitemapAction()
     {
         Mage::getModel('company/generateSitemap')->generateXml();
+    }
+
+    public function productListAction()
+    {
+        $this->loadLayout();
+        $this->renderLayout();
     }
 
     public function editProductAction()

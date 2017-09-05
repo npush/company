@@ -27,14 +27,36 @@ class Stableflow_Company_Block_Adminhtml_Parser_Log_Grid extends Mage_Adminhtml_
 
     protected function _prepareColumns()
     {
-        $this->addColumn(
-            'entity_id',
-            array(
+        $this->addColumn('entity_id', array(
                 'header' => Mage::helper('company')->__('Id'),
                 'index' => 'entity_id',
                 'type' => 'number'
-            )
-        );
+        ));
+        $this->addColumn('task_id', array(
+            'header' => Mage::helper('company')->__('Task Id'),
+            'index' => 'task_id',
+            'type' => 'number'
+        ));
+        $this->addColumn('error_text', array(
+            'header' => Mage::helper('company')->__('Error Text'),
+            'index' => 'error_text',
+            'type' => 'text'
+        ));
+        $this->addColumn('status_id', array(
+            'header' => Mage::helper('company')->__('Status'),
+            'index' => 'status_id',
+            'type' => 'number'
+        ));
         return parent::_prepareColumns();
+    }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/parser_log/taskLog', array('_current' => true));
+    }
+
+    public function getRowUrl()
+    {
+        return 'alert()';
     }
 }

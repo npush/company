@@ -6,14 +6,16 @@
  * Time: 1:33 PM
  */
 ?>
+<?php $settings = $this->getSettings(); ?>
+<?php $schema = $this->getSchema(); ?>
+
 <div class="editor-body">
     <div id="editor"></div>
-    <button type="button" id="submit_config" onclick="saveParserSetting(editor)">
+    <button type="button" id="submit_config" onclick="saveParserSetting(id, editor)">
         <span><span><?php echo Mage::helper('company')->__('Save Settings'); ?></span></span>
     </button>
 </div>
-<?php $settings = $this->getSettings(); ?>
-<?php $schema = $this->getSchema(); ?>
+
 <script type="text/javascript">
     var element = document.getElementById('editor');
     var options = {
