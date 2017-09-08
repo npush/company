@@ -279,18 +279,24 @@
     </default>
     <crontab>
         <jobs>
-            <companies_sitemap_generate>
+            <company_sitemap_generate>
+                <schedule>
+                    <!--At midnight on first day-of-month-->
+                    <cron_expr>0 0 1 * *</cron_expr>
+                </schedule>
                 <run>
-                    <schedule><cron_expr>0 0 1 * *</cron_expr></schedule>
                     <model>company/observer::generateSiteMap</model>
                 </run>
-            </companies_sitemap_generate>
-            <companies_parser_jobs>
+            </company_sitemap_generate>
+            <company_parser_jobs>
+                <schedule>
+                    <!--At midnight-->
+                    <cron_expr>0 0 * * *</cron_expr>
+                </schedule>
                 <run>
-                    <schedule><cron_expr>* 0 * * *</cron_expr></schedule>
-                    <model>company/observer::updatePriceLists</model>
+                    <model>company/cron::updatePriceLists</model>
                 </run>
-            </companies_parser_jobs>
+            </company_parser_jobs>
         </jobs>
     </crontab>
 </config>

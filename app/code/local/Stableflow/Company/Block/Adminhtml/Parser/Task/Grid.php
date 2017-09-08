@@ -12,7 +12,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
         parent::__construct();
         $this->setId('taskGrid');
         $this->setDefaultSort('entity_id');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
@@ -62,6 +62,8 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
                 'header' => Mage::helper('company')->__('Status'),
                 'align' => 'left',
                 'index' => 'status_id',
+                'type'      => 'options',
+                'options'   => Mage::getSingleton('company/parser_task_status')->getOptionArray(),
         ));
         $this->addColumn('action', array(
                 'header'  =>  Mage::helper('company')->__('Action'),
@@ -72,14 +74,19 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
                     array(
                         'caption' => Mage::helper('company')->__('Edit'),
                         'url' => array('base'=> '*/parser_task/editTask'),
-                        'field' => 'id',
+                        'field' => 'task_id',
                         'popup' => true
                     ),
                     array(
                         'caption' => Mage::helper('company')->__('Add To Queue'),
-                        'url' => array('base'=> '*/*/addTaskToQueue'),
-                        'field' => 'id',
+                        'url' => array('base'=> '*/parser_task/addTaskToQueue'),
+                        'field' => 'task_id',
                         'popup' => true
+                    ),
+                    array(
+                        'caption' => Mage::helper('company')->__('Delete'),
+                        'url' => array('base'=> '*/parser_task/deleteTask'),
+                        'field' => 'task_id',
                     )
                 ),
                 'filter'    => false,
@@ -118,11 +125,11 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/parser_task/companyTask', array('_current'=>true));
+        return $this->getUrl('*/parser_task/task', array('_current'=>true));
     }
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/parser_task/companyTaskAdd', array('id' => $row->getId()));
+        return $this->getUrl('*/parser_task/taskAdd', array('id' => $row->getId()));
     }
 }

@@ -9,13 +9,19 @@
 class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Model_Parser_Adapter_Abstract
 {
 
-    protected $_logFileName = 'xml-parser.log';
+    protected $_logFileName = 'xls-parser.log';
 
     protected $_objPHPExcel = null;
 
+    protected $_objReader = null;
+
     protected $_sheet;
 
-    protected $_startRow;
+    protected $_firstRow;
+
+    protected $_highestRow;
+
+    protected $_highestColumn;
 
     /**
      * Method called as last step of object instance creation. Can be overrided in child classes.
@@ -65,14 +71,18 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         require_once Mage::getBaseDir() . "/lib/PHPExcel/Classes/PHPExcel/IOFactory.php";
         try {
             $inputFileType = PHPExcel_IOFactory::identify($this->_source);
-            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
-            $objReader->setReadDataOnly(true);
+            $this->_objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $this->_objReader->setReadDataOnly(true);
             $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
-            $this->_objPHPExcel = $objReader->load($this->_source);
+            $this->_objPHPExcel = $this->_objReader->load($this->_source);
         } catch (PHPExcel_Exception $e) {
             die($e->getMessage());
         }
+        $this->_sheet = $this->_objPHPExcel->getSheet(0);
+        $this->_firstRow = $this->_settings->getStartRow();
+        $this->_highestRow = $this->_sheet->getHighestRow();
+        $this->_highestColumn = $this->_sheet->getHighestColumn();
     }
 
     function parse()

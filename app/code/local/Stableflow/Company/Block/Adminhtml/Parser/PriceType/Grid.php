@@ -22,14 +22,14 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Grid extends Mage_Admi
      * get current entity
      *
      */
-    public function getCompany()
+    public function getCompanyId()
     {
-        return Mage::registry('current_company');
+        return Mage::getSingleton('adminhtml/session')->getCompanyId();
     }
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('company/parser_price_type')->getPriceTypeCollection(Mage::registry('company_id'));
+        $collection = Mage::getModel('company/parser_price_type')->getPriceTypeCollection($this->getCompanyId());
 
         $this->setCollection($collection);
 
@@ -77,13 +77,12 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Grid extends Mage_Admi
                         'caption' => Mage::helper('company')->__('Edit Type'),
                         'url' => array('base' => '*/parser_parser/editPriceType'),
                         'popup' => true,
-                        'field' => 'id'
+                        'field' => 'type_id'
                     ),
                     array(
                         'caption' => Mage::helper('company')->__('Delete Type'),
                         'url' => array('base' => '*/parser_parser/deletePriceType'),
-                        'popup' => true,
-                        'field' => 'id'
+                        'field' => 'type_id'
                     )
                 ),
                 'filter' => false,

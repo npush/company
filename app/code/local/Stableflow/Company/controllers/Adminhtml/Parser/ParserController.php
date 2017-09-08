@@ -80,6 +80,8 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
      */
     public function parserConfigurationAction()
     {
+        $companyId = $this->getRequest()->getParam('id');
+        $this->_getSession()->setCompanyId($companyId);
         $this->loadLayout();
         $this->renderLayout();
     }
@@ -102,10 +104,11 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         $config = $this->_initConfiguration();
         if ($configId && !$config->getId()) {
             $this->_getSession()->addError(Mage::helper('company')->__('This configuration no longer exists.'));
-            $this->_redirect('*/company_company/edit', array('id' => $this->getRequest()->getParam('id')));
+            $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
             return;
         }
         Mage::dispatchEvent('stableflow_company_parser_editConfiguration_action', array('configuration' => $config));
+        Mage::register('current_config', $config);
         $this->loadLayout();
         $this->renderLayout();
     }
@@ -115,7 +118,23 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
      */
     public function saveConfigurationAction()
     {
+        $model = $this->_initConfiguration();
         $data = $this->getRequest()->getPost();
+        try{
+            if ($model->getCreatedAt == NULL || $model->getUpdatedAt() == NULL) {
+                $model->setCreatedAt(now())->setUpdateAt(now());
+            } else {
+                $model->setUpdatedAt(now());
+            }
+            $model->addData($data);
+            $model->save();
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('company')->__('Configuration was successfully saved'));
+            Mage::getSingleton('adminhtml/session')->setFormData(false);
+            $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
+        }catch (Exception $e){
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
+        }
     }
 
     /**
@@ -123,7 +142,18 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
      */
     public function deleteConfigurationAction()
     {
-
+        if ($id = $this->getRequest()->getParam('config_id')) {
+            $task = Mage::getModel('company/parser_config')->load($id);
+            try {
+                $task->delete();
+                $this->_getSession()->addSuccess(Mage::helper('company')->__('The configuration has been deleted.'));
+            } catch (Exception $e) {
+                $this->_getSession()->addError($e->getMessage());
+            }
+        }
+        $this->getResponse()->setRedirect(
+            $this->getUrl('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()))
+        );
     }
 
     /**
@@ -175,7 +205,6 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
     {
         $configId = (int) $this->getRequest()->getParam('config_id');
         $settings = json_decode($this->getRequest()->getParam('settings'), true);
-        $configId = 3;
         if ($configId) {
             try {
                 $model = Mage::getModel('company/parser_config')->load($configId);
@@ -184,10 +213,10 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('company')->__('Configuration was successfully saved')
                 );
-                $this->_redirect('*/company_company/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
             }catch (Exception $e){
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $this->_redirect('*/company_company/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
             }
         }
     }
@@ -197,11 +226,9 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
      */
     public function priceTypeAction()
     {
-        $companyId = (int) $this->getRequest()->getParam('id');
-        Mage::register('company_id', $companyId);
+        $companyId = $this->getRequest()->getParam('id');
+        $this->_getSession()->setCompanyId($companyId);
         $this->loadLayout();
-        $this->getLayout()->getBlock('parser_pricetype_grid');
-        //->setProductsGrouped($this->getRequest()->getPost('products_grouped', null));
         $this->renderLayout();
     }
 
@@ -217,21 +244,53 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
 
     public function editPriceTypeAction()
     {
-        $companyId = (int) $this->getRequest()->getParam('id');
+        $typeId = (int) $this->getRequest()->getParam('type_id');
+        $type = $this->_initPriceType();
+        if ($typeId && !$type->getId()) {
+            $this->_getSession()->addError(Mage::helper('company')->__('This Price Type no longer exists.'));
+            $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
+            return;
+        }
         $this->loadLayout();
-        $this->getLayout()->getBlock('price_type_form');
-        Mage::register('company_id', $companyId);
         $this->renderLayout();
     }
 
     public function savePriceTypeAction()
     {
-        $this->_redirect('*/company_company/edit', array('id' => $this->getRequest()->getParam('id')));
+        $model = $this->_initPriceType();
+        $data = $this->getRequest()->getPost();
+        try{
+            if ($model->getCreatedAt == NULL || $model->getUpdatedAt() == NULL) {
+                $model->setCreatedAt(now())->setUpdateAt(now());
+            } else {
+                $model->setUpdatedAt(now());
+            }
+            $data['company_id'] = $this->_getSession()->getCompanyId();
+            $model->addData($data);
+            $model->save();
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('company')->__('Price Type was successfully saved'));
+            Mage::getSingleton('adminhtml/session')->setFormData(false);
+            $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
+        }catch (Exception $e){
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
+        }
     }
 
     public function deletePriceTypeAction()
     {
-
+        if ($id = $this->getRequest()->getParam('type_id')) {
+            $task = Mage::getModel('company/parser_price_type')->load($id);
+            try {
+                $task->delete();
+                $this->_getSession()->addSuccess(Mage::helper('company')->__('The Price Type has been deleted.'));
+            } catch (Exception $e) {
+                $this->_getSession()->addError($e->getMessage());
+            }
+        }
+        $this->getResponse()->setRedirect(
+            $this->getUrl('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()))
+        );
     }
 
     public function massDeletePriceTypeAction()
@@ -243,5 +302,12 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
     {
 
     }
+
+//    public function gridAction()
+//    {
+//        $this->loadLayout();
+//        $this->getResponse()->setBody(
+//        $this->getLayout()->createBlock('company/adminhtml_parser_task_grid')->toHtml());
+//    }
 
 }

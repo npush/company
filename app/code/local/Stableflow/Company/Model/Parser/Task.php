@@ -8,18 +8,23 @@
  */
 class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 {
-    const STATUS_COMPLETE       = 1;
-    const STATUS_ERRORS_FOUND   = 2;
-    const STATUS_NEW            = 3;
-    const STATUS_IN_PROGRESS    = 4;
-
+    /**
+     * Configuration object
+     * @var Stableflow_Company_Model_Parser_Config_Settings
+     */
     protected $_config = null;
 
+    /** @var Stableflow_Company_Model_Resource_Parser_Config_Collection  */
     protected $_taskCollection = null;
 
+    /** @var int */
     protected $_startParsingTime = null;
 
-    protected $_file;
+    /**
+     * Source file path
+     * @var string
+     */
+    protected $_source = null;
 
     /**
      * Standard resource model init
@@ -36,15 +41,26 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
      */
     public function getConfig()
     {
-        $this->_config = Mage::getModel('company/parser_config')->load($this->getData('config_id'));
+        $a = Mage::getModel('company/parser_config')->load($this->getData('config_id'));
+        $this->_config = $a->getSettingsObject();
+        $this->_source = $this->getData('name');
         return $this->_config;
     }
 
-    public function getStatus(){}
+    public function getStatus()
+    {
 
-    public function setStatus(){}
+    }
 
-    public function getSpentTime(){}
+    public function setStatus($status)
+    {
+        $this->setData('status_id', $status);
+    }
+
+    public function getSpentTime()
+    {
+
+    }
 
     protected function _calcSpentTime(){}
 
@@ -71,7 +87,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
             $queue = Mage::getModel('company/parser_queue');
             $queue->addData(array(
                 'task_id' => $id,
-                'status_id' => Stableflow_Company_Model_Parser_Queue::STATUS_PENDING
+                'status_id' => Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING
             ));
             return $queue->save()->getId();
         }
@@ -81,16 +97,21 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function getParserInstance()
     {
-        return Stableflow_Company_Model_Parser_Adapter::factory($this->_config, $this->_file);
+        return Stableflow_Company_Model_Parser_Adapter::factory($this->_config, Mage::getBaseDir('media'). '/pricelists'.$this->_source);
     }
 
     public function run()
     {
+        $config = $this->getConfig();
         $parser = $this->getParserInstance();
-
-        $parser->init();
-        $parser->parse();
-        $status = $parser->updatePrice();
+        $productModel = Mage::getModel('company/parser_entity_product');
+        $rows = $parser->getRows();
+        //$parser->setStatus(Stableflow_Company_Model_Parser_Task_Status::S);
+        foreach($rows as $row){
+            $data = $parser->parse();
+            $productModel->update($data);
+            $parser->next();
+        }
 
         if($status['status']) {
             $result['type'] = 'success';

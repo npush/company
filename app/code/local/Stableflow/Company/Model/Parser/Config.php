@@ -8,14 +8,11 @@
  */
 class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
 {
-
-    const STATUS_ENABLED    = 1;
-    const STATUS_DISABLED   = 2;
-
     protected $_configCollection = null;
 
     protected $_priceType = null;
 
+    /** @var Stableflow_Company_Model_Parser_Config_Settings  */
     protected $_settings = null;
 
     /**
@@ -80,23 +77,24 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return Stableflow_Company_Model_Parser_Config_Settings
+     * @return array
      */
     public function getSettings()
     {
         return $this->getData('config');
     }
 
+    /**
+     * @return Stableflow_Company_Model_Parser_Config_Settings
+     */
     public function getSettingsObject()
     {
-        return Mage::getModel('company/parser_config_settings', $this->getData('config'));
+        if($this->_settings == null) {
+            $this->_settings =  Mage::getSingleton('company/parser_config_settings');
+            $this->_settings->setSettings($this->getData('config'));
+        }
+        return $this->_settings;
     }
-
-    public function addNewConfig()
-    {
-
-    }
-
 
     /**
      * Check config status
@@ -105,7 +103,7 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
     public function getStatus()
     {
         if(is_null($this->_getData('is_active'))){
-            $this->setData('is_active', Stableflow_Company_Model_Parser_Config::STATUS_ENABLED);
+            $this->setData('is_active', Stableflow_Company_Model_Parser_Config_Status::STATUS_ENABLED);
         }
         return $this->_getData('is_active');
     }
@@ -117,7 +115,7 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
      */
     public function isActive()
     {
-        return $this->getStatus() == Stableflow_Company_Model_Parser_Config::STATUS_ENABLED;
+        return $this->getStatus() == Stableflow_Company_Model_Parser_Config_Status::STATUS_ENABLED;
     }
 
     public function getValues()

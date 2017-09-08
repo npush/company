@@ -8,9 +8,6 @@
  */
 class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
 {
-    const STATUS_PENDING        = 1;
-    const STATUS_IN_PROGRESS    = 2;
-
     protected $_queueCollection = null;
 
     /**
@@ -22,6 +19,7 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Get Queue ID by Task ID
      * @param $taskId
      * @return mixed
      */
@@ -30,7 +28,16 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         return $this->_getResource()->getIdByTaskId($taskId);
     }
 
-    public function getStatus(){}
+    public function getStatus()
+    {
+        $this->getData('status_id');
+    }
+
+    public function setStatus($status)
+    {
+        $this->setData('status_id', $status);
+        $this->save();
+    }
 
     public function checkInQueue($taskId)
     {
@@ -40,6 +47,11 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         return false;
     }
 
+    /**
+     * Get Queue collection
+     * @param int $status
+     * @return Stableflow_Company_Model_Resource_Parser_Queue_Collection
+     */
     public function getQueue($status = null)
     {
         $collection = $this->getCollection();
@@ -49,17 +61,35 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         return $collection;
     }
 
+    /**
+     * Get Task by task ID
+     * @param $taskId
+     * @return Stableflow_Company_Model_Parser_Task
+     */
     public function getTask($taskId)
     {
         return Mage::getModel('company/parser_task')->load($taskId);
     }
 
-    public function PerformQueue()
+    /**
+     *
+     */
+    public function performQueue()
     {
-        $queue = $this->getQueue(Stableflow_Company_Model_Parser_Queue::STATUS_PENDING);
-        foreach($queue as $_taskQueue){
-            $task = $this->getTask($_taskQueue->getData('task_id'));
-            $task->run();
+        $queueCollection = $this->getQueue(Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING);
+        try{
+            foreach($queueCollection as $_taskQueue){
+                $_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
+                $task = $this->getTask($_taskQueue->getData('task_id'));
+                if($task->run()) {
+                    $task->setSpentTime();
+                    $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
+                    $_taskQueue->delete();
+                }
+//                $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
+            }
+        }catch (Exception $e){
+
         }
     }
 

@@ -20,11 +20,6 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config extends Mage_Adminhtml_Bl
 
         parent::__construct();
 
-        $this->addButton('delete', array(
-            'label'     => Mage::helper('company')->__('Delete Configuration'),
-            'onclick'   => 'deleteConfiguration()',
-            'class'     => 'delete'
-        ));
         $this->_updateButton('add', 'label', Mage::helper('company')->__('New Configuration'));
         $this->_updateButton('add', 'onclick',  'newConfiguration()');
 

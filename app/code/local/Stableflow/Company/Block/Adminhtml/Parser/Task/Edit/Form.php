@@ -29,7 +29,13 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Edit_Form extends Mage_Admi
     protected function _prepareForm(){
 
         $task = Mage::registry('current_task');
-        $config = Mage::registry('config');
+        $config = Mage::getModel('company/parser_config')->getConfigCollection($this->getCompanyId());
+        foreach($config as $_config){
+            $values[] =  array(
+                'value'     => $_config->getId(),
+                'label'     => $_config->getData('description'),
+            );
+        }
         $fieldset = $this->getForm()->addFieldset('taskparam_form', array(
             'legend' => Mage::helper('company')->__('Task Parameters')
         ));
@@ -48,7 +54,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Edit_Form extends Mage_Admi
             'name'  => 'config_id',
             'class' => 'required-entry',
             'required' => true,
-            'values' => $config
+            'values' => $values
         ));
         $fieldset->addField('status_id', 'select', array(
             'label'     => Mage::helper('company')->__('Is Active'),
@@ -64,8 +70,12 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Edit_Form extends Mage_Admi
                 ),
             ),
         ));
-        //$this->getForm()->setDataObject(Mage::getModel('company/parser_task'));
         $this->getForm()->addValues($task->getData());
         return parent::_prepareForm();
+    }
+
+    public function getCompanyId()
+    {
+        return Mage::getSingleton('adminhtml/session')->getCompanyId();
     }
 }

@@ -8,8 +8,6 @@
  */
 class Stableflow_Company_Model_Parser_Log extends Mage_Core_Model_Abstract
 {
-    const STATUS_OK             = 1;
-    const STATUS_UNKNOWN_ERROR  = 2;
 
     protected $_taskId = null;
 

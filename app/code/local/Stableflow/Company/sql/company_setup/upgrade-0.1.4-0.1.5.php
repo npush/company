@@ -178,6 +178,7 @@ $table = $installer->getConnection()
         'primary'   => true,
     ), 'Entity Id')
     ->addColumn('task_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unique'    => true,
         'unsigned'  => true,
         'nullable'  => false,
     ), 'Task Id')

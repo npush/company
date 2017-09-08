@@ -26,13 +26,13 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
      * get current entity
      *
      */
-    public function getCompany(){
-        return Mage::registry('current_company');
+    public function getCompanyId(){
+        return Mage::getSingleton('adminhtml/session')->getCompanyId();
     }
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('company/parser_config')->getConfigCollection(1);
+        $collection = Mage::getModel('company/parser_config')->getConfigCollection($this->getCompanyId());
 
         $this->setCollection($collection);
 
@@ -98,15 +98,14 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
                 'actions'   => array(
                     array(
                         'caption' => Mage::helper('company')->__('Edit Configuration'),
-                        'url'     => array('base'=>'*/parser_parser/openConfigurationPopup'),
+                        'url'     => array('base' => '*/parser_parser/editConfiguration'),
                         'popup'   => true,
-                        'field'   => 'id'
+                        'field'   => 'config_id'
                     ),
                     array(
                         'caption' => Mage::helper('company')->__('Delete Configuration'),
-                        'url'     => array('base'=>'*/parser_parser/deleteConfig'),
-                        'popup'   => true,
-                        'field'   => 'id'
+                        'url'     => array('base' => '*/parser_parser/deleteConfiguration'),
+                        'field'   => 'config_id'
                     )
                 ),
                 'filter'    => false,
