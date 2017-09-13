@@ -77,12 +77,44 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         } catch (PHPExcel_Exception $e) {
             die($e->getMessage());
         }
-        $this->_colNames = array_flip($this->_settings->getFieldMap());
+        $this->_colNames = $this->_initColNames();
         $this->_sheet = $this->_objPHPExcel->getSheet($this->_settings->getCurrentSheetNum());
         $this->_firstRow = $this->_settings->getStartRow();
         $this->_highestRow = $this->_sheet->getHighestRow();
         $this->_highestColumn = $this->_sheet->getHighestColumn();
         $this->_rowIterator = $this->_sheet->getRowIterator();
+    }
+
+    protected function _initColNames()
+    {
+        $tmp = $this->_settings->getFieldMap();
+        array_walk($tmp, function(&$value, $key){
+            if($value == ''){
+                $value = null;
+            }
+            $value = strtoupper($value);
+        });
+        return $tmp;
+    }
+
+    /**
+     * array = array(
+     * 'A' => value
+     * 'B' => value
+     * ....
+     * )
+     * @return array
+     */
+    protected function _getRow()
+    {
+        $rowData = array();
+        $row = $this->_rowIterator->current();
+        $cellIterator = $row->getCellIterator();
+        //$cellIterator->setIterateOnlyExistingCells(true);
+        foreach($cellIterator as $cell){
+            $rowData[$cell->getColumn()] = $cell->getCalculatedValue();
+        }
+        return $rowData;
     }
 
     /**
@@ -98,64 +130,64 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         Mage::log($memUse, Zend_Log::INFO, $this->_logFileName);
     }
 
-    /**
-     * Return the current element.
-     *
-     * @return mixed
-     */
     public function current()
     {
-        $temp = array();
-        $row = $this->_rowIterator->current();
-        $cellIterator = $row->getCellIterator();
-        //$cellIterator->setIterateOnlyExistingCells(true);
-        foreach($cellIterator as $cell){
-            $temp[$this->_colNames[strtolower($cell->getColumn())]] = $cell->getCalculatedValue();
-        }
-//        $ar1 = $this->_colNames;
-//        array_walk($ar1, function (&$value, $key, $temp){
-//            $value = $temp[strtoupper($value)];
-//        }, $temp);
-//        $this->_currentRow = $ar1;
-        $this->_currentRow = $temp;
-        return $this->_currentRow;
+        $tmp = $this->_colNames;
+        array_walk($tmp, function (&$value, $key, $ar2){
+            $value = $ar2[$value];
+        }, $this->_currentRow);
+        return $tmp;
     }
 
-    /**
-     * Move forward to next element
-     *
-     * @return void Any returned value is ignored.
-     */
     public function next()
     {
         $this->_rowIterator->next();
-        $this->_currentKey = $this->_rowIterator->key();
+        if($this->_rowIterator->key() <= $this->_highestRow){
+            $this->_currentKey = $this->_rowIterator->key();
+            $this->_currentRow = $this->_getRow();
+        }else{
+            $this->_currentKey = null;
+        }
     }
 
     public function rewind()
     {
         $this->_rowIterator->seek($this->_firstRow);
         $this->_currentKey = $this->_rowIterator->key();
+        $this->_currentRow = $this->_getRow();
     }
 
     public function seek($position)
     {
-        $this->_rowIterator->seek($position);
-        $this->_currentKey = $this->_rowIterator->key();
+        if($position <= $this->_highestRow){
+            $this->_rowIterator->seek($position);
+            $this->_currentKey = $this->_rowIterator->key();
+            $this->_currentRow = $this->_getRow();
+        }else{
+            throw new OutOfBoundsException(Mage::helper('company')->__('Invalid seek position'));
+        }
     }
 
     public function valid()
     {
-        return !empty($this->_currentRow);
+        return $this->_currentKey <= $this->_highestRow;
     }
 
-    public function validateConfig(){}
+    /**
+     * Validate config array
+     *
+     * @return bool
+     */
+    public function validateConfig()
+    {
+        return true;
+    }
 
     /**
      * @return bool
      */
     protected function validateRow($row) {
-        switch ($column) {
+        switch ($row) {
             case 'price':
                 return (Zend_Validate::is($value , 'Int') || Zend_Validate::is($value , 'Float'));
                 break;

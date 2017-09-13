@@ -17,14 +17,17 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     /** @var Stableflow_Company_Model_Resource_Parser_Config_Collection  */
     protected $_taskCollection = null;
 
-    /** @var int */
-    protected $_startParsingTime = null;
-
     /**
      * Source file path
      * @var string
      */
     protected $_source = null;
+
+    /**
+     * Parser task Start Time
+     * @var int
+     */
+    protected $_startTime = null;
 
     /**
      * Standard resource model init
@@ -59,10 +62,19 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function getSpentTime()
     {
-
+        return $this->getData('time_spent');
     }
 
-    protected function _calcSpentTime(){}
+    public function setSpentTime($time)
+    {
+        $this->setData('time_spent', $time);
+    }
+
+    protected function _calcSpentTime()
+    {
+        $finalTime = microtime(true) - $this->_startTime;
+        return $finalTime;
+    }
 
     public function getLog(){}
 
@@ -102,7 +114,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function run()
     {
-        $data = array();
+        $this->_startTime = microtime(true);
         $config = $this->getConfig();
         $parser = $this->getParserInstance();
         $productModel = Mage::getModel('company/parser_entity_product');

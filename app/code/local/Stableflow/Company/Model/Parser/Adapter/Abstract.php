@@ -93,7 +93,7 @@ abstract class Stableflow_Company_Model_Parser_Adapter_Abstract implements Seeka
     /**
      * Method called as last step of object instance creation. Can be overridden in child classes.
      *
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return Stableflow_Company_Model_Parser_Adapter_Abstract
      */
     protected function _init()
     {
