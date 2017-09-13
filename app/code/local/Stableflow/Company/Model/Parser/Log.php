@@ -19,6 +19,19 @@ class Stableflow_Company_Model_Parser_Log extends Mage_Core_Model_Abstract
         $this->_init('company/parser_log');
     }
 
+    public function getLogCollection($company_id = null, $status = null)
+    {
+
+        $collection = $this->getCollection();
+        if(!is_null($company_id)){
+            $collection->addFieldToFilter('company_id', array('in' => $company_id));
+        }
+        if(!is_null($status)){
+            $collection->addFieldToFilter('status_id', array('eq' => $status));
+        }
+        return $collection;
+    }
+
     public function getErrorsLinesIds($taskId = null)
     {
 

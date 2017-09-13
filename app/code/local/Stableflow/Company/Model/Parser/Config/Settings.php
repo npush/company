@@ -107,16 +107,18 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
      */
     public function getSheetSettings()
     {
-        $this->_sheetSettings = $this->_sheets[$this->_currentSheet]['settings'];
+        $this->_sheetSettings = $this->_sheets[$this->_currentSheet];
         return $this->_sheetSettings;
     }
 
     public function setSettings($settings)
     {
-        $this->_type = $settings['type'];
-        unset($settings['type']);
-        $this->_sheets[$this->_currentSheet] = array_merge($this->_sheets[$this->_currentSheet], $settings);
-        $this->_sheetSettings = $this->_sheets[$this->_currentSheet];
+        if(is_array($settings)) {
+            $this->_type = $settings['type'];
+            unset($settings['type']);
+            $this->_sheets[$this->_currentSheet] = array_merge($this->_sheets[$this->_currentSheet], $settings);
+            $this->_sheetSettings = $this->_sheets[$this->_currentSheet];
+        }
         return $this;
     }
 

@@ -192,6 +192,7 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         $config = Mage::getModel('company/parser_config')->load($fieldId);
         $a = $config->getSettingsObject();
         $this->loadLayout();
+        $this->getLayout()->getBlock('parser_settings_editor')->setData('task_id', $fieldId);
         $this->getLayout()->getBlock('parser_settings_editor')->setData('settings', $config->getSettings());
         $this->renderLayout();
     }

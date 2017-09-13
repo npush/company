@@ -17,9 +17,18 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
         $this->setUseAjax(true);
     }
 
+    /**
+     * get current entity
+     *
+     */
+    public function getCompanyId()
+    {
+        return Mage::getSingleton('adminhtml/session')->getCompanyId();
+    }
+
     protected function _prepareCollection(){
         $collection = Mage::getModel('company/parser_task')
-            ->getTasksCollection();
+            ->getTasksCollection($this->getCompanyId());
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -130,6 +139,6 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/parser_task/taskAdd', array('id' => $row->getId()));
+        return $this->getUrl('*/parser_task/editTask', array('id' => $row->getId()));
     }
 }

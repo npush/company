@@ -17,6 +17,15 @@ class Stableflow_Company_Block_Adminhtml_Parser_Log_Grid extends Mage_Adminhtml_
         $this->setUseAjax(true);
     }
 
+    /**
+     * get current entity
+     *
+     */
+    public function getCompanyId()
+    {
+        return Mage::getSingleton('adminhtml/session')->getCompanyId();
+    }
+
     protected function _prepareCollection(){
         $collection = Mage::getModel('company/parser_log')
             ->getCollection();

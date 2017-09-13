@@ -79,7 +79,7 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         $queueCollection = $this->getQueue(Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING);
         try{
             foreach($queueCollection as $_taskQueue){
-                $_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
+                //$_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
                 $task = $this->getTask($_taskQueue->getData('task_id'));
                 if($task->run()) {
                     $task->setSpentTime();

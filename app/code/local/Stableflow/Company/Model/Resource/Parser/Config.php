@@ -44,10 +44,11 @@ class Stableflow_Company_Model_Resource_Parser_Config extends Mage_Core_Model_Re
     public function getConfigIds($company_id)
     {
         $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), 'price_type_id')
+            ->from($this->getMainTable(), array('entity_id', 'price_type_id'))
             ->joinLeft(
                 array('price_type' => $this->_typeTable),
-                $this->getMainTable() . '.price_type_id = price_type.entity_id')
+                $this->getMainTable() . '.price_type_id = price_type.entity_id',
+                'company_id')
             ->where('company_id = :company_id');
         $bind = array(':company_id' => (string)$company_id);
         return $this->_getReadAdapter()->fetchCol($select, $bind);

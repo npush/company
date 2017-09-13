@@ -159,4 +159,15 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
         $this->loadLayout();
         $this->renderLayout();
     }
+
+    public function isAjax()
+    {
+        if ($this->isXmlHttpRequest()) {
+            return true;
+        }
+        if ($this->getParam('ajax') || $this->getParam('isAjax')) {
+            return true;
+        }
+        return false;
+    }
 }

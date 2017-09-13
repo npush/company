@@ -50,7 +50,9 @@ class Stableflow_Company_Block_Adminhtml_Parser_Queue_Grid extends Mage_Adminhtm
                 'header' => Mage::helper('company')->__('Status'),
                 'align' => 'left',
                 'index' => 'status_id',
-                'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_Status'
+                //'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_Status',
+                'type'      => 'options',
+                'options'   => Mage::getSingleton('company/parser_queue_status')->getOptionArray(),
             )
         );
         $this->addColumn(
@@ -62,15 +64,10 @@ class Stableflow_Company_Block_Adminhtml_Parser_Queue_Grid extends Mage_Adminhtm
                 'getter'  => 'getId',
                 'actions' => array(
                     array(
-                        'caption' => Mage::helper('company')->__('Edit'),
-                        'url'     => array('base'=> '*/*/edit'),
+                        'caption' => Mage::helper('company')->__('Delete from Queue'),
+                        'url'     => array('base'=> '*/parser_queue/delete'),
                         'field'   => 'id'
                     ),
-                    array(
-                        'caption' => Mage::helper('company')->__('Enable'),
-                        'url'     => array('base'=> '*/*/edit'),
-                        'field'   => 'id'
-                    )
                 ),
                 'filter'    => false,
                 'is_system' => true,

@@ -13,10 +13,6 @@ class Stableflow_Company_Model_Parser extends Mage_Core_Model_Abstract
 
     protected $_config = null;
 
-    protected function _construct()
-    {
-        $this->_init('company/parser');
-    }
 
     /**
      * Get task status

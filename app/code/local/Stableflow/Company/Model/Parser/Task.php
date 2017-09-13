@@ -102,16 +102,24 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function run()
     {
+        $data = array();
         $config = $this->getConfig();
         $parser = $this->getParserInstance();
         $productModel = Mage::getModel('company/parser_entity_product');
-        $rows = $parser->getRows();
+        //$productModel->update($data);
         //$parser->setStatus(Stableflow_Company_Model_Parser_Task_Status::S);
-        foreach($rows as $row){
-            $data = $parser->parse();
+        for($i= 50; $i > 0; $i--){
+            $data = $parser->current();
+            print_r($data);
             $productModel->update($data);
             $parser->next();
         }
+
+        /*$parser->current();
+        foreach($parser as $row){
+            print_r($row);
+            $productModel->update($row);
+        }*/
 
         if($status['status']) {
             $result['type'] = 'success';

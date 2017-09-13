@@ -6,22 +6,46 @@
  * Date: 8/4/17
  * Time: 12:10 PM
  */
+require_once Mage::getBaseDir() . "/lib/PHPExcel/Classes/PHPExcel/IOFactory.php";
+
 class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Model_Parser_Adapter_Abstract
 {
 
+    /**
+     * Debug file name
+     * @var string
+     */
     protected $_logFileName = 'xls-parser.log';
 
     protected $_objPHPExcel = null;
 
     protected $_objReader = null;
 
+    /**
+     * Current sheet
+     * @var
+     */
     protected $_sheet;
 
+    /**
+     * The number of row, that have correspond data
+     * @var int
+     */
     protected $_firstRow;
 
-    protected $_highestRow;
+    /**
+     * Max row number
+     * @var int
+     */
+    protected $_highestRow = null;
 
-    protected $_highestColumn;
+    /**
+     * Max column number
+     * @var int
+     */
+    protected $_highestColumn = null;
+
+    protected $_rowIterator = null;
 
     /**
      * Method called as last step of object instance creation. Can be overrided in child classes.
@@ -34,6 +58,31 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         $this->init();
         $this->rewind();
         return $this;
+    }
+
+    /**
+     * Initialize PHPExcel Reader
+     */
+    protected function init()
+    {
+        try {
+            $inputFileType = PHPExcel_IOFactory::identify($this->_source);
+            $this->_objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $this->_objReader->setReadDataOnly(true);
+            $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
+            PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
+            //$this->_objReader->setReadFilter(new Stableflow_Company_Model_Parser_Adapter_Xls_ReaderFilter($init));
+            //$this->_objReader->setLoadSheetsOnly( array("Sheet 1") );
+            $this->_objPHPExcel = $this->_objReader->load($this->_source);
+        } catch (PHPExcel_Exception $e) {
+            die($e->getMessage());
+        }
+        $this->_colNames = array_flip($this->_settings->getFieldMap());
+        $this->_sheet = $this->_objPHPExcel->getSheet($this->_settings->getCurrentSheetNum());
+        $this->_firstRow = $this->_settings->getStartRow();
+        $this->_highestRow = $this->_sheet->getHighestRow();
+        $this->_highestColumn = $this->_sheet->getHighestColumn();
+        $this->_rowIterator = $this->_sheet->getRowIterator();
     }
 
     /**
@@ -50,88 +99,72 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     }
 
     /**
+     * Return the current element.
+     *
+     * @return mixed
+     */
+    public function current()
+    {
+        $temp = array();
+        $row = $this->_rowIterator->current();
+        $cellIterator = $row->getCellIterator();
+        //$cellIterator->setIterateOnlyExistingCells(true);
+        foreach($cellIterator as $cell){
+            $temp[$this->_colNames[strtolower($cell->getColumn())]] = $cell->getCalculatedValue();
+        }
+//        $ar1 = $this->_colNames;
+//        array_walk($ar1, function (&$value, $key, $temp){
+//            $value = $temp[strtoupper($value)];
+//        }, $temp);
+//        $this->_currentRow = $ar1;
+        $this->_currentRow = $temp;
+        return $this->_currentRow;
+    }
+
+    /**
      * Move forward to next element
      *
      * @return void Any returned value is ignored.
      */
     public function next()
-    {}
-
-    public function rewind()
-    {}
-
-    public function seek($position)
-    {}
-
-    /**
-     * Initialize PHPExcel Reader
-     */
-    protected function init()
     {
-        require_once Mage::getBaseDir() . "/lib/PHPExcel/Classes/PHPExcel/IOFactory.php";
-        try {
-            $inputFileType = PHPExcel_IOFactory::identify($this->_source);
-            $this->_objReader = PHPExcel_IOFactory::createReader($inputFileType);
-            $this->_objReader->setReadDataOnly(true);
-            $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
-            PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
-            $this->_objPHPExcel = $this->_objReader->load($this->_source);
-        } catch (PHPExcel_Exception $e) {
-            die($e->getMessage());
-        }
-        $this->_sheet = $this->_objPHPExcel->getSheet(0);
-        $this->_firstRow = $this->_settings->getStartRow();
-        $this->_highestRow = $this->_sheet->getHighestRow();
-        $this->_highestColumn = $this->_sheet->getHighestColumn();
+        $this->_rowIterator->next();
+        $this->_currentKey = $this->_rowIterator->key();
     }
 
-    function parse()
+    public function rewind()
     {
-        Mage::log("Parse...", Zend_Log::INFO, $this->_logFileName);
-        $firstRow = $this->_settings->getStartRow(0);
-        $sheet = $this->_objPHPExcel->getSheet(0);
-        $highestRow = $sheet->getHighestRow();
-        $highestColumn = $sheet->getHighestColumn();
-        $data = [];
+        $this->_rowIterator->seek($this->_firstRow);
+        $this->_currentKey = $this->_rowIterator->key();
+    }
 
-        foreach ($sheet->getRowIterator() as $row) {
-            $cellIterator = $row->getCellIterator();
-            $cellIterator->setIterateOnlyExistingCells(false); // This loops all cells,
-            // even if it is not set.
-            // By default, only cells
-            // that are set will be
-            // iterated.
-            foreach ($cellIterator as $cell) {
-                $data[]= $cell->getValue();
-            }
-        }
+    public function seek($position)
+    {
+        $this->_rowIterator->seek($position);
+        $this->_currentKey = $this->_rowIterator->key();
+    }
 
-        for ($row = (int) $firstRow; $row <= $highestRow; $row++) {
-            $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
-            $skip = false;
-            foreach ($rowData[0] as $index => $value) {
-                if ($column = array_search($index, $this->_map)) {
-                    if ($this->validate($column, $value)) {
-                        $value = $this->normalizeData($column, $value);
-                        $data[$row][$column] = $value;
-                    } else {
-                        $skip = true;
-                        continue;
-                    }
-                }
-            }
-
-            if ($skip) {
-                $this->skippedItems++;
-                unset($data[$row]);
-                Mage::log("Not valid data in row {$row}", null, 'updating_price.log');
-            }
-        }
-
-        $this->_data = $data;
-
-        return $data;
+    public function valid()
+    {
+        return !empty($this->_currentRow);
     }
 
     public function validateConfig(){}
+
+    /**
+     * @return bool
+     */
+    protected function validateRow($row) {
+        switch ($column) {
+            case 'price':
+                return (Zend_Validate::is($value , 'Int') || Zend_Validate::is($value , 'Float'));
+                break;
+
+            case 'code':
+                return Zend_Validate::is($value , 'NotEmpty');
+                break;
+        }
+
+        return true;
+    }
 }

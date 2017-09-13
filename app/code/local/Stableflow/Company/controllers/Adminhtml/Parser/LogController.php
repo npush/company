@@ -50,6 +50,8 @@ class Stableflow_Company_Adminhtml_Parser_LogController extends Mage_Adminhtml_C
      */
     public function taskLogAction()
     {
+        $companyId = $this->getRequest()->getParam('id');
+        $this->_getSession()->setCompanyId($companyId);
         $this->loadLayout();
         $this->renderLayout();
     }
