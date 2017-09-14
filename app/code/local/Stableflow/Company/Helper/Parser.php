@@ -10,11 +10,11 @@ class  Stableflow_Company_Helper_Parser extends Mage_Core_Helper_Data
 {
     public function getFileBaseUrl()
     {
-        return Mage::getBaseUrl('media').'parser';
+        return Mage::getBaseUrl('media').'pricelists';
     }
 
     public function getFileBaseDir()
     {
-        return Mage::getBaseDir('media') . DS . 'parser';
+        return Mage::getBaseDir('media') . DS . 'pricelists';
     }
 }

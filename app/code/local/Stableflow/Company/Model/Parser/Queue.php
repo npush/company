@@ -82,11 +82,13 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
                 //$_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
                 $task = $this->getTask($_taskQueue->getData('task_id'));
                 if($task->run()) {
-                    $task->setSpentTime();
-                    $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
-                    $_taskQueue->delete();
+                    //$_taskQueue->delete();
+                    printf("time spent: %d\n", $task->getSpentTime());
+
                 }
-//                $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
+
+//              $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
+                unset($task);
             }
         }catch (Exception $e){
 

@@ -24,6 +24,14 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @return int $companyId
+     */
+    public function getCompanyId()
+    {
+        return $this->getData('company_id');
+    }
+
+    /**
      * @return Stableflow_Company_Model_Parser_Price_Type|null
      */
     public function getPriceType()

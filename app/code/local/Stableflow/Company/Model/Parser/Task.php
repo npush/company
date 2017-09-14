@@ -37,6 +37,12 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->_init('company/parser_task');
     }
 
+    protected function _initConfiguration()
+    {
+        $config = Mage::getModel('company/parser_config')->load($this->getData('config_id'));
+        $this->_config = $config->getSettingsObject();
+        $this->_source = $this->getData('name');
+    }
 
     /**
      * Retrieve config object
@@ -44,9 +50,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
      */
     public function getConfig()
     {
-        $a = Mage::getModel('company/parser_config')->load($this->getData('config_id'));
-        $this->_config = $a->getSettingsObject();
-        $this->_source = $this->getData('name');
+        $this->_initConfiguration();
         return $this->_config;
     }
 
@@ -60,14 +64,25 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->setData('status_id', $status);
     }
 
+    public function getCompanyId()
+    {
+        $config = Mage::getModel('company/parser_config')->load($this->getData('config_id'));
+        return $config->getCompanyId();
+    }
+
     public function getSpentTime()
     {
         return $this->getData('time_spent');
     }
 
-    public function setSpentTime($time)
+    public function setSpentTime()
     {
-        $this->setData('time_spent', $time);
+        $this->setData('time_spent', $this->_calcSpentTime());
+    }
+
+    protected function _initTime()
+    {
+        $this->_startTime = microtime(true);
     }
 
     protected function _calcSpentTime()
@@ -109,37 +124,31 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function getParserInstance()
     {
-        return Stableflow_Company_Model_Parser_Adapter::factory($this->_config, Mage::getBaseDir('media'). '/pricelists'.$this->_source);
+        $dir = Mage::helper('company/parser')->getFileBaseDir();
+        return Stableflow_Company_Model_Parser_Adapter::factory($this->_config, $dir . $this->_source);
     }
 
     public function run()
     {
-        $this->_startTime = microtime(true);
-        $config = $this->getConfig();
+        $this->_initTime();
+        $this->_initConfiguration();
         $parser = $this->getParserInstance();
         $productModel = Mage::getModel('company/parser_entity_product');
         //$productModel->update($data);
-        //$parser->setStatus(Stableflow_Company_Model_Parser_Task_Status::S);
-        for($i= 50; $i > 0; $i--){
-            $data = $parser->current();
-            print_r($data);
-            $productModel->update($data);
-            $parser->next();
-        }
-
-        /*$parser->current();
+        // Iterate
         foreach($parser as $row){
-            print_r($row);
-            $productModel->update($row);
-        }*/
-
-        if($status['status']) {
-            $result['type'] = 'success';
-            $result['message'] = Mage::helper('stableflow_pricelists')->__('Configuration saved. Prices successfully updated.');
-            $result['message'] .= Mage::helper('stableflow_pricelists')->__(" Skipped Items: {$status['skipped']}, Saved Items: {$status['saved']}, Total: {$status['total']}");
-        } else {
-            $result['type'] = 'error';
-            $result['message'] = "code required";
+            if(!$row['code']) continue;
+            $data = array(
+                'company_id' => $this->getCompanyId(),
+                'row'        => $row,
+                'row_num'    => $parser->key()
+            );
+            printf("Row N: %d. %s \n", $parser->key(), serialize($row));
+            $productModel->update($data);
         }
+        $this->setSpentTime();
+        //$this->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
+        $this->save();
+        return true;
     }
 }

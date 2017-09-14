@@ -110,6 +110,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         $rowData = array();
         $row = $this->_rowIterator->current();
         $cellIterator = $row->getCellIterator();
+        // Iterate only on
         //$cellIterator->setIterateOnlyExistingCells(true);
         foreach($cellIterator as $cell){
             $rowData[$cell->getColumn()] = $cell->getCalculatedValue();
@@ -141,8 +142,8 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
 
     public function next()
     {
-        $this->_rowIterator->next();
         if($this->_rowIterator->key() <= $this->_highestRow){
+            $this->_rowIterator->next();
             $this->_currentKey = $this->_rowIterator->key();
             $this->_currentRow = $this->_getRow();
         }else{

@@ -60,8 +60,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         $attributeId = $attribute->getData('attribute_id');
 
         $collection = Mage::getResourceModel('eav/entity_attribute_collection')
-            ->setCodeFilter($attributeId)
-            ->addFieldToFilter('value_d', 'value');
+            //->setCodeFilter($attributeId)
+            ->addFieldToFilter('attribute_id', $attributeId);
             //->setStoreFilter(0, false);
 
         $preparedManufacturers = array();
