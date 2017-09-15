@@ -143,7 +143,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
                 'row'        => $row,
                 'row_num'    => $parser->key()
             );
-            printf("Row N: %d. %s \n", $parser->key(), serialize($row));
+            //printf("Row N: %d. %s \n", $parser->key(), serialize($row));
             $productModel->update($data);
         }
         $this->setSpentTime();
