@@ -8,6 +8,8 @@
  */
 class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 {
+    protected $_eventPrefix      = 'company_parser';
+    protected $_eventObject      = 'task';
     /**
      * Configuration object
      * @var Stableflow_Company_Model_Parser_Config_Settings
@@ -134,6 +136,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->_initConfiguration();
         $parser = $this->getParserInstance();
         $productModel = Mage::getModel('company/parser_entity_product');
+        Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
         //$productModel->update($data);
         // Iterate
         foreach($parser as $row){
@@ -149,6 +152,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->setSpentTime();
         //$this->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
         $this->save();
+        Mage::dispatchEvent($this->_eventPrefix.'_task_run_after', array($this->_eventObject => $this));
         return true;
     }
 }

@@ -36,7 +36,7 @@ class Stableflow_Company_Model_Resource_Parser_Config extends Mage_Core_Model_Re
             $this->getMainTable() . '.price_type_id = price_type.entity_id',
             array('company_id', 'type_description' => 'description')
         )
-            ->where('price_type.is_active', Stableflow_Company_Model_Parser_Price_Type::STATUS_ENABLED)
+            ->where('price_type.is_active = ?', Stableflow_Company_Model_Parser_Price_Type::STATUS_ENABLED)
             ->limit(1);
         return $select;
     }

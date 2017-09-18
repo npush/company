@@ -51,15 +51,20 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer
         }
     }
 
-    public function updateOwner($event)
+    public function updateOwner($observer)
     {
-        $customer = $event->getCustomer();
+        $customer = $observer->getCustomer();
         Mage::getModel('company/owner')->addOwner($customer);
     }
 
-    public function addButtonToGrid($event)
+    public function addToLog($observer)
     {
-        $container = $event->getBlock();
+        $container = $observer->getUpdateData();
+    }
+
+    public function addButtonToGrid($observer)
+    {
+        $container = $observer->getBlock();
         if(null !== $container && $container->getType() == 'company/adminhtml_company_edit') {
             $data = array(
                 'label'     => 'My button',

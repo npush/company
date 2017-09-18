@@ -183,6 +183,14 @@
                     </company_add_button_to_grid>
                 </observers>
             </adminhtml_widget_container_html_before>
+            <company_parser_product_update_after>
+                <observers>
+                    <parser_product_update>
+                        <class>Stableflow_Company_Model_Observer</class>
+                        <method>addToLog</method>
+                    </parser_product_update>
+                </observers>
+            </company_parser_product_update_after>
         </events>
     </global>
     <frontend>

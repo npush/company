@@ -27,7 +27,7 @@ class Stableflow_Company_Model_Resource_Parser_Config_Collection extends Mage_Co
                  'main_table.price_type_id = price_type.entity_id',
                  array('company_id', 'type_description' => 'description')
              )
-             ->where('price_type.is_active', Stableflow_Company_Model_Parser_Price_Type::STATUS_ENABLED);
+             ->where('price_type.is_active = ?', Stableflow_Company_Model_Parser_Price_Type::STATUS_ENABLED);
         return $this;
     }
 }

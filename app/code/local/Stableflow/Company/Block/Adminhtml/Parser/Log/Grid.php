@@ -28,7 +28,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Log_Grid extends Mage_Adminhtml_
 
     protected function _prepareCollection(){
         $collection = Mage::getModel('company/parser_log')
-            ->getCollection();
+            ->getLogCollection($this->getCompanyId());
 
         $this->setCollection($collection);
         return parent::_prepareCollection();

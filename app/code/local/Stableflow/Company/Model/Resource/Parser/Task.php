@@ -23,7 +23,7 @@ class Stableflow_Company_Model_Resource_Parser_Task extends Mage_Core_Model_Reso
             array('config_table' => $this->_configTable),
             $this->getMainTable() . '.config_id = config_table.entity_id',
             array('config', 'description'))
-            ->where('config_table.is_active', Stableflow_Company_Model_Parser_Config_Status::STATUS_ENABLED)
+            ->where('config_table.is_active = ?', Stableflow_Company_Model_Parser_Config_Status::STATUS_ENABLED)
             ->limit(1);
         return $select;
     }
