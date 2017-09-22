@@ -36,14 +36,10 @@ class Stableflow_Company_Model_Parser_Log extends Mage_Core_Model_Abstract
 
     }
 
-    public function st($status){
-        if($status['status']) {
-            $result['type'] = 'success';
-            $result['message'] = Mage::helper('stableflow_pricelists')->__('Configuration saved. Prices successfully updated.');
-            $result['message'] .= Mage::helper('stableflow_pricelists')->__(" Skipped Items: {$status['skipped']}, Saved Items: {$status['saved']}, Total: {$status['total']}");
-        } else {
-            $result['type'] = 'error';
-            $result['message'] = "code required";
-        }
+    public function addToLog($data, $message)
+    {
+        echo $message->_debugInfo();
+        Mage::log($message->_debugInfo(), null, 'parser_task.log');
+
     }
 }

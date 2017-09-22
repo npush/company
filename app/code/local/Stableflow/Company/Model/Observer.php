@@ -40,6 +40,7 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer
             $node->addChild($subNode);
         //$node->appendChild($subNode);
         }
+        return $this;
     }
 
     public function generateSiteMap()
@@ -49,27 +50,36 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer
         }catch(Mage_Core_Exception $e){
             Mage::log($e, 0,'site_map_error.log');
         }
+        return $this;
     }
 
     public function updateOwner($observer)
     {
         $customer = $observer->getCustomer();
-        Mage::getModel('company/owner')->addOwner($customer);
+        Mage::getSingleton('company/owner')->addOwner($customer);
     }
 
     public function addToLog($observer)
     {
-        $container = $observer->getUpdateData();
+        $data = $observer->getUpdateData();
+        $message = $observer->getMessage();
+        Mage::getSingleton('company/parser_log')->addToLog($data, $message);
+        return $this;
+    }
+
+    public function cleanOldLog()
+    {
+        return $this;
     }
 
     public function addButtonToGrid($observer)
     {
         $container = $observer->getBlock();
-        if(null !== $container && $container->getType() == 'company/adminhtml_company_edit') {
+        if(null !== $container && $container->getType() == 'company/adminhtml_company_edit'){
             $data = array(
                 'label'     => 'My button',
                 'class'     => 'some-class',
-                'onclick'   => 'setLocation(\' '  . Mage::getUrl('*/*', array('param' => 'value')) . '\')',
+                'onclick'   => 'setLocation(\' ' . Mage::getUrl('*/*', array('param' => 'value')) . '\')',
             );
             $container->addButton('my_button_identifier', $data);
         }

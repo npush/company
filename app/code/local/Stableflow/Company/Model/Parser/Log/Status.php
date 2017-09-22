@@ -8,9 +8,9 @@
  */
 class Stableflow_Company_Model_Parser_Log_Status extends Stableflow_Company_Model_Parser_Status_Abstract
 {
-    const STATUS_OK             = 1;
-    const STATUS_UNKNOWN_ERROR  = 2;
-    const STATUS_CODE_NOT_FOUND = 3;
+    const STATUS_ERROR      = 1;
+    const STATUS_WARNING    = 2;
+    const STATUS_SUCCESS    = 3;
 
     /**
      * Retrieve option array
@@ -20,9 +20,9 @@ class Stableflow_Company_Model_Parser_Log_Status extends Stableflow_Company_Mode
     static public function getOptionArray()
     {
         return array(
-            self::STATUS_OK             => Mage::helper('catalog')->__('Ok'),
-            self::STATUS_UNKNOWN_ERROR  => Mage::helper('catalog')->__('UNKNOWN_ERROR'),
-            self::STATUS_CODE_NOT_FOUND => Mage::helper('catalog')->__('Code no found'),
+            self::STATUS_SUCCESS    => Mage::helper('catalog')->__('SUCCESS'),
+            self::STATUS_ERROR      => Mage::helper('catalog')->__('ERROR'),
+            self::STATUS_WARNING    => Mage::helper('catalog')->__('WARNING'),
         );
     }
 

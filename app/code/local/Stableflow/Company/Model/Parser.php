@@ -9,6 +9,8 @@
 class Stableflow_Company_Model_Parser extends Mage_Core_Model_Abstract
 {
 
+    const MANUFACTURER_ATTRIBUTE = 'manufacturer';
+
     protected $_companyId;
 
     protected $_config = null;
@@ -72,4 +74,26 @@ class Stableflow_Company_Model_Parser extends Mage_Core_Model_Abstract
 
     public function getTaskStatus(){}
     public function getQueue(){}
+
+    public function getManufacturers()
+    {
+        $attribute = Mage::getModel('eav/entity_attribute')
+            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
+        $as = $attribute->getSource()->getOptionArray();
+        $valuesCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
+            ->setAttributeFilter($attribute->getId())
+            ->setStoreFilter(0, false);
+    }
+
+    public function updatePriceLists()
+    {
+        Mage::log("Import",null, 'PriceLists.log');
+        try{
+            $queue = Mage::getModel('company/parser_queue');
+            $queue->performQueue();
+
+        }catch (Exception $e){
+            Mage::log($e, null, 'PriceLists-exception.log');
+        }
+    }
 }

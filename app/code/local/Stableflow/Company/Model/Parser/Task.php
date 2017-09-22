@@ -10,11 +10,14 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 {
     protected $_eventPrefix      = 'company_parser';
     protected $_eventObject      = 'task';
+
+    protected $_config = null;
+
     /**
      * Configuration object
      * @var Stableflow_Company_Model_Parser_Config_Settings
      */
-    protected $_config = null;
+    protected $_configObject = null;
 
     /** @var Stableflow_Company_Model_Resource_Parser_Config_Collection  */
     protected $_taskCollection = null;
@@ -24,6 +27,8 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
      * @var string
      */
     protected $_source = null;
+
+    protected $_companyId = null;
 
     /**
      * Parser task Start Time
@@ -39,21 +44,35 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->_init('company/parser_task');
     }
 
+    public function load($id, $field = null){
+        parent::load($id, $field);
+        $this->_initConfiguration();
+        return $this;
+    }
+
     protected function _initConfiguration()
     {
         $config = Mage::getModel('company/parser_config')->load($this->getData('config_id'));
-        $this->_config = $config->getSettingsObject();
+        $this->_config = $config;
+        $this->_configObject = $config->getSettingsObject();
         $this->_source = $this->getData('name');
+        $this->_companyId = $config->getCompanyId();
     }
 
+    protected function _getEventData()
+    {
+        return array(
+            'data_object'       => $this,
+            $this->_eventObject => $this,
+        );
+    }
     /**
      * Retrieve config object
      * @return Stableflow_Company_Model_Parser_Config
      */
     public function getConfig()
     {
-        $this->_initConfiguration();
-        return $this->_config;
+        return $this->_configObject;
     }
 
     public function getStatus()
@@ -68,8 +87,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function getCompanyId()
     {
-        $config = Mage::getModel('company/parser_config')->load($this->getData('config_id'));
-        return $config->getCompanyId();
+        return $this->_companyId;
     }
 
     public function getSpentTime()
@@ -135,19 +153,22 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->_initTime();
         $this->_initConfiguration();
         $parser = $this->getParserInstance();
-        $productModel = Mage::getModel('company/parser_entity_product');
+        //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
+        //$params = array_merge($params, $this->_getEventData());
         Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
-        //$productModel->update($data);
         // Iterate
         foreach($parser as $row){
-            if(!$row['code']) continue;
-            $data = array(
-                'company_id' => $this->getCompanyId(),
-                'row'        => $row,
-                'row_num'    => $parser->key()
-            );
-            //printf("Row N: %d. %s \n", $parser->key(), serialize($row));
-            $productModel->update($data);
+            $data = new Varien_Object(array(
+                'company_id'            => $this->getCompanyId(),
+                'manufacturer'          => '',
+                'task_id'               => $this->getId(),
+                'line_num'              => $parser->key(),
+                'content'               => serialize($row),
+                'raw_data'              => $row,
+                'catalog_product_id'    => null,
+                'company_product_id'    => null
+            ));
+            Mage::getModel('company/parser_entity_product')->update($data);
         }
         $this->setSpentTime();
         //$this->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);

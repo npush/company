@@ -18,4 +18,17 @@ class Stableflow_Company_Block_Adminhtml_Parser_Editor_Editor extends Mage_Admin
     {
 
     }
+
+    public function getManufacturers()
+    {
+        $res = '';
+        $attribute = Mage::getModel('eav/entity_attribute')
+            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, Stableflow_Company_Model_Parser::MANUFACTURER_ATTRIBUTE);
+        $ar = $attribute->getSource()->getOptionArray();
+        foreach($ar as $name){
+            $res .= '"'.str_replace('"', '', $name).'",';
+        }
+        return "[".rtrim($res, ',')."]";
+    }
+
 }

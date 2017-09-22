@@ -38,6 +38,7 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
             'settings' => array(
                 'header_row'        => null,
                 'start_row'         => null,
+                'manufacturer'      => null,
             ),
             'settings_currency' => array(
                 'currency'          => null,
