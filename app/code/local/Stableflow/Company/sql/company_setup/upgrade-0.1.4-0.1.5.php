@@ -216,4 +216,31 @@ $table = $installer->getConnection()
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_NO_ACTION);
 $installer->getConnection()->createTable($table);
 
+$table = $installer->getConnection()
+    ->newTable($installer->getTable('company/parser_additional_code_info'))
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'identity'  => true,
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => true,
+    ), 'Entity Id')
+    ->addColumn('company_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unsigned'  => true,
+        'nullable'  => false,
+    ), 'Company Id')
+    ->addColumn('base_code', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+    ), 'Base code')
+    ->addColumn('wrong_code', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+    ), 'Wrong code')
+    ->addColumn('base_company_name', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+    ), 'Base company name')
+    ->addColumn('wrong_company_name', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+    ), 'Wrong company name')
+    ->addForeignKey($installer->getFkName('company/parser_additional_code_info', 'company_id', 'company/company_entity', 'entity_id'),
+        'company_id',
+        $installer->getTable('company/company_entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE);
+$installer->getConnection()->createTable($table);
+
 $installer->endSetup();

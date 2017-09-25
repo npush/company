@@ -102,6 +102,13 @@
                             "enum": <?php echo $manufacturers;?>,
                             "default": "<?php echo $settings['settings']['manufacturer']?>",
                             "description": "Select Manufacturer name or"
+                        },
+                        sheet_name: {
+                            title: "<?php echo Mage::helper('company')->__('Sheet Name'); ?>",
+                            "type": "string",
+                            "format": "text",
+                            "default": "<?php echo $settings['settings']['sheet_name']?>",
+                            "description": "Sheet name"
                         }
                     }
                 },

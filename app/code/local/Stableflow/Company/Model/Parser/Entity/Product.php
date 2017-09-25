@@ -12,6 +12,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     protected $_eventPrefix      = 'company_parser_entity_product';
     protected $_eventObject      = 'product';
 
+    protected $_manufacturers = null;
+
     const MANUFACTURER_ATTRIBUTE = 'manufacturer';
 
     const MANUFACTURER_CODE_ATTRIBUTE = 'manufacturer_number';
@@ -34,7 +36,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if(!$this->_isValidRow($row)){
             // empty code
             $message = Mage::getSingleton('company/parser_log_message')->error($data);
-        }elseif($result = $this->findByCode($row['code'], $data->getCompanyId(), $data->getManufacturerId())){
+        }elseif($result = $this->findByCode($row['code'], $data->getCompanyId(), $data->getManufacturer())){
             // found product
             if($result['company_product_id']){
                 //update company product
@@ -116,24 +118,28 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      * Find product by manufacture code
      * @param $code string
      * @param $companyId int
-     * @param $manufacturerId int
+     * @param $manufacturer string
      * @return array
      */
-    public function findByCode($code, $companyId, $manufacturerId)
+    public function findByCode($code, $companyId, $manufacturer)
     {
         $companyProductId = null;
         $catalogProductId = null;
-        $attribute = Mage::getModel('eav/entity_attribute')
+        $manufacturerId = $this->getManufacturerIdByName($manufacturer);
+        $mfCodeAttribute = Mage::getModel('eav/entity_attribute')
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_CODE_ATTRIBUTE);
+        $mfNameAttribute = Mage::getModel('eav/entity_attribute')
+            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
         $productCollection = Mage::getResourceModel('catalog/product_collection')
-            ->addAttributeToFilter($attribute, array('like' => '%'.$code.'%'))
+            ->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
+            ->addAttributeToFilter($mfNameAttribute, array('en' => $manufacturerId))
             ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
             ->initCache(Mage::app()->getCache(),'parser_catalog_collection',array('SOME_TAGS'));
         foreach($productCollection as $_product) {
             $catalogProductId = $_product->getId();
             $manufacturerCode = $_product->getData(self::MANUFACTURER_CODE_ATTRIBUTE);
             $_codes = explode(self::MANUFACTURER_CODE_DELIMITER, $manufacturerCode);
-            if(in_array($code, $_codes)) {
+            if(in_array($code, $_codes)){
                 $companyProductId = Mage::getResourceModel('company/product_collection')
                     ->addAttributeToFilter('catalog_product_id', $catalogProductId)
                     ->addAttributeToFilter('company_id', $companyId)
@@ -155,9 +161,28 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     public function getManufacturers()
     {
-        $attribute = Mage::getModel('eav/entity_attribute')
-            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
-        return $attribute->getSource()->getOptionArray();
+        if(is_null($this->_manufacturers)) {
+            $attribute = Mage::getModel('eav/entity_attribute')
+                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
+            $this->_manufacturers = $attribute->getSource()->getOptionArray();
+        }
+        return $this->_manufacturers;
+    }
+
+    /**
+     * Get id by Name
+     * @param $name string
+     * @return int
+     */
+    public function getManufacturerIdByName($name)
+    {
+        $manufacturers = $this->getManufacturers();
+        foreach($manufacturers as $_id => $_name){
+            if(strcasecmp($_name ,$name) == 0){
+                return $_id;
+            }
+        }
+        return null;
     }
 
     protected function _getEventData()

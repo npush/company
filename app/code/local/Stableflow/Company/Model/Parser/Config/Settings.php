@@ -39,6 +39,7 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
                 'header_row'        => null,
                 'start_row'         => null,
                 'manufacturer'      => null,
+                'sheet_name'        => null,
             ),
             'settings_currency' => array(
                 'currency'          => null,
@@ -156,4 +157,8 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
         return array_keys($this->_sheetSettings['settings_currency'], array('currency', 'change_currency'));
     }
 
+    public function getManufacturer()
+    {
+        return $this->_sheetSettings['settings']['manufacturer'];
+    }
 }

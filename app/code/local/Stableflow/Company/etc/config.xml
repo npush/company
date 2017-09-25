@@ -125,6 +125,9 @@
                     <parser_queue>
                         <table>company_parser_queue</table>
                     </parser_queue>
+                    <parser_additional_code_info>
+                        <table>company_parser_additional_code_info</table>
+                    </parser_additional_code_info>
                     <!--  -->
                 </entities>
             </company_resource>

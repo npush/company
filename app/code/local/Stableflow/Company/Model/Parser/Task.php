@@ -17,7 +17,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
      * Configuration object
      * @var Stableflow_Company_Model_Parser_Config_Settings
      */
-    protected $_configObject = null;
+    protected $_settingsObject = null;
 
     /** @var Stableflow_Company_Model_Resource_Parser_Config_Collection  */
     protected $_taskCollection = null;
@@ -46,6 +46,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function load($id, $field = null){
         parent::load($id, $field);
+        $this->_initTime();
         $this->_initConfiguration();
         return $this;
     }
@@ -54,7 +55,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     {
         $config = Mage::getModel('company/parser_config')->load($this->getData('config_id'));
         $this->_config = $config;
-        $this->_configObject = $config->getSettingsObject();
+        $this->_settingsObject = $config->getSettingsObject();
         $this->_source = $this->getData('name');
         $this->_companyId = $config->getCompanyId();
     }
@@ -72,7 +73,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
      */
     public function getConfig()
     {
-        return $this->_configObject;
+        return $this->_settingsObject;
     }
 
     public function getStatus()
@@ -145,13 +146,11 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     public function getParserInstance()
     {
         $dir = Mage::helper('company/parser')->getFileBaseDir();
-        return Stableflow_Company_Model_Parser_Adapter::factory($this->_config, $dir . $this->_source);
+        return Stableflow_Company_Model_Parser_Adapter::factory($this->_settingsObject, $dir . $this->_source);
     }
 
     public function run()
     {
-        $this->_initTime();
-        $this->_initConfiguration();
         $parser = $this->getParserInstance();
         //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
         //$params = array_merge($params, $this->_getEventData());
@@ -160,7 +159,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         foreach($parser as $row){
             $data = new Varien_Object(array(
                 'company_id'            => $this->getCompanyId(),
-                'manufacturer'          => '',
+                'manufacturer'          => $this->_settingsObject->getManufacturer(),
                 'task_id'               => $this->getId(),
                 'line_num'              => $parser->key(),
                 'content'               => serialize($row),
