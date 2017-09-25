@@ -161,4 +161,9 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     {
         return $this->_sheetSettings['settings']['manufacturer'];
     }
+
+    public function getSheetName()
+    {
+        return $this->_sheetSettings['settings']['sheet_name'];
+    }
 }

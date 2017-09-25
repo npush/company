@@ -78,7 +78,8 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
             die($e->getMessage());
         }
         $this->_colNames = $this->_initColNames();
-        $this->_sheet = $this->_objPHPExcel->getSheet($this->_settings->getCurrentSheetNum());
+        //$this->_sheet = $this->_objPHPExcel->getSheet($this->_settings->getCurrentSheetNum());
+        $this->_sheet = $this->_objPHPExcel->setLoadSheetsOnly($this->_settings->getSheetName());
         $this->_firstRow = $this->_settings->getStartRow();
         $this->_highestRow = $this->_sheet->getHighestRow();
         $this->_highestColumn = $this->_sheet->getHighestColumn();
