@@ -160,6 +160,16 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
         $this->renderLayout();
     }
 
+    public function runTaskByIdAction()
+    {
+        $task = $this->_initTask();
+        if($task->run()){
+            echo "OK";
+        }else{
+            echo "error";
+        }
+    }
+
     public function isAjax()
     {
         if ($this->isXmlHttpRequest()) {

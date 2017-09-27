@@ -48,7 +48,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     protected $_rowIterator = null;
 
     /**
-     * Method called as last step of object instance creation. Can be overrided in child classes.
+     * Method called as last step of object instance creation.
      *
      * @return Stableflow_Company_Model_Parser_Adapter_Abstract
      */
@@ -72,18 +72,19 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
             $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
             //$this->_objReader->setReadFilter(new Stableflow_Company_Model_Parser_Adapter_Xls_ReaderFilter($init));
-            //$this->_objReader->setLoadSheetsOnly( array("Sheet 1") );
+            $this->_objReader->setLoadSheetsOnly($this->_settings->getSheetName());
             $this->_objPHPExcel = $this->_objReader->load($this->_source);
-        } catch (PHPExcel_Exception $e) {
+
+            $this->_colNames = $this->_initColNames();
+            //$this->_sheet = $this->_objPHPExcel->getSheet($this->_settings->getCurrentSheetNum());
+            $this->_sheet = $this->_objPHPExcel->getSheetByName($this->_settings->getSheetName());
+            $this->_firstRow = $this->_settings->getStartRow();
+            $this->_highestRow = $this->_sheet->getHighestRow();
+            $this->_highestColumn = $this->_sheet->getHighestColumn();
+            $this->_rowIterator = $this->_sheet->getRowIterator();
+        } catch (PHPExcel_Exception $e){
             die($e->getMessage());
         }
-        $this->_colNames = $this->_initColNames();
-        //$this->_sheet = $this->_objPHPExcel->getSheet($this->_settings->getCurrentSheetNum());
-        $this->_sheet = $this->_objPHPExcel->setLoadSheetsOnly($this->_settings->getSheetName());
-        $this->_firstRow = $this->_settings->getStartRow();
-        $this->_highestRow = $this->_sheet->getHighestRow();
-        $this->_highestColumn = $this->_sheet->getHighestColumn();
-        $this->_rowIterator = $this->_sheet->getRowIterator();
     }
 
     protected function _initColNames()
@@ -114,7 +115,9 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         // Iterate only on
         //$cellIterator->setIterateOnlyExistingCells(true);
         foreach($cellIterator as $cell){
-            $rowData[$cell->getColumn()] = $cell->getCalculatedValue();
+            $format = (string)$cell->getStyle()
+                ->getNumberFormat();
+            $rowData[$cell->getColumn()] = $cell->getFormattedValue();
         }
         return $rowData;
     }
@@ -182,23 +185,6 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      */
     public function validateConfig()
     {
-        return true;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function validateRow($row) {
-        switch ($row) {
-            case 'price':
-                return (Zend_Validate::is($value , 'Int') || Zend_Validate::is($value , 'Float'));
-                break;
-
-            case 'code':
-                return Zend_Validate::is($value , 'NotEmpty');
-                break;
-        }
-
         return true;
     }
 }

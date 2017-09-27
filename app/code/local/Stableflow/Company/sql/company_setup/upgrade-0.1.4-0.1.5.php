@@ -96,10 +96,6 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => false,
     ), 'Config Id')
-//    ->addColumn('company_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-//        'unsigned'  => true,
-//        'nullable'  => false,
-//    ), 'Company Id')
     ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, 256, array(
         'unsigned'  => true,
         'nullable'  => false,
@@ -117,18 +113,15 @@ $table = $installer->getConnection()
     ), 'Updated At')
     ->addColumn('time_spent', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
-        'nullable'  => false,
-        'default' => 0
     ), 'Time Spent')
+    ->addColumn('last_row', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unsigned'  => true,
+        'default'   => null
+    ), 'Last read row')
     ->addIndex($installer->getIdxName('company/parser_tasks', array('config_id')),
         array('config_id'))
     ->addIndex($installer->getIdxName('company/parser_tasks', array('status_id')),
         array('status_id'))
-//    ->addForeignKey($installer->getFkName('company/price_type', 'company_id', 'company/company_entity', 'entity_id'),
-//        'company_id',
-//        $installer->getTable('company/company_entity'),
-//        'entity_id',
-//        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
     ->addForeignKey($installer->getFkName('company/parser_tasks', 'config_id', 'company/parser_config', 'entity_id'),
         'config_id',
         $installer->getTable('company/parser_config'),

@@ -91,7 +91,7 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
                 unset($task);
             }
         }catch (Exception $e){
-
+            print_r($e);
         }
     }
 

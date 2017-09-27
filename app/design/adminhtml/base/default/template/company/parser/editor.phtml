@@ -47,6 +47,18 @@
                             format: "text",
                             "default": "<?php echo $settings['field_map']['price']?>"
                         },
+                        "price_internal": {
+                            title: "<?php echo Mage::helper('company')->__('Price Internal'); ?>",
+                            type: "string",
+                            format: "text",
+                            "default": "<?php echo $settings['field_map']['price_internal']?>"
+                        },
+                        "price_wholesale": {
+                            title: "<?php echo Mage::helper('company')->__('Price Wholesale'); ?>",
+                            type: "string",
+                            format: "text",
+                            "default": "<?php echo $settings['field_map']['price_wholesale']?>"
+                        },
                         "item_price": {
                             title: "<?php echo Mage::helper('company')->__('Item price'); ?>",
                             type: "string",
@@ -60,13 +72,13 @@
                             "default": "<?php echo $settings['field_map']['box']?>"
                         },
                         "name": {
-                            title: "<?php echo Mage::helper('company')->__('Custom product`s name'); ?>",
+                            title: "<?php echo Mage::helper('company')->__('Custom product name'); ?>",
                             type: "string",
                             "format": "text",
                             "default": "<?php echo $settings['field_map']['name']?>"
                         },
                         "code": {
-                            title: "<?php echo Mage::helper('company')->__('Custom product`s code'); ?>",
+                            title: "<?php echo Mage::helper('company')->__('product code'); ?>",
                             type: "string",
                             "format": "text",
                             "default": "<?php echo $settings['field_map']['code']?>"

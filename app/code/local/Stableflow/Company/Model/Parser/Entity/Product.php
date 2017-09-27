@@ -40,10 +40,10 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             // found product
             if($result['company_product_id']){
                 //update company product
-                $this->_productRoutine($data, self::BEHAVIOR_UPDATE, $result['company_product_id']);
+                $this->_productRoutine($data, self::BEHAVIOR_UPDATE, $data->getCompanyId(), $result['catalog_product_id'], $result['company_product_id']);
             }else{
                 // add new company product
-                $result['company_product_id'] = $this->_productRoutine($data, self::BEHAVIOR_ADD_NEW);
+                $result['company_product_id'] = $this->_productRoutine($data, self::BEHAVIOR_ADD_NEW, $data->getCompanyId(), $result['catalog_product_id']);
             }
             $data->setCatalogProductId($result['catalog_product_id']);
             $data->setCompanyProductId($result['company_product_id']);
@@ -72,30 +72,36 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     /**
      * @param $row Varien_Object
      * @param $behavior int
+     * @param $companyId int
+     * @param $baseProductId int
      * @param $productId int
      * @return int
      */
-    protected function _productRoutine($row, $behavior, $productId = null)
+    protected function _productRoutine($row, $behavior, $companyId, $baseProductId, $productId = null)
     {
         $product = Mage::getModel('company/product');
         switch($behavior){
             case self::BEHAVIOR_ADD_NEW :
                 $_data = array(
-                    'price' => $row['price'],
-                    //'price_int' => $data[self::COMPANY_PRODUCT_INT_PRICE],
-                    //'price_wholesale' => $data[self::COMPANY_PRODUCT_OPT_PRICE],
+                    'price' => $row->getRawData()['price'],
+                    'price_int' => $row->getRawData()['price_internal'],
+                    'price_wholesale' => $row->getRawData()['price_wholesale'],
+                    'catalog_product_id' =>  $baseProductId,
+                    'company_id'    => $companyId,
+                    'store_id'  => 0,
                     'created_at' => Varien_Date::now(),
+                    'updated_at' => Varien_Date::now(),
                 );
                 $product->addData($_data);
-                $productId = 654321;
-                //$productId = $product->save();
+                //$productId = 654321;
+                $productId = $product->save();
                 break;
             case self::BEHAVIOR_UPDATE :
                 $product->load($productId);
                 $_data = array(
-                    'price' => $row['price'],
-                    //'price_int' => $_data[self::COMPANY_PRODUCT_INT_PRICE],
-                    //'price_wholesale' => $_data[self::COMPANY_PRODUCT_OPT_PRICE],
+                    'price' => $row->getRawData()['price'],
+                    'price_int' => $row->getRawData()['price_internal'],
+                    'price_wholesale' => $row->getRawData()['price_wholesale'],
                     'updated_at' => Varien_Date::now(),
                 );
                 $product->addData($_data);
@@ -103,7 +109,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 break;
             case self::BEHAVIOR_DISABLE :
                 $product->load($productId);
-                $product->setStatust(Stableflow_Company_Model_Product::DISABLE);
+                $product->setStatust(Stableflow_Company_Model_Product_Status::DISABLE);
                 $product->save();
                 break;
             case self::BEHAVIOR_DELETE :

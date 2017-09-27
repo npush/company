@@ -112,6 +112,17 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         return $finalTime;
     }
 
+    protected function setReadRowNum($num)
+    {
+        $this->setData('last_row', $num);
+        $this->save();
+    }
+
+    protected function checkLastRow()
+    {
+        return $this->getData('last_row');
+    }
+
     public function getLog(){}
 
     public function getTasksCollection($company_id = null, $status = null)
@@ -157,6 +168,9 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
         // Iterate
         foreach($parser as $row){
+            if($this->checkLastRow() != null && $this->checkLastRow() >= $parser->key()){
+                continue;
+            }
             $data = new Varien_Object(array(
                 'company_id'            => $this->getCompanyId(),
                 'manufacturer'          => $this->_settingsObject->getManufacturer(),
@@ -168,6 +182,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
                 'company_product_id'    => null
             ));
             Mage::getModel('company/parser_entity_product')->update($data);
+            $this->setReadRowNum($parser->key());
         }
         $this->setSpentTime();
         //$this->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);

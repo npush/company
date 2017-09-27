@@ -50,6 +50,11 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
                 'align' => 'left',
                 'index' => 'name',
         ));
+        $this->addColumn('run_task', array(
+            'header'    => Mage::helper('company')->__('Run Task'),
+            'width'     => '300px',
+            'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_RunTask'
+        ));
         $this->addColumn('created_at', array(
                 'header' => Mage::helper('company')->__('Created at'),
                 'index'  => 'created_at',

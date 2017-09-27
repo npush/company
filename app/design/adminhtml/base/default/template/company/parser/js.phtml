@@ -140,5 +140,20 @@
     }
 //-----------------------------------------------------------------------------
 
+    function runTaskImmediately(id)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_task/runTaskById') ?>', {
+            method: 'post',
+            parameters: {
+                task_id: id
+            },
+            onSuccess: function(response){
+                if(200 == response.status){
+                    alert("Complete");
+                }
+            }
+        });
+    }
+
     //]]>
 </script>

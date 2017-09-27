@@ -29,6 +29,8 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
         0 => array(
             'field_map' => array(
                 'price'             => null,
+                'price_internal'    => null,
+                'price_wholesale'   => null,
                 'item_price'        => null,
                 'box'               => null,
                 'name'              => null,
