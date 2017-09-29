@@ -101,6 +101,11 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->setData('time_spent', $this->_calcSpentTime());
     }
 
+    public function setProcessAt()
+    {
+        $this->setData('processed_at', Varien_Date::now());
+    }
+
     protected function _initTime()
     {
         $this->_startTime = microtime(true);
@@ -123,7 +128,10 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         return $this->getData('last_row');
     }
 
-    public function getLog(){}
+    public function getLog()
+    {
+        return Mage::getModel('company/parser_log')->getLogByTaskId($this->getId());
+    }
 
     public function getTasksCollection($company_id = null, $status = null)
     {
@@ -139,6 +147,12 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         return $collection;
     }
 
+    /**
+     * Add Task to Queue
+     *
+     * @return bool|mixed
+     * @throws Exception
+     */
     public function addToQueue()
     {
         $id = $this->getId();
@@ -153,15 +167,25 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         return false;
     }
 
-
+    /**
+     * Get Parser Adapter instance
+     * @return Stableflow_Company_Model_Parser_Adapter_Abstract
+     */
     public function getParserInstance()
     {
+        $compId = $this->getCompanyId();
         $dir = Mage::helper('company/parser')->getFileBaseDir();
         return Stableflow_Company_Model_Parser_Adapter::factory($this->_settingsObject, $dir . $this->_source);
     }
 
+    /**
+     * Run parsing process
+     * @return bool
+     * @throws Exception
+     */
     public function run()
     {
+        $this->setProcessAt();
         $parser = $this->getParserInstance();
         //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
         //$params = array_merge($params, $this->_getEventData());
@@ -185,7 +209,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
             $this->setReadRowNum($parser->key());
         }
         $this->setSpentTime();
-        //$this->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
+        $this->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
         $this->save();
         Mage::dispatchEvent($this->_eventPrefix.'_task_run_after', array($this->_eventObject => $this));
         return true;

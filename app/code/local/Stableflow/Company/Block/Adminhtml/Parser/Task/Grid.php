@@ -52,7 +52,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
         ));
         $this->addColumn('run_task', array(
             'header'    => Mage::helper('company')->__('Run Task'),
-            'width'     => '300px',
+            'width'     => '100px',
             'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_RunTask'
         ));
         $this->addColumn('created_at', array(
@@ -67,10 +67,17 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
                 'width'     => '120px',
                 'type'      => 'datetime',
         ));
-        $this->addColumn('spent_time', array(
+        $this->addColumn('time_spent', array(
                 'header' => Mage::helper('company')->__('Spent time'),
                 'align' => 'left',
-                'index' => 'spent_time',
+                'index' => 'time_spent',
+                'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_SpentTime'
+        ));
+        $this->addColumn('last_row', array(
+            'header' => Mage::helper('company')->__('Last parsed row'),
+            'align' => 'left',
+            'index' => 'last_row',
+            'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_ParsedRow'
         ));
         $this->addColumn('status', array(
                 'header' => Mage::helper('company')->__('Status'),

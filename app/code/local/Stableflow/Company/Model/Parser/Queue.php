@@ -28,6 +28,11 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         return $this->_getResource()->getIdByTaskId($taskId);
     }
 
+    public function getTaskId()
+    {
+        return $this->getData('task_id');
+    }
+
     public function getStatus()
     {
         $this->getData('status_id');
@@ -78,20 +83,18 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
     {
         $queueCollection = $this->getQueue(Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING);
         try{
+            /** @var  $_taskQueue Stableflow_Company_Model_Parser_Queue*/
             foreach($queueCollection as $_taskQueue){
-                //$_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
-                $task = $this->getTask($_taskQueue->getData('task_id'));
+                $_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
+                $task = $this->getTask($_taskQueue->getTaskId());
                 if($task->run()) {
-                    //$_taskQueue->delete();
-                    printf("time spent: %d\n", $task->getSpentTime());
-
+                    $_taskQueue->delete();
                 }
-
-//              $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
+              $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
                 unset($task);
             }
         }catch (Exception $e){
-            print_r($e);
+            Mage::log($e->getMessage(), null, 'Queue-log');
         }
     }
 

@@ -24,7 +24,7 @@ class Stableflow_Company_Model_Parser_Task_Status extends Stableflow_Company_Mod
         return array(
             self::STATUS_NEW            => Mage::helper('catalog')->__('New. Not in Queue'),
             self::STATUS_ERRORS_FOUND   => Mage::helper('catalog')->__('Errors Found'),
-            self::STATUS_IN_QUEUE       => Mage::helper('catalog')->__('Send to Queue'),
+            self::STATUS_IN_QUEUE       => Mage::helper('catalog')->__('Sent to Queue'),
             self::STATUS_COMPLETE       => Mage::helper('catalog')->__('Complete'),
         );
     }

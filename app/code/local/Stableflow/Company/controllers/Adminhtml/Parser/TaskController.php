@@ -163,6 +163,7 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
     public function runTaskByIdAction()
     {
         $task = $this->_initTask();
+        // Check ? remove from queue
         if($task->run()){
             echo "OK";
         }else{

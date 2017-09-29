@@ -83,7 +83,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
             $this->_highestColumn = $this->_sheet->getHighestColumn();
             $this->_rowIterator = $this->_sheet->getRowIterator();
         } catch (PHPExcel_Exception $e){
-            die($e->getMessage());
+            Mage::log($e->getMessage(), null, 'xsl-adapter-log');
         }
     }
 
