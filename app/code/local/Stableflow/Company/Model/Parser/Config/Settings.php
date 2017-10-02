@@ -22,32 +22,30 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
 
     /**
      * Sheets settings
-     * Default sheet 0
      * @var array
      */
-    protected $_sheets = array(
-        0 => array(
-            'field_map' => array(
-                'price'             => null,
-                'price_internal'    => null,
-                'price_wholesale'   => null,
-                'item_price'        => null,
-                'box'               => null,
-                'name'              => null,
-                'code'              => null,
-                'qty_in_stock'      => null,
-            ),
-            'settings' => array(
-                'header_row'        => null,
-                'start_row'         => null,
-                'manufacturer'      => null,
-                'sheet_name'        => null,
-            ),
-            'settings_currency' => array(
-                'currency'          => null,
-                'change_currency'   => null,
-            )
+    protected $_sheets = array();
+
+    protected $_defconf = array(
+        'field_map' => array(
+            'price'             => null,
+            'price_internal'    => null,
+            'price_wholesale'   => null,
+            'item_price'        => null,
+            'box'               => null,
+            'name'              => null,
+            'code'              => null,
+            'qty_in_stock'      => null,
         ),
+        'settings' => array(
+            'header_row'        => null,
+            'start_row'         => null,
+            'manufacturer'      => null,
+        ),
+        'settings_currency' => array(
+            'currency'          => null,
+            'change_currency'   => null,
+        )
     );
 
     /**
@@ -63,22 +61,12 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     protected $_currentSheet = 0;
 
 
-//    public function __construct()
-//    {
-//        $this->_initOldFieldsMap();
-//        if ($this->_oldFieldsMap) {
-//            $this->_prepareSyncFieldsMap();
-//        }
-//
-//        $args = func_get_args();
-//        if (empty($args[0])) {
-//            $args[0] = array();
-//        }
-//        $this->_data = $args[0];
-//        $this->_addFullNames();
-//
-//        $this->_construct();
-//    }
+    public function __construct()
+    {
+        $args = func_get_args();
+        $this->setSettings($args[0]);
+        $this->_construct();
+    }
 
     public function getType()
     {
@@ -118,9 +106,14 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     public function setSettings($settings)
     {
         if(is_array($settings)) {
-            $this->_type = $settings['type'];
-            unset($settings['type']);
-            $this->_sheets[$this->_currentSheet] = array_merge($this->_sheets[$this->_currentSheet], $settings);
+            $this->_currentSheet = $settings[0]['index'];
+            $this->_type = $settings[0]['type'];
+            foreach($settings as $_tab){
+                unset($_tab['type']);
+                $index = $_tab['index'];
+                unset($_tab['index']);
+                $this->_sheets[$index] = array_merge($this->_defconf, $_tab);
+            }
             $this->_sheetSettings = $this->_sheets[$this->_currentSheet];
         }
         return $this;
@@ -129,6 +122,11 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     public function getSheetsCont()
     {
         return count($this->_sheets);
+    }
+
+    public function getSheetsNumbers()
+    {
+        return array_keys($this->_sheets);
     }
 
     public function getAllSheets()
@@ -162,10 +160,5 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     public function getManufacturer()
     {
         return $this->_sheetSettings['settings']['manufacturer'];
-    }
-
-    public function getSheetName()
-    {
-        return $this->_sheetSettings['settings']['sheet_name'];
     }
 }

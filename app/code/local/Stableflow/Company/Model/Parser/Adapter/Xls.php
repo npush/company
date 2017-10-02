@@ -21,6 +21,8 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
 
     protected $_objReader = null;
 
+    protected $_currentSheetNum;
+
     /**
      * Current sheet
      * @var
@@ -55,8 +57,8 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     protected function _init()
     {
         Mage::log("Initialize parser", Zend_Log::INFO, $this->_logFileName);
+        $this->_colNames = $this->_initColNames();
         $this->init();
-        $this->rewind();
         return $this;
     }
 
@@ -72,16 +74,9 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
             $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
             //$this->_objReader->setReadFilter(new Stableflow_Company_Model_Parser_Adapter_Xls_ReaderFilter($init));
-            $this->_objReader->setLoadSheetsOnly($this->_settings->getSheetName());
+            //$this->_objReader->setLoadSheetsOnly($this->_settings->getSheetName());
             $this->_objPHPExcel = $this->_objReader->load($this->_source);
-
-            $this->_colNames = $this->_initColNames();
-            //$this->_sheet = $this->_objPHPExcel->getSheet($this->_settings->getCurrentSheetNum());
-            $this->_sheet = $this->_objPHPExcel->getSheetByName($this->_settings->getSheetName());
-            $this->_firstRow = $this->_settings->getStartRow();
-            $this->_highestRow = $this->_sheet->getHighestRow();
-            $this->_highestColumn = $this->_sheet->getHighestColumn();
-            $this->_rowIterator = $this->_sheet->getRowIterator();
+            $this->setSheet();
         } catch (PHPExcel_Exception $e){
             Mage::log($e->getMessage(), null, 'xsl-adapter-log');
         }
@@ -171,6 +166,44 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         }else{
             throw new OutOfBoundsException(Mage::helper('company')->__('Invalid seek position'));
         }
+    }
+
+    protected function _initSheets()
+    {
+        $sheetsNumbers = $this->_settings->getSheetsNumbers();
+        $this->_sheet = $this->getSheet();
+
+    }
+
+    public function nextSheet()
+    {
+
+    }
+
+    public function prevSheet()
+    {
+
+    }
+
+    /**
+     * Select document sheet by index
+     * @param null $sheet int
+     * @return $this
+     */
+    public function setSheet($sheet = null)
+    {
+        if(is_null($sheet)) {
+            $this->_sheet = $this->_objPHPExcel->getSheet($this->_settings->getCurrentSheetNum());
+        }else{
+            $this->_sheet = $this->_objPHPExcel->getSheet($sheet);
+        }
+        //$this->_sheet = $this->_objPHPExcel->getSheetByName($this->_settings->getSheetName());
+        $this->_firstRow = $this->_settings->getStartRow();
+        $this->_highestRow = $this->_sheet->getHighestRow();
+        $this->_highestColumn = $this->_sheet->getHighestColumn();
+        $this->_rowIterator = $this->_sheet->getRowIterator();
+        $this->rewind();
+        return $this;
     }
 
     public function valid()

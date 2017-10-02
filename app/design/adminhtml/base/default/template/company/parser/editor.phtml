@@ -20,126 +20,142 @@
 
 <script type="text/javascript">
     var element = document.getElementById('editor');
+    starting_value = [
+        <?php foreach($settings as $_tab):?>
+        {
+            "type": "<?php echo $_tab['type']?>",
+            "index": "<?php echo $_tab['index']?>",
+            "field_map": {
+                "price": "<?php echo $_tab['field_map']['price']?>",
+                "price_internal": "<?php echo $_tab['field_map']['price_internal']?>",
+                "price_wholesale": "<?php echo $_tab['field_map']['price_wholesale']?>",
+                "item_price": "<?php echo $_tab['field_map']['item_price']?>",
+                "box": "<?php echo $_tab['field_map']['box']?>",
+                "name": "<?php echo $_tab['field_map']['name']?>",
+                "code": "<?php echo $_tab['field_map']['code']?>",
+                "qty_in_stock": "<?php echo $_tab['field_map']['qty_in_stock']?>"
+            },
+            "settings": {
+                "header_row": "<?php echo $_tab['settings']['header_row']?>",
+                "start_row": "<?php echo $_tab['settings']['start_row']?>",
+                "manufacturer": "<?php echo $_tab['settings']['manufacturer']?>"
+            },
+            "settings_currency": {
+                "currency": "<?php echo $_tab['settings_currency']['currency']?>",
+                "change_currency": "<?php echo $_tab['settings_currency']['change_currency']?>"
+            }
+        },
+        <?php endforeach; ?>
+    ];
     var options = {
         disable_edit_json: true,
         disable_properties: true,
         disable_collapse: true,
         theme: "html",
+        startval: starting_value,
         schema: {
-            type: "object",
-            title: "Price Type: <?php echo $settings['add_settings']['price_type']?>",
-            properties: {
-                "type": {
-                    title: "<?php echo Mage::helper('company')->__('Source Type'); ?>",
-                    "type": "string",
-                    "enum": ["xls","csv","xml"],
-                    "default": "<?php echo $settings['type']?>",
-                    "description": "Select File Type"
-                },
-                "field_map": {
-                    title: "<?php echo Mage::helper('company')->__('Columns Name'); ?>",
-                    type: "object",
-                    "uniqueItems": true,
-                    "properties": {
-                        "price": {
-                            title: "<?php echo Mage::helper('company')->__('Price'); ?>",
-                            type: "string",
-                            format: "text",
-                            "default": "<?php echo $settings['field_map']['price']?>"
-                        },
-                        "price_internal": {
-                            title: "<?php echo Mage::helper('company')->__('Price Internal'); ?>",
-                            type: "string",
-                            format: "text",
-                            "default": "<?php echo $settings['field_map']['price_internal']?>"
-                        },
-                        "price_wholesale": {
-                            title: "<?php echo Mage::helper('company')->__('Price Wholesale'); ?>",
-                            type: "string",
-                            format: "text",
-                            "default": "<?php echo $settings['field_map']['price_wholesale']?>"
-                        },
-                        "item_price": {
-                            title: "<?php echo Mage::helper('company')->__('Item price'); ?>",
-                            type: "string",
-                            "format": "text",
-                            "default": "<?php echo $settings['field_map']['item_price']?>"
-                        },
-                        "box": {
-                            title: "<?php echo Mage::helper('company')->__('Items in box'); ?>",
-                            type: "string",
-                            "format": "text",
-                            "default": "<?php echo $settings['field_map']['box']?>"
-                        },
-                        "name": {
-                            title: "<?php echo Mage::helper('company')->__('Custom product name'); ?>",
-                            type: "string",
-                            "format": "text",
-                            "default": "<?php echo $settings['field_map']['name']?>"
-                        },
-                        "code": {
-                            title: "<?php echo Mage::helper('company')->__('product code'); ?>",
-                            type: "string",
-                            "format": "text",
-                            "default": "<?php echo $settings['field_map']['code']?>"
-                        },
-                        "qty_in_stock": {
-                            title: "<?php echo Mage::helper('company')->__('Product Qty'); ?>",
-                            type: "string",
-                            "format": "text",
-                            "default": "<?php echo $settings['field_map']['qty_in_stock']?>"
+            type: "array",
+            title: "<?php echo Mage::helper('company')->__('Price Parser Settings'); ?>",
+            format: "tabs",
+            items: {
+                title: "<?php echo Mage::helper('company')->__('Tab'); ?>",
+                headerTemplate: "<?php echo Mage::helper('company')->__('Tab N'); ?> - {{self.index}}",
+                properties: {
+                    "type": {
+                        title: "<?php echo Mage::helper('company')->__('Source Type'); ?>",
+                        "type": "string",
+                        "enum": ["xls", "csv", "xml"],
+                        "description": "Select File Type"
+                    },
+                    "index": {
+                        "type": "string",
+                        "format": "number"
+                    },
+                    "field_map": {
+                        title: "<?php echo Mage::helper('company')->__('Columns Name'); ?>",
+                        type: "object",
+                        "uniqueItems": true,
+                        "properties": {
+                            "price": {
+                                title: "<?php echo Mage::helper('company')->__('Price'); ?>",
+                                type: "string",
+                                format: "text"
+                            },
+                            "price_internal": {
+                                title: "<?php echo Mage::helper('company')->__('Price Internal'); ?>",
+                                type: "string",
+                                format: "text"
+                            },
+                            "price_wholesale": {
+                                title: "<?php echo Mage::helper('company')->__('Price Wholesale'); ?>",
+                                type: "string",
+                                format: "text"
+                            },
+                            "item_price": {
+                                title: "<?php echo Mage::helper('company')->__('Item price'); ?>",
+                                type: "string",
+                                "format": "text"
+                            },
+                            "box": {
+                                title: "<?php echo Mage::helper('company')->__('Items in box'); ?>",
+                                type: "string",
+                                "format": "text"
+                            },
+                            "name": {
+                                title: "<?php echo Mage::helper('company')->__('Custom product name'); ?>",
+                                type: "string",
+                                "format": "text"
+                            },
+                            "code": {
+                                title: "<?php echo Mage::helper('company')->__('product code'); ?>",
+                                type: "string",
+                                "format": "text"
+                            },
+                            "qty_in_stock": {
+                                title: "<?php echo Mage::helper('company')->__('Product Qty'); ?>",
+                                type: "string",
+                                "format": "text"
+                            }
                         }
-                    }
-                },
-                "settings": {
-                    title: "<?php echo Mage::helper('company')->__('Rows Numbers'); ?>",
-                    type: "object",
-                    "uniqueItems": true,
-                    "properties": {
-                        "header_row": {
-                            title: "<?php echo Mage::helper('company')->__('Number of header row'); ?>",
-                            type: "string",
-                            "format": "number",
-                            "default": "<?php echo $settings['settings']['header_row']?>"
-                        },
-                        "start_row": {
-                            title: "<?php echo Mage::helper('company')->__('Number of start row'); ?>",
-                            type: "string",
-                            "format": "number",
-                            "default": "<?php echo $settings['settings']['start_row']?>"
-                        },
-                        manufacturer: {
-                            title: "<?php echo Mage::helper('company')->__('Manufacturer Name'); ?>",
-                            "type": "string",
-                            "enum": <?php echo $manufacturers;?>,
-                            "default": "<?php echo $settings['settings']['manufacturer']?>",
-                            "description": "Select Manufacturer name or"
-                        },
-                        sheet_name: {
-                            title: "<?php echo Mage::helper('company')->__('Sheet Name'); ?>",
-                            "type": "string",
-                            "format": "text",
-                            "default": "<?php echo $settings['settings']['sheet_name']?>",
-                            "description": "Sheet name"
+                    },
+                    "settings": {
+                        title: "<?php echo Mage::helper('company')->__('Rows Numbers'); ?>",
+                        type: "object",
+                        "uniqueItems": true,
+                        "properties": {
+                            "header_row": {
+                                title: "<?php echo Mage::helper('company')->__('Number of header row'); ?>",
+                                type: "string",
+                                "format": "number"
+                            },
+                            "start_row": {
+                                title: "<?php echo Mage::helper('company')->__('Number of start row'); ?>",
+                                type: "string",
+                                "format": "number"
+                            },
+                            manufacturer: {
+                                title: "<?php echo Mage::helper('company')->__('Manufacturer Name'); ?>",
+                                "type": "string",
+                                "enum": <?php echo $manufacturers;?>,
+                                "description": "Select Manufacturer name or"
+                            }
                         }
-                    }
-                },
-                "settings_currency": {
-                    title: "<?php echo Mage::helper('company')->__('Currency'); ?>",
-                    type: "object",
-                    "uniqueItems": true,
-                    "properties": {
-                        "currency": {
-                            title: "<?php echo Mage::helper('company')->__('Currency'); ?>",
-                            "type": "string",
-                            "enum": ["null","EUR","USD","UA"],
-                            "default": "<?php echo $settings['settings_currency']['currency']?>"
-                        },
-                        "change_currency": {
-                            title: "<?php echo Mage::helper('company')->__('Exchange Currency'); ?>",
-                            type: "string",
-                            "format": "number",
-                            "default": "<?php echo $settings['settings_currency']['change_currency']?>"
+                    },
+                    "settings_currency": {
+                        title: "<?php echo Mage::helper('company')->__('Currency'); ?>",
+                        type: "object",
+                        "uniqueItems": true,
+                        "properties": {
+                            "currency": {
+                                title: "<?php echo Mage::helper('company')->__('Currency'); ?>",
+                                "type": "string",
+                                "enum": ["null", "EUR", "USD", "UA"]
+                            },
+                            "change_currency": {
+                                title: "<?php echo Mage::helper('company')->__('Exchange Currency'); ?>",
+                                type: "string",
+                                "format": "number"
+                            }
                         }
                     }
                 }
