@@ -170,7 +170,7 @@ $table = $installer->getConnection()
         array('status_id'))
     ->addForeignKey($installer->getFkName('company/parser_log', 'task_id', 'company/parser_tasks', 'entity_id'),
         'task_id',
-        $installer->getTable('company/parser_config'),
+        $installer->getTable('company/parser_tasks'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
     ->addForeignKey($installer->getFkName('company/parser_log', 'catalog_product_id', 'catalog/product', 'entity_id'),
