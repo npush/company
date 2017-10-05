@@ -51,11 +51,11 @@ abstract class Stableflow_Company_Model_Parser_Adapter_Abstract implements Seeka
     /**
      * Adapter object constructor.
      *
-     * @param Stableflow_Company_Model_Parser_Config_Settings $options.
+     * @param Stableflow_Company_Model_Parser_Config_Settings $settings.
      * @param string $file  Source file path
      * @throws Mage_Core_Exception
      */
-    final public function __construct(Stableflow_Company_Model_Parser_Config_Settings $options, $file)
+    final public function __construct(Stableflow_Company_Model_Parser_Config_Settings $settings, $file)
     {
         register_shutdown_function(array($this, 'destruct'));
 
@@ -66,8 +66,8 @@ abstract class Stableflow_Company_Model_Parser_Adapter_Abstract implements Seeka
             Mage::throwException(Mage::helper('company')->__("%s file does not exists or is not readable", $file));
         }
 
+        $this->_settings = $settings;
         $this->_source = $file;
-        $this->_settings = $options;
 
         $this->_init();
 

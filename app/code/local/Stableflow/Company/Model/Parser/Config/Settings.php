@@ -64,7 +64,11 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     public function __construct()
     {
         $args = func_get_args();
-        $this->setSettings($args[0]);
+        if (empty($args[0])) {
+            $this->setSettings();
+        }else {
+            $this->setSettings($args[0]);
+        }
         $this->_construct();
     }
 
@@ -103,8 +107,17 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
         return $this->_sheetSettings;
     }
 
-    public function setSettings($settings)
+    /**
+     * Set Setting
+     * @param null $settings
+     * @return $this
+     */
+    public function setSettings($settings = null)
     {
+        if(is_null($settings)){
+            $this->_sheets[$this->_currentSheet] = $this->_defconf;
+            $this->_sheetSettings = $this->_sheets[$this->_currentSheet];
+        }
         if(is_array($settings)) {
             $this->_currentSheet = $settings[0]['index'];
             $this->_type = $settings[0]['type'];
@@ -124,6 +137,10 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
         return count($this->_sheets);
     }
 
+    /**
+     * Return sheet numbers array
+     * @return array
+     */
     public function getSheetsNumbers()
     {
         return array_keys($this->_sheets);

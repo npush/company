@@ -11,17 +11,23 @@ require_once Mage::getBaseDir() . "/lib/PHPExcel/Classes/PHPExcel/IOFactory.php"
 class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Model_Parser_Adapter_Abstract
 {
 
+    protected $_locale = 'ru';
     /**
      * Debug file name
      * @var string
      */
     protected $_logFileName = 'xls-parser.log';
 
-    protected $_objPHPExcel = null;
+    /** @var PHPExcel */
+    protected $_objPHPExcel;
 
-    protected $_objReader = null;
+    /** @var PHPExcel_Reader_Abstract */
+    protected $_objReader;
 
     protected $_currentSheetNum;
+
+    /** @var  array */
+    protected $_sheetsNumbers;
 
     /**
      * Current sheet
@@ -39,15 +45,16 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      * Max row number
      * @var int
      */
-    protected $_highestRow = null;
+    protected $_highestRow;
 
     /**
      * Max column number
      * @var int
      */
-    protected $_highestColumn = null;
+    protected $_highestColumn;
 
-    protected $_rowIterator = null;
+    /** @var PHPExcel_Worksheet_Row */
+    protected $_rowIterator;
 
     /**
      * Method called as last step of object instance creation.
@@ -68,15 +75,16 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     protected function init()
     {
         try {
-            $inputFileType = PHPExcel_IOFactory::identify($this->_source);
-            $this->_objReader = PHPExcel_IOFactory::createReader($inputFileType);
-            $this->_objReader->setReadDataOnly(true);
-            $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;
-            PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
-            //$this->_objReader->setReadFilter(new Stableflow_Company_Model_Parser_Adapter_Xls_ReaderFilter($init));
-            //$this->_objReader->setLoadSheetsOnly($this->_settings->getSheetName());
+            PHPExcel_Settings::setCacheStorageMethod(PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip);
+            PHPExcel_Settings::setLocale($this->_locale);
+            $this->_objReader = PHPExcel_IOFactory::createReader(PHPExcel_IOFactory::identify($this->_source))
+                ->setReadDataOnly(true);
+                //->setLoadSheetsOnly($this->_settings->getSheetsNumbers());
+                //->setReadFilter(new Stableflow_Company_Model_Parser_Adapter_Xls_ReaderFilter($init));
+            $sheetNames = $this->_objReader->listWorksheetNames($this->_source);
+            $sheetInfo = $this->_objReader->listWorksheetInfo($this->_source);
             $this->_objPHPExcel = $this->_objReader->load($this->_source);
-            $this->setSheet();
+            $this->_initSheets();
         } catch (PHPExcel_Exception $e){
             Mage::log($e->getMessage(), null, 'xsl-adapter-log');
         }
@@ -146,7 +154,10 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
             $this->_currentKey = $this->_rowIterator->key();
             $this->_currentRow = $this->_getRow();
         }else{
-            $this->_currentKey = null;
+            // end of page
+            if(!$this->nextSheet()) {
+                $this->_currentKey = null;
+            }
         }
     }
 
@@ -155,6 +166,16 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         $this->_rowIterator->seek($this->_firstRow);
         $this->_currentKey = $this->_rowIterator->key();
         $this->_currentRow = $this->_getRow();
+    }
+
+    /**
+     * Return the key of the current element.
+     *
+     * @return int More than 0 integer on success, integer 0 on failure.
+     */
+    public function key()
+    {
+        return $this->_currentSheetNum . ":" . $this->_currentKey;
     }
 
     public function seek($position)
@@ -170,33 +191,38 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
 
     protected function _initSheets()
     {
-        $sheetsNumbers = $this->_settings->getSheetsNumbers();
-        $this->_sheet = $this->getSheet();
+        $this->_sheetsNumbers = $this->_settings->getSheetsNumbers();
+        reset($this->_sheetsNumbers);
+        $this->setSheet($this->_settings->getCurrentSheetNum());
 
     }
 
-    public function nextSheet()
+    protected function nextSheet()
     {
-
+        $num = next($this->_sheetsNumbers);
+        if(!$num){
+            // end of sheets
+            return false;
+        }
+        $this->setSheet($num);
+        $this->rewind();
+        return true;
     }
 
-    public function prevSheet()
+    protected function prevSheet()
     {
 
     }
 
     /**
      * Select document sheet by index
-     * @param null $sheet int
+     * @param $sheet int
      * @return $this
      */
-    public function setSheet($sheet = null)
+    protected function setSheet($sheet)
     {
-        if(is_null($sheet)) {
-            $this->_sheet = $this->_objPHPExcel->getSheet($this->_settings->getCurrentSheetNum());
-        }else{
-            $this->_sheet = $this->_objPHPExcel->getSheet($sheet);
-        }
+        $this->_sheet = $this->_objPHPExcel->getSheet($sheet);
+        $this->_currentSheetNum = $sheet;
         //$this->_sheet = $this->_objPHPExcel->getSheetByName($this->_settings->getSheetName());
         $this->_firstRow = $this->_settings->getStartRow();
         $this->_highestRow = $this->_sheet->getHighestRow();

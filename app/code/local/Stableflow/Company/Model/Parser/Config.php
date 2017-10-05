@@ -97,8 +97,12 @@ class Stableflow_Company_Model_Parser_Config extends Mage_Core_Model_Abstract
      */
     public function getSettingsObject()
     {
-        if($this->_settings == null && $this->getData('config') != '') {
-            $this->_settings =  Mage::getSingleton('company/parser_config_settings', $this->getData('config'));
+        if($this->_settings == null) {
+            if(is_array($this->getData('config'))){
+                $this->_settings =  Mage::getSingleton('company/parser_config_settings', $this->getData('config'));
+            }else{
+                $this->_settings =  Mage::getSingleton('company/parser_config_settings');
+            }
         }
         return $this->_settings;
     }

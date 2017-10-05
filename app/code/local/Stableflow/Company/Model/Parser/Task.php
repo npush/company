@@ -123,7 +123,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->save();
     }
 
-    protected function checkLastRow()
+    protected function getLastRow()
     {
         return $this->getData('last_row');
     }
@@ -168,6 +168,16 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @param $ind int
+     * @param null $page int
+     * @return bool
+     */
+    protected function checkLastPosition($ind ,$page = null)
+    {
+        return $this->getLastRow() != null && $this->getLastRow() >= $ind;
+    }
+
+    /**
      * Get Parser Adapter instance
      * @return Stableflow_Company_Model_Parser_Adapter_Abstract
      */
@@ -192,7 +202,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
         // Iterate
         foreach($parser as $row){
-            if($this->checkLastRow() != null && $this->checkLastRow() >= $parser->key()){
+            if($this->checkLastPosition($parser->key())){
                 continue;
             }
             $data = new Varien_Object(array(

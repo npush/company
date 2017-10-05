@@ -85,7 +85,7 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         try{
             /** @var  $_taskQueue Stableflow_Company_Model_Parser_Queue*/
             foreach($queueCollection as $_taskQueue){
-                $_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
+                //$_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
                 $task = $this->getTask($_taskQueue->getTaskId());
                 if($task->run()) {
                     $_taskQueue->delete();
