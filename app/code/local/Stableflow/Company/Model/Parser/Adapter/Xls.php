@@ -83,6 +83,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
                 //->setReadFilter(new Stableflow_Company_Model_Parser_Adapter_Xls_ReaderFilter($init));
             $sheetNames = $this->_objReader->listWorksheetNames($this->_source);
             $sheetInfo = $this->_objReader->listWorksheetInfo($this->_source);
+            $this->_objReader->setLoadAllSheets();
             $this->_objPHPExcel = $this->_objReader->load($this->_source);
             $this->_initSheets();
         } catch (PHPExcel_Exception $e){
@@ -118,8 +119,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         // Iterate only on
         //$cellIterator->setIterateOnlyExistingCells(true);
         foreach($cellIterator as $cell){
-            $format = (string)$cell->getStyle()
-                ->getNumberFormat();
+            $format = (string)$cell->getStyle()->getNumberFormat()->getFormanCode();
             $rowData[$cell->getColumn()] = $cell->getFormattedValue();
         }
         return $rowData;
