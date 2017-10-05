@@ -158,11 +158,9 @@ $table = $installer->getConnection()
     ), 'Status Id')
     ->addColumn('catalog_product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
-        'nullable'  => false,
     ), 'Catalog Product Id')
     ->addColumn('company_product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
-        'nullable'  => false,
     ), 'Company Product Id')
     ->addIndex($installer->getIdxName('company/parser_log', array('task_id')),
         array('task_id'))
@@ -174,7 +172,7 @@ $table = $installer->getConnection()
         'task_id',
         $installer->getTable('company/parser_tasks'),
         'entity_id',
-        Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
     ->addForeignKey($installer->getFkName('company/parser_log', 'catalog_product_id', 'catalog/product', 'entity_id'),
         'catalog_product_id',
         $installer->getTable('catalog/product'),
