@@ -158,9 +158,11 @@ $table = $installer->getConnection()
     ), 'Status Id')
     ->addColumn('catalog_product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
+        'nullable'  => false,
     ), 'Catalog Product Id')
     ->addColumn('company_product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
+        'nullable'  => false,
     ), 'Company Product Id')
     ->addIndex($installer->getIdxName('company/parser_log', array('task_id')),
         array('task_id'))
