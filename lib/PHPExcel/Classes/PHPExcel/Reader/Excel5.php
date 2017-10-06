@@ -489,13 +489,13 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             }
         }
 
-        foreach ($this->sheets as $sheet) {
+        foreach ($this->sheets as $idx => $sheet) {
             if ($sheet['sheetType'] != 0x00) {
                 // 0x00: Worksheet, 0x02: Chart, 0x06: Visual Basic module
                 continue;
             }
 
-            $worksheetNames[] = $sheet['name'];
+            $worksheetNames[$idx] = $sheet['name'];
         }
 
         return $worksheetNames;
@@ -548,7 +548,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         }
 
         // Parse the individual sheets
-        foreach ($this->sheets as $sheet) {
+        foreach ($this->sheets as $idx => $sheet) {
             if ($sheet['sheetType'] != 0x00) {
                 // 0x00: Worksheet
                 // 0x02: Chart
@@ -602,7 +602,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             $tmpInfo['lastColumnLetter'] = PHPExcel_Cell::stringFromColumnIndex($tmpInfo['lastColumnIndex']);
             $tmpInfo['totalColumns'] = $tmpInfo['lastColumnIndex'] + 1;
 
-            $worksheetInfo[] = $tmpInfo;
+            $worksheetInfo[$idx] = $tmpInfo;
         }
 
         return $worksheetInfo;
@@ -784,7 +784,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         }
 
         // Parse the individual sheets
-        foreach ($this->sheets as $sheet) {
+        foreach ($this->sheets as $idx => $sheet) {
             if ($sheet['sheetType'] != 0x00) {
                 // 0x00: Worksheet, 0x02: Chart, 0x06: Visual Basic module
                 continue;
@@ -796,7 +796,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             }
 
             // add sheet to PHPExcel object
-            $this->phpSheet = $this->phpExcel->createSheet();
+            $this->phpSheet = $this->phpExcel->createSheet($idx);
             //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in formula
             //        cells... during the load, all formulae should be correct, and we're simply bringing the worksheet
             //        name in line with the formula, not the reverse

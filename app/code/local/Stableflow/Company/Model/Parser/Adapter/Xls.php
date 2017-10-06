@@ -78,8 +78,8 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
             PHPExcel_Settings::setCacheStorageMethod(PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip);
             PHPExcel_Settings::setLocale($this->_locale);
             $this->_objReader = PHPExcel_IOFactory::createReader(PHPExcel_IOFactory::identify($this->_source))
-                ->setReadDataOnly(true);
-                //->setLoadSheetsOnly($this->_settings->getSheetsNumbers());
+                ->setReadDataOnly(true)
+                ->setLoadSheetsOnly($this->_settings->getSheetsNumbers());
                 //->setReadFilter(new Stableflow_Company_Model_Parser_Adapter_Xls_ReaderFilter($init));
             $sheetNames = $this->_objReader->listWorksheetNames($this->_source);
             $sheetInfo = $this->_objReader->listWorksheetInfo($this->_source);
