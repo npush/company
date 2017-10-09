@@ -55,10 +55,10 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     protected $_sheetSettings;
 
     /**
-     * Current sheet Num. Default sheet 0
+     * First sheet Num. Default sheet 0
      * @var int
      */
-    protected $_currentSheet = 0;
+    protected $_firstSheet = 0;
 
 
     public function __construct()
@@ -77,33 +77,22 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
         return $this->_type;
     }
 
-    public function getCurrentSheetNum()
+    public function getFirstSheetNum()
     {
-        return $this->_currentSheet;
+        return $this->_firstSheet;
     }
 
     /**
-     * Set Current sheet
-     * @param int $sheetNum
-     * @return Stableflow_Company_Model_Parser_Config_Settings
-     */
-    public function setCurrentSheetNum($sheetNum)
-    {
-        if(!array_key_exists($sheetNum, $this->_sheets)){
-            return false;
-        }
-        $this->_currentSheet = $sheetNum;
-        $this->getSheetSettings();
-        return $this;
-    }
-
-    /**
-     *
+     * @param $idx
      * @return array
      */
-    public function getSheetSettings()
+    public function getSheetSettings($idx = null)
     {
-        $this->_sheetSettings = $this->_sheets[$this->_currentSheet];
+        if(!is_null($idx) && array_key_exists($idx, $this->_sheets)) {
+            $this->_sheetSettings = $this->_sheets[$this->_firstSheet];
+        }elseif(!is_null($idx) && !array_key_exists($idx, $this->_sheets)){
+            // error!!!
+        }
         return $this->_sheetSettings;
     }
 
@@ -115,11 +104,11 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     public function setSettings($settings = null)
     {
         if(is_null($settings)){
-            $this->_sheets[$this->_currentSheet] = $this->_defconf;
-            $this->_sheetSettings = $this->_sheets[$this->_currentSheet];
+            $this->_sheets[$this->_firstSheet] = $this->_defconf;
+            $this->_sheetSettings = $this->_sheets[$this->_firstSheet];
         }
         if(is_array($settings)) {
-            $this->_currentSheet = $settings[0]['index'];
+            $this->_firstSheet = $settings[0]['index'];
             $this->_type = $settings[0]['type'];
             foreach($settings as $_tab){
                 unset($_tab['type']);
@@ -127,7 +116,7 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
                 unset($_tab['index']);
                 $this->_sheets[$index] = array_merge($this->_defconf, $_tab);
             }
-            $this->_sheetSettings = $this->_sheets[$this->_currentSheet];
+            $this->_sheetSettings = $this->_sheets[$this->_firstSheet];
         }
         return $this;
     }

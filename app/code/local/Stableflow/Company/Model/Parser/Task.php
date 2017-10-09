@@ -196,27 +196,27 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     public function run()
     {
         $this->setProcessAt();
-        $parser = $this->getParserInstance();
+        $sheet = $this->getParserInstance();
         //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
         //$params = array_merge($params, $this->_getEventData());
         Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
         // Iterate
-        foreach($parser as $row){
-            if($this->checkLastPosition($parser->key())){
+        foreach($sheet as $row){
+            if($this->checkLastPosition($sheet->key())){
                 continue;
             }
             $data = new Varien_Object(array(
                 'company_id'            => $this->getCompanyId(),
                 'manufacturer'          => $this->_settingsObject->getManufacturer(),
                 'task_id'               => $this->getId(),
-                'line_num'              => $parser->key(),
+                'line_num'              => $sheet->key(),
                 'content'               => serialize($row),
                 'raw_data'              => $row,
                 'catalog_product_id'    => null,
                 'company_product_id'    => null
             ));
             Mage::getModel('company/parser_entity_product')->update($data);
-            $this->setReadRowNum($parser->key());
+            $this->setReadRowNum($sheet->key());
         }
         $this->setSpentTime();
         $this->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);

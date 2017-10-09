@@ -11,7 +11,12 @@ require_once Mage::getBaseDir() . "/lib/PHPExcel/Classes/PHPExcel.php";
 class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Model_Parser_Adapter_Abstract
 {
 
+    /**
+     * Default localisation
+     * @var string
+     */
     protected $_locale = 'ru';
+
     /**
      * Debug file name
      * @var string
@@ -30,8 +35,17 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      */
     protected $_position = null;
 
-    /** @var  array */
-    protected $_sheetsNumbers;
+    /**
+     * Current sheet index
+     * @var int
+     */
+    protected $_currentSheetIdx;
+
+    /**
+     * Sheets index
+     * @var  array
+     */
+    protected $_sheetsIdx;
 
     /**
      * Current sheet
@@ -40,7 +54,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     protected $_sheet;
 
     /**
-     * The number of row, that have correspond data
+     * The number of first row, that have correspond data
      * @var int
      */
     protected $_firstRow;
@@ -68,7 +82,13 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     protected function _init()
     {
         Mage::log("Initialize parser", Zend_Log::INFO, $this->_logFileName);
-        $this->_colNames = $this->_initColNames();
+        array_walk($this->_settings->getFieldMap(), function($value, $key){
+            if($value == ''){
+                $this->_colNames[$key] = null;
+            }
+            $this->_colNames[$key] = strtoupper($value);
+        }, $this->_colNames);
+        //$this->_colNames = $this->_initColNames();
         $this->init();
         return $this;
     }
@@ -93,18 +113,6 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         } catch (PHPExcel_Exception $e){
             Mage::log($e->getMessage(), null, 'xsl-adapter-log');
         }
-    }
-
-    protected function _initColNames()
-    {
-        $tmp = $this->_settings->getFieldMap();
-        array_walk($tmp, function(&$value, $key){
-            if($value == ''){
-                $value = null;
-            }
-            $value = strtoupper($value);
-        });
-        return $tmp;
     }
 
     /**
@@ -210,12 +218,12 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     {
         if($this->_settings->getSheetsCont() > 1){
             $this->_position = new Stableflow_Company_Model_Parser_Adapter_Xls_Position(
-                $this->_settings->getCurrentSheetNum(),
+                $this->_settings->getFirstSheetNum(),
                 $this->_firstRow
             );
-            $this->_sheetsNumbers = $this->_settings->getSheetsNumbers();
+            $this->_sheetsIdx = $this->_settings->getSheetsNumbers();
         }
-        $this->setSheet($this->_settings->getCurrentSheetNum());
+        $this->setSheet($this->_settings->getFirstSheetNum());
     }
 
     /**
@@ -224,7 +232,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      */
     protected function nextSheet()
     {
-        $num = next($this->_sheetsNumbers);
+        $num = next($this->_sheetsIdx);
         if(!$num){
             // end of sheets
             return false;
@@ -235,18 +243,18 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
 
     protected function rewindSheets()
     {
-        next($this->_sheetsNumbers);
-        $this->setSheet($this->_sheetsNumbers[0]);
+        next($this->_sheetsIdx);
+        $this->setSheet($this->_sheetsIdx[0]);
     }
 
     /**
      * Select document sheet by index
-     * @param $sheet int Sheet index
+     * @param $sheetIdx int Sheet index
      * @return $this
      */
-    protected function setSheet($sheet)
+    protected function setSheet($sheetIdx)
     {
-        $this->_sheet = $this->_objPHPExcel->getSheet($sheet);
+        $this->_sheet = $this->_objPHPExcel->getSheet($sheetIdx);
         //$this->_sheet = $this->_objPHPExcel->getSheetByName($this->_settings->getSheetName());
         $this->_firstRow = $this->_settings->getStartRow();
         $this->_highestRow = $this->_sheet->getHighestRow();
@@ -256,6 +264,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         $this->_rowIterator->seek($this->_firstRow);
         $this->_currentKey = $this->_rowIterator->key();
         $this->_currentRow = $this->_getRow();
+        $this->_currentSheetIdx = $sheetIdx;
         return $this;
     }
 

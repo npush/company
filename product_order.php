@@ -8,7 +8,8 @@
 
 require_once('app/Mage.php');
 Mage::app()->setCurrentStore(Mage::getModel('core/store')->load(Mage_Core_Model_App::ADMIN_STORE_ID));
-
+Mage::getModel('company/parser_queue')->performQueue();
+exit();
 $categories = Mage::getModel('catalog/category')->getCollection();
 foreach($categories as $category){
     echo "Category Id: " . $category->getId() . "\n";

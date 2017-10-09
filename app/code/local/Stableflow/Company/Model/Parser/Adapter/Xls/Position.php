@@ -19,6 +19,11 @@ class Stableflow_Company_Model_Parser_Adapter_Xls_Position
         list($this->_page, $this->_position) = func_get_args();
     }
 
+    /**
+     * Get current position
+     *
+     * @return string
+     */
     public function getPosition()
     {
         return $this->_page.':'.$this->_position;
@@ -32,5 +37,10 @@ class Stableflow_Company_Model_Parser_Adapter_Xls_Position
     public function getPage()
     {
         return $this->_page;
+    }
+
+    public function key()
+    {
+
     }
 }
