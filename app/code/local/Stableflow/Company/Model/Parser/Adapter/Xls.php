@@ -6,7 +6,7 @@
  * Date: 8/4/17
  * Time: 12:10 PM
  */
-require_once Mage::getBaseDir() . "/lib/PHPExcel/Classes/PHPExcel/IOFactory.php";
+require_once Mage::getBaseDir() . "/lib/PHPExcel/Classes/PHPExcel.php";
 
 class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Model_Parser_Adapter_Abstract
 {
@@ -24,7 +24,11 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     /** @var PHPExcel_Reader_Abstract */
     protected $_objReader;
 
-    protected $_currentSheetNum;
+    /**
+     * Position object for Multi sheet document
+     * @var Stableflow_Company_Model_Parser_Adapter_Xls_Position
+     */
+    protected $_position = null;
 
     /** @var  array */
     protected $_sheetsNumbers;
@@ -104,28 +108,6 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     }
 
     /**
-     * array = array(
-     * 'A' => value
-     * 'B' => value
-     * ....
-     * )
-     * @return array
-     */
-    protected function _getRow()
-    {
-        $rowData = array();
-        $row = $this->_rowIterator->current();
-        $cellIterator = $row->getCellIterator();
-        // Iterate only on
-        //$cellIterator->setIterateOnlyExistingCells(true);
-        foreach($cellIterator as $cell){
-            $format = (string)$cell->getStyle()->getNumberFormat()->getFormanCode();
-            $rowData[$cell->getColumn()] = $cell->getFormattedValue();
-        }
-        return $rowData;
-    }
-
-    /**
      * Close file handler on shutdown
      */
     public function destruct()
@@ -138,6 +120,11 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         Mage::log($memUse, Zend_Log::INFO, $this->_logFileName);
     }
 
+    /**
+     * Return the current element.
+     *
+     * @return mixed
+     */
     public function current()
     {
         $tmp = $this->_colNames;
@@ -147,6 +134,9 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         return $tmp;
     }
 
+    /**
+     * Next element
+     */
     public function next()
     {
         if($this->_rowIterator->key() <= $this->_highestRow){
@@ -161,8 +151,12 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         }
     }
 
+    /**
+     * Rewind to start position
+     */
     public function rewind()
     {
+        $this->rewindSheets();
         $this->_rowIterator->seek($this->_firstRow);
         $this->_currentKey = $this->_rowIterator->key();
         $this->_currentRow = $this->_getRow();
@@ -175,11 +169,34 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      */
     public function key()
     {
-        return $this->_currentSheetNum . ":" . $this->_currentKey;
+        return $this->_currentKey;
     }
 
+    /**
+     *  Return the key and page num of the current element.
+     *
+     * @return string
+     */
+    public function _key()
+    {
+        if($this->_position) {
+            return $this->_position->getPosition();
+        }
+        return $this->_position;
+    }
+
+    /**
+     * Seeks to a position.
+     *
+     * @param int|Stableflow_Company_Model_Parser_Adapter_Xls_Position $position The position to seek to.
+     * @return void
+     */
     public function seek($position)
     {
+        // For Multi page document
+        if($position instanceof Stableflow_Company_Model_Parser_Adapter_Xls_Position){
+            $this->setSheet($position->getPage());
+        }
         if($position <= $this->_highestRow){
             $this->_rowIterator->seek($position);
             $this->_currentKey = $this->_rowIterator->key();
@@ -191,12 +208,20 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
 
     protected function _initSheets()
     {
-        $this->_sheetsNumbers = $this->_settings->getSheetsNumbers();
-        reset($this->_sheetsNumbers);
+        if($this->_settings->getSheetsCont() > 1){
+            $this->_position = new Stableflow_Company_Model_Parser_Adapter_Xls_Position(
+                $this->_settings->getCurrentSheetNum(),
+                $this->_firstRow
+            );
+            $this->_sheetsNumbers = $this->_settings->getSheetsNumbers();
+        }
         $this->setSheet($this->_settings->getCurrentSheetNum());
-
     }
 
+    /**
+     * Switch to net page
+     * @return bool
+     */
     protected function nextSheet()
     {
         $num = next($this->_sheetsNumbers);
@@ -205,32 +230,59 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
             return false;
         }
         $this->setSheet($num);
-        $this->rewind();
         return true;
     }
 
-    protected function prevSheet()
+    protected function rewindSheets()
     {
-
+        next($this->_sheetsNumbers);
+        $this->setSheet($this->_sheetsNumbers[0]);
     }
 
     /**
      * Select document sheet by index
-     * @param $sheet int
+     * @param $sheet int Sheet index
      * @return $this
      */
     protected function setSheet($sheet)
     {
         $this->_sheet = $this->_objPHPExcel->getSheet($sheet);
-        $this->_currentSheetNum = $sheet;
         //$this->_sheet = $this->_objPHPExcel->getSheetByName($this->_settings->getSheetName());
         $this->_firstRow = $this->_settings->getStartRow();
         $this->_highestRow = $this->_sheet->getHighestRow();
         $this->_highestColumn = $this->_sheet->getHighestColumn();
         $this->_rowIterator = $this->_sheet->getRowIterator();
-        $this->rewind();
+
+        $this->_rowIterator->seek($this->_firstRow);
+        $this->_currentKey = $this->_rowIterator->key();
+        $this->_currentRow = $this->_getRow();
         return $this;
     }
+
+
+    /**
+     * array = array(
+     * 'A' => value
+     * 'B' => value
+     * ....
+     * )
+     * @return array
+     */
+    protected function _getRow()
+    {
+        $rowData = array();
+        $row = $this->_rowIterator->current();
+        $cellIterator = $row->getCellIterator();
+        // Iterate only on
+        //$cellIterator->setIterateOnlyExistingCells(true);
+        /** @var PHPExcel_Cell $cell */
+        foreach($cellIterator as $cell){
+            $format = (string)$cell->getStyle()->getNumberFormat()->getFormatCode();
+            $rowData[$cell->getColumn()] = $cell->getFormattedValue();
+        }
+        return $rowData;
+    }
+
 
     public function valid()
     {

@@ -492,6 +492,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         foreach ($this->sheets as $idx => $sheet) {
             if ($sheet['sheetType'] != 0x00) {
                 // 0x00: Worksheet, 0x02: Chart, 0x06: Visual Basic module
+                $worksheetNames[$idx] = $sheet['name'];
                 continue;
             }
 
@@ -549,14 +550,17 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
         // Parse the individual sheets
         foreach ($this->sheets as $idx => $sheet) {
+            $tmpInfo = array();
             if ($sheet['sheetType'] != 0x00) {
                 // 0x00: Worksheet
                 // 0x02: Chart
                 // 0x06: Visual Basic module
+                $tmpInfo['worksheetName'] = $sheet['name'];
+                $worksheetInfo[$idx] = $tmpInfo;
                 continue;
             }
 
-            $tmpInfo = array();
+
             $tmpInfo['worksheetName'] = $sheet['name'];
             $tmpInfo['lastColumnLetter'] = 'A';
             $tmpInfo['lastColumnIndex'] = 0;
@@ -787,6 +791,8 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         foreach ($this->sheets as $idx => $sheet) {
             if ($sheet['sheetType'] != 0x00) {
                 // 0x00: Worksheet, 0x02: Chart, 0x06: Visual Basic module
+                $this->phpSheet = $this->phpExcel->createSheet();
+                $this->phpSheet->setTitle($sheet['name'], false);
                 continue;
             }
 
@@ -796,7 +802,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             }
 
             // add sheet to PHPExcel object
-            $this->phpSheet = $this->phpExcel->createSheet($idx);
+            $this->phpSheet = $this->phpExcel->createSheet();
             //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet references in formula
             //        cells... during the load, all formulae should be correct, and we're simply bringing the worksheet
             //        name in line with the formula, not the reverse
