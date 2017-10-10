@@ -26,6 +26,13 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
      */
     protected $_lineNum;
 
+
+    /**
+     * Sheet Id
+     * @var int
+     */
+    protected $_sheetId;
+
     /**
      * @var array
      */
@@ -43,7 +50,7 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
         $this->_type = $type;
 
         $this->_taskId = $data->getTaskId();
-        $this->_lineNum = $data->getLineNum();
+        list($this->_sheetId, $this->_lineNum) = explode(':', $data->getLineNum());
         $this->_content = $data->getContent();
         $this->_companyProductId = $data->getCompanyProductId();
         $this->_catalogProductId = $data->getCatalogProductId();
@@ -108,8 +115,8 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
 
     public function _debugInfo()
     {
-        $out = sprintf("Message: %s. In str N:%d. ManufCode: %s. Company prod Id: %d. Catalog prod Id: %d.\n",
-            $this->getType(), $this->_lineNum, $this->getCode(), $this->_companyProductId, $this->_catalogProductId
+        $out = sprintf("Message: %s. In Sheet ID:%d : Row Num:%d. ManufCode: %s. Company prod Id: %d. Catalog prod Id: %d.\n",
+            $this->getType(), $this->_sheetId, $this->_lineNum, $this->getCode(), $this->_companyProductId, $this->_catalogProductId
         );
 
         return $out;

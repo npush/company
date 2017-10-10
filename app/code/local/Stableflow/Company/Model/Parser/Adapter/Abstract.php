@@ -165,4 +165,9 @@ abstract class Stableflow_Company_Model_Parser_Adapter_Abstract implements Seeka
     {
         return $this;
     }
+
+    public function getSettings()
+    {
+        return $this->_settings;
+    }
 }

@@ -6,7 +6,7 @@
  * Date: 7/31/17
  * Time: 5:30 PM
  */
-class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
+class Stableflow_Company_Model_Parser_Config_Settings
 {
     /**
      * Additional params
@@ -49,13 +49,7 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     );
 
     /**
-     * current sheet settings
-     * @var array
-     */
-    protected $_sheetSettings;
-
-    /**
-     * First sheet Num. Default sheet 0
+     * First sheet Id. Default sheet Id 0
      * @var int
      */
     protected $_firstSheet = 0;
@@ -65,11 +59,19 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     {
         $args = func_get_args();
         if (empty($args[0])) {
-            $this->setSettings();
+            $this->_init();
         }else {
             $this->setSettings($args[0]);
         }
-        $this->_construct();
+    }
+
+    /**
+     * Set default settings
+     */
+    protected function _init()
+    {
+        $this->_sheets[$this->_firstSheet] = $this->_defconf;
+        $this->_type = 'csv';
     }
 
     public function getType()
@@ -77,36 +79,34 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
         return $this->_type;
     }
 
-    public function getFirstSheetNum()
+    /**
+     * Get first sheet ID
+     * @return int
+     */
+    public function getFirstSheetId()
     {
         return $this->_firstSheet;
     }
 
     /**
-     * @param $idx
+     * @param int $idx Sheet Id
      * @return array
      */
-    public function getSheetSettings($idx = null)
+    public function getSheetSettings($idx)
     {
         if(!is_null($idx) && array_key_exists($idx, $this->_sheets)) {
-            $this->_sheetSettings = $this->_sheets[$this->_firstSheet];
-        }elseif(!is_null($idx) && !array_key_exists($idx, $this->_sheets)){
-            // error!!!
+            return $this->_sheets[$idx];
         }
-        return $this->_sheetSettings;
+        return null;
     }
 
     /**
      * Set Setting
-     * @param null $settings
-     * @return $this
+     * @param array $settings
+     * @return null|Stableflow_Company_Model_Parser_Config_Settings
      */
-    public function setSettings($settings = null)
+    public function setSettings($settings)
     {
-        if(is_null($settings)){
-            $this->_sheets[$this->_firstSheet] = $this->_defconf;
-            $this->_sheetSettings = $this->_sheets[$this->_firstSheet];
-        }
         if(is_array($settings)) {
             $this->_firstSheet = $settings[0]['index'];
             $this->_type = $settings[0]['type'];
@@ -116,9 +116,9 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
                 unset($_tab['index']);
                 $this->_sheets[$index] = array_merge($this->_defconf, $_tab);
             }
-            $this->_sheetSettings = $this->_sheets[$this->_firstSheet];
+            return $this;
         }
-        return $this;
+        return null;
     }
 
     public function getSheetsCont()
@@ -127,10 +127,10 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     }
 
     /**
-     * Return sheet numbers array
+     * Return sheet Id`s array
      * @return array
      */
-    public function getSheetsNumbers()
+    public function getSheetsIds()
     {
         return array_keys($this->_sheets);
     }
@@ -141,30 +141,47 @@ class Stableflow_Company_Model_Parser_Config_Settings extends Varien_Object
     }
 
     /**
+     * @param int $idx Sheet Id
      * @return array | bool
      */
-    public function getFieldMap()
+    public function getFieldMap($idx)
     {
-        return $this->_sheetSettings['field_map'];
+        return $this->getSheetSettings($idx)['field_map'];
     }
 
-    public function getStartRow()
+    /**
+     * @param int $idx Sheet Id
+     * @return array | bool
+     */
+    public function getStartRow($idx)
     {
-        return $this->_sheetSettings['settings']['start_row'];
+        return $this->getSheetSettings($idx)['settings']['start_row'];
     }
 
-    public function getHeaderRow()
+    /**
+     * @param int $idx Sheet Id
+     * @return array | bool
+     */
+    public function getHeaderRow($idx)
     {
-         return $this->_sheetSettings['settings']['header_row'];
+         return $this->getSheetSettings($idx)['settings']['header_row'];
     }
 
-    public function getCurrency()
+    /**
+     * @param int $idx Sheet Id
+     * @return array | bool
+     */
+    public function getCurrency($idx)
     {
-        return array_keys($this->_sheetSettings['settings_currency'], array('currency', 'change_currency'));
+        return array_keys($this->getSheetSettings($idx)['settings_currency'], array('currency', 'change_currency'));
     }
 
-    public function getManufacturer()
+    /**
+     * @param int $idx Sheet Id
+     * @return array | bool
+     */
+    public function getManufacturer($idx)
     {
-        return $this->_sheetSettings['settings']['manufacturer'];
+        return $this->getSheetSettings($idx)['settings']['manufacturer'];
     }
 }

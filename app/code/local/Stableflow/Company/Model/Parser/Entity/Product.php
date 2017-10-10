@@ -36,14 +36,15 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if(!$this->_isValidRow($row)){
             // empty code
             $message = Mage::getSingleton('company/parser_log_message')->error($data);
-        }elseif($result = $this->findByCode($row['code'], $data->getCompanyId(), $data->getManufacturer())){
+        }elseif($result = $this->findByCode($row['code'], $data->getCompanyId(), $row['manufacturer'])){
             // found product
             if($result['company_product_id']){
                 //update company product
                 $this->_productRoutine($data, self::BEHAVIOR_UPDATE, $data->getCompanyId(), $result['catalog_product_id'], $result['company_product_id']);
             }else{
                 // add new company product
-                $result['company_product_id'] = $this->_productRoutine($data, self::BEHAVIOR_ADD_NEW, $data->getCompanyId(), $result['catalog_product_id']);
+                $newProduct = $this->_productRoutine($data, self::BEHAVIOR_ADD_NEW, $data->getCompanyId(), $result['catalog_product_id']);
+                $result['company_product_id'] = $newProduct->getId();
             }
             $data->setCatalogProductId($result['catalog_product_id']);
             $data->setCompanyProductId($result['company_product_id']);

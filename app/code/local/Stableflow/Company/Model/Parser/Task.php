@@ -168,12 +168,16 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param $ind int
-     * @param null $page int
+     * @param string $position
      * @return bool
      */
-    protected function checkLastPosition($ind ,$page = null)
+    protected function checkLastPosition($position)
     {
+        if(!is_null($this->getLastRow())) {
+            list($curSheetIdx, $curRow) = explode(':', $position);
+            list($lastSheetIdx, $lastRow) = explode(':', $this->getLastRow());
+            if($curSheetIdx <= $lastSheetIdx && $curRow <= $lastRow);
+        }
         return $this->getLastRow() != null && $this->getLastRow() >= $ind;
     }
 
@@ -202,12 +206,13 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
         // Iterate
         foreach($sheet as $row){
-            if($this->checkLastPosition($sheet->key())){
+            //if($_lastPos = $this->checkLastPosition($sheet->key())){
+            if(!is_null($_lastPos = $this->getLastRow()) && $_lastPos != $sheet->key()){
+                $sheet->seek($_lastPos);
                 continue;
             }
             $data = new Varien_Object(array(
                 'company_id'            => $this->getCompanyId(),
-                'manufacturer'          => $this->_settingsObject->getManufacturer(),
                 'task_id'               => $this->getId(),
                 'line_num'              => $sheet->key(),
                 'content'               => serialize($row),

@@ -114,8 +114,7 @@ $table = $installer->getConnection()
     ->addColumn('time_spent', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
     ), 'Time Spent')
-    ->addColumn('last_row', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-        'unsigned'  => true,
+    ->addColumn('last_row', Varien_Db_Ddl_Table::TYPE_TEXT, 256, array(
         'default'   => null
     ), 'Last read row')
     ->addIndex($installer->getIdxName('company/parser_tasks', array('config_id')),
@@ -142,8 +141,7 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => false,
     ), 'Task Id')
-    ->addColumn('line', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
-        'unsigned'  => true,
+    ->addColumn('line', Varien_Db_Ddl_Table::TYPE_TEXT, 256, array(
         'nullable'  => false,
     ), 'Line Number')
     ->addColumn('content', Varien_Db_Ddl_Table::TYPE_TEXT, 256, array(
