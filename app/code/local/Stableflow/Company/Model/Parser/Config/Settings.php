@@ -20,6 +20,8 @@ class Stableflow_Company_Model_Parser_Config_Settings
      */
     protected $_type = null;
 
+    protected $_currentSheet = array();
+
     /**
      * Sheets settings
      * @var array
@@ -100,6 +102,13 @@ class Stableflow_Company_Model_Parser_Config_Settings
         return null;
     }
 
+    public function getSheet($idx)
+    {
+        if(!is_null($idx) && array_key_exists($idx, $this->_sheets))
+        $this->_currentSheet = $this->_sheets[$idx];
+        return $this;
+    }
+
     /**
      * Set Setting
      * @param array $settings
@@ -116,6 +125,7 @@ class Stableflow_Company_Model_Parser_Config_Settings
                 unset($_tab['index']);
                 $this->_sheets[$index] = array_merge($this->_defconf, $_tab);
             }
+            $this->getSheet($this->_firstSheet);
             return $this;
         }
         return null;
@@ -141,47 +151,42 @@ class Stableflow_Company_Model_Parser_Config_Settings
     }
 
     /**
-     * @param int $idx Sheet Id
      * @return array | bool
      */
-    public function getFieldMap($idx)
+    public function getFieldMap()
     {
-        return $this->getSheetSettings($idx)['field_map'];
+        return $this->_currentSheet['field_map'];
     }
 
     /**
-     * @param int $idx Sheet Id
      * @return array | bool
      */
-    public function getStartRow($idx)
+    public function getStartRow()
     {
-        return $this->getSheetSettings($idx)['settings']['start_row'];
+        return $this->_currentSheet['settings']['start_row'];
     }
 
     /**
-     * @param int $idx Sheet Id
      * @return array | bool
      */
-    public function getHeaderRow($idx)
+    public function getHeaderRow()
     {
-         return $this->getSheetSettings($idx)['settings']['header_row'];
+         return $this->_currentSheet['settings']['header_row'];
     }
 
     /**
-     * @param int $idx Sheet Id
      * @return array | bool
      */
-    public function getCurrency($idx)
+    public function getCurrency()
     {
-        return array_keys($this->getSheetSettings($idx)['settings_currency'], array('currency', 'change_currency'));
+        return array_keys($this->_currentSheet['settings_currency'], array('currency', 'change_currency'));
     }
 
     /**
-     * @param int $idx Sheet Id
      * @return array | bool
      */
-    public function getManufacturer($idx)
+    public function getManufacturer()
     {
-        return $this->getSheetSettings($idx)['settings']['manufacturer'];
+        return $this->_currentSheet['settings']['manufacturer'];
     }
 }

@@ -65,7 +65,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      */
     protected $_highestColumn;
 
-    /** @var PHPExcel_Worksheet_Row */
+    /** @var PHPExcel_Worksheet_RowCellIterator */
     protected $_rowIterator;
 
     /**
@@ -126,11 +126,13 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     public function current()
     {
         $tmp = $this->_colNames;
-        array_walk($tmp, function (&$value, $key, $ar2){
-            $value = $ar2[$value];
+        array_walk($tmp, function (&$value, $key, $currRow){
+            if(in_array($value, $currRow)) {
+                $value = $currRow[$value];
+            }
         }, $this->_currentRow);
         // !!!!!
-        $tmp['manufacturer'] = $this->getSettings()->getManufacturer($this->_currentSheetIdx);
+        $tmp['manufacturer'] = $this->getSettings()->getSheet($this->_currentSheetIdx)->getManufacturer();
         return $tmp;
     }
 
@@ -142,17 +144,6 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         $this->_rowIterator->next();
         $this->_currentKey = $this->_rowIterator->key();
         $this->_currentRow = $this->_getRow();
-
-//        if($this->_rowIterator->key() <= $this->_highestRow){
-//            $this->_rowIterator->next();
-//            $this->_currentKey = $this->_rowIterator->key();
-//            $this->_currentRow = $this->_getRow();
-//        }else{
-//            // end of page
-//            if(!$this->nextSheet()) {
-//                $this->_currentKey = null;
-//            }
-//        }
     }
 
     /**
@@ -180,7 +171,6 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     /**
      * Return the key of the current element.
      *
-     * @return int More than 0 integer on success, integer 0 on failure.
      */
     public function key()
     {
@@ -244,7 +234,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      */
     protected function setSheet($sheetIdx)
     {
-        array_walk($this->getSettings()->getFieldMap($sheetIdx), function($value, $key){
+        array_walk($this->getSettings()->getSheet($sheetIdx)->getFieldMap(), function($value, $key){
             if($value == ''){
                 $this->_colNames[$key] = null;
             }
@@ -253,7 +243,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
 
         $this->_sheet = $this->_objPHPExcel->getSheet($sheetIdx);
         //$this->_sheet = $this->_objPHPExcel->getSheetByName($this->_settings->getSheetName());
-        $this->_firstRow = $this->getSettings()->getStartRow($sheetIdx);
+        $this->_firstRow = $this->getSettings()->getSheet($sheetIdx)->getStartRow();
         $this->_highestRow = $this->_sheet->getHighestRow();
         $this->_highestColumn = $this->_sheet->getHighestColumn();
         $this->_rowIterator = $this->_sheet->getRowIterator();
@@ -264,7 +254,6 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         $this->_currentSheetIdx = $sheetIdx;
         return $this;
     }
-
 
     /**
      * array = array(
@@ -288,7 +277,6 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         }
         return $rowData;
     }
-
 
     /**
      * Validate config array

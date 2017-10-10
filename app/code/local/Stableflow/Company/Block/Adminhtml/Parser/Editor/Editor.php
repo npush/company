@@ -27,7 +27,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Editor_Editor extends Mage_Admin
         //$ar = $attribute->getSource()->getOptionArray();
         $ar = $attribute->getSource()->getAllOptions();
         foreach($ar as $name){
-            $res .= '"'.str_replace('"', '', $name['value']).'",';
+            $res .= '"'.str_replace('"', '', $name['label']).'",';
         }
         return "[".rtrim($res, ',')."]";
     }
