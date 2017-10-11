@@ -93,7 +93,7 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
               $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
                 unset($task);
             }
-        }catch (Exception $e){
+        }catch (Stableflow_Company_Exception $e){
             Mage::log($e->getMessage(), null, 'Queue-log');
         }
     }

@@ -8,14 +8,7 @@
  */
 class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_Model_Parser_Entity_Abstract
 {
-
-    protected $_eventPrefix      = 'company_parser_entity_product';
-    protected $_eventObject      = 'product';
-
-    protected $_manufacturers = null;
-
     const MANUFACTURER_ATTRIBUTE = 'manufacturer';
-
     const MANUFACTURER_CODE_ATTRIBUTE = 'manufacturer_number';
     const MANUFACTURER_CODE_DELIMITER = '|';
 
@@ -23,6 +16,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     const BEHAVIOR_UPDATE   = 2;
     const BEHAVIOR_DISABLE  = 3;
     const BEHAVIOR_DELETE   = 4;
+
+    protected $_eventPrefix = 'company_parser_entity_product';
+    protected $_eventObject = 'product';
+
+    protected $_manufacturers = null;
 
     /**
      * Update / add new / delete Company Product

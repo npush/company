@@ -6,7 +6,7 @@
  * Date: 7/31/17
  * Time: 5:30 PM
  */
-class Stableflow_Company_Model_Parser_Config_Settings
+class Stableflow_Company_Model_Parser_Config_Settings implements ArrayAccess, Countable
 {
     /**
      * Additional params
@@ -74,6 +74,58 @@ class Stableflow_Company_Model_Parser_Config_Settings
     {
         $this->_sheets[$this->_firstSheet] = $this->_defconf;
         $this->_type = 'csv';
+    }
+
+    /**
+     * Assigns a value to the specified offset
+     *
+     * @param string $offset The offset to assign the value to
+     * @param mixed  $value The value to set
+     * @access public
+     */
+    public function offsetSet($offset, $value) {
+        if (is_null($offset)) {
+            $this->_sheets[] = $value;
+        } else {
+            $this->_sheets[$offset] = $value;
+        }
+    }
+
+    /**
+     * Whether or not an offset exists
+     *
+     * @param string $offset An offset to check for
+     * @access public
+     * @return boolean
+     */
+    public function offsetExists($offset) {
+        return isset($this->_sheets[$offset]);
+    }
+
+    /**
+     * Unsets an offset
+     *
+     * @param string $offset The offset to unset
+     * @access public
+     */
+    public function offsetUnset($offset) {
+        unset($this->_sheets[$offset]);
+    }
+
+    /**
+     * Returns the value at specified offset
+     *
+     * @param string $offset The offset to retrieve
+     * @access public
+     * @return mixed
+     */
+    public function offsetGet($offset) {
+        return isset($this->_sheets[$offset]) ? $this->_sheets[$offset] : null;
+    }
+
+    public function count()
+    {
+        return count($this->_sheets);
     }
 
     public function getType()

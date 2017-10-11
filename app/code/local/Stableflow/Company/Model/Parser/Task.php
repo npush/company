@@ -220,7 +220,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
                 'catalog_product_id'    => null,
                 'company_product_id'    => null
             ));
-            Mage::getModel('company/parser_entity_product')->update($data);
+            $result = Mage::getModel('company/parser_entity_product')->update($data);
             $this->setReadRowNum($sheet->key());
         }
         $this->setSpentTime();

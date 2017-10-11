@@ -6,7 +6,7 @@
  * Date: 7/27/17
  * Time: 3:48 PM
  */
-class Stableflow_Company_Model_Parser extends Mage_Core_Model_Abstract
+class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Abstract
 {
 
     const MANUFACTURER_ATTRIBUTE = 'manufacturer';
@@ -15,6 +15,57 @@ class Stableflow_Company_Model_Parser extends Mage_Core_Model_Abstract
 
     protected $_config = null;
 
+    protected $_entityAdapter;
+
+    /**
+     * Create instance of entity adapter and returns it.
+     *
+     * @throws Mage_Core_Exception
+     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     */
+    protected function _getEntityAdapter()
+    {
+        if (!$this->_entityAdapter) {
+            $validTypes = Mage_ImportExport_Model_Config::getModels(self::CONFIG_KEY_ENTITIES);
+
+            if (isset($validTypes[$this->getEntity()])) {
+                try {
+                    $this->_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
+                } catch (Exception $e) {
+                    Mage::logException($e);
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Invalid entity model')
+                    );
+                }
+                if (!($this->_entityAdapter instanceof Mage_ImportExport_Model_Import_Entity_Abstract)) {
+                    Mage::throwException(
+                        Mage::helper('importexport')->__('Entity adapter object must be an instance of Mage_ImportExport_Model_Import_Entity_Abstract')
+                    );
+                }
+            } else {
+                Mage::throwException(Mage::helper('importexport')->__('Invalid entity'));
+            }
+            // check for entity codes integrity
+            if ($this->getEntity() != $this->_entityAdapter->getEntityTypeCode()) {
+                Mage::throwException(
+                    Mage::helper('importexport')->__('Input entity code is not equal to entity adapter code')
+                );
+            }
+            $this->_entityAdapter->setParameters($this->getData());
+        }
+        return $this->_entityAdapter;
+    }
+
+    /**
+     * Returns source adapter object.
+     *
+     * @param string $sourceFile Full path to source file
+     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     */
+    protected function _getSourceAdapter($sourceFile)
+    {
+        return Stableflow_Company_Model_Parser_Adapter::findAdapterFor($sourceFile);
+    }
 
     /**
      * Get task status

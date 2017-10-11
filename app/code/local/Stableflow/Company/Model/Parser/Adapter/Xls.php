@@ -82,6 +82,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
 
     /**
      * Initialize PHPExcel Reader
+     * @throws PHPExcel_Exception
      */
     protected function init()
     {
@@ -127,9 +128,9 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     {
         $tmp = $this->_colNames;
         array_walk($tmp, function (&$value, $key, $currRow){
-            if(in_array($value, $currRow)) {
+            //if(in_array($value, $currRow)) {
                 $value = $currRow[$value];
-            }
+            //}
         }, $this->_currentRow);
         // !!!!!
         $tmp['manufacturer'] = $this->getSettings()->getSheet($this->_currentSheetIdx)->getManufacturer();
@@ -199,10 +200,8 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
 
     protected function _initSheets()
     {
-        if($this->getSettings()->getSheetsCont() > 1){
-            $this->_sheetsIdx = $this->getSettings()->getSheetsIds();
-            reset($this->_sheetsIdx);
-        }
+        $this->_sheetsIdx = $this->getSettings()->getSheetsIds();
+        reset($this->_sheetsIdx);
         $this->setSheet(current($this->_sheetsIdx));
     }
 
@@ -269,7 +268,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         $row = $this->_rowIterator->current();
         $cellIterator = $row->getCellIterator();
         // Iterate only on
-        //$cellIterator->setIterateOnlyExistingCells(true);
+        $cellIterator->setIterateOnlyExistingCells(true);
         /** @var PHPExcel_Cell $cell */
         foreach($cellIterator as $cell){
             $format = (string)$cell->getStyle()->getNumberFormat()->getFormatCode();
