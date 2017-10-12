@@ -21,7 +21,6 @@ $_helper = $this->helper('catalog/output');
     <?php endif; ?>
     <?php if ($_product->getData('out_of_production')|| true ): ?>
 <!--        <span type="button" class="label-span label-grey">--><?php //echo $this->__('Out of production');?><!--</span>-->
-        <?php var_dump($_product);  ?>
         <span type="button" class="label-span label-grey"><?php echo $_product->getData('out_of_production') + "" ;?></span>
     <?php endif; ?>
 </div>
