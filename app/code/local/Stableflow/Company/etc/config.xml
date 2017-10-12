@@ -88,15 +88,6 @@
                         <table>company_eav_attribute</table>
                     </eav_attribute>
 
-        <!-- Deprecated Must deleted-->
-        <company_to_products>
-            <table>company_to_products</table>
-        </company_to_products>
-                            <company_product>
-            <table>company_to_products</table>
-        </company_product>
-        <!--  -->
-
                     <company_type>
                         <table>company_type</table>
                     </company_type>
@@ -163,12 +154,6 @@
                 </connection>
             </company_setup>
         </resources>
-        <!--<rewrite>
-            <companies>
-                <from><![CDATA[#^/from_this/#]]></from>
-                <to>/to_this/</to>
-            </companies>
-        </rewrite>-->
         <events>
             <controller_front_init_routers>
                 <observers>

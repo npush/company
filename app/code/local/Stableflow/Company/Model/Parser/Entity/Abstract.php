@@ -8,7 +8,82 @@
 abstract class Stableflow_Company_Model_Parser_Entity_Abstract
 {
 
+    /**
+     * Has data process validation done?
+     *
+     * @var bool
+     */
+    protected $_dataValidated = false;
 
+    /**
+     * Error codes with arrays of corresponding row numbers.
+     *
+     * @var array
+     */
+    protected $_errors = array();
+
+    /**
+     * Error counter.
+     *
+     * @var int
+     */
+    protected $_errorsCount = 0;
+
+    /**
+     * Array of invalid rows numbers.
+     *
+     * @var array
+     */
+    protected $_invalidRows = array();
+
+    /**
+     * Validation failure message template definitions.
+     *
+     * @var array
+     */
+    protected $_messageTemplates = array();
+
+    /**
+     * Notice messages.
+     *
+     * @var array
+     */
+    protected $_notices = array();
+
+    /**
+     * Entity model parameters.
+     *
+     * @var array
+     */
+    protected $_parameters = array();
+
+    /**
+     * Number of entities processed by validation.
+     *
+     * @var int
+     */
+    protected $_processedEntitiesCount = 0;
+
+    /**
+     * Number of rows processed by validation.
+     *
+     * @var int
+     */
+    protected $_processedRowsCount = 0;
+
+    /**
+     * Array of numbers of validated rows as keys and boolean TRUE as values.
+     *
+     * @var array
+     */
+    protected $_validatedRows = array();
+
+    /**
+     * Source model.
+     *
+     * @var Stableflow_Company_Model_Parser_Adapter_Abstract
+     */
+    protected $_source;
 
     /**
      * Constructor.
@@ -28,7 +103,7 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      * @param string $errorCode Error code or simply column name
      * @param int $errorRowNum Row number.
      * @param string $colName OPTIONAL Column name.
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
     public function addRowError($errorCode, $errorRowNum, $colName = null)
     {
@@ -44,7 +119,7 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      *
      * @param string $errorCode Error code
      * @param string $message Message template
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
     public function addMessageTemplate($errorCode, $message)
     {
@@ -60,7 +135,7 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      */
     public function getErrorMessages()
     {
-        $translator = Mage::helper('importexport');
+        $translator = Mage::helper('company');
         $messages   = array();
 
         foreach ($this->_errors as $errorCode => $errorRows) {
@@ -164,7 +239,7 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     {
         if (!$this->_dataValidated) {
             Mage::throwException(
-                Mage::helper('importexport')->__('Can not find required columns: %s', implode(', ', $colsAbsent))
+                Mage::helper('company')->__('Can not find required columns: %s', implode(', ', $colsAbsent))
             );
         }
     }

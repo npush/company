@@ -12,10 +12,61 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     const MANUFACTURER_CODE_ATTRIBUTE = 'manufacturer_number';
     const MANUFACTURER_CODE_DELIMITER = '|';
 
-    const BEHAVIOR_ADD_NEW  = 1;
-    const BEHAVIOR_UPDATE   = 2;
-    const BEHAVIOR_DISABLE  = 3;
-    const BEHAVIOR_DELETE   = 4;
+    const BEHAVIOR_ADD_NEW  = 'add_new';
+    const BEHAVIOR_UPDATE   = 'update';
+    const BEHAVIOR_DISABLE  = 'disable';
+    const BEHAVIOR_DELETE   = 'delete';
+
+    /**
+     * Default Scope
+     */
+    const SCOPE_DEFAULT = 1;
+
+    /**
+     * Website Scope
+     */
+    const SCOPE_WEBSITE = 2;
+
+    /**
+     * Store Scope
+     */
+    const SCOPE_STORE   = 0;
+
+    /**#@+
+     * Permanent column names.
+     *
+     */
+
+    const COL_PRICE         = 'price';
+    const COL_CODE          = 'code';
+    const COL_MANUFACTURER  = 'manufacturer';
+    const COL_COMPANY       = 'company';
+
+    /**#@+
+     * Error codes.
+     */
+    const ERROR_INVALID_SCOPE                = 'invalidScope';
+
+    /**
+     * Error - invalid website
+     */
+    const ERROR_INVALID_WEBSITE              = 'invalidWebsite';
+
+    /**
+     * Error - invalid store
+     */
+    const ERROR_INVALID_STORE                = 'invalidStore';
+
+    /**
+     * Validation failure message template definitions
+     *
+     * @var array
+     */
+    protected $_messageTemplates = array(
+        self::ERROR_INVALID_SCOPE                => 'Invalid value in Scope column',
+        self::ERROR_INVALID_WEBSITE              => 'Invalid value in Website column (website does not exists?)',
+        self::ERROR_INVALID_STORE                => 'Invalid value in Store column (store does not exists?)',
+    );
 
     protected $_eventPrefix = 'company_parser_entity_product';
     protected $_eventObject = 'product';

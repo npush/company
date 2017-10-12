@@ -108,7 +108,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function setProcessAt()
     {
-        $this->setData('processed_at', Varien_Date::now());
+        $this->setData('process_at', Varien_Date::now());
     }
 
     protected function _initTime()
@@ -125,7 +125,6 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     protected function setReadRowNum($num)
     {
         $this->setData('last_row', $num);
-        $this->save();
     }
 
     protected function getLastRow()
