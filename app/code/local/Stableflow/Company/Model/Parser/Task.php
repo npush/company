@@ -69,7 +69,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     }
     /**
      * Retrieve config object
-     * @return Stableflow_Company_Model_Parser_Config
+     * @return Stableflow_Company_Model_Parser_Config_Settings
      */
     public function getConfig()
     {
@@ -79,6 +79,11 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     public function getStatus()
     {
 
+    }
+
+    public function getSourceFile()
+    {
+        return $this->_source;
     }
 
     public function setStatus($status)
@@ -168,60 +173,16 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param $ind int
-     * @param null $page int
+     * @param string $position
      * @return bool
      */
-    protected function checkLastPosition($ind ,$page = null)
+    protected function checkLastPosition($position)
     {
-        return $this->getLastRow() != null && $this->getLastRow() >= $ind;
-    }
-
-    /**
-     * Get Parser Adapter instance
-     * @return Stableflow_Company_Model_Parser_Adapter_Abstract
-     */
-    public function getParserInstance()
-    {
-        $compId = $this->getCompanyId();
-        $dir = Mage::helper('company/parser')->getFileBaseDir();
-        return Stableflow_Company_Model_Parser_Adapter::factory($this->_settingsObject, $dir . $this->_source);
-    }
-
-    /**
-     * Run parsing process
-     * @return bool
-     * @throws Exception
-     */
-    public function run()
-    {
-        $this->setProcessAt();
-        $parser = $this->getParserInstance();
-        //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
-        //$params = array_merge($params, $this->_getEventData());
-        Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
-        // Iterate
-        foreach($parser as $row){
-            if($this->checkLastPosition($parser->key())){
-                continue;
-            }
-            $data = new Varien_Object(array(
-                'company_id'            => $this->getCompanyId(),
-                'manufacturer'          => $this->_settingsObject->getManufacturer(),
-                'task_id'               => $this->getId(),
-                'line_num'              => $parser->key(),
-                'content'               => serialize($row),
-                'raw_data'              => $row,
-                'catalog_product_id'    => null,
-                'company_product_id'    => null
-            ));
-            Mage::getModel('company/parser_entity_product')->update($data);
-            $this->setReadRowNum($parser->key());
+        if(!is_null($this->getLastRow())) {
+            list($curSheetIdx, $curRow) = explode(':', $position);
+            list($lastSheetIdx, $lastRow) = explode(':', $this->getLastRow());
+            if($curSheetIdx <= $lastSheetIdx && $curRow <= $lastRow);
         }
-        $this->setSpentTime();
-        $this->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
-        $this->save();
-        Mage::dispatchEvent($this->_eventPrefix.'_task_run_after', array($this->_eventObject => $this));
-        return true;
+        return $this->getLastRow() != null && $this->getLastRow() >= $ind;
     }
 }

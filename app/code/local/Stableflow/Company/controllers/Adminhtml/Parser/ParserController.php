@@ -304,6 +304,39 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
 
     }
 
+    /**
+     * Start parser process action.
+     *
+     * @return void
+     */
+    public function startAction()
+    {
+        $data = $this->getRequest()->getPost();
+        if ($data) {
+            $this->loadLayout(false);
+
+            /** @var $resultBlock Mage_ImportExport_Block_Adminhtml_Import_Frame_Result */
+            $resultBlock = $this->getLayout()->getBlock('import.frame.result');
+            /** @var $parserModel Stableflow_Company_Model_Parser */
+            $parserModel = Mage::getModel('company/parser');
+
+            try {
+                $parserModel->importSource();
+                $resultBlock->addAction('show', 'import_validation_container')
+                    ->addAction('innerHTML', 'import_validation_container_header', $this->__('Status'));
+            } catch (Exception $e) {
+                $resultBlock->addError($e->getMessage());
+                $this->renderLayout();
+                return;
+            }
+            $resultBlock->addAction('hide', array('edit_form', 'upload_button', 'messages'))
+                ->addSuccess($this->__('Import successfully done.'));
+            $this->renderLayout();
+        } else {
+            $this->_redirect('*/*/index');
+        }
+    }
+
 //    public function gridAction()
 //    {
 //        $this->loadLayout();

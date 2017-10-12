@@ -57,45 +57,13 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
      * @param int $status
      * @return Stableflow_Company_Model_Resource_Parser_Queue_Collection
      */
-    public function getQueue($status = null)
+    public function getQueueCollection($status = null)
     {
         $collection = $this->getCollection();
         if(!is_null($status)){
             $collection->addFieldToFilter('status_id', $status);
         }
         return $collection;
-    }
-
-    /**
-     * Get Task by task ID
-     * @param $taskId
-     * @return Stableflow_Company_Model_Parser_Task
-     */
-    public function getTask($taskId)
-    {
-        return Mage::getModel('company/parser_task')->load($taskId);
-    }
-
-    /**
-     *
-     */
-    public function performQueue()
-    {
-        $queueCollection = $this->getQueue(Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING);
-        try{
-            /** @var  $_taskQueue Stableflow_Company_Model_Parser_Queue*/
-            foreach($queueCollection as $_taskQueue){
-                //$_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
-                $task = $this->getTask($_taskQueue->getTaskId());
-                if($task->run()) {
-                    $_taskQueue->delete();
-                }
-              $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
-                unset($task);
-            }
-        }catch (Exception $e){
-            Mage::log($e->getMessage(), null, 'Queue-log');
-        }
     }
 
     protected function _beforeSave()
