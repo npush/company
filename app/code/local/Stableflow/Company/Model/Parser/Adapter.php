@@ -10,7 +10,7 @@ class Stableflow_Company_Model_Parser_Adapter
 {
     /**
      * Adapter factory. Checks for availability, loads and create instance of import adapter object.
-     * type ('xls, 'csv', 'xml' etc.)
+     * type ('xls', 'xlsx', 'csv', 'xml' etc.)
      * @param Stableflow_Company_Model_Parser_Config_Settings $settings
      * @param string $file
      * @throws Exception
@@ -20,7 +20,7 @@ class Stableflow_Company_Model_Parser_Adapter
     {
         $type = $settings->getType();
         if (!is_string($type) || !$type) {
-            Mage::throwException(Mage::helper('company')->__('Adapter type must be a non empty'));
+            Mage::throwException(Mage::helper('company')->__('Adapter type must be a non empty. In setting Object'));
         }
         $adapterClass = __CLASS__ . '_' . ucfirst(strtolower($type));
 
@@ -35,16 +35,5 @@ class Stableflow_Company_Model_Parser_Adapter
             );
         }
         return $adapter;
-    }
-
-    /**
-     * Create adapter instance for specified source file.
-     *
-     * @param string $source Source file path.
-     * @return Stableflow_Company_Model_Parser_Adapter_Abstract
-     */
-    public static function findAdapterFor($source)
-    {
-        return self::factory(pathinfo($source, PATHINFO_EXTENSION), $source);
     }
 }

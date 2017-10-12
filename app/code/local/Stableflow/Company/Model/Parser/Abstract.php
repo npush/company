@@ -21,6 +21,12 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
     protected $_logInstance;
 
     /**
+     * Loger instance
+     * @var Stableflow_Company_Model_Parser_Log
+     */
+    protected $_logDbInstance;
+
+    /**
      * Contains all log information
      *
      * @var array
@@ -32,7 +38,7 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
      * Log file dir: var/log/price_parser/%Y/%m/%d/%time%_%operation_type%_%entity_type%.log
      *
      * @param mixed $debugData
-     * @return Mage_ImportExport_Model_Abstract
+     * @return Stableflow_Company_Model_Parser_Abstract
      */
     public function addLogComment($debugData)
     {
@@ -61,6 +67,17 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
                 ->setFilterDataKeys($this->_debugReplacePrivateDataKeys);
         }
         $this->_logInstance->log($debugData);
+        return $this;
+    }
+
+    /**
+     * Log debug data to DB.
+     *
+     * @param mixed $debugData
+     * @return Stableflow_Company_Model_Parser_Abstract
+     */
+    public function addDbLogComment($debugData)
+    {
         return $this;
     }
 }

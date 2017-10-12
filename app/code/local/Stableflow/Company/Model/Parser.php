@@ -9,11 +9,8 @@
 class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Abstract
 {
 
-    const MANUFACTURER_ATTRIBUTE = 'manufacturer';
-
-    protected $_companyId;
-
-    protected $_config = null;
+    protected $_eventPrefix      = 'company_parser';
+    protected $_eventObject      = 'parser';
 
     protected $_entityAdapter;
 
@@ -21,37 +18,18 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
      * Create instance of entity adapter and returns it.
      *
      * @throws Mage_Core_Exception
-     * @return Mage_ImportExport_Model_Import_Entity_Abstract
+     * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
     protected function _getEntityAdapter()
     {
         if (!$this->_entityAdapter) {
-            $validTypes = Mage_ImportExport_Model_Config::getModels(self::CONFIG_KEY_ENTITIES);
-
-            if (isset($validTypes[$this->getEntity()])) {
-                try {
-                    $this->_entityAdapter = Mage::getModel($validTypes[$this->getEntity()]['model']);
-                } catch (Exception $e) {
-                    Mage::logException($e);
-                    Mage::throwException(
-                        Mage::helper('importexport')->__('Invalid entity model')
-                    );
-                }
-                if (!($this->_entityAdapter instanceof Mage_ImportExport_Model_Import_Entity_Abstract)) {
-                    Mage::throwException(
-                        Mage::helper('importexport')->__('Entity adapter object must be an instance of Mage_ImportExport_Model_Import_Entity_Abstract')
-                    );
-                }
-            } else {
-                Mage::throwException(Mage::helper('importexport')->__('Invalid entity'));
-            }
-            // check for entity codes integrity
-            if ($this->getEntity() != $this->_entityAdapter->getEntityTypeCode()) {
+            $this->_entityAdapter = Mage::getModel('company/parser_entity_product');
+            if (!($this->_entityAdapter instanceof Stableflow_Company_Model_Parser_Entity_Abstract)) {
                 Mage::throwException(
-                    Mage::helper('importexport')->__('Input entity code is not equal to entity adapter code')
+                    Mage::helper('company')->__('Entity adapter object must be an instance of Stableflow_Company_Model_Parser_Entity_Abstract')
                 );
             }
-            $this->_entityAdapter->setParameters($this->getData());
+            //$this->_entityAdapter->setParameters($this->getData());
         }
         return $this->_entityAdapter;
     }
@@ -59,92 +37,207 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     /**
      * Returns source adapter object.
      *
+     * @param Stableflow_Company_Model_Parser_Config_Settings $settings $settings
      * @param string $sourceFile Full path to source file
-     * @return Mage_ImportExport_Model_Import_Adapter_Abstract
+     * @return Stableflow_Company_Model_Parser_Adapter
      */
-    protected function _getSourceAdapter($sourceFile)
+    protected function _getSourceAdapter($settings, $sourceFile)
     {
-        return Stableflow_Company_Model_Parser_Adapter::findAdapterFor($sourceFile);
+        return Stableflow_Company_Model_Parser_Adapter::factory($settings, $sourceFile);
     }
 
     /**
-     * Get task status
+     * Get entity adapter errors.
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->_getEntityAdapter()->getErrorMessages();
+    }
+
+    /**
+     * Returns error counter.
      *
      * @return int
      */
-    public function getStatus()
+    public function getErrorsCount()
     {
-        if (is_null($this->_getData('status_id'))) {
-            $this->setData('status_id', Stableflow_Company_Model_Parser_Status::STATUS_ENABLED);
-        }
-        return $this->_getData('status_id');
-    }
-
-    public function setCompanyId(Stableflow_Company_Model_Company $company)
-    {
-        $this->_companyId = $company->getId();
-    }
-
-    public function getCompanyId()
-    {
-        return $this->_companyId;
+        return $this->_getEntityAdapter()->getErrorsCount();
     }
 
     /**
-     * Retrieve tasks collection
-     * @param $companyId
-     * @return Stableflow_Company_Model_Resource_Parser_Config_Collection
+     * Returns entity model noticees.
+     *
+     * @return array
      */
-    public function getTasksCollection($companyId)
+    public function getNotices()
     {
-        $configCollection = Mage::getModel('company/parser_config')->getConfigCollection($companyId);
-        $ids = array();
-        foreach($configCollection as $config){
-            $ids[] = $config->getId();
-        }
-        return $this->getCollection()
-            ->addFieldToFilter('config_id', array('in' => $ids));
+        return $this->_getEntityAdapter()->getNotices();
     }
+
+    /**
+     * Returns number of checked entities.
+     *
+     * @return int
+     */
+    public function getProcessedEntitiesCount()
+    {
+        return $this->_getEntityAdapter()->getProcessedEntitiesCount();
+    }
+
+    /**
+     * Returns number of checked rows.
+     *
+     * @return int
+     */
+    public function getProcessedRowsCount()
+    {
+        return $this->_getEntityAdapter()->getProcessedRowsCount();
+    }
+
+    /**
+     * Import/Export working directory (source files, result files, lock files etc.).
+     *
+     * @return string
+     */
+    public static function getWorkingDir()
+    {
+        return Mage::getBaseDir('media') . DS . 'pricelists' . DS;
+    }
+
+    /**
+     * Import source file structure to DB.
+     *
+     * @return bool
+     */
+    public function importSource()
+    {
+        $this->setData(array(
+            'entity'   => self::getDataSourceModel()->getEntityTypeCode(),
+            'behavior' => self::getDataSourceModel()->getBehavior()
+        ));
+        $this->addLogComment(Mage::helper('importexport')->__('Begin import of "%s" with "%s" behavior', $this->getEntity(), $this->getBehavior()));
+        $result = $this->_getEntityAdapter()->importData();
+        $this->addLogComment(array(
+            Mage::helper('importexport')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $this->getProcessedRowsCount(), $this->getProcessedEntitiesCount(), $this->getInvalidRowsCount(), $this->getErrorsCount()),
+            Mage::helper('importexport')->__('Import has been done successfuly.')
+        ));
+        return $result;
+    }
+
+    /**
+     * Move uploaded file and create source adapter instance.
+     *
+     * @throws Mage_Core_Exception
+     * @return string Source file path
+     */
+    public function uploadSource()
+    {
+        $entity    = $this->getEntity();
+        $uploader  = Mage::getModel('core/file_uploader', self::FIELD_NAME_SOURCE_FILE);
+        $uploader->skipDbProcessing(true);
+        $result    = $uploader->save(self::getWorkingDir());
+        $extension = pathinfo($result['file'], PATHINFO_EXTENSION);
+
+        $uploadedFile = $result['path'] . $result['file'];
+        if (!$extension) {
+            unlink($uploadedFile);
+            Mage::throwException(Mage::helper('importexport')->__('Uploaded file has no extension'));
+        }
+        $sourceFile = self::getWorkingDir() . $entity;
+
+        $sourceFile .= '.' . $extension;
+
+        if(strtolower($uploadedFile) != strtolower($sourceFile)) {
+            if (file_exists($sourceFile)) {
+                unlink($sourceFile);
+            }
+
+            if (!@rename($uploadedFile, $sourceFile)) {
+                Mage::throwException(Mage::helper('importexport')->__('Source file moving failed'));
+            }
+        }
+        // trying to create source adapter for file and catch possible exception to be convinced in its adequacy
+        try {
+            $this->_getSourceAdapter($sourceFile);
+        } catch (Exception $e) {
+            unlink($sourceFile);
+            Mage::throwException($e->getMessage());
+        }
+        return $sourceFile;
+    }
+
 
     public function loadTask($id)
     {
         return Mage::getModel('company/parser_task')->load($id);
     }
 
-    public function getPriceType(){}
-
-    public function getConfig()
-    {
-        return $this->_config;
-    }
-
-    public function addTaskToQueue($taskId)
-    {
-
-    }
-
-    public function getTaskStatus(){}
-    public function getQueue(){}
-
-    public function getManufacturers()
-    {
-        $attribute = Mage::getModel('eav/entity_attribute')
-            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
-        $as = $attribute->getSource()->getOptionArray();
-        $valuesCollection = Mage::getResourceModel('eav/entity_attribute_option_collection')
-            ->setAttributeFilter($attribute->getId())
-            ->setStoreFilter(0, false);
-    }
-
     public function updatePriceLists()
     {
-        Mage::log("Import",null, 'PriceLists.log');
+        $entity = $this->_getEntityAdapter();
+        /** @var Stableflow_Company_Model_Parser_Queue $queue */
+        $queue = Mage::getModel('company/parser_queue');
+        /** @var Stableflow_Company_Model_Resource_Parser_Queue_Collection $queueCollection */
+        $queueCollection = $queue->getQueueCollection(Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING);
         try{
-            $queue = Mage::getModel('company/parser_queue');
-            $queue->performQueue();
+            /** @var  $_taskInQueue Stableflow_Company_Model_Parser_Queue*/
+            foreach($queueCollection as $_taskInQueue){
+                //$_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
+                /** @var Stableflow_Company_Model_Parser_Task $task */
+                $task = $this->loadTask($_taskInQueue->getTaskId());
+                $settings = $task->getConfig();
+                $source = $task->getSourceFile();
+                $dir = Mage::helper('company/parser')->getFileBaseDir();
+                $adapter = $this->_getSourceAdapter($settings, $dir.$source);
 
+                if($this->run($task, $adapter, $entity)) {
+                    $_taskInQueue->delete();
+                }
+                $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
+                unset($task);
+            }
         }catch (Exception $e){
-            Mage::log($e, null, 'PriceLists-exception.log');
+            Mage::log($e->getMessage(), null, 'Queue-log');
         }
+    }
+
+    /**
+     * Run parsing process
+     * @return bool
+     * @throws Exception
+     */
+    public function run($task, $adapter, $entity)
+    {
+        $task->setProcessAt();
+        $sheet = $adapter;
+        //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
+        //$params = array_merge($params, $this->_getEventData());
+        Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
+        // Iterate
+        foreach($sheet as $row){
+            //if($_lastPos = $this->checkLastPosition($sheet->key())){
+            if(!is_null($_lastPos = $this->getLastRow()) && $_lastPos != $sheet->key()){
+                $sheet->seek($_lastPos);
+                continue;
+            }
+            $data = new Varien_Object(array(
+                'company_id'            => $task->getCompanyId(),
+                'task_id'               => $task->getId(),
+                'line_num'              => $sheet->key(),
+                'content'               => serialize($row),
+                'raw_data'              => $row,
+                'catalog_product_id'    => null,
+                'company_product_id'    => null
+            ));
+            $entity->update($data);
+            $task->setReadRowNum($sheet->key());
+        }
+        $task->setSpentTime();
+        $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
+        $task->save();
+        Mage::dispatchEvent($this->_eventPrefix.'_task_run_after', array($this->_eventObject => $this));
+        return true;
     }
 }

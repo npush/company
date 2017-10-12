@@ -20,7 +20,7 @@ class Stableflow_Company_Model_Parser_Uploader extends Mage_Core_Model_File_Uplo
             'application/x-excel',
             'application/x-msexcel'
         ),
-        'xslx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
     );
     const DEFAULT_FILE_TYPE = 'application/octet-stream';
