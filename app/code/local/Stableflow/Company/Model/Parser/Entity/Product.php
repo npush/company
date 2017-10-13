@@ -74,62 +74,43 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     protected $_manufacturers = null;
 
     /**
-     * Create Product entity from raw data.
-     *
+     * Run parsing process
+     * @return bool
      * @throws Exception
-     * @return bool Result of operation.
      */
-    protected function _importData()
+    public function _run($task, $adapter)
     {
-        if (Stableflow_Company_Model_Parser::BEHAVIOR_DELETE == $this->getBehavior()) {
-            $this->_deleteProducts();
-        } else {
-            $this->_saveProducts();
-            $this->_saveStockItem();
-            $this->_saveLinks();
-            $this->_saveCustomOptions();
-            foreach ($this->_productTypeModels as $productType => $productTypeModel) {
-                $productTypeModel->saveData();
+        $task->setProcessAt();
+        $sheet = $adapter;
+        //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
+        //$params = array_merge($params, $this->_getEventData());
+        Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
+        // Iterate
+        foreach($sheet as $row){
+            //if($_lastPos = $this->checkLastPosition($sheet->key())){
+            if(!is_null($_lastPos = $this->getLastRow()) && $_lastPos != $sheet->key()){
+                $sheet->seek($_lastPos);
+                continue;
             }
+            $data = new Varien_Object(array(
+                'company_id'            => $task->getCompanyId(),
+                'task_id'               => $task->getId(),
+                'line_num'              => $sheet->key(),
+                'content'               => serialize($row),
+                'raw_data'              => $row,
+                'catalog_product_id'    => null,
+                'company_product_id'    => null
+            ));
+            $this->update($data);
+            $task->setReadRowNum($sheet->key());
         }
-        Mage::dispatchEvent('catalog_product_import_finish_before', array('adapter' => $this));
+        $task->setSpentTime();
+        $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
+        $task->save();
+        Mage::dispatchEvent($this->_eventPrefix.'_task_run_after', array($this->_eventObject => $this));
         return true;
     }
 
-    /**
-     * Update and insert data in entity table.
-     *
-     * @param array $entityRowsIn Row for insert
-     * @param array $entityRowsUp Row for update
-     * @return Mage_ImportExport_Model_Import_Entity_Product
-     */
-    protected function _saveProductEntity(array $entityRowsIn, array $entityRowsUp)
-    {
-        static $entityTable = null;
-
-        if (!$entityTable) {
-            $entityTable = Mage::getModel('importexport/import_proxy_product_resource')->getEntityTable();
-        }
-        if ($entityRowsUp) {
-            $this->_connection->insertOnDuplicate(
-                $entityTable,
-                $entityRowsUp,
-                array('updated_at')
-            );
-        }
-        if ($entityRowsIn) {
-            $this->_connection->insertMultiple($entityTable, $entityRowsIn);
-
-            $newProducts = $this->_connection->fetchPairs($this->_connection->select()
-                ->from($entityTable, array('sku', 'entity_id'))
-                ->where('sku IN (?)', array_keys($entityRowsIn))
-            );
-            foreach ($newProducts as $sku => $newId) { // fill up entity_id for new products
-                $this->_newSku[$sku]['entity_id'] = $newId;
-            }
-        }
-        return $this;
-    }
 
     /**
      * Gather and save information about product entities.
@@ -281,12 +262,43 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             }
 
             $this->_saveProductEntity($entityRowsIn, $entityRowsUp)
-                ->_saveProductWebsites($websites)
-                ->_saveProductCategories($categories)
-                ->_saveProductTierPrices($tierPrices)
-                ->_saveProductGroupPrices($groupPrices)
-                ->_saveMediaGallery($mediaGallery)
-                ->_saveProductAttributes($attributes);
+            //    ->_saveProductAttributes($attributes)
+            ;
+        }
+        return $this;
+    }
+
+    /**
+     * Update and insert data in entity table.
+     *
+     * @param array $entityRowsIn Row for insert
+     * @param array $entityRowsUp Row for update
+     * @return Mage_ImportExport_Model_Import_Entity_Product
+     */
+    protected function _saveProductEntity(array $entityRowsIn, array $entityRowsUp)
+    {
+        static $entityTable = null;
+
+        if (!$entityTable) {
+            $entityTable = Mage::getModel('importexport/import_proxy_product_resource')->getEntityTable();
+        }
+        if ($entityRowsUp) {
+            $this->_connection->insertOnDuplicate(
+                $entityTable,
+                $entityRowsUp,
+                array('updated_at')
+            );
+        }
+        if ($entityRowsIn) {
+            $this->_connection->insertMultiple($entityTable, $entityRowsIn);
+
+            $newProducts = $this->_connection->fetchPairs($this->_connection->select()
+                ->from($entityTable, array('sku', 'entity_id'))
+                ->where('sku IN (?)', array_keys($entityRowsIn))
+            );
+            foreach ($newProducts as $sku => $newId) { // fill up entity_id for new products
+                $this->_newSku[$sku]['entity_id'] = $newId;
+            }
         }
         return $this;
     }

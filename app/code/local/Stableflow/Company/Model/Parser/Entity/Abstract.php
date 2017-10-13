@@ -94,7 +94,7 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
 //        $entityType = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
 //        $this->_entityTypeId    = $entityType->getEntityTypeId();
 //        $this->_dataSourceModel = Mage_ImportExport_Model_Import::getDataSourceModel();
-//        $this->_connection      = Mage::getSingleton('core/resource')->getConnection('write');
+        $this->_connection      = Mage::getSingleton('core/resource')->getConnection('write');
     }
 
     /**

@@ -37,9 +37,9 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     /**
      * Returns source adapter object.
      *
-     * @param Stableflow_Company_Model_Parser_Config_Settings $settings $settings
+     * @param Stableflow_Company_Model_Parser_Config_Settings $settings
      * @param string $sourceFile Full path to source file
-     * @return Stableflow_Company_Model_Parser_Adapter
+     * @return Stableflow_Company_Model_Parser_Adapter_Abstract
      */
     protected function _getSourceAdapter($settings, $sourceFile)
     {
@@ -64,6 +64,16 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     public function getErrorsCount()
     {
         return $this->_getEntityAdapter()->getErrorsCount();
+    }
+
+    /**
+     * Returns invalid rows count.
+     *
+     * @return int
+     */
+    public function getInvalidRowsCount()
+    {
+        return $this->_getEntityAdapter()->getInvalidRowsCount();
     }
 
     /**
@@ -97,7 +107,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     }
 
     /**
-     * Import/Export working directory (source files, result files, lock files etc.).
+     * Working directory (source files, result files, lock files etc.).
      *
      * @return string
      */
@@ -107,68 +117,11 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     }
 
     /**
-     * Import source file structure to DB.
+     * Get Task by Id
      *
-     * @return bool
+     * @param $id
+     * @return Stableflow_Company_Model_Parser_Task
      */
-    public function importSource()
-    {
-        $this->setData(array(
-            'entity'   => self::getDataSourceModel()->getEntityTypeCode(),
-            'behavior' => self::getDataSourceModel()->getBehavior()
-        ));
-        $this->addLogComment(Mage::helper('importexport')->__('Begin import of "%s" with "%s" behavior', $this->getEntity(), $this->getBehavior()));
-        $result = $this->_getEntityAdapter()->importData();
-        $this->addLogComment(array(
-            Mage::helper('importexport')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $this->getProcessedRowsCount(), $this->getProcessedEntitiesCount(), $this->getInvalidRowsCount(), $this->getErrorsCount()),
-            Mage::helper('importexport')->__('Import has been done successfuly.')
-        ));
-        return $result;
-    }
-
-    /**
-     * Move uploaded file and create source adapter instance.
-     *
-     * @throws Mage_Core_Exception
-     * @return string Source file path
-     */
-    public function uploadSource()
-    {
-        $entity    = $this->getEntity();
-        $uploader  = Mage::getModel('core/file_uploader', self::FIELD_NAME_SOURCE_FILE);
-        $uploader->skipDbProcessing(true);
-        $result    = $uploader->save(self::getWorkingDir());
-        $extension = pathinfo($result['file'], PATHINFO_EXTENSION);
-
-        $uploadedFile = $result['path'] . $result['file'];
-        if (!$extension) {
-            unlink($uploadedFile);
-            Mage::throwException(Mage::helper('importexport')->__('Uploaded file has no extension'));
-        }
-        $sourceFile = self::getWorkingDir() . $entity;
-
-        $sourceFile .= '.' . $extension;
-
-        if(strtolower($uploadedFile) != strtolower($sourceFile)) {
-            if (file_exists($sourceFile)) {
-                unlink($sourceFile);
-            }
-
-            if (!@rename($uploadedFile, $sourceFile)) {
-                Mage::throwException(Mage::helper('importexport')->__('Source file moving failed'));
-            }
-        }
-        // trying to create source adapter for file and catch possible exception to be convinced in its adequacy
-        try {
-            $this->_getSourceAdapter($sourceFile);
-        } catch (Exception $e) {
-            unlink($sourceFile);
-            Mage::throwException($e->getMessage());
-        }
-        return $sourceFile;
-    }
-
-
     public function loadTask($id)
     {
         return Mage::getModel('company/parser_task')->load($id);
@@ -176,6 +129,8 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
 
     public function updatePriceLists()
     {
+        $this->addLogComment(Mage::helper('company')->__('Begin import'));
+        /** @var Stableflow_Company_Model_Parser_Entity_Abstract $entity */
         $entity = $this->_getEntityAdapter();
         /** @var Stableflow_Company_Model_Parser_Queue $queue */
         $queue = Mage::getModel('company/parser_queue');
@@ -192,7 +147,15 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                 $dir = Mage::helper('company/parser')->getFileBaseDir();
                 $adapter = $this->_getSourceAdapter($settings, $dir.$source);
 
-                if($this->run($task, $adapter, $entity)) {
+                if($entity->_run($task, $adapter)) {
+                    $this->addLogComment(array(
+                        Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
+                            $this->getProcessedRowsCount(),
+                            $this->getProcessedEntitiesCount(),
+                            $this->getInvalidRowsCount(),
+                            $this->getErrorsCount()),
+                        Mage::helper('company')->__('Import has been done successfully.')
+                    ));
                     $_taskInQueue->delete();
                 }
                 $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
@@ -203,41 +166,25 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
         }
     }
 
+
     /**
-     * Run parsing process
+     * Validates source file and returns validation result.
+     *
+     * @param string $sourceFile Full path to source file
      * @return bool
-     * @throws Exception
      */
-    public function run($task, $adapter, $entity)
+    public function validateSource($sourceFile)
     {
-        $task->setProcessAt();
-        $sheet = $adapter;
-        //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
-        //$params = array_merge($params, $this->_getEventData());
-        Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
-        // Iterate
-        foreach($sheet as $row){
-            //if($_lastPos = $this->checkLastPosition($sheet->key())){
-            if(!is_null($_lastPos = $this->getLastRow()) && $_lastPos != $sheet->key()){
-                $sheet->seek($_lastPos);
-                continue;
-            }
-            $data = new Varien_Object(array(
-                'company_id'            => $task->getCompanyId(),
-                'task_id'               => $task->getId(),
-                'line_num'              => $sheet->key(),
-                'content'               => serialize($row),
-                'raw_data'              => $row,
-                'catalog_product_id'    => null,
-                'company_product_id'    => null
-            ));
-            $entity->update($data);
-            $task->setReadRowNum($sheet->key());
+        $this->addLogComment(Mage::helper('importexport')->__('Begin data validation'));
+        $result = $this->_getEntityAdapter()
+            ->setSource($this->_getSourceAdapter($sourceFile))
+            ->isDataValid();
+
+        $messages = $this->getOperationResultMessages($result);
+        $this->addLogComment($messages);
+        if ($result) {
+            $this->addLogComment(Mage::helper('importexport')->__('Done import data validation'));
         }
-        $task->setSpentTime();
-        $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
-        $task->save();
-        Mage::dispatchEvent($this->_eventPrefix.'_task_run_after', array($this->_eventObject => $this));
-        return true;
+        return $result;
     }
 }
