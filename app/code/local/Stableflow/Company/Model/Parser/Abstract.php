@@ -53,16 +53,13 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
             $fileName = join('_', array(
                 str_replace(':', '-', $this->getRunAt()),
                 $this->getScheduledOperationId(),
-                $this->getOperationType(),
                 $this->getEntity()
             ));
-            $dirPath = Mage::getBaseDir('var') . DS . self::LOG_DIRECTORY
-                . $dirName;
+            $dirPath = Mage::getBaseDir('var') . DS . self::LOG_DIRECTORY . $dirName;
             if (!is_dir($dirPath)) {
                 mkdir($dirPath, 0750, true);
             }
-            $fileName = substr(strstr(self::LOG_DIRECTORY, DS), 1)
-                . $dirName . $fileName . '.log';
+            $fileName = substr(strstr(self::LOG_DIRECTORY, DS), 1) . $dirName . $fileName . '.log';
             $this->_logInstance = Mage::getModel('core/log_adapter', $fileName)
                 ->setFilterDataKeys($this->_debugReplacePrivateDataKeys);
         }
