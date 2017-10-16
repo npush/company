@@ -18,6 +18,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     const BEHAVIOR_DELETE   = 'delete';
 
     /**
+     * Size of bunch - part of products to save in one step.
+     */
+    const BUNCH_SIZE = 20;
+
+    /**
      * Default Scope
      */
     const SCOPE_DEFAULT = 1;
@@ -75,20 +80,21 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
 
     /**
      * Run parsing process
+     *
+     * @param Stableflow_Company_Model_Parser_Task $task
      * @return bool
      * @throws Exception
      */
-    public function _run($task, $adapter)
+    public function _run($task)
     {
         $task->setProcessAt();
-        $sheet = $adapter;
+        $sheet = $this->getSource();
         //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
         //$params = array_merge($params, $this->_getEventData());
-        Mage::dispatchEvent($this->_eventPrefix.'_task_run_before', array($this->_eventObject => $this));
+        Mage::dispatchEvent($this->_eventPrefix.'_run_before', array($this->_eventObject => $this));
         // Iterate
         foreach($sheet as $row){
-            //if($_lastPos = $this->checkLastPosition($sheet->key())){
-            if(!is_null($_lastPos = $this->getLastRow()) && $_lastPos != $sheet->key()){
+            if(!is_null($_lastPos = $task->getLastRow()) && $_lastPos != $sheet->key()){
                 $sheet->seek($_lastPos);
                 continue;
             }
@@ -104,10 +110,10 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $this->update($data);
             $task->setReadRowNum($sheet->key());
         }
+        Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));
         $task->setSpentTime();
         $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
         $task->save();
-        Mage::dispatchEvent($this->_eventPrefix.'_task_run_after', array($this->_eventObject => $this));
         return true;
     }
 
@@ -450,7 +456,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if(is_null($this->_manufacturers)) {
             $attribute = Mage::getModel('eav/entity_attribute')
                 ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
-            $this->_manufacturers = $attribute->getSource()->getOptionArray();
+            //$this->_manufacturers = $attribute->getSource()->getOptionArray();
+            $this->_manufacturers = $attribute->getSource()->getAllOptions();
         }
         return $this->_manufacturers;
     }

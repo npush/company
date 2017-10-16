@@ -12,6 +12,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     protected $_eventPrefix      = 'company_parser';
     protected $_eventObject      = 'parser';
 
+    /** @var Stableflow_Company_Model_Parser_Entity_Abstract */
     protected $_entityAdapter;
 
     /**
@@ -127,11 +128,13 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
         return Mage::getModel('company/parser_task')->load($id);
     }
 
+    /**
+     *
+     */
     public function updatePriceLists()
     {
         $this->addLogComment(Mage::helper('company')->__('Begin import'));
-        /** @var Stableflow_Company_Model_Parser_Entity_Abstract $entity */
-        $entity = $this->_getEntityAdapter();
+        $this->_getEntityAdapter();
         /** @var Stableflow_Company_Model_Parser_Queue $queue */
         $queue = Mage::getModel('company/parser_queue');
         /** @var Stableflow_Company_Model_Resource_Parser_Queue_Collection $queueCollection */
@@ -145,9 +148,9 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                 $settings = $task->getConfig();
                 $source = $task->getSourceFile();
                 $dir = Mage::helper('company/parser')->getFileBaseDir();
-                $adapter = $this->_getSourceAdapter($settings, $dir.$source);
-
-                if($entity->_run($task, $adapter)) {
+                $sourceAdapter = $this->_getSourceAdapter($settings, $dir.$source);
+                $this->_getEntityAdapter()->setSource($sourceAdapter);
+                if($this->_entityAdapter->_run($task)) {
                     $this->addLogComment(array(
                         Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
                             $this->getProcessedRowsCount(),
@@ -165,7 +168,6 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
             Mage::log($e->getMessage(), null, 'Queue-log');
         }
     }
-
 
     /**
      * Validates source file and returns validation result.
