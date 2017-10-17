@@ -63,6 +63,16 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     const ERROR_INVALID_STORE                = 'invalidStore';
 
     /**
+     * Error - code no found
+     */
+    const ERROR_CODE_NOT_FOUND              = 'codeNotFound';
+
+    /**
+     * Error - Manufacturer not found
+     */
+    const ERROR_MANUFACTURER_NOT_FOUND      = 'manufacturerNotFound';
+
+    /**
      * Validation failure message template definitions
      *
      * @var array
@@ -71,6 +81,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         self::ERROR_INVALID_SCOPE                => 'Invalid value in Scope column',
         self::ERROR_INVALID_WEBSITE              => 'Invalid value in Website column (website does not exists?)',
         self::ERROR_INVALID_STORE                => 'Invalid value in Store column (store does not exists?)',
+        self::ERROR_CODE_NOT_FOUND               => 'Code Not Found',
+        self::ERROR_MANUFACTURER_NOT_FOUND       => 'Manufacturer not found',
     );
 
     protected $_eventPrefix = 'company_parser_entity_product';
@@ -110,7 +122,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             if($result = $this->update($data)) {
                 $task->setReadRowNum($sheet->key());
             }else{
-                Mage::exception('Stableflow_Company', 'error update', 0);
+                //Mage::exception('Stableflow_Company', 'error update', 0);
+                $this->addRowError($result['error_code'], $result['row'], $result['column']);
             }
         }
         Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));
@@ -137,11 +150,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $entityRowsUp = array();
             $attributes   = array();
             $websites     = array();
-            $categories   = array();
-            $tierPrices   = array();
-            $groupPrices  = array();
-            $mediaGallery = array();
-            $uploadedGalleryFiles = array();
             $previousType = null;
             $previousAttributeSet = null;
 
@@ -188,54 +196,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 }
                 if (!empty($rowData['_product_websites'])) { // 2. Product-to-Website phase
                     $websites[$rowSku][$this->_websiteCodeToId[$rowData['_product_websites']]] = true;
-                }
-
-                // 3. Categories phase
-                $categoryPath = empty($rowData[self::COL_CATEGORY]) ? '' : $rowData[self::COL_CATEGORY];
-                if (!empty($rowData[self::COL_ROOT_CATEGORY])) {
-                    $categoryId = $this->_categoriesWithRoots[$rowData[self::COL_ROOT_CATEGORY]][$categoryPath];
-                    $categories[$rowSku][$categoryId] = true;
-                } elseif (!empty($categoryPath)) {
-                    $categories[$rowSku][$this->_categories[$categoryPath]] = true;
-                }
-
-                if (!empty($rowData['_tier_price_website'])) { // 4.1. Tier prices phase
-                    $tierPrices[$rowSku][] = array(
-                        'all_groups'        => $rowData['_tier_price_customer_group'] == self::VALUE_ALL,
-                        'customer_group_id' => ($rowData['_tier_price_customer_group'] == self::VALUE_ALL)
-                            ? 0 : $rowData['_tier_price_customer_group'],
-                        'qty'               => $rowData['_tier_price_qty'],
-                        'value'             => $rowData['_tier_price_price'],
-                        'website_id'        => (self::VALUE_ALL == $rowData['_tier_price_website'] || $priceIsGlobal)
-                            ? 0 : $this->_websiteCodeToId[$rowData['_tier_price_website']]
-                    );
-                }
-                if (!empty($rowData['_group_price_website'])) { // 4.2. Group prices phase
-                    $groupPrices[$rowSku][] = array(
-                        'all_groups'        => $rowData['_group_price_customer_group'] == self::VALUE_ALL,
-                        'customer_group_id' => ($rowData['_group_price_customer_group'] == self::VALUE_ALL)
-                            ? 0 : $rowData['_group_price_customer_group'],
-                        'value'             => $rowData['_group_price_price'],
-                        'website_id'        => (self::VALUE_ALL == $rowData['_group_price_website'] || $priceIsGlobal)
-                            ? 0 : $this->_websiteCodeToId[$rowData['_group_price_website']]
-                    );
-                }
-                foreach ($this->_imagesArrayKeys as $imageCol) {
-                    if (!empty($rowData[$imageCol])) { // 5. Media gallery phase
-                        if (!array_key_exists($rowData[$imageCol], $uploadedGalleryFiles)) {
-                            $uploadedGalleryFiles[$rowData[$imageCol]] = $this->_uploadMediaFiles($rowData[$imageCol]);
-                        }
-                        $rowData[$imageCol] = $uploadedGalleryFiles[$rowData[$imageCol]];
-                    }
-                }
-                if (!empty($rowData['_media_image'])) {
-                    $mediaGallery[$rowSku][] = array(
-                        'attribute_id'      => $rowData['_media_attribute_id'],
-                        'label'             => $rowData['_media_lable'],
-                        'position'          => $rowData['_media_position'],
-                        'disabled'          => $rowData['_media_is_disabled'],
-                        'value'             => $rowData['_media_image']
-                    );
                 }
                 // 6. Attributes phase
                 $rowStore     = self::SCOPE_STORE == $rowScope ? $this->_storeCodeToId[$rowData[self::COL_STORE]] : 0;
@@ -315,6 +275,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     /**
      * Update / add new / delete Company Product
      * @param $data Varien_Object
+     * @return Varien_Object
      */
     public function update($data)
     {
@@ -342,6 +303,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $message = Mage::getSingleton('company/parser_log_message')->error($data);
         }
         Mage::dispatchEvent($this->_eventPrefix.'_update_after', array('update_data' => $data, 'message' => $message));
+        return $data;
     }
 
     /**

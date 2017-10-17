@@ -66,7 +66,7 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Add message to queue
+     * Add task to queue
      *
      * @return Stableflow_Company_Model_Parser_Queue
      */
@@ -83,12 +83,12 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Clean queue from sent messages
+     * Clean queue from old tasks
      *
-     * @param int $lifeTime
+     * @param int $lifeTime Default 31 day`s
      * @return Stableflow_Company_Model_Parser_Queue
      */
-    public function cleanQueue($lifeTime)
+    public function cleanQueue($lifeTime = 31)
     {
         $this->_getResource()->clean($lifeTime);
         return $this;

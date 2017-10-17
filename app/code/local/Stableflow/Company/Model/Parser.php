@@ -160,8 +160,8 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                     $_taskInQueue->delete();
                 }else{
                     $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
-                    Mage::exception('Stableflow_Company', 'Task error', 0);
-                    //$this->addLogComment(Mage::helper('company')->__('Error in task'));
+                    //Mage::exception('Stableflow_Company', 'Task error', 0);
+                    $this->addLogComment(Mage::helper('company')->__('Error in task'));
                 }
             }
         }catch (Stableflow_Company_Exception $e){
