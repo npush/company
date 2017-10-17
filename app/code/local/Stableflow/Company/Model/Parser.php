@@ -145,10 +145,8 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                 //$_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
                 /** @var Stableflow_Company_Model_Parser_Task $task */
                 $task = $this->loadTask($_taskInQueue->getTaskId());
-                $settings = $task->getConfig();
-                $source = $task->getSourceFile();
                 $dir = Mage::helper('company/parser')->getFileBaseDir();
-                $sourceAdapter = $this->_getSourceAdapter($settings, $dir.$source);
+                $sourceAdapter = $this->_getSourceAdapter($task->getConfig(), $dir.$task->getSourceFile());
                 $this->_getEntityAdapter()->setSource($sourceAdapter);
                 if($this->_entityAdapter->_run($task)) {
                     $this->addLogComment(array(
@@ -160,11 +158,16 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                         Mage::helper('company')->__('Import has been done successfully.')
                     ));
                     $_taskInQueue->delete();
+                }else{
+                    $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
+                    Mage::exception('Stableflow_Company', 'Task error', 0);
+                    //$this->addLogComment(Mage::helper('company')->__('Error in task'));
                 }
-                $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
-                unset($task);
             }
-        }catch (Exception $e){
+        }catch (Stableflow_Company_Exception $e){
+            var_dump($e->getMessage());
+        }
+        catch (Exception $e){
             Mage::log($e->getMessage(), null, 'Queue-log');
         }
     }

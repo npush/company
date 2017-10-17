@@ -160,6 +160,10 @@ $table = $installer->getConnection()
     ->addColumn('company_product_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'unsigned'  => true,
     ), 'Company Product Id')
+    ->addColumn('log_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+        'nullable'  => false,
+        'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
+    ), 'Created At')
     ->addIndex($installer->getIdxName('company/parser_log', array('task_id')),
         array('task_id'))
     ->addIndex($installer->getIdxName('company/parser_log', array('company_product_id')),

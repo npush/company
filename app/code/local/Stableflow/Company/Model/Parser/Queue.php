@@ -41,7 +41,6 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
     public function setStatus($status)
     {
         $this->setData('status_id', $status);
-        $this->save();
     }
 
     public function checkInQueue($taskId)
@@ -64,6 +63,35 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
             $collection->addFieldToFilter('status_id', $status);
         }
         return $collection;
+    }
+
+    /**
+     * Add message to queue
+     *
+     * @return Stableflow_Company_Model_Parser_Queue
+     */
+    public function addToQueue()
+    {
+        try {
+            $this->save();
+            $this->setId(null);
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Clean queue from sent messages
+     *
+     * @param int $lifeTime
+     * @return Stableflow_Company_Model_Parser_Queue
+     */
+    public function cleanQueue($lifeTime)
+    {
+        $this->_getResource()->clean($lifeTime);
+        return $this;
     }
 
     protected function _beforeSave()

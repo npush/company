@@ -107,8 +107,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 'catalog_product_id'    => null,
                 'company_product_id'    => null
             ));
-            $this->update($data);
-            $task->setReadRowNum($sheet->key());
+            if($result = $this->update($data)) {
+                $task->setReadRowNum($sheet->key());
+            }else{
+                Mage::exception('Stableflow_Company', 'error update', 0);
+            }
         }
         Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));
         $task->setSpentTime();
