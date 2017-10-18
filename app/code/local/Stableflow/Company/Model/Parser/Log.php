@@ -42,4 +42,17 @@ class Stableflow_Company_Model_Parser_Log extends Mage_Core_Model_Abstract
         Mage::log($message->_debugInfo(), null, 'parser_task.log');
 
     }
+
+
+    /**
+     * Clean log
+     *
+     * @param int $lifeTime Default 31 day`s
+     * @return Stableflow_Company_Model_Parser_Log
+     */
+    public function cleanLog($lifeTime = 31)
+    {
+        $this->_getResource()->clean($lifeTime);
+        return $this;
+    }
 }

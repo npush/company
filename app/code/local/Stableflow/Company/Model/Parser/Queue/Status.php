@@ -23,16 +23,4 @@ class Stableflow_Company_Model_Parser_Queue_Status extends Stableflow_Company_Mo
             self::STATUS_IN_PROGRESS    => Mage::helper('catalog')->__('In progress...')
         );
     }
-
-    /**
-     * Update status value
-     *
-     * @param   int $queueId
-     * @param   int $value
-     * @return  Stableflow_Company_Model_Parser_Queue_Status
-     */
-    public function updateQueueStatus($queueId, $value)
-    {
-        return $this;
-    }
 }

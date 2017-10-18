@@ -127,9 +127,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             }
         }
         Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));
-        $task->setSpentTime();
-        $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
-        $task->save();
+        $task->setComplete();
         return true;
     }
 
@@ -141,7 +139,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     protected function _saveProducts()
     {
-        $priceIsGlobal  = Mage::helper('catalog')->isPriceGlobal();
         $productLimit   = null;
         $productsQty    = null;
 

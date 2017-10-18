@@ -13,6 +13,7 @@ class Stableflow_Company_Model_Parser_Task_Status extends Stableflow_Company_Mod
     const STATUS_ERRORS_FOUND   = 2;
     const STATUS_IN_QUEUE       = 3;
     const STATUS_COMPLETE       = 4;
+    const STATUS_DISABLED       = 5;
 
     /**
      * Retrieve option array
@@ -26,18 +27,7 @@ class Stableflow_Company_Model_Parser_Task_Status extends Stableflow_Company_Mod
             self::STATUS_ERRORS_FOUND   => Mage::helper('catalog')->__('Errors Found'),
             self::STATUS_IN_QUEUE       => Mage::helper('catalog')->__('Sent to Queue'),
             self::STATUS_COMPLETE       => Mage::helper('catalog')->__('Complete'),
+            self::STATUS_DISABLED       => Mage::helper('catalog')->__('Disabled')
         );
-    }
-
-    /**
-     * Update status value
-     *
-     * @param   int $taskId
-     * @param   int $value
-     * @return  Stableflow_Company_Model_Parser_Task_Status
-     */
-    public function updateTaskStatus($taskId, $value)
-    {
-        return $this;
     }
 }

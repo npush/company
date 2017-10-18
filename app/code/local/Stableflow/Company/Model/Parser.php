@@ -108,24 +108,13 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     }
 
     /**
-     * Working directory (source files, result files, lock files etc.).
+     * Working directory (source files, ).
      *
      * @return string
      */
     public static function getWorkingDir()
     {
-        return Mage::getBaseDir('media') . DS . 'pricelists' . DS;
-    }
-
-    /**
-     * Get Task by Id
-     *
-     * @param $id
-     * @return Stableflow_Company_Model_Parser_Task
-     */
-    public function loadTask($id)
-    {
-        return Mage::getModel('company/parser_task')->load($id);
+        return Mage::helper('company/parser')->getFileBaseDir();
     }
 
     /**
@@ -134,61 +123,68 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     public function updatePriceLists()
     {
         $this->addLogComment(Mage::helper('company')->__('Begin import'));
-        $this->_getEntityAdapter();
-        /** @var Stableflow_Company_Model_Parser_Queue $queue */
-        $queue = Mage::getModel('company/parser_queue');
         /** @var Stableflow_Company_Model_Resource_Parser_Queue_Collection $queueCollection */
-        $queueCollection = $queue->getQueueCollection(Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING);
-        try{
+        $queueCollection = Mage::getModel('company/parser_queue')
+            ->getQueueCollection(Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING);
             /** @var  $_taskInQueue Stableflow_Company_Model_Parser_Queue*/
-            foreach($queueCollection as $_taskInQueue){
-                //$_taskQueue->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
-                /** @var Stableflow_Company_Model_Parser_Task $task */
-                $task = $this->loadTask($_taskInQueue->getTaskId());
-                $dir = Mage::helper('company/parser')->getFileBaseDir();
-                $sourceAdapter = $this->_getSourceAdapter($task->getConfig(), $dir.$task->getSourceFile());
-                $this->_getEntityAdapter()->setSource($sourceAdapter);
-                if($this->_entityAdapter->_run($task)) {
-                    $this->addLogComment(array(
-                        Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
-                            $this->getProcessedRowsCount(),
-                            $this->getProcessedEntitiesCount(),
-                            $this->getInvalidRowsCount(),
-                            $this->getErrorsCount()),
-                        Mage::helper('company')->__('Import has been done successfully.')
-                    ));
-                    $_taskInQueue->delete();
-                }else{
-                    $task->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
-                    //Mage::exception('Stableflow_Company', 'Task error', 0);
-                    $this->addLogComment(Mage::helper('company')->__('Error in task'));
-                }
+        foreach($queueCollection as $_taskInQueue){
+            //$_taskQueue->setInProgress();
+            /** @var string $sourceFile Full path to source file*/
+            $sourceFile = $this->getWorkingDir() . $_taskInQueue->getTask()->getSourceFile();
+            $sourceAdapter = $this->_getSourceAdapter(
+                $_taskInQueue->getTask()->getConfig(),
+                $sourceFile
+            );
+            $this->_getEntityAdapter()->setSource($sourceAdapter);
+            $this->validateSource($_taskInQueue->getTask(), $sourceFile);
+            if($this->_getEntityAdapter()->_run($_taskInQueue->getTask())) {
+                $this->addLogComment(array(
+                    Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
+                        $this->getProcessedRowsCount(),
+                        $this->getProcessedEntitiesCount(),
+                        $this->getInvalidRowsCount(),
+                        $this->getErrorsCount()),
+                    Mage::helper('company')->__('Import has been done successfully.')
+                ));
+            }else{
+                $_taskInQueue->getTask()->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
+                //Mage::exception('Stableflow_Company', 'Task error', 0);
+                $this->addLogComment(Mage::helper('company')->__('Error in task ID:%d'), $_taskInQueue->getTask()->getId());
             }
+            $_taskInQueue->setComplete();
+        }
+    }
+
+    public function update()
+    {
+        try{
+
         }catch (Stableflow_Company_Exception $e){
             var_dump($e->getMessage());
-        }
-        catch (Exception $e){
-            Mage::log($e->getMessage(), null, 'Queue-log');
+        }catch (Exception $e){
+            Mage::log($e->getMessage(), null, 'parser-log');
         }
     }
 
     /**
      * Validates source file and returns validation result.
      *
+     * @param $task
      * @param string $sourceFile Full path to source file
      * @return bool
      */
-    public function validateSource($sourceFile)
+    public function validateSource($task, $sourceFile)
     {
-        $this->addLogComment(Mage::helper('importexport')->__('Begin data validation'));
-        $result = $this->_getEntityAdapter()
-            ->setSource($this->_getSourceAdapter($sourceFile))
-            ->isDataValid();
-
-        $messages = $this->getOperationResultMessages($result);
-        $this->addLogComment($messages);
+        $this->addLogComment(Mage::helper('company')->__('Begin data validation'));
+        $result = true;
+//        $result = $this->_getEntityAdapter()
+//            ->setSource($this->_getSourceAdapter($task->getConfig(), $sourceFile))
+//            ->isDataValid();
+//
+//        $messages = $this->getOperationResultMessages($result);
+//        $this->addLogComment($messages);
         if ($result) {
-            $this->addLogComment(Mage::helper('importexport')->__('Done import data validation'));
+            $this->addLogComment(Mage::helper('company')->__('Done import data validation'));
         }
         return $result;
     }

@@ -69,6 +69,7 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer
 
     public function cleanOldLog()
     {
+        Mage::getModel('company/parser_log')->cleanLog();
         return $this;
     }
 

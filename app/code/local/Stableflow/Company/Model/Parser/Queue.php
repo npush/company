@@ -10,6 +10,9 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
 {
     protected $_queueCollection = null;
 
+    /** @var  Stableflow_Company_Model_Parser_Task */
+    protected $_task = null;
+
     /**
      * Standard resource model init
      */
@@ -31,6 +34,27 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
     public function getTaskId()
     {
         return $this->getData('task_id');
+    }
+
+    public function getTask()
+    {
+        if(!$this->getTaskId()){
+            Mage::throwException('Task not set fow queue ID:%D', $this->getId());
+        }
+        if($this->getTaskId() && is_null($this->_task)) {
+            $this->_task = Mage::getModel('company/parser_task')->load($this->getTaskId());
+        }
+        return $this->_task;
+    }
+
+    public function setInProgress()
+    {
+        $this->setStatus(Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS);
+    }
+
+    public function checkInProgress()
+    {
+        return $this->getStatus() == Stableflow_Company_Model_Parser_Queue_Status::STATUS_IN_PROGRESS;
     }
 
     public function getStatus()
@@ -65,6 +89,15 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         return $collection;
     }
 
+    public function setComplete()
+    {
+        try{
+            $this->delete();
+        }catch (Exception $e){
+            Mage::logException($e);
+        }
+    }
+
     /**
      * Add task to queue
      *
@@ -78,25 +111,6 @@ class Stableflow_Company_Model_Parser_Queue extends Mage_Core_Model_Abstract
         } catch (Exception $e) {
             Mage::logException($e);
         }
-
-        return $this;
-    }
-
-    /**
-     * Clean queue from old tasks
-     *
-     * @param int $lifeTime Default 31 day`s
-     * @return Stableflow_Company_Model_Parser_Queue
-     */
-    public function cleanQueue($lifeTime = 31)
-    {
-        $this->_getResource()->clean($lifeTime);
-        return $this;
-    }
-
-    protected function _beforeSave()
-    {
-        parent::_beforeSave();
 
         return $this;
     }

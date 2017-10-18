@@ -46,13 +46,14 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function load($id, $field = null){
         parent::load($id, $field);
-        $this->_initTime();
+        $this->_startTime = microtime(true);;
         $this->_initConfiguration();
         return $this;
     }
 
     protected function _initConfiguration()
     {
+        /** @var Stableflow_Company_Model_Parser_Config $config */
         $config = Mage::getModel('company/parser_config')->load($this->getData('config_id'));
         $this->_config = $config;
         $this->_settingsObject = $config->getSettingsObject();
@@ -76,19 +77,30 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         return $this->_settingsObject;
     }
 
-    public function getStatus()
-    {
-
-    }
-
     public function getSourceFile()
     {
         return $this->_source;
     }
 
+    public function getStatus()
+    {
+        $this->getData('status_id');
+    }
+
     public function setStatus($status)
     {
         $this->setData('status_id', $status);
+    }
+
+    public function setComplete()
+    {
+        try{
+            $this->setSpentTime();
+            $this->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_COMPLETE);
+            $this->save();
+        }catch (Exception $e){
+            Mage::logException($e);
+        }
     }
 
     public function getCompanyId()
@@ -103,7 +115,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
 
     public function setSpentTime()
     {
-        $this->setData('time_spent', $this->_calcSpentTime());
+        $this->setData('time_spent', microtime(true) - $this->_startTime);
     }
 
     public function setProcessAt()
@@ -111,20 +123,9 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->setData('process_at', Varien_Date::now());
     }
 
-    protected function _initTime()
+    protected function setReadRowNum($row)
     {
-        $this->_startTime = microtime(true);
-    }
-
-    protected function _calcSpentTime()
-    {
-        $finalTime = microtime(true) - $this->_startTime;
-        return $finalTime;
-    }
-
-    protected function setReadRowNum($num)
-    {
-        $this->setData('last_row', $num);
+        $this->setData('last_row', $row);
     }
 
     protected function getLastRow()
@@ -166,7 +167,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
                 'task_id' => $id,
                 'status_id' => Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING
             ));
-            return $queue->save()->getId();
+            return $queue->addToQueue()->getId();
         }
         return false;
     }
