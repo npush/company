@@ -23,7 +23,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Editor_Editor extends Mage_Admin
     {
         $res = '';
         $attribute = Mage::getModel('eav/entity_attribute')
-            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, Stableflow_Company_Model_Parser::MANUFACTURER_ATTRIBUTE);
+            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, Stableflow_Company_Model_Parser_Entity_Product::MANUFACTURER_ATTRIBUTE);
         //$ar = $attribute->getSource()->getOptionArray();
         $ar = $attribute->getSource()->getAllOptions();
         foreach($ar as $name){
