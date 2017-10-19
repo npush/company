@@ -27,7 +27,7 @@ class Stableflow_Company_Model_Resource_Product extends Mage_Eav_Model_Entity_Ab
             $resource->getConnection('company_read'),
             $resource->getConnection('company_write')
         );
-        $this->_relationTable = $this->getTable('company/company_product');
+        //$this->_relationTable = $this->getTable('company/company_product');
         $this->_companyProductTable = $this->getTable('company/product_entity');
     }
 
