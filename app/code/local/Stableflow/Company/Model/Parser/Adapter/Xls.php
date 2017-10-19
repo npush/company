@@ -189,7 +189,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         list($_sheetIdx, $_row) =  explode(':', $position);
         if($this->_currentSheetIdx != $_sheetIdx && in_array($_sheetIdx, $this->_sheetsIdx)){
             $this->setSheet($_sheetIdx);
-        }elseif($this->_currentSheetIdx == $_sheetIdx && $_row <= $this->_highestRow){
+        }if($this->_currentSheetIdx == $_sheetIdx && $_row <= $this->_highestRow){
             $this->_rowIterator->seek($_row);
             $this->_currentKey = $this->_rowIterator->key();
             $this->_currentRow = $this->_getRow();
@@ -268,7 +268,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
         $row = $this->_rowIterator->current();
         $cellIterator = $row->getCellIterator();
         // Iterate only on
-        $cellIterator->setIterateOnlyExistingCells(true);
+        //$cellIterator->setIterateOnlyExistingCells(true);
         /** @var PHPExcel_Cell $cell */
         foreach($cellIterator as $cell){
             $format = (string)$cell->getStyle()->getNumberFormat()->getFormatCode();

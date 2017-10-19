@@ -137,30 +137,60 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
             );
             $this->_getEntityAdapter()->setSource($sourceAdapter);
             $this->validateSource($_taskInQueue->getTask(), $sourceFile);
-            if($this->_getEntityAdapter()->_run($_taskInQueue->getTask())) {
-                $this->addLogComment(array(
-                    Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
-                        $this->getProcessedRowsCount(),
-                        $this->getProcessedEntitiesCount(),
-                        $this->getInvalidRowsCount(),
-                        $this->getErrorsCount()),
-                    Mage::helper('company')->__('Import has been done successfully.')
-                ));
-            }else{
-                $_taskInQueue->getTask()->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
-                //Mage::exception('Stableflow_Company', 'Task error', 0);
-                $this->addLogComment(Mage::helper('company')->__('Error in task ID:%d'), $_taskInQueue->getTask()->getId());
-            }
-            $_taskInQueue->setComplete();
+            $this->_getEntityAdapter()->_run($_taskInQueue->getTask());
+            $this->addLogComment(array(
+                Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
+                    $this->getProcessedRowsCount(),
+                    $this->getProcessedEntitiesCount(),
+                    $this->getInvalidRowsCount(),
+                    $this->getErrorsCount()),
+                Mage::helper('company')->__('Import has been done successfully.')
+            ));
+            //$_taskInQueue->setComplete();
         }
+    }
+
+    /**
+     * @param Stableflow_Company_Model_Parser_Task $task
+     * @return bool
+     */
+    public function runTask($task)
+    {
+        $this->addLogComment(Mage::helper('company')->__('Begin import. Task ID: %d', $task->getId()));
+        //$_taskQueue->setInProgress();
+        /** @var string $sourceFile Full path to source file*/
+        $sourceFile = $this->getWorkingDir() . $task->getSourceFile();
+        $sourceAdapter = $this->_getSourceAdapter(
+            $task->getConfig(),
+            $sourceFile
+        );
+        $this->_getEntityAdapter()->setSource($sourceAdapter);
+        $this->validateSource($task, $sourceFile);
+        $this->_getEntityAdapter()->_run($task);
+        $this->addLogComment(array(
+            Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
+                $this->getProcessedRowsCount(),
+                $this->getProcessedEntitiesCount(),
+                $this->getInvalidRowsCount(),
+                $this->getErrorsCount()),
+            Mage::helper('company')->__('Import has been done successfully. Task ID: %d', $task->getId())
+        ));
+        //$_taskInQueue->setComplete();
+        return true;
     }
 
     public function update()
     {
         try{
+            $_taskInQueue->getTask()->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
+            $this->addLogComment(Mage::helper('company')->__('Error in task ID:%d', $_taskInQueue->getTask()->getId()));
+            //Mage::exception('Stableflow_Company', 'Task error', 0);
+        }catch (PHPExcel_Exception $e){
 
         }catch (Stableflow_Company_Exception $e){
             var_dump($e->getMessage());
+        }catch (Mage_Core_Exception $e){
+
         }catch (Exception $e){
             Mage::log($e->getMessage(), null, 'parser-log');
         }

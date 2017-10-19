@@ -106,7 +106,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         Mage::dispatchEvent($this->_eventPrefix.'_run_before', array($this->_eventObject => $this));
         // Iterate
         foreach($sheet as $row){
-            if(!is_null($_lastPos = $task->getLastRow()) && $_lastPos != $sheet->key()){
+            if($_lastPos = $task->checkPosition($sheet->key())){
                 $sheet->seek($_lastPos);
                 continue;
             }
@@ -386,7 +386,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
         $productCollection = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
-            ->addAttributeToFilter($mfNameAttribute, array('en' => $manufacturerId))
+            ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
             ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
             ->initCache(Mage::app()->getCache(),'parser_catalog_collection',array('SOME_TAGS'));
         foreach($productCollection as $_product) {
@@ -418,8 +418,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if(is_null($this->_manufacturers)) {
             $attribute = Mage::getModel('eav/entity_attribute')
                 ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
-            //$this->_manufacturers = $attribute->getSource()->getOptionArray();
-            $this->_manufacturers = $attribute->getSource()->getAllOptions();
+            $this->_manufacturers = $attribute->getSource()->getOptionArray();
+            //$this->_manufacturers = $attribute->getSource()->getAllOptions();
         }
         return $this->_manufacturers;
     }

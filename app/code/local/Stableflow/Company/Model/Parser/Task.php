@@ -176,13 +176,15 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
      * @param string $position
      * @return bool
      */
-    protected function checkLastPosition($position)
+    public function checkPosition($curPos)
     {
         if(!is_null($this->getLastRow())) {
-            list($curSheetIdx, $curRow) = explode(':', $position);
+            list($curSheetIdx, $curRow) = explode(':', $curPos);
             list($lastSheetIdx, $lastRow) = explode(':', $this->getLastRow());
-            if($curSheetIdx <= $lastSheetIdx && $curRow <= $lastRow);
+            if($curSheetIdx < $lastSheetIdx || $curRow < $lastRow){
+                return $this->getLastRow();
+            }
         }
-        return $this->getLastRow() != null && $this->getLastRow() >= $ind;
+        return false;
     }
 }

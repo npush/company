@@ -241,4 +241,9 @@ class Stableflow_Company_Model_Parser_Config_Settings implements ArrayAccess, Co
     {
         return $this->_currentSheet['settings']['manufacturer'];
     }
+
+    public function getStartPosition()
+    {
+        return $this->getFirstSheetId() . ':' . $this->getStartRow();
+    }
 }
