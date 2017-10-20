@@ -149,8 +149,8 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
         return $this->getUrl('*/parser_task/task', array('_current'=>true));
     }
 
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/parser_task/editTask', array('id' => $row->getId()));
-    }
+//    public function getRowUrl($row)
+//    {
+//        return $this->getUrl('*/parser_task/editTask', array('id' => $row->getId()));
+//    }
 }
