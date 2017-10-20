@@ -126,15 +126,11 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
      */
     public function current()
     {
-        $tmp = $this->_colNames;
-        array_walk($tmp, function (&$value, $key, $currRow){
-            //if(in_array($value, $currRow)) {
-                $value = $currRow[$value];
-            //}
-        }, $this->_currentRow);
-        // !!!!!
-        $tmp['manufacturer'] = $this->getSettings()->getSheet($this->_currentSheetIdx)->getManufacturer();
-        return $tmp;
+        foreach($this->_colNames as $key => $val){
+            $row[$key] = array_key_exists($val,$this->_currentRow) ? $this->_currentRow[$val] : null;
+        }
+        $row['manufacturer'] = $this->getSettings()->getSheet($this->_currentSheetIdx)->getManufacturer();
+        return $row;
     }
 
     /**

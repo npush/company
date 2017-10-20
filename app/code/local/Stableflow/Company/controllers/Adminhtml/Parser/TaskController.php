@@ -165,11 +165,9 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
         $task = $this->_initTask();
         // Check ? remove from queue
         if(Mage::getModel('company/parser')->runTask($task)){
-            echo "OK";
-            die();
+            die("OK");
         }else{
-            echo "error";
-            die();
+            die("error");
         }
     }
 
