@@ -128,7 +128,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
             ->getQueueCollection(Stableflow_Company_Model_Parser_Queue_Status::STATUS_PENDING);
             /** @var  $_taskInQueue Stableflow_Company_Model_Parser_Queue*/
         foreach($queueCollection as $_taskInQueue){
-            //$_taskQueue->setInProgress();
+            $_taskInQueue->setInProgress();
             /** @var string $sourceFile Full path to source file*/
             $sourceFile = $this->getWorkingDir() . $_taskInQueue->getTask()->getSourceFile();
             $sourceAdapter = $this->_getSourceAdapter(
@@ -146,7 +146,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                     $this->getErrorsCount()),
                 Mage::helper('company')->__('Import has been done successfully.')
             ));
-            //$_taskInQueue->setComplete();
+            $_taskInQueue->setComplete();
         }
     }
 
@@ -157,7 +157,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     public function runTask($task)
     {
         $this->addLogComment(Mage::helper('company')->__('Begin import. Task ID: %d', $task->getId()));
-        //$_taskQueue->setInProgress();
+        $task->setInProgress();
         /** @var string $sourceFile Full path to source file*/
         $sourceFile = $this->getWorkingDir() . $task->getSourceFile();
         $sourceAdapter = $this->_getSourceAdapter(
@@ -175,7 +175,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                 $this->getErrorsCount()),
             Mage::helper('company')->__('Import has been done successfully. Task ID: %d', $task->getId())
         ));
-        //$_taskInQueue->setComplete();
+        $task->setComplete();
         return true;
     }
 

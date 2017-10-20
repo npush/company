@@ -39,7 +39,7 @@ class Stableflow_Company_Model_Parser_Log extends Mage_Core_Model_Abstract
     public function addToLog($data, $message)
     {
         echo $message->_debugInfo();
-        Mage::log($message->_debugInfo(), null, 'parser_task.log');
+        Mage::log($message->_debugInfo(), null, 'parser_task-'. $data->getCompanyId() .'.log');
 
     }
 

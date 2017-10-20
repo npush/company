@@ -97,7 +97,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      * @return bool
      * @throws Exception
      */
-    public function _run($task)
+    public function _run(Stableflow_Company_Model_Parser_Task $task)
     {
         $task->setProcessAt();
         $sheet = $this->getSource();
