@@ -38,7 +38,7 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
         if (!$this->_logInstance) {
             $dirName  = date('Y' . DS .'m' . DS .'d' . DS);
             $fileName = join('_', array(
-                str_replace(':', '-', $this->getProcessedAt()),
+                str_replace(':', '-', $this->getProcessAt()),
                 $this->getScheduledOperationId(),
                 $this->getEntity()
             ));

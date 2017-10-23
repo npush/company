@@ -63,6 +63,16 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     const ERROR_INVALID_STORE                = 'invalidStore';
 
     /**
+     * Error - invalid price
+     */
+    const ERROR_INVALID_PRICE                = 'invalidPrice';
+
+    /**
+     * Error - invalid code
+     */
+    const ERROR_INVALID_CODE                = 'invalidCode';
+
+    /**
      * Error - code no found
      */
     const ERROR_CODE_NOT_FOUND              = 'codeNotFound';
@@ -73,16 +83,24 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     const ERROR_MANUFACTURER_NOT_FOUND      = 'manufacturerNotFound';
 
     /**
+     * Error - Base product with code not found
+     */
+    const ERROR_BASE_PRODUCT_NOT_FOUND      = 'baseProductNotFound';
+
+    /**
      * Validation failure message template definitions
      *
      * @var array
      */
     protected $_messageTemplates = array(
-        self::ERROR_INVALID_SCOPE                => 'Invalid value in Scope column',
-        self::ERROR_INVALID_WEBSITE              => 'Invalid value in Website column (website does not exists?)',
-        self::ERROR_INVALID_STORE                => 'Invalid value in Store column (store does not exists?)',
+        self::ERROR_INVALID_SCOPE                => 'Invalid Scope',
+        self::ERROR_INVALID_WEBSITE              => 'Invalid Website',
+        self::ERROR_INVALID_STORE                => 'Invalid Store',
+        self::ERROR_INVALID_PRICE                => 'Invalid Price',
+        self::ERROR_INVALID_CODE                 => 'Invalid Code',
         self::ERROR_CODE_NOT_FOUND               => 'Code Not Found',
         self::ERROR_MANUFACTURER_NOT_FOUND       => 'Manufacturer not found',
+        self::ERROR_BASE_PRODUCT_NOT_FOUND       => 'Base product not found',
     );
 
     protected $_eventPrefix = 'company_parser_entity_product';
@@ -100,27 +118,26 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     public function _run(Stableflow_Company_Model_Parser_Task $task)
     {
         $task->setProcessAt();
-        $sheet = $this->getSource();
         //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
         //$params = array_merge($params, $this->_getEventData());
         Mage::dispatchEvent($this->_eventPrefix.'_run_before', array($this->_eventObject => $this));
         // Iterate
-        foreach($sheet as $row){
-            if($_lastPos = $task->checkPosition($sheet->key())){
-                $sheet->seek($_lastPos);
+        foreach($this->getSource() as $row){
+            if($_lastPos = $task->checkPosition($this->getSource()->key())){
+                $this->getSource()->seek($_lastPos);
                 continue;
             }
             $data = new Varien_Object(array(
                 'company_id'            => $task->getCompanyId(),
                 'task_id'               => $task->getId(),
-                'line_num'              => $sheet->key(),
+                'line_num'              => $this->getSource()->key(),
                 'content'               => serialize($row),
                 'raw_data'              => $row,
                 'catalog_product_id'    => null,
                 'company_product_id'    => null
             ));
             if($result = $this->update($data)) {
-                $task->setReadRowNum($sheet->key());
+                $task->setReadRowNum($this->getSource()->key());
             }else{
                 //Mage::exception('Stableflow_Company', 'error update', 0);
                 $this->addRowError($result['error_code'], $result['row'], $result['column']);
