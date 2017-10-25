@@ -44,7 +44,8 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
         $this->_init('company/parser_task');
     }
 
-    public function load($id, $field = null){
+    public function load($id, $field = null)
+    {
         parent::load($id, $field);
         $this->_startTime = microtime(true);;
         $this->_initConfiguration();
@@ -173,7 +174,7 @@ class Stableflow_Company_Model_Parser_Task extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $position
+     * @param string $curPos
      * @return bool
      */
     public function checkPosition($curPos)

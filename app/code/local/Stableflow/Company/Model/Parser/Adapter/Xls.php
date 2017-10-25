@@ -109,7 +109,7 @@ class Stableflow_Company_Model_Parser_Adapter_Xls extends Stableflow_Company_Mod
     /**
      * Close file handler on shutdown
      */
-    function __destruct()
+    function destruct()
     {
         if ($this->_objPHPExcel) {
             $this->_objPHPExcel->disconnectWorksheets();

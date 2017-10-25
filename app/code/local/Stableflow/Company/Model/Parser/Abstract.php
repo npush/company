@@ -21,6 +21,13 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
     protected $_logInstance;
 
     /**
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
+    protected $_debugReplacePrivateDataKeys = array();
+
+    /**
      * Loger instance
      * @var Stableflow_Company_Model_Parser_Log
      */
@@ -48,19 +55,24 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
             }
             $fileName = substr(strstr(self::LOG_DIRECTORY, DS), 1) . $dirName . $fileName . '.log';
             $this->_logInstance = Mage::getModel('core/log_adapter', $fileName);
+                //->setFilterDataKeys($this->_debugReplacePrivateDataKeys);
         }
         $this->_logInstance->log($debugData);
         return $this;
     }
 
     /**
-     * Log debug data to DB.
+     * Log Parsing info data to DB.
      *
-     * @param mixed $debugData
+     * @param array $messages array ('notice, error, success') Stableflow_Company_Model_Parser_Log_Message_Abstract
      * @return Stableflow_Company_Model_Parser_Abstract
      */
-    public function addDbLogComment($debugData)
+    public function addDbParserLog($messages)
     {
+        if (!$this->_logInstance) {
+            $this->_logDbInstance = Mage::getModel('company/parser_log');
+        }
+        $this->_logDbInstance->log($messages);
         return $this;
     }
 }

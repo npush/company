@@ -115,40 +115,65 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      * @return bool
      * @throws Exception
      */
-    public function _run(Stableflow_Company_Model_Parser_Task $task)
+    public function runParsingProcess()
     {
-        $task->setProcessAt();
+        $this->getTask()->setProcessAt();
         //$params = array('object' => $this, 'field' => $field, 'value'=> $id);
         //$params = array_merge($params, $this->_getEventData());
         Mage::dispatchEvent($this->_eventPrefix.'_run_before', array($this->_eventObject => $this));
         // Iterate
         foreach($this->getSource() as $row){
-            if($_lastPos = $task->checkPosition($this->getSource()->key())){
+            if($_lastPos = $this->getTask()->checkPosition($this->getSource()->key())){
                 $this->getSource()->seek($_lastPos);
                 continue;
             }
-            $data = new Varien_Object(array(
-                'company_id'            => $task->getCompanyId(),
-                'task_id'               => $task->getId(),
-                'line_num'              => $this->getSource()->key(),
-                'content'               => serialize($row),
-                'raw_data'              => $row,
-                'catalog_product_id'    => null,
-                'company_product_id'    => null
-            ));
-            if($result = $this->update($data)) {
-                $task->setReadRowNum($this->getSource()->key());
+            Mage::dispatchEvent($this->_eventPrefix.'_update_before', array('update_data' => $row, 'message' => ''));
+            if(!$this->_isValidRow($row)){
+                // empty code
+                $this->addRowError(self::ERROR_INVALID_CODE, $this->_getLineNumber(), 'code');
+                $this->addMessageTemplate(self::ERROR_INVALID_CODE, 'code is invalid');
+                $message = Mage::getSingleton('company/parser_log_message')->error($row);
+                // next row
+                continue;
+            }
+            $updateRow = $this->findByCode($row, $this->_getCompanyId());
+            if($updateRow){
+                // found product
+                if($updateRow['company_product_id']){
+                    //update company product
+                    $this->_productRoutine($updateRow, self::BEHAVIOR_UPDATE);
+                }else{
+                    // add new company product
+                    $newProduct = $this->_productRoutine($updateRow, self::BEHAVIOR_ADD_NEW);
+                    $updateRow['company_product_id'] = $newProduct->getId();
+                }
+                $message = Mage::getSingleton('company/parser_log_message')->success(array_push($row, $updateRow['catalog_product_id'], $updateRow['company_product_id']));
             }else{
-                //Mage::exception('Stableflow_Company', 'error update', 0);
-                $this->addRowError($result['error_code'], $result['row'], $result['column']);
+                // code did not found
+                $this->addRowError(self::ERROR_CODE_NOT_FOUND, $this->_getLineNumber(), 'code');
+                $this->addMessageTemplate(self::ERROR_CODE_NOT_FOUND, 'code not found');
+                $message = Mage::getSingleton('company/parser_log_message')->error($row);
             }
         }
         Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));
-        $task->setComplete();
+        $this->getTask()->setComplete();
         return true;
     }
 
+    protected function _getCompanyId()
+    {
+        return $this->getTask()->getCompanyId();
+    }
 
+    protected function _getTaskId()
+    {
+        return $this->getTask()->getId();
+    }
+
+    protected function _getLineNumber()
+    {
+        return $this->getSource()->key();
+    }
     /**
      * Gather and save information about product entities.
      *
@@ -286,39 +311,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         return $this;
     }
 
-    /**
-     * Update / add new / delete Company Product
-     * @param $data Varien_Object
-     * @return Varien_Object
-     */
-    public function update($data)
-    {
-        $message = null;
-        Mage::dispatchEvent($this->_eventPrefix.'_update_before', array('update_data' => $data, 'message' => $message));
-        $row = $data->getRawData();
-        if(!$this->_isValidRow($row)){
-            // empty code
-            $message = Mage::getSingleton('company/parser_log_message')->error($data);
-        }elseif($result = $this->findByCode($row['code'], $data->getCompanyId(), $row['manufacturer'])){
-            // found product
-            if($result['company_product_id']){
-                //update company product
-                $this->_productRoutine($data, self::BEHAVIOR_UPDATE, $data->getCompanyId(), $result['catalog_product_id'], $result['company_product_id']);
-            }else{
-                // add new company product
-                $newProduct = $this->_productRoutine($data, self::BEHAVIOR_ADD_NEW, $data->getCompanyId(), $result['catalog_product_id']);
-                $result['company_product_id'] = $newProduct->getId();
-            }
-            $data->setCatalogProductId($result['catalog_product_id']);
-            $data->setCompanyProductId($result['company_product_id']);
-            $message = Mage::getSingleton('company/parser_log_message')->success($data);
-            }else{
-            // code did not found
-            $message = Mage::getSingleton('company/parser_log_message')->error($data);
-        }
-        Mage::dispatchEvent($this->_eventPrefix.'_update_after', array('update_data' => $data, 'message' => $message));
-        return $data;
-    }
+
 
     /**
      * Check row for valid data
@@ -335,50 +328,47 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     }
 
     /**
-     * @param $row Varien_Object
-     * @param $behavior int
-     * @param $companyId int
-     * @param $baseProductId int
-     * @param $productId int
+     * @param array $updateRow
+     * @param int $behavior
      * @return int
      */
-    protected function _productRoutine($row, $behavior, $companyId, $baseProductId, $productId = null)
+    protected function _productRoutine($updateRow, $behavior)
     {
         $product = Mage::getModel('company/product');
         switch($behavior){
             case self::BEHAVIOR_ADD_NEW :
                 $_data = array(
-                    'price' => $row->getRawData()['price'],
-                    'price_int' => $row->getRawData()['price_internal'],
-                    'price_wholesale' => $row->getRawData()['price_wholesale'],
-                    'catalog_product_id' =>  $baseProductId,
-                    'company_id'    => $companyId,
-                    'store_id'  => 0,
-                    'created_at' => Varien_Date::now(),
-                    'updated_at' => Varien_Date::now(),
+                    'price'             => $updateRow['price'],
+                    'price_int'         => $updateRow['price_internal'],
+                    'price_wholesale'   => $updateRow['price_wholesale'],
+                    'catalog_product_id' => $updateRow['catalog_product_id'],
+                    'company_id'        => $updateRow['company_id'],
+                    'store_id'          => 0,
+                    'created_at'        => Varien_Date::now(),
+                    'updated_at'        => Varien_Date::now(),
                 );
                 $product->addData($_data);
                 //$productId = 654321;
                 $productId = $product->save();
                 break;
             case self::BEHAVIOR_UPDATE :
-                $product->load($productId);
+                $product->load($updateRow['company_product_id']);
                 $_data = array(
-                    'price' => $row->getRawData()['price'],
-                    'price_int' => $row->getRawData()['price_internal'],
-                    'price_wholesale' => $row->getRawData()['price_wholesale'],
-                    'updated_at' => Varien_Date::now(),
+                    'price'             => $updateRow['price'],
+                    'price_int'         => $updateRow['price_internal'],
+                    'price_wholesale'   => $updateRow['price_wholesale'],
+                    'updated_at'        => Varien_Date::now(),
                 );
                 $product->addData($_data);
                 $product->save();
                 break;
             case self::BEHAVIOR_DISABLE :
-                $product->load($productId);
+                $product->load($updateRow['company_product_id']);
                 $product->setStatust(Stableflow_Company_Model_Product_Status::DISABLE);
                 $product->save();
                 break;
             case self::BEHAVIOR_DELETE :
-                $product->load($productId);
+                $product->load($updateRow['company_product_id']);
                 $product->delete();
                 break;
         }
@@ -387,13 +377,14 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
 
     /**
      * Find product by manufacture code
-     * @param $code string
-     * @param $companyId int
-     * @param $manufacturer string
+     * @param array $row
+     * @param int $companyId
      * @return array
      */
-    public function findByCode($code, $companyId, $manufacturer)
+    public function findByCode($row, $companyId)
     {
+        $code = $row['code'];
+        $manufacturer =$row['manufacturer'];
         $companyProductId = null;
         $catalogProductId = null;
         $manufacturerId = $this->getManufacturerIdByName($manufacturer);
@@ -418,10 +409,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                     ->initCache(Mage::app()->getCache(),'parser_company_product_collection',array('SOME_TAGS'))
                     ->getFirstItem()
                     ->getId();
-                return array(
+                return array_merge($row, array(
                     'catalog_product_id' => $catalogProductId,
-                    'company_product_id' => $companyProductId
-                );
+                    'company_product_id' => $companyProductId,
+                    'company_id'         => $companyId
+                ));
             }
         }
         return null;

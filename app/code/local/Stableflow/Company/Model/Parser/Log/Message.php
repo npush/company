@@ -12,20 +12,20 @@ class Stableflow_Company_Model_Parser_Log_Message
     const MESSAGE_WARNING   = 'warning'; //2;
     const MESSAGE_SUCCESS   = 'success'; //3;
 
-    protected function _factory($code, $type)
+    protected function _factory($data, $type)
     {
         switch (strtolower($type)) {
             case self::MESSAGE_ERROR :
-                $message = new Stableflow_Company_Model_Parser_Log_Message_Error($code);
+                $message = new Stableflow_Company_Model_Parser_Log_Message_Error($data);
                 break;
             case self::MESSAGE_WARNING :
-                $message = new Stableflow_Company_Model_Parser_Log_Message_Warning($code);
+                $message = new Stableflow_Company_Model_Parser_Log_Message_Warning($data);
                 break;
             case self::MESSAGE_SUCCESS :
-                $message = new Stableflow_Company_Model_Parser_Log_Message_Success($code);
+                $message = new Stableflow_Company_Model_Parser_Log_Message_Success($data);
                 break;
             default:
-                $message = new Stableflow_Company_Model_Parser_Log_Message_Success($code);
+                $message = new Stableflow_Company_Model_Parser_Log_Message_Success($data);
                 break;
         }
         return $message;
@@ -33,31 +33,31 @@ class Stableflow_Company_Model_Parser_Log_Message
 
     /**
      * Error message instance
-     * @param $code array
-     * @return Stableflow_Company_Model_Parser_Log_Message_Error
+     * @param $data array
+     * @return Stableflow_Company_Model_Parser_Log_Message_Abstract
      */
-    public function error($code)
+    public function error($data)
     {
-        return $this->_factory($code, self::MESSAGE_ERROR);
+        return $this->_factory($data, self::MESSAGE_ERROR);
     }
 
     /**
      * Error message instance
-     * @param $code array
-     * @return Stableflow_Company_Model_Parser_Log_Message_Warning
+     * @param $data array
+     * @return Stableflow_Company_Model_Parser_Log_Message_Abstract
      */
-    public function warning($code)
+    public function warning($data)
     {
-        return $this->_factory($code, self::MESSAGE_WARNING);
+        return $this->_factory($data, self::MESSAGE_WARNING);
     }
 
     /**
      * Error message instance
-     * @param $code array
-     * @return Stableflow_Company_Model_Parser_Log_Message_Success
+     * @param $data array
+     * @return Stableflow_Company_Model_Parser_Log_Message_Abstract
      */
-    public function success($code)
+    public function success($data)
     {
-        return $this->_factory($code, self::MESSAGE_SUCCESS);
+        return $this->_factory($data, self::MESSAGE_SUCCESS);
     }
 }

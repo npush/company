@@ -6,8 +6,11 @@
  * Date: 9/20/17
  * Time: 12:44 PM
  */
-class Stableflow_Company_Model_Parser_Log_Message_Abstract
+class Stableflow_Company_Model_Parser_Log_Message_Abstract implements ArrayAccess
 {
+
+    protected $_messages = array();
+
     /**
      * Message type ERROR | SUCCESS | WARNING
      * @var string
@@ -45,18 +48,40 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
 
     protected $_identifier;
 
-    public function __construct($type, $data='')
+    public function __construct($type, $data)
     {
+        $this->_messages[] = $data;
         $this->_type = $type;
 
-        $this->_taskId = $data->getTaskId();
-        list($this->_sheetId, $this->_lineNum) = explode(':', $data->getLineNum());
-        $this->_content = $data->getContent();
-        $this->_companyProductId = $data->getCompanyProductId();
-        $this->_catalogProductId = $data->getCatalogProductId();
+        $this->_taskId = $data['task_id'];
+        list($this->_sheetId, $this->_lineNum) = explode(':', $data['line_num']);
+        //$this->_content = $data->getContent();
+        $this->_companyProductId = $data['company_product_id'];
+        $this->_catalogProductId = $data['catalog_product_id'];
 
-        $this->_code = $data->getRawData()['code'];
+        $this->_code = $data['code'];
     }
+
+    public function offsetSet($offset, $message) {
+        if (is_null($offset)) {
+            $this->_messages[] = $message;
+        } else {
+            $this->_messages[$offset] = $message;
+        }
+    }
+
+    public function offsetExists($offset) {
+        return isset($this->_messages[$offset]);
+    }
+
+    public function offsetUnset($offset) {
+        unset($this->_messages[$offset]);
+    }
+
+    public function offsetGet($offset) {
+        return isset($this->_messages[$offset]) ? $this->_messages[$offset] : null;
+    }
+
 
     public function getCode()
     {

@@ -86,6 +86,13 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     protected $_source;
 
     /**
+     * Task model.
+     *
+     * @var Stableflow_Company_Model_Parser_Task
+     */
+    protected $_task;
+
+    /**
      * Constructor.
      *
      */
@@ -94,20 +101,20 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
 //        $entityType = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
 //        $this->_entityTypeId    = $entityType->getEntityTypeId();
 //        $this->_dataSourceModel = Mage_ImportExport_Model_Import::getDataSourceModel();
-        $this->_connection      = Mage::getSingleton('core/resource')->getConnection('write');
+        $this->_connection = Mage::getSingleton('core/resource')->getConnection('write');
     }
 
     /**
      * Add error with corresponding current data source row number.
      *
      * @param string $errorCode Error code or simply column name
-     * @param int $errorRowNum Row number.
+     * @param string $errorRowNum Page and Row number.
      * @param string $colName OPTIONAL Column name.
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
     public function addRowError($errorCode, $errorRowNum, $colName = null)
     {
-        $this->_errors[$errorCode][] = array($errorRowNum + 1, $colName); // one added for human readability
+        $this->_errors[$errorCode][] = array($errorRowNum, $colName); // one added for human readability
         $this->_invalidRows[$errorRowNum] = true;
         $this->_errorsCount ++;
 
@@ -230,6 +237,26 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     }
 
     /**
+     * Task object getter.
+     *
+     * @throws Exception
+     * @return Stableflow_Company_Model_Parser_Task
+     */
+    public function getTask()
+    {
+        if (!$this->_task) {
+            Mage::throwException(Mage::helper('company')->__('Task is not set'));
+        }
+        return $this->_task;
+    }
+
+    public function setTask(Stableflow_Company_Model_Parser_Task $task)
+    {
+        $this->_task = $task;
+        return $this;
+    }
+
+    /**
      * Validate data.
      *  Check Fields (Price Code Manufacturer Company)
      * @throws Exception
@@ -243,4 +270,7 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
             );
         }
     }
+
+    abstract function runParsingProcess();
+
 }
