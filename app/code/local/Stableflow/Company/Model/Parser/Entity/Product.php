@@ -103,6 +103,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         self::ERROR_BASE_PRODUCT_NOT_FOUND       => 'Base product not found',
     );
 
+    const SUCCESS = 'OK';
+
     protected $_eventPrefix = 'company_parser_entity_product';
     protected $_eventObject = 'product';
 
@@ -131,8 +133,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             if(!$this->_isValidRow($row)){
                 // empty code
                 $this->addRowError(self::ERROR_INVALID_CODE, $this->_getLineNumber(), 'code');
-                $this->addMessageTemplate(self::ERROR_INVALID_CODE, 'code is invalid');
-                $message = Mage::getSingleton('company/parser_log_message')->error($row);
+                $this->addMessage(self::ERROR_INVALID_CODE, $this->getMessageEntity()->error($row));
                 // next row
                 continue;
             }
@@ -147,12 +148,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                     $newProduct = $this->_productRoutine($updateRow, self::BEHAVIOR_ADD_NEW);
                     $updateRow['company_product_id'] = $newProduct->getId();
                 }
-                $message = Mage::getSingleton('company/parser_log_message')->success(array_push($row, $updateRow['catalog_product_id'], $updateRow['company_product_id']));
+                $this->addMessage(self::SUCCESS, $this->getMessageEntity()->success($updateRow));
             }else{
                 // code did not found
                 $this->addRowError(self::ERROR_CODE_NOT_FOUND, $this->_getLineNumber(), 'code');
-                $this->addMessageTemplate(self::ERROR_CODE_NOT_FOUND, 'code not found');
-                $message = Mage::getSingleton('company/parser_log_message')->error($row);
+                $this->addMessage(self::ERROR_CODE_NOT_FOUND, $this->getMessageEntity()->error($row));
             }
         }
         Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));

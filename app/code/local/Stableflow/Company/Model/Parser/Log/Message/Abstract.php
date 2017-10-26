@@ -47,20 +47,14 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
 
     public function __construct($type, $data)
     {
-        $this->setIdentifier(new Varien_Date());
+        $this->setIdentifier(Varien_Date::now());
         $this->_type = $type;
         $this->_taskId = $data['task_id'];
         list($this->_sheetId, $this->_lineNum) = explode(':', $data['line_num']);
         //$this->_content = $data->getContent();
         $this->_companyProductId = $data['company_product_id'];
         $this->_catalogProductId = $data['catalog_product_id'];
-
         $this->_code = $data['code'];
-    }
-
-    public function getCode()
-    {
-        return $this->_code;
     }
 
     /**
@@ -72,6 +66,10 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
         return json_encode($this->_content);
     }
 
+    /**
+     * Message type
+     * @return string
+     */
     public function getType()
     {
         return $this->_type;

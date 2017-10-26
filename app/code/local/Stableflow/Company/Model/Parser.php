@@ -120,7 +120,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     /**
      *
      */
-    public function runQueue()
+    public function performTasksInQueue()
     {
         $this->addLogComment(Mage::helper('company')->__('Begin import'));
         /** @var Stableflow_Company_Model_Resource_Parser_Queue_Collection $queueCollection */

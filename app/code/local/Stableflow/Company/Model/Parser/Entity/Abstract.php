@@ -37,18 +37,12 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     protected $_invalidRows = array();
 
     /**
-     * Validation failure message template definitions.
+     * Parsing process messages.
      *
-     * @var array
+     * @var array Stableflow_Company_Model_Parser_Log_Message
      */
-    protected $_messageTemplates = array();
+    protected $_messages = array();
 
-    /**
-     * Notice messages.
-     *
-     * @var array
-     */
-    protected $_notices = array();
 
     /**
      * Entity model parameters.
@@ -93,6 +87,11 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     protected $_task;
 
     /**
+     * @var Stableflow_Company_Model_Parser_Log_Message
+     */
+    protected $_messagesEntity;
+
+    /**
      * Constructor.
      *
      */
@@ -102,6 +101,7 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
 //        $this->_entityTypeId    = $entityType->getEntityTypeId();
 //        $this->_dataSourceModel = Mage_ImportExport_Model_Import::getDataSourceModel();
         $this->_connection = Mage::getSingleton('core/resource')->getConnection('write');
+        $this->_messagesEntity = Mage::getSingleton('company/parser_log_message');
     }
 
     /**
@@ -128,9 +128,9 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      * @param string $message Message template
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
-    public function addMessageTemplate($errorCode, $message)
+    public function addMessage($errorCode, $message)
     {
-        $this->_messageTemplates[$errorCode] = $message;
+        $this->_messages[$errorCode] = $message;
 
         return $this;
     }
@@ -234,6 +234,18 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
         $this->_dataValidated = false;
 
         return $this;
+    }
+
+    /**
+     * @return Stableflow_Company_Model_Parser_Log_Message
+     * @throws Mage_Core_Exception
+     */
+    public function getMessageEntity()
+    {
+        if(!$this->_messagesEntity){
+            Mage::throwException(Mage::helper('company')->__('Message entity is not set'));
+        }
+        return $this->_messagesEntity;
     }
 
     /**
