@@ -6,11 +6,8 @@
  * Date: 9/20/17
  * Time: 12:44 PM
  */
-class Stableflow_Company_Model_Parser_Log_Message_Abstract implements ArrayAccess
+class Stableflow_Company_Model_Parser_Log_Message_Abstract
 {
-
-    protected $_messages = array();
-
     /**
      * Message type ERROR | SUCCESS | WARNING
      * @var string
@@ -50,9 +47,8 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract implements ArrayAcces
 
     public function __construct($type, $data)
     {
-        $this->_messages[] = $data;
+        $this->setIdentifier(new Varien_Date());
         $this->_type = $type;
-
         $this->_taskId = $data['task_id'];
         list($this->_sheetId, $this->_lineNum) = explode(':', $data['line_num']);
         //$this->_content = $data->getContent();
@@ -61,27 +57,6 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract implements ArrayAcces
 
         $this->_code = $data['code'];
     }
-
-    public function offsetSet($offset, $message) {
-        if (is_null($offset)) {
-            $this->_messages[] = $message;
-        } else {
-            $this->_messages[$offset] = $message;
-        }
-    }
-
-    public function offsetExists($offset) {
-        return isset($this->_messages[$offset]);
-    }
-
-    public function offsetUnset($offset) {
-        unset($this->_messages[$offset]);
-    }
-
-    public function offsetGet($offset) {
-        return isset($this->_messages[$offset]) ? $this->_messages[$offset] : null;
-    }
-
 
     public function getCode()
     {
