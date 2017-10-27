@@ -12,20 +12,20 @@ class Stableflow_Company_Model_Parser_Log_Message
     const MESSAGE_WARNING   = 'warning'; //2;
     const MESSAGE_SUCCESS   = 'success'; //3;
 
-    protected function _factory($data, $type, $text)
+    protected function _factory($rowData, $statusCode, $type)
     {
         switch (strtolower($type)) {
             case self::MESSAGE_ERROR :
-                $message = new Stableflow_Company_Model_Parser_Log_Message_Error($data, $text);
+                $message = new Stableflow_Company_Model_Parser_Log_Message_Error($rowData, $statusCode);
                 break;
             case self::MESSAGE_WARNING :
-                $message = new Stableflow_Company_Model_Parser_Log_Message_Warning($data, $text);
+                $message = new Stableflow_Company_Model_Parser_Log_Message_Warning($rowData, $statusCode);
                 break;
             case self::MESSAGE_SUCCESS :
-                $message = new Stableflow_Company_Model_Parser_Log_Message_Success($data, $text);
+                $message = new Stableflow_Company_Model_Parser_Log_Message_Success($rowData, $statusCode);
                 break;
             default:
-                $message = new Stableflow_Company_Model_Parser_Log_Message_Success($data, $text);
+                $message = new Stableflow_Company_Model_Parser_Log_Message_Success($rowData, $statusCode);
                 break;
         }
         return $message;
@@ -33,34 +33,34 @@ class Stableflow_Company_Model_Parser_Log_Message
 
     /**
      * Error message instance
-     * @param $data array
-     * @param $text string
+     * @param $rowData array
+     * @param $statusCode string
      * @return Stableflow_Company_Model_Parser_Log_Message_Abstract
      */
-    public function error($data, $text = self::MESSAGE_ERROR)
+    public function error($rowData, $statusCode)
     {
-        return $this->_factory($data, self::MESSAGE_ERROR, $text);
+        return $this->_factory($rowData, $statusCode, self::MESSAGE_ERROR);
     }
 
     /**
      * Error message instance
-     * @param $data array
-     * @param $text string
+     * @param $rowData array
+     * @param $statusCode string
      * @return Stableflow_Company_Model_Parser_Log_Message_Abstract
      */
-    public function warning($data, $text = self::MESSAGE_WARNING)
+    public function warning($rowData, $statusCode)
     {
-        return $this->_factory($data, self::MESSAGE_WARNING, $text);
+        return $this->_factory($rowData, $statusCode, self::MESSAGE_WARNING);
     }
 
     /**
      * Error message instance
-     * @param $data array
-     * @param $text string
+     * @param $rowData array
+     * @param $statusCode string
      * @return Stableflow_Company_Model_Parser_Log_Message_Abstract
      */
-    public function success($data, $text = self::MESSAGE_SUCCESS)
+    public function success($rowData, $statusCode)
     {
-        return $this->_factory($data, self::MESSAGE_SUCCESS, $text);
+        return $this->_factory($rowData, $statusCode, self::MESSAGE_SUCCESS);
     }
 }

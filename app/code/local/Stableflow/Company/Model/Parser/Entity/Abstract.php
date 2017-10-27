@@ -43,7 +43,6 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      */
     protected $_messages = array();
 
-
     /**
      * Entity model parameters.
      *
@@ -107,50 +106,48 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     /**
      * Add error with corresponding current data source row number.
      *
-     * @param string $errorCode Error code or simply column name
-     * @param string $errorRowNum Page and Row number.
-     * @param string $colName OPTIONAL Column name.
+     * @param Stableflow_Company_Model_Parser_Log_Message_Abstract $message Message template
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
-    public function addRowError($errorCode, $errorRowNum, $colName = null)
+    public function addRowError($message)
     {
-        $this->_errors[$errorCode][] = array($errorRowNum, $colName); // one added for human readability
+        $statusCode = $message->getStatusCode();
+        $errorRowNum = $message->getErrorRowNum();
+        $this->_errors[$statusCode][] = $message;
         $this->_invalidRows[$errorRowNum] = true;
         $this->_errorsCount ++;
-
         return $this;
     }
 
     /**
-     * Add message template for specific error code from outside.
+     * Add message template for specific status code from outside.
      *
-     * @param string $errorCode Error code
-     * @param string $message Message template
+     * @param Stableflow_Company_Model_Parser_Log_Message_Abstract $message Message template
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
-    public function addMessage($errorCode, $message)
+    public function addMessage($message)
     {
-        $this->_messages[$errorCode] = $message;
+        $statusCode = $message->getStatusCode();
+        $this->_messages[$statusCode] = $message;
 
         return $this;
     }
 
     /**
-     * Returns error information grouped by error types and translated (if possible).
+     * Returns information grouped by status code and translated (if possible).
      *
      * @return array
      */
-    public function getErrorMessages()
+    public function getMessages()
     {
-        $translator = Mage::helper('company');
-        $messages   = array();
+        $messages = array();
 
-        foreach ($this->_errors as $errorCode => $errorRows) {
-            if (isset($this->_messageTemplates[$errorCode])) {
-                $errorCode = $translator->__($this->_messageTemplates[$errorCode]);
+        foreach ($this->_errors as $statusCode => $errorRows) {
+            if (isset($this->_messages[$statusCode])) {
+                $statusCode = Mage::helper('company')->__($this->_messages[$statusCode]);
             }
             foreach ($errorRows as $errorRowData) {
-                $key = $errorRowData[1] ? sprintf($errorCode, $errorRowData[1]) : $errorCode;
+                $key = $errorRowData[1] ? sprintf($statusCode, $errorRowData[1]) : $statusCode;
                 $messages[$key][] = $errorRowData[0];
             }
         }
@@ -175,16 +172,6 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     public function getInvalidRowsCount()
     {
         return count($this->_invalidRows);
-    }
-
-    /**
-     * Returns model notices.
-     *
-     * @return array
-     */
-    public function getNotices()
-    {
-        return $this->_notices;
     }
 
     /**

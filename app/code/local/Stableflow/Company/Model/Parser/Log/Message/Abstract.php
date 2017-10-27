@@ -45,7 +45,9 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
 
     protected $_identifier;
 
-    public function __construct($type, $data)
+    protected $_statusCode;
+
+    public function __construct($rowData, $statusCode)
     {
         $this->setIdentifier(Varien_Date::now());
         $this->_type = $type;

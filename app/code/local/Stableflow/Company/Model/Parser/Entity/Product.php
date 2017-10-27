@@ -22,70 +22,63 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     const BUNCH_SIZE = 20;
 
-    /**
-     * Default Scope
-     */
-    const SCOPE_DEFAULT = 1;
-
-    /**
-     * Website Scope
-     */
-    const SCOPE_WEBSITE = 2;
-
-    /**
-     * Store Scope
-     */
-    const SCOPE_STORE   = 0;
-
     /**#@+
      * Permanent column names.
      *
      */
 
-    const COL_PRICE         = 'price';
-    const COL_CODE          = 'code';
-    const COL_MANUFACTURER  = 'manufacturer';
-    const COL_COMPANY       = 'company';
-
-    /**#@+
-     * Error codes.
-     */
-    const ERROR_INVALID_SCOPE                = 'invalidScope';
-
-    /**
-     * Error - invalid website
-     */
-    const ERROR_INVALID_WEBSITE              = 'invalidWebsite';
-
-    /**
-     * Error - invalid store
-     */
-    const ERROR_INVALID_STORE                = 'invalidStore';
+    const COL_PRICE             = 'price';
+    const COL_WHOLESALE_PRICE   = 'wholesale price';
+    const COL_INTERNAL_PRICE    = 'internal price';
+    const COL_CODE              = 'code';
+    const COL_QTY               = 'qty';
+    const COL_MANUFACTURER      = 'manufacturer';
+    const COL_COMPANY           = 'company';
 
     /**
      * Error - invalid price
      */
-    const ERROR_INVALID_PRICE                = 'invalidPrice';
+    const ERROR_INVALID_PRICE           = 'invalidPrice';
 
     /**
      * Error - invalid code
      */
-    const ERROR_INVALID_CODE                = 'invalidCode';
+    const ERROR_INVALID_CODE            = 'invalidCode';
 
     /**
      * Error - code no found
      */
-    const ERROR_CODE_NOT_FOUND              = 'codeNotFound';
+    const ERROR_CODE_NOT_FOUND          = 'codeNotFound';
 
     /**
      * Error - Manufacturer not found
      */
-    const ERROR_MANUFACTURER_NOT_FOUND      = 'manufacturerNotFound';
+    const ERROR_MANUFACTURER_NOT_FOUND  = 'manufacturerNotFound';
 
     /**
      * Error - Base product with code not found
      */
-    const ERROR_BASE_PRODUCT_NOT_FOUND      = 'baseProductNotFound';
+    const ERROR_BASE_PRODUCT_NOT_FOUND  = 'baseProductNotFound';
+
+    /**
+     * SUCCESS - Company product added
+     */
+    const SUCCESS_PRODUCT_ADDED         = 'ProductAdded';
+
+    /**
+     * SUCCESS - Company product updated
+     */
+    const SUCCESS_PRODUCT_UPDATED       = 'ProductUpdated';
+
+    /**
+     * SUCCESS - Company product disabled
+     */
+    const SUCCESS_PRODUCT_DISABLED      = 'ProductDisabled';
+
+    /**
+     * SUCCESS - Company product deleted
+     */
+    const SUCCESS_PRODUCT_DELETED       = 'ProductDeleted';
 
     /**
      * Validation failure message template definitions
@@ -93,17 +86,16 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      * @var array
      */
     protected $_messageTemplates = array(
-        self::ERROR_INVALID_SCOPE                => 'Invalid Scope',
-        self::ERROR_INVALID_WEBSITE              => 'Invalid Website',
-        self::ERROR_INVALID_STORE                => 'Invalid Store',
-        self::ERROR_INVALID_PRICE                => 'Invalid Price',
-        self::ERROR_INVALID_CODE                 => 'Invalid Code',
-        self::ERROR_CODE_NOT_FOUND               => 'Code Not Found',
-        self::ERROR_MANUFACTURER_NOT_FOUND       => 'Manufacturer not found',
-        self::ERROR_BASE_PRODUCT_NOT_FOUND       => 'Base product not found',
+        self::ERROR_INVALID_PRICE               => 'Invalid Price',
+        self::ERROR_INVALID_CODE                => 'Invalid Code',
+        self::ERROR_CODE_NOT_FOUND              => 'Code Not Found',
+        self::ERROR_MANUFACTURER_NOT_FOUND      => 'Manufacturer not found',
+        self::ERROR_BASE_PRODUCT_NOT_FOUND      => 'Base product not found',
+        self::SUCCESS_PRODUCT_ADDED             => 'Company product added',
+        self::SUCCESS_PRODUCT_UPDATED           => 'Company product updated',
+        self::SUCCESS_PRODUCT_DISABLED          => 'Company product disabled',
+        self::SUCCESS_PRODUCT_DELETED           => 'Company product deleted',
     );
-
-    const SUCCESS = 'OK';
 
     protected $_eventPrefix = 'company_parser_entity_product';
     protected $_eventObject = 'product';
@@ -133,7 +125,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             if(!$this->_isValidRow($row)){
                 // empty code
                 $this->addRowError(self::ERROR_INVALID_CODE, $this->_getLineNumber(), 'code');
-                $this->addMessage(self::ERROR_INVALID_CODE, $this->getMessageEntity()->error($row));
+                $this->addMessage($this->getMessageEntity()->error($row, self::ERROR_INVALID_CODE));
                 // next row
                 continue;
             }
