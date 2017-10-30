@@ -106,14 +106,14 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     /**
      * Add error with corresponding current data source row number.
      *
-     * @param Stableflow_Company_Model_Parser_Log_Message_Abstract $message Message template
+     * @param string $statusCode Error code or simply column name
+     * @param int $errorRowNum Row number.
+     * @param array $row
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
-    public function addRowError($message)
+    public function addRowError($statusCode, $errorRowNum, $row)
     {
-        $statusCode = $message->getStatusCode();
-        $errorRowNum = $message->getErrorRowNum();
-        $this->_errors[$statusCode][] = $message;
+        $this->_errors[$statusCode][] = $this->getMessageEntity()->error($row, $statusCode);
         $this->_invalidRows[$errorRowNum] = true;
         $this->_errorsCount ++;
         return $this;
@@ -122,13 +122,15 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     /**
      * Add message template for specific status code from outside.
      *
-     * @param Stableflow_Company_Model_Parser_Log_Message_Abstract $message Message template
+     * @param string $type Error code or simply column name
+     * @param string $statusCode
+     * @param array $row
+     * @param string $text
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
-    public function addMessage($message)
+    public function addMessage($type, $statusCode, $row, $text)
     {
-        $statusCode = $message->getStatusCode();
-        $this->_messages[$statusCode] = $message;
+        $this->_messages[$statusCode] = $this->getMessageEntity()->$$type($row, $text);
 
         return $this;
     }

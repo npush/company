@@ -138,7 +138,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                 $sourceFile
             );
             $this->_getEntityAdapter()->setSource($sourceAdapter)->setTask($_taskInQueue->getTask());
-            $this->validateSource($_taskInQueue->getTask(), $sourceFile);
+            $this->validateSource($sourceFile);
             $this->_getEntityAdapter()->runParsingProcess();
             $this->addLogComment(array(
                 Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
@@ -150,8 +150,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
             ));
             $this->addDbParserLog(array(
                 'notices'    => $this->getNotices(),
-                'errors'    => $this->getErrors(),
-                'success'   => $this->getSuccess()
+                'errors'    => $this->getErrors()
             ));
             $_taskInQueue->setComplete();
         }
@@ -171,7 +170,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
             $task->getConfig(),
             $sourceFile
         );
-        $this->_getEntityAdapter()->setSource($sourceAdapter)->setTask($task->getTask());
+        $this->_getEntityAdapter()->setSource($sourceAdapter)->setTask($task);
         $this->validateSource($sourceFile);
         $this->_getEntityAdapter()->runParsingProcess();
         $this->addLogComment(array(
