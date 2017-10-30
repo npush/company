@@ -111,7 +111,7 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      * @param array $row
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
-    public function addRowError($statusCode, $errorRowNum, $row)
+    public function addRowError($statusCode, $row, $processData, $errorRowNum)
     {
         $this->_errors[$statusCode][] = $this->getMessageEntity()->error($row, $statusCode);
         $this->_invalidRows[$errorRowNum] = true;

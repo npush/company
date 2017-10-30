@@ -8,9 +8,9 @@
  */
 class Stableflow_Company_Model_Parser_Log_Message_Error extends Stableflow_Company_Model_Parser_Log_Message_Abstract
 {
-    public function __construct($rowData, $statusCode)
+    public function __construct($type, $statusCode, $rowData, $processData)
     {
-        parent::__construct($rowData, $statusCode);
+        parent::__construct($type, $statusCode, $rowData, $processData);
     }
 
 }

@@ -14,58 +14,26 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
      */
     protected $_type;
 
-    /**
-     * Task ID
-     * @var int
-     */
-    protected $_taskId;
+    protected $_statusCode;
+
+    protected $_data = array();
 
     /**
-     * Line number
-     * @var int
-     */
-    protected $_lineNum;
-
-
-    /**
-     * Sheet Id
-     * @var int
-     */
-    protected $_sheetId;
-
-    /**
+     * string content
      * @var array
      */
     protected $_content;
 
-    protected $_companyProductId;
-    protected $_catalogProductId;
-
-    protected $_code;
-
     protected $_identifier;
 
-    protected $_statusCode;
 
-    public function __construct($rowData, $statusCode)
+    public function __construct($type, $statusCode, $rowData, $processData)
     {
-        $this->setIdentifier(Varien_Date::now());
+        $this->_identifier = Varien_Date::now();
+        $this->_statusCode = $statusCode;
         $this->_type = $type;
-        $this->_taskId = $data['task_id'];
-        list($this->_sheetId, $this->_lineNum) = explode(':', $data['line_num']);
-        //$this->_content = $data->getContent();
-        $this->_companyProductId = $data['company_product_id'];
-        $this->_catalogProductId = $data['catalog_product_id'];
-        $this->_code = $data['code'];
-    }
-
-    /**
-     * Get code message
-     * @return string
-     */
-    public function getText()
-    {
-        return json_encode($this->_content);
+        $this->_data = $processData;
+        $this->_content = $rowData;
     }
 
     /**
@@ -75,32 +43,6 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
     public function getType()
     {
         return $this->_type;
-    }
-
-    public function toString()
-    {
-        $out = $this->getType().': '.$this->getText();
-        return $out;
-    }
-
-    public function getProductReference()
-    {
-        return array(
-            'catalog_product_id' => $this->_catalogProductId,
-            'company_product_id' => $this->_companyProductId
-        );
-    }
-
-    /**
-     * Set message identifier
-     *
-     * @param string $id
-     * @return Stableflow_Company_Model_Parser_Log_Message_Abstract
-     */
-    public function setIdentifier($id)
-    {
-        $this->_identifier = $id;
-        return $this;
     }
 
     /**
@@ -113,10 +55,37 @@ class Stableflow_Company_Model_Parser_Log_Message_Abstract
         return $this->_identifier;
     }
 
+    /**
+     * Get raw string content
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->_content;
+    }
+
+    public function getSheetName()
+    {
+        $lineNum = explode(':', $this->_data['line_num']);
+        return $lineNum[0];
+    }
+
+    public function getLineNumber()
+    {
+        $lineNum = explode(':', $this->_data['line_num']);
+        return $lineNum[1];
+    }
+
+    public function getProcessedData()
+    {
+        return $this->_data;
+    }
+
+
     public function _debugInfo()
     {
         $out = sprintf("Message: %s. In Sheet ID:%d : Row Num:%d. ManufCode: %s. Company prod Id: %d. Catalog prod Id: %d.\n",
-            $this->getType(), $this->_sheetId, $this->_lineNum, $this->getCode(), $this->_companyProductId, $this->_catalogProductId
+            $this->getType(), $this->getSheetName(), $this->getLineNumber(), $this->_data['code'], $this->_data['company_product_id'], $this->_data['catalog_product_id']
         );
 
         return $out;

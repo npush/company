@@ -11,7 +11,7 @@ $_helper = $this->helper('catalog/output');
 ?>
 <div class="label-product clearfix">
     <?php if ($_product->getData('news_from_date')): ?>
-       <!-- <span type="button" class="label-span label-yellow"><?php echo $this->__('New');?></span>-->
+        <span type="button" class="label-span label-yellow"><?php echo $this->__('New');?></span>
     <?php endif; ?>
     <?php if ($_product->getData('sale')): ?>
         <span type="button" class="label-span label-primary"><?php echo $this->__('Sale');?></span>
@@ -19,8 +19,7 @@ $_helper = $this->helper('catalog/output');
     <?php if ($_product->getData('promo')): ?>
         <span type="button" class="label-span label-yellow-light"><?php echo $this->__('Promo');?></span>
     <?php endif; ?>
-    <?php if ($_product->getData('out_of_production')|| true ): ?>
-<!--        <span type="button" class="label-span label-grey">--><?php //echo $this->__('Out of production');?><!--</span>-->
-        <span type="button" class="label-span label-grey"><?php echo $_product->getData('out_of_production') + "" ;?></span>
+    <?php if ($_product->getData('out_of_production')): ?>
+        <span type="button" class="label-span label-grey"><?php echo $this->__('Out of production');?></span>
     <?php endif; ?>
 </div>

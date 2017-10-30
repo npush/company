@@ -54,7 +54,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
      */
     public function getErrors()
     {
-        return $this->_getEntityAdapter()->getErrorMessages();
+        return $this->_getEntityAdapter()->getMessages();
     }
 
     /**
@@ -84,7 +84,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
      */
     public function getNotices()
     {
-        return $this->_getEntityAdapter()->getNotices();
+        return true; //$this->_getEntityAdapter()->getNotices();
     }
 
     /**
