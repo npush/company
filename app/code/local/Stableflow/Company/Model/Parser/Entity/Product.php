@@ -131,34 +131,36 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         Mage::dispatchEvent($this->_eventPrefix.'_run_before', array($this->_eventObject => $this));
         // Iterate
         foreach($this->getSource() as $row){
-            if($_lastPos = $this->getTask()->checkPosition($this->getSource()->key())){
+            if($_lastPos = $this->getTask()->checkPosition($this->_getLineNumber())){
                 $this->getSource()->seek($_lastPos);
                 continue;
             }
             if(!$this->_isValidRow($row)){
+                $this->addRowError(self::ERROR_UNKNOWN, $row, array(), $this->_getLineNumber());
                 continue;
             }
             // $code, $manufacturer, $companyId
-            $updateRow = array_replace($this->_processedData, $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId()));
+            $updateRow = $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId());
+            if(!is_array($updateRow)){
+                $this->addRowError($updateRow, $row, array(), $this->_getLineNumber());
+                continue;
+            }
+            $updateRow = array_replace($this->_processedData, $updateRow);
             $updateRow['task_id'] = $this->_getTaskId();
             $updateRow['line_num'] = $this->_getLineNumber();
-            if($updateRow){
-                // found product
-                if($updateRow['company_product_id']){
-                    //update company product
-                    $this->_productRoutine($row, $updateRow, self::BEHAVIOR_UPDATE);
-                }else{
-                    // add new company product
-                    $newProduct = $this->_productRoutine($row, $updateRow, self::BEHAVIOR_ADD_NEW);
-                    $updateRow['company_product_id'] = $newProduct->getId();
-                }
-                //$this->addMessage(self::SUCCESS, $this->getMessageEntity()->success($updateRow));
+
+            // found product
+            if($updateRow['company_product_id']){
+                //update company product
+                $this->_productRoutine($row, $updateRow, self::BEHAVIOR_UPDATE);
             }else{
-                // code did not found
-                //$this->addRowError(self::ERROR_CODE_NOT_FOUND, $this->_getLineNumber(), 'code');
-                //$this->addMessage(self::ERROR_CODE_NOT_FOUND, $this->getMessageEntity()->error($row));
+                // add new company product
+                $newProduct = $this->_productRoutine($row, $updateRow, self::BEHAVIOR_ADD_NEW);
+                $updateRow['company_product_id'] = $newProduct->getId();
             }
-            Mage::log($updateRow, null, 'demo.log');
+            //$this->addMessage(self::SUCCESS, $this->getMessageEntity()->success($updateRow));
+
+            Mage::log($updateRow, null, 'demo-product.log');
         }
         Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));
         $this->getTask()->setComplete();

@@ -107,13 +107,14 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      * Add error with corresponding current data source row number.
      *
      * @param string $statusCode Error code or simply column name
-     * @param int $errorRowNum Row number.
      * @param array $row
+     * @param array $processData
+     * @param int $errorRowNum Row number.
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
     public function addRowError($statusCode, $row, $processData, $errorRowNum)
     {
-        $this->_errors[$statusCode][] = $this->getMessageEntity()->error($row, $statusCode);
+        $this->_errors[$statusCode][] = array('processData' => $processData, 'content' => $row);
         $this->_invalidRows[$errorRowNum] = true;
         $this->_errorsCount ++;
         return $this;
