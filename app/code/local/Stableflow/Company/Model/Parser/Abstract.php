@@ -73,7 +73,7 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
             $this->_logDbInstance = Mage::getModel('company/parser_log');
         }
         foreach ($messages as $message){
-            Mage::log(print_r($message), null, 'demo-parser.log');
+            Mage::log($message, null, 'demo-parser.log');
             //$this->_logDbInstance->logBatch($message);
         }
         return $this;

@@ -371,16 +371,16 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                     'updated_at'        => Varien_Date::now(),
                 );
                 $product->addData($_data);
-                $product->save();
+                $productId = $product->save();
                 break;
             case self::BEHAVIOR_DISABLE :
                 $product->load($updateRow['company_product_id']);
                 $product->setStatust(Stableflow_Company_Model_Product_Status::DISABLE);
-                $product->save();
+                $productId = $product->save();
                 break;
             case self::BEHAVIOR_DELETE :
                 $product->load($updateRow['company_product_id']);
-                $product->delete();
+                $productId = $product->delete();
                 break;
         }
         return $productId;
