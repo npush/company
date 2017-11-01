@@ -131,7 +131,7 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
             foreach ($errorRows as $errorRowData) {
                 $key = sprintf("%s at %s",$statusCode, $errorRowData['row_number']);
                 unset($errorRowData['row_number']);
-                $errors[$key][] = $errorRowData;
+                $errors[$statusCode][$errorRowData['row_number']] = $errorRowData;
             }
         }
         return $errors;
