@@ -89,6 +89,16 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     }
 
     /**
+     * Returns entity model noticees.
+     *
+     * @return array
+     */
+    public function getMessages()
+    {
+        return $this->_getEntityAdapter()->getMessages();
+    }
+
+    /**
      * Returns number of checked entities.
      *
      * @return int
@@ -150,6 +160,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                 Mage::helper('company')->__('Import has been done successfully.')
             ));
             $this->addDbParserLog($this->getErrors());
+            Mage::log($this->getMessages(), null, 'success-product.log');
             $_taskInQueue->setComplete();
         }
     }
