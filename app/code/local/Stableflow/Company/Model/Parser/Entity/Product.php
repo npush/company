@@ -139,28 +139,30 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $this->addRowError(self::ERROR_UNKNOWN, $row, array(), $this->_getLineNumber());
                 continue;
             }
-            // $code, $manufacturer, $companyId
-            $updateRow = $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId());
-            if(!is_array($updateRow)){
-                $this->addRowError($updateRow, $row, array(), $this->_getLineNumber());
-                continue;
-            }
-            $updateRow = array_replace($this->_processedData, $updateRow);
+            $updateRow = $this->_processedData;
             $updateRow['task_id'] = $this->_getTaskId();
             $updateRow['line_num'] = $this->_getLineNumber();
+            $updateRow['company_id']        = $this->_getCompanyId();
+            $updateRow['manufacturer_id']   = $row['manufacturer'];
+            $updateRow['manufacturer_code'] = $row['code'];
+            try{
+                array_push($updateRow, $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId()));
+                // found product
+                if($updateRow['company_product_id']){
+                    //update company product
+                    $this->_productRoutine($row, $updateRow, self::BEHAVIOR_UPDATE);
+                }else{
+                    // add new company product
+                    $newProduct = $this->_productRoutine($row, $updateRow, self::BEHAVIOR_ADD_NEW);
+                    $updateRow['company_product_id'] = $newProduct->getId();
+                }
+                $this->addMessage(self::SUCCESS_PRODUCT_ADDED, $row, $updateRow, $this->_getLineNumber());
+            }catch (Stableflow_Company_Exception $e){
+                $this->addRowError($e->getMessage(), $row, $updateRow, $this->_getLineNumber());
+            }catch (Exception $e){
 
-            // found product
-            if($updateRow['company_product_id']){
-                //update company product
-                $this->_productRoutine($row, $updateRow, self::BEHAVIOR_UPDATE);
-            }else{
-                // add new company product
-                $newProduct = $this->_productRoutine($row, $updateRow, self::BEHAVIOR_ADD_NEW);
-                $updateRow['company_product_id'] = $newProduct->getId();
             }
-            //$this->addMessage(self::SUCCESS, $this->getMessageEntity()->success($updateRow));
-
-            Mage::log($updateRow, null, 'demo-product.log');
+            Mage::log($this->getMessages(), null, 'success-product.log');
         }
         Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));
         $this->getTask()->setComplete();
@@ -398,19 +400,16 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         $manufacturerId = $this->getManufacturerIdByName($manufacturer);
         if(!$manufacturerId){
             //manufacturer did not found
-            return self::ERROR_MANUFACTURER_NOT_FOUND;
+            Mage::throwException(self::ERROR_MANUFACTURER_NOT_FOUND);
         }
         $productCollection = $this->findBaseProductByCode($code, $manufacturerId);
         if($productCollection->getSize() == 0) {
             // base product did not found
-            return self::ERROR_BASE_PRODUCT_NOT_FOUND;
+            Mage::throwException(self::ERROR_BASE_PRODUCT_NOT_FOUND);
         }
         $result = array(
             'catalog_product_id' => null,
             'company_product_id' => null,
-            'company_id'        => $companyId,
-            'manufacturer_id'   => $manufacturerId,
-            'manufacturer_code' => $code,
         );
 
         // Base product found. Try to find company product

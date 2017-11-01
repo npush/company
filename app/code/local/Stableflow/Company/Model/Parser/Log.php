@@ -48,11 +48,15 @@ class Stableflow_Company_Model_Parser_Log extends Mage_Core_Model_Abstract
      * @param Stableflow_Company_Model_Parser_Log_Message_Abstract $message
      * @return $this
      */
-    public function log(Stableflow_Company_Model_Parser_Log_Message_Abstract $message)
+    public function log($status, $message)
     {
-        $this->addData(array(
-
-        ));
+        $this->setData('error_text', $status);
+        $this->setData('content', $this->toJson($message['content']));
+        if(count($message['process_data']) > 0) {
+            $this->setData('line', $this->toJson($message['row_number']));
+            $this->setData('task_id', $this->toJson($message['process_data']['task_id']));
+            $this->setData('task_id', $this->toJson($message['process_data']['task_id']));
+        }
         return $this;
     }
 

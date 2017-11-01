@@ -142,12 +142,17 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      * @param string $type Error code or simply column name
      * @param string $statusCode
      * @param array $row
-     * @param string $text
+     * @param array $processData
+     * @param string $rowNum
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
-    public function addMessage($type, $statusCode, $row, $text)
+    public function addMessage($statusCode, $row, $processData, $rowNum)
     {
-        $this->_messages[$statusCode] = $this->getMessageEntity()->$$type($row, $text);
+        $this->_messages[$statusCode][] = array(
+            'row_number' => $rowNum,
+            'process_data' => $processData,
+            'content' => $row
+        );
 
         return $this;
     }
@@ -161,16 +166,23 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     {
         $messages = array();
 
-        foreach ($this->_errors as $statusCode => $errorRows) {
-            if (isset($this->_messages[$statusCode])) {
-                $statusCode = Mage::helper('company')->__($this->_messages[$statusCode]);
-            }
-            foreach ($errorRows as $errorRowData) {
-                $key = $errorRowData[1] ? sprintf($statusCode, $errorRowData[1]) : $statusCode;
-                $messages[$key][] = $errorRowData[0];
+        foreach ($this->_messages as $statusCode => $rows){
+            foreach ($rows as $rowData) {
+                $messages[$statusCode][$rowData['row_number']] = $rowData;
             }
         }
         return $messages;
+
+//        foreach ($this->_errors as $statusCode => $errorRows) {
+//            if (isset($this->_messages[$statusCode])) {
+//                $statusCode = Mage::helper('company')->__($this->_messages[$statusCode]);
+//            }
+//            foreach ($errorRows as $errorRowData) {
+//                $key = $errorRowData[1] ? sprintf($statusCode, $errorRowData[1]) : $statusCode;
+//                $messages[$key][] = $errorRowData[0];
+//            }
+//        }
+//        return $messages;
     }
 
     /**
