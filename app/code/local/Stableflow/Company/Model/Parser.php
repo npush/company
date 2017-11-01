@@ -54,7 +54,8 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
      */
     public function getErrors()
     {
-        return $this->_getEntityAdapter()->getMessages();
+        //return $this->_getEntityAdapter()->getMessages();
+        return $this->_getEntityAdapter()->getErrors();
     }
 
     /**
@@ -148,9 +149,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                     $this->getErrorsCount()),
                 Mage::helper('company')->__('Import has been done successfully.')
             ));
-            $this->addDbParserLog(array(
-                'errors'    => $this->getErrors()
-            ));
+            $this->addDbParserLog($this->getErrors());
             $_taskInQueue->setComplete();
         }
     }
@@ -180,6 +179,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
                 $this->getErrorsCount()),
             Mage::helper('company')->__('Import has been done successfully. Task ID: %d', $task->getId())
         ));
+        $this->addDbParserLog($this->getErrors());
         $task->setComplete();
         return true;
     }

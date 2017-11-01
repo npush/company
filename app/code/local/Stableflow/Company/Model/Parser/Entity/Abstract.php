@@ -114,10 +114,27 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      */
     public function addRowError($statusCode, $row, $processData, $errorRowNum)
     {
-        $this->_errors[$statusCode][] = array('processData' => $processData, 'content' => $row);
+        $this->_errors[$statusCode][] = array(
+            'row_number' => $errorRowNum,
+            'process_data' => $processData,
+            'content' => $row
+        );
         $this->_invalidRows[$errorRowNum] = true;
         $this->_errorsCount ++;
         return $this;
+    }
+
+    public function getErrors()
+    {
+        $errors = array();
+        foreach ($this->_errors as $statusCode => $errorRows){
+            foreach ($errorRows as $errorRowData) {
+                $key = sprintf("%s at %s",$statusCode, $errorRowData['row_number']);
+                unset($errorRowData['row_number']);
+                $errors[$key][] = $errorRowData;
+            }
+        }
+        return $errors;
     }
 
     /**
