@@ -162,8 +162,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             }catch (Exception $e){
 
             }
-            Mage::log($this->getMessages(), null, 'success-product.log');
         }
+        Mage::log($this->getMessages(), null, 'success-product.log');
         Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));
         $this->getTask()->setComplete();
         return true;
