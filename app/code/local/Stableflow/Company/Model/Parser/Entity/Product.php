@@ -139,26 +139,26 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $this->addRowError(self::ERROR_UNKNOWN, $row, array(), $this->_getLineNumber());
                 continue;
             }
-            $updateRow = $this->_processedData;
-            $updateRow['task_id'] = $this->_getTaskId();
-            $updateRow['line_num'] = $this->_getLineNumber();
-            $updateRow['company_id']        = $this->_getCompanyId();
-            $updateRow['manufacturer_id']   = $row['manufacturer'];
-            $updateRow['manufacturer_code'] = $row['code'];
+            $updateData = $this->_processedData;
+            $updateData['task_id'] = $this->_getTaskId();
+            $updateData['line_num'] = $this->_getLineNumber();
+            $updateData['company_id']        = $this->_getCompanyId();
+            $updateData['manufacturer_id']   = $row['manufacturer'];
+            $updateData['manufacturer_code'] = $row['code'];
             try{
-                $updateRow = array_merge($updateRow, $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId()));
+                $updateData = array_merge($updateData, $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId()));
                 // found product
-                if($updateRow['company_product_id']){
+                if($updateData['company_product_id']){
                     //update company product
-                    $this->_productRoutine($row, $updateRow, self::BEHAVIOR_UPDATE);
+                    //$this->_productRoutine($row, $updateData, self::BEHAVIOR_UPDATE);
                 }else{
                     // add new company product
-                    $newProduct = $this->_productRoutine($row, $updateRow, self::BEHAVIOR_ADD_NEW);
-                    $updateRow['company_product_id'] = $newProduct->getId();
+                    //$newProduct = $this->_productRoutine($row, $updateData, self::BEHAVIOR_ADD_NEW);
+                    //$updateRow['company_product_id'] = $newProduct->getId();
                 }
-                $this->addMessage(self::SUCCESS_PRODUCT_ADDED, $row, $updateRow, $this->_getLineNumber());
+                $this->addMessage(self::SUCCESS_PRODUCT_ADDED, $row, $updateData, $this->_getLineNumber());
             }catch (Stableflow_Company_Exception $e){
-                $this->addRowError($e->getMessage(), $row, $updateRow, $this->_getLineNumber());
+                $this->addRowError($e->getMessage(), $row, $updateData, $this->_getLineNumber());
             }catch (Exception $e){
 
             }
