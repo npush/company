@@ -146,7 +146,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $updateData['manufacturer_id']   = $row['manufacturer'];
             $updateData['manufacturer_code'] = $row['code'];
             try{
-                $updateData = array_merge($updateData, $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId()));
+                //$updateData = array_merge($updateData, $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId()));
                 // found product
                 if($updateData['company_product_id']){
                     //update company product
