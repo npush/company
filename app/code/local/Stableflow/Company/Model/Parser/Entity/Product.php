@@ -151,12 +151,13 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 if($updateData['company_product_id']){
                     //update company product
                     $this->_productRoutine($row, $updateData, self::BEHAVIOR_UPDATE);
+                    $this->addMessage(self::SUCCESS_PRODUCT_ADDED, $row, $updateData, $this->_getLineNumber());
                 }else{
                     // add new company product
                     $newProduct = $this->_productRoutine($row, $updateData, self::BEHAVIOR_ADD_NEW);
                     $updateRow['company_product_id'] = $newProduct->getId();
+                    $this->addMessage(self::SUCCESS_PRODUCT_UPDATED, $row, $updateData, $this->_getLineNumber());
                 }
-                $this->addMessage(self::SUCCESS_PRODUCT_ADDED, $row, $updateData, $this->_getLineNumber());
             }catch (Stableflow_Company_Exception $e){
                 $this->addRowError($e->getMessage(), $row, $updateData, $this->_getLineNumber());
             }catch (Exception $e){
