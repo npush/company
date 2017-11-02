@@ -140,21 +140,21 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 continue;
             }
             $updateData = $this->_processedData;
-            $updateData['task_id'] = $this->_getTaskId();
-            $updateData['line_num'] = $this->_getLineNumber();
+            $updateData['task_id']           = $this->_getTaskId();
+            $updateData['line_num']          = $this->_getLineNumber();
             $updateData['company_id']        = $this->_getCompanyId();
             $updateData['manufacturer_id']   = $row['manufacturer'];
             $updateData['manufacturer_code'] = $row['code'];
             try{
-                //$updateData = array_merge($updateData, $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId()));
+                $updateData = array_merge($updateData, $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId()));
                 // found product
                 if($updateData['company_product_id']){
                     //update company product
-                    //$this->_productRoutine($row, $updateData, self::BEHAVIOR_UPDATE);
+                    $this->_productRoutine($row, $updateData, self::BEHAVIOR_UPDATE);
                 }else{
                     // add new company product
-                    //$newProduct = $this->_productRoutine($row, $updateData, self::BEHAVIOR_ADD_NEW);
-                    //$updateRow['company_product_id'] = $newProduct->getId();
+                    $newProduct = $this->_productRoutine($row, $updateData, self::BEHAVIOR_ADD_NEW);
+                    $updateRow['company_product_id'] = $newProduct->getId();
                 }
                 $this->addMessage(self::SUCCESS_PRODUCT_ADDED, $row, $updateData, $this->_getLineNumber());
             }catch (Stableflow_Company_Exception $e){
@@ -183,6 +183,80 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     {
         return $this->getSource()->key();
     }
+
+    /**
+     * Delete products.
+     *
+     * @return Mage_ImportExport_Model_Import_Entity_Product
+     */
+    protected function _deleteProducts()
+    {
+        $productEntityTable = Mage::getModel('catalog/model_resource_product')->getEntityTable();
+
+        while ($bunch = $this->_dataSourceModel->getNextBunch()) {
+            $idToDelete = array();
+
+            foreach ($bunch as $rowNum => $rowData) {
+                if ($this->validateRow($rowData, $rowNum) && self::SCOPE_DEFAULT == $this->getRowScope($rowData)) {
+                    $idToDelete[] = $this->_oldSku[$rowData[self::COL_SKU]]['entity_id'];
+                }
+            }
+            if ($idToDelete) {
+                $this->_connection->query(
+                    $this->_connection->quoteInto(
+                        "DELETE FROM `{$productEntityTable}` WHERE `entity_id` IN (?)", $idToDelete
+                    )
+                );
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Save product attributes.
+     *
+     * @param array $attributesData
+     * @return Mage_ImportExport_Model_Import_Entity_Product
+     */
+    protected function _saveProductAttributes(array $attributesData)
+    {
+        foreach ($attributesData as $tableName => $skuData) {
+            $tableData = array();
+
+            foreach ($skuData as $sku => $attributes) {
+                $productId = $this->_newSku[$sku]['entity_id'];
+
+                foreach ($attributes as $attributeId => $storeValues) {
+                    foreach ($storeValues as $storeId => $storeValue) {
+                        $tableData[] = array(
+                            'entity_id'      => $productId,
+                            'entity_type_id' => $this->_entityTypeId,
+                            'attribute_id'   => $attributeId,
+                            'store_id'       => $storeId,
+                            'value'          => $storeValue
+                        );
+                    }
+
+                    /*
+                    If the store based values are not provided for a particular store,
+                    we default to the default scope values.
+                    In this case, remove all the existing store based values stored in the table.
+                    */
+                    $where = $this->_connection->quoteInto('store_id NOT IN (?)', array_keys($storeValues)) .
+                        $this->_connection->quoteInto(' AND attribute_id = ?', $attributeId) .
+                        $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
+                        $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
+
+                    $this->_connection->delete(
+                        $tableName, $where
+                    );
+                }
+            }
+            $this->_connection->insertOnDuplicate($tableName, $tableData, array('value'));
+        }
+        return $this;
+    }
+
     /**
      * Gather and save information about product entities.
      *
@@ -418,8 +492,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $catalogProductId = $_product->getId();
             $manufacturerCode = $_product->getData(self::MANUFACTURER_CODE_ATTRIBUTE);
             $_codes = explode(self::MANUFACTURER_CODE_DELIMITER, $manufacturerCode);
-            if (in_array($code, $_codes)) {
-                $companyProduct = $this->findCompanyProduct($catalogProductId, $companyId);
+            if (in_array($code, $_codes) && $companyProduct = $this->findCompanyProduct($catalogProductId, $companyId)) {
                 // company product found
                 $result['catalog_product_id'] = $catalogProductId;
                 $result['company_product_id'] = $companyProduct->getId();
@@ -443,8 +516,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         $mfNameAttribute = Mage::getModel('eav/entity_attribute')
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
         return Mage::getResourceModel('catalog/product_collection')
-            ->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
             ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
+            ->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
             ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
             ->initCache(Mage::app()->getCache(),'parser_catalog_collection',array('SOME_TAGS'));
     }
