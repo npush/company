@@ -20,7 +20,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     /**
      * Size of bunch - part of products to save in one step.
      */
-    const BUNCH_SIZE = 20;
+    const BUNCH_SIZE = 50;
 
     /**#@+
      * Permanent column names.
@@ -188,11 +188,19 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     /**
      * Delete products.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return Stableflow_Company_Model_Parser_Entity_Product
      */
     protected function _deleteProducts()
     {
-        $productEntityTable = Mage::getModel('catalog/model_resource_product')->getEntityTable();
+        $productEntityTable = Mage::getResourceModel('catalog/model_resource_product')->getEntityTable();
+        $idToDelete = array();
+
+        if ($idToDelete) {
+            $this->_connection->query($this->_connection->quoteInto(
+                "DELETE FROM `{$productEntityTable}` WHERE `entity_id` IN (?)", $idToDelete
+                ));
+        }
+
 
         while ($bunch = $this->_dataSourceModel->getNextBunch()) {
             $idToDelete = array();
@@ -217,7 +225,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      * Save product attributes.
      *
      * @param array $attributesData
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return Stableflow_Company_Model_Parser_Entity_Product
      */
     protected function _saveProductAttributes(array $attributesData)
     {
@@ -261,7 +269,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     /**
      * Gather and save information about product entities.
      *
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return Stableflow_Company_Model_Parser_Entity_Product
      */
     protected function _saveProducts()
     {
@@ -354,8 +362,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             }
 
             $this->_saveProductEntity($entityRowsIn, $entityRowsUp)
-            //    ->_saveProductAttributes($attributes)
-            ;
+                ->_saveProductAttributes($attributes);
         }
         return $this;
     }
@@ -365,7 +372,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      *
      * @param array $entityRowsIn Row for insert
      * @param array $entityRowsUp Row for update
-     * @return Mage_ImportExport_Model_Import_Entity_Product
+     * @return Stableflow_Company_Model_Parser_Entity_Product
      */
     protected function _saveProductEntity(array $entityRowsIn, array $entityRowsUp)
     {
@@ -395,6 +402,86 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         return $this;
     }
 
+    /**
+     * Retrieve attribute by specified code
+     *
+     * @param string $code
+     * @return Mage_Eav_Model_Entity_Attribute_Abstract
+     */
+    protected function _getAttribute($code)
+    {
+        $attribute = Mage::getSingleton('company/resource_product')->getAttribute($code);
+        $backendModelName = (string)Mage::getConfig()->getNode(
+            'global/parser/import/catalog_product/attributes/' . $attribute->getAttributeCode() . '/backend_model'
+        );
+        if (!empty($backendModelName)) {
+            $attribute->setBackendModel($backendModelName);
+        }
+        return $attribute;
+    }
+
+    /**
+     * Prepare attributes data
+     *
+     * @param array $rowData
+     * @param int $rowScope
+     * @param array $attributes
+     * @param string|null $rowSku
+     * @param int $rowStore
+     * @return array
+     */
+    protected function _prepareAttributes($rowData, $rowScope, $attributes, $rowSku, $rowStore)
+    {
+        $product = Mage::getModel('importexport/import_proxy_product', $rowData);
+
+        foreach ($rowData as $attrCode => $attrValue) {
+            $attribute = $this->_getAttribute($attrCode);
+            if ('multiselect' != $attribute->getFrontendInput()
+                && self::SCOPE_NULL == $rowScope
+            ) {
+                continue; // skip attribute processing for SCOPE_NULL rows
+            }
+            $attrId = $attribute->getId();
+            $backModel = $attribute->getBackendModel();
+            $attrTable = $attribute->getBackend()->getTable();
+            $storeIds = array(0);
+
+            if ('datetime' == $attribute->getBackendType() && strtotime($attrValue)) {
+                $attrValue = gmstrftime($this->_getStrftimeFormat(), strtotime($attrValue));
+            } elseif ('url_key' == $attribute->getAttributeCode()) {
+                if (empty($attrValue)) {
+                    $attrValue = $product->formatUrlKey($product->getName());
+                }
+            } elseif ($backModel) {
+                $attribute->getBackend()->beforeSave($product);
+                $attrValue = $product->getData($attribute->getAttributeCode());
+            }
+            if (self::SCOPE_STORE == $rowScope) {
+                if (self::SCOPE_WEBSITE == $attribute->getIsGlobal()) {
+                    // check website defaults already set
+                    if (!isset($attributes[$attrTable][$rowSku][$attrId][$rowStore])) {
+                        $storeIds = $this->_storeIdToWebsiteStoreIds[$rowStore];
+                    }
+                } elseif (self::SCOPE_STORE == $attribute->getIsGlobal()) {
+                    $storeIds = array($rowStore);
+                }
+            }
+            foreach ($storeIds as $storeId) {
+                if ('multiselect' == $attribute->getFrontendInput()) {
+                    if (!isset($attributes[$attrTable][$rowSku][$attrId][$storeId])) {
+                        $attributes[$attrTable][$rowSku][$attrId][$storeId] = '';
+                    } else {
+                        $attributes[$attrTable][$rowSku][$attrId][$storeId] .= ',';
+                    }
+                    $attributes[$attrTable][$rowSku][$attrId][$storeId] .= $attrValue;
+                } else {
+                    $attributes[$attrTable][$rowSku][$attrId][$storeId] = $attrValue;
+                }
+            }
+            $attribute->setBackendModel($backModel); // restore 'backend_model' to avoid 'default' setting
+        }
+        return $attributes;
+    }
 
 
     /**

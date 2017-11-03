@@ -180,6 +180,26 @@
                 </observers>
             </company_parser_entity_product_update_after>-->
         </events>
+        <parser module="company">
+            <import_entities>
+                <company_product translate="label">
+                    <model_token>company/parser_entity_product</model_token>
+                    <label>Products</label>
+                </company_product>
+            </import_entities>
+            <import_product_types>
+                <simple>company/parser_entity_product_type_simple</simple>
+            </import_product_types>
+            <import>
+                <catalog_product>
+                    <attributes>
+                        <url_key>
+                            <backend_model>company/product_attribute_backend_urlkey</backend_model>
+                        </url_key>
+                    </attributes>
+                </catalog_product>
+            </import>
+        </parser>
     </global>
     <frontend>
         <events>
