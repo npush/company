@@ -85,7 +85,10 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     const SUCCESS_PRODUCT_DELETED       = 'ProductDeleted';
 
-    const BEHAVIOR_NOT_FOUND            = 'BEHAVIOR_NOT_FOUND';
+    /**
+     * Error
+     */
+    const BEHAVIOR_NOT_FOUND            = 'BehaviorNotFound';
 
     /**
      * Validation failure message template definitions
@@ -102,7 +105,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         self::SUCCESS_PRODUCT_UPDATED           => 'Company product updated',
         self::SUCCESS_PRODUCT_DISABLED          => 'Company product disabled',
         self::SUCCESS_PRODUCT_DELETED           => 'Company product deleted',
-        self::BEHAVIOR_NOT_FOUND                => 'BEHAVIOR_NOT_FOUND'
+        self::BEHAVIOR_NOT_FOUND                => 'Behavior not found'
     );
 
     protected $_eventPrefix = 'company_parser_entity_product';
@@ -144,7 +147,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
 
     protected function parseSource($rewind = null)
     {
-        // Iterate
         $idx = 0;
         $updateData = array();
         if($rewind){
@@ -193,6 +195,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                     $updateData[self::BEHAVIOR_ADD_NEW][$idx]['update_data']['manufacturer_code'] = $row['code'];
                     $updateData[self::BEHAVIOR_ADD_NEW][$idx]['raw_data'] = $row;
                 }
+                $idx++;
             } catch (Stableflow_Company_Exception $e) {
                 $this->addRowError($e->getMessage(), $row, $updateData, $this->_getLineNumber());
             } catch (PHPExcel_Exception $e) {
@@ -203,7 +206,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             }
             finally{
                 $this->getSource()->next();
-                $idx++;
             }
         }
         return $updateData;
@@ -228,13 +230,17 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                     break;
                 case self::BEHAVIOR_ADD_NEW:
                     foreach($data as $row){
-                        $entityRowsIn[$rowSku] = array(
-                            'entity_type_id'   => $this->_entityTypeId,
-                            'attribute_set_id' => $this->_newSku[$rowSku]['attr_set_id'],
-                            'type_id'          => $this->_newSku[$rowSku]['type_id'],
-                            'created_at'       => now(),
-                            'updated_at'       => now()
+                        $entityRowsIn[] = array(
+                            'entity_type_id'        => $this->_entityTypeId,
+                            'catalog_product_id'    => $row['update_data']['catalog_product_id'],
+                            'company_id'            => $row['update_data']['catalog_id'],
+                            'attribute_set_id'      => 0,
+                            'is_active'             => 1,
+                            'created_at'            => now(),
+                            'updated_at'            => now()
                         );
+                        $attributes = self::;
+                        $this->_saveProductEntity($entityRowsIn, $entityRowsUp);
                         $this->_prepareAttributes($row['update_data']);
 
 
@@ -271,23 +277,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 ));
         }
 
-
-        while ($bunch = $this->_dataSourceModel->getNextBunch()) {
-            $idToDelete = array();
-
-            foreach ($bunch as $rowNum => $rowData) {
-                if ($this->validateRow($rowData, $rowNum) && self::SCOPE_DEFAULT == $this->getRowScope($rowData)) {
-                    $idToDelete[] = $this->_oldSku[$rowData[self::COL_SKU]]['entity_id'];
-                }
-            }
-            if ($idToDelete) {
-                $this->_connection->query(
-                    $this->_connection->quoteInto(
-                        "DELETE FROM `{$productEntityTable}` WHERE `entity_id` IN (?)", $idToDelete
-                    )
-                );
-            }
-        }
         return $this;
     }
 
@@ -472,7 +461,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         static $entityTable = null;
 
         if (!$entityTable) {
-            $entityTable = Mage::getModel('importexport/import_proxy_product_resource')->getEntityTable();
+            $entityTable = Mage::getModel('company/product_resource')->getEntityTable();
         }
         if ($entityRowsUp) {
             $this->_connection->insertOnDuplicate(
@@ -747,6 +736,26 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         return false;
     }
 
+    /**
+     * EAV entity type code getter.
+     *
+     * @abstract
+     * @return string
+     */
+    public function getEntityTypeCode()
+    {
+        return 'company_product';
+    }
+
+    /**
+     * Retrieve pattern for time formatting
+     *
+     * @return string
+     */
+    protected function _getStrftimeFormat()
+    {
+        return Varien_Date::convertZendToStrftime(Varien_Date::DATETIME_INTERNAL_FORMAT, true, true);
+    }
 
     protected function _getCompanyId()
     {

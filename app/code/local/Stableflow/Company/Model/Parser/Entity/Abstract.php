@@ -16,6 +16,13 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
     protected $_dataValidated = false;
 
     /**
+     * Entity type id.
+     *
+     * @var int
+     */
+    protected $_entityTypeId;
+
+    /**
      * Error codes with arrays of corresponding row numbers.
      *
      * @var array
@@ -96,8 +103,8 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      */
     public function __construct()
     {
-//        $entityType = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
-//        $this->_entityTypeId    = $entityType->getEntityTypeId();
+        $entityType = Mage::getSingleton('eav/config')->getEntityType($this->getEntityTypeCode());
+        $this->_entityTypeId    = $entityType->getEntityTypeId();
 //        $this->_dataSourceModel = Mage_ImportExport_Model_Import::getDataSourceModel();
         $this->_connection = Mage::getSingleton('core/resource')->getConnection('write');
         $this->_messagesEntity = Mage::getSingleton('company/parser_log_message');
