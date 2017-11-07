@@ -123,6 +123,14 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         'task_id'               => null
     );
 
+    protected $_permanentAttr = array(
+        'price'             => 'price',
+        'price_internal'    => 'price_int',
+        'price_wholesale'   => 'price_wholesale',
+        'qty_in_stock'      => 'qty',
+        'name'              => 'name'
+    );
+
     /**
      * Run parsing process
      *
@@ -170,39 +178,25 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
 //            $manufac[$idx] = $row['manufacturer'];
             try {
                 $find = $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId());
-                if (is_null($find['catalog_product_id'])) {
-
-                }
-                if (!is_null($find['company_product_id']) && !is_null($find['catalog_product_id'])) {
-                    //update company product
-                    $updateData[self::BEHAVIOR_UPDATE][$idx]['update_data'] = $this->_processedData;
-                    $updateData[self::BEHAVIOR_UPDATE][$idx]['update_data'] = array_merge($updateData[self::BEHAVIOR_UPDATE][$idx]['update_data'], $find);
-                    $updateData[self::BEHAVIOR_UPDATE][$idx]['update_data']['task_id'] = $this->_getTaskId();
-                    $updateData[self::BEHAVIOR_UPDATE][$idx]['update_data']['line_num'] = $this->_getLineNumber();
-                    $updateData[self::BEHAVIOR_UPDATE][$idx]['update_data']['company_id'] = $this->_getCompanyId();
-                    $updateData[self::BEHAVIOR_UPDATE][$idx]['update_data']['manufacturer_id'] = $row['manufacturer'];
-                    $updateData[self::BEHAVIOR_UPDATE][$idx]['update_data']['manufacturer_code'] = $row['code'];
-                    $updateData[self::BEHAVIOR_UPDATE][$idx]['raw_data'] = $row;
-                }
-                if (is_null($find['company_product_id']) && !is_null($find['catalog_product_id'])) {
-                    // add new company product
-                    $updateData[self::BEHAVIOR_ADD_NEW][$idx]['update_data'] = $this->_processedData;
-                    $updateData[self::BEHAVIOR_ADD_NEW][$idx]['update_data'] = array_merge($updateData[self::BEHAVIOR_ADD_NEW][$idx]['update_data'], $find);
-                    $updateData[self::BEHAVIOR_ADD_NEW][$idx]['update_data']['task_id'] = $this->_getTaskId();
-                    $updateData[self::BEHAVIOR_ADD_NEW][$idx]['update_data']['line_num'] = $this->_getLineNumber();
-                    $updateData[self::BEHAVIOR_ADD_NEW][$idx]['update_data']['company_id'] = $this->_getCompanyId();
-                    $updateData[self::BEHAVIOR_ADD_NEW][$idx]['update_data']['manufacturer_id'] = $row['manufacturer'];
-                    $updateData[self::BEHAVIOR_ADD_NEW][$idx]['update_data']['manufacturer_code'] = $row['code'];
-                    $updateData[self::BEHAVIOR_ADD_NEW][$idx]['raw_data'] = $row;
-                }
+                $behavior = is_null($find['company_product_id']) ? self::BEHAVIOR_ADD_NEW : self::BEHAVIOR_UPDATE;
+                $updateData[$behavior][$find['catalog_product_id']]['update_data'] = $this->_processedData;
+                $updateData[$behavior][$find['catalog_product_id']]['update_data'] =
+                    array_merge($updateData[$behavior][$find['catalog_product_id']]['update_data'], $find);
+                $updateData[$behavior][$find['catalog_product_id']]['update_data']['task_id'] = $this->_getTaskId();
+                $updateData[$behavior][$find['catalog_product_id']]['update_data']['line_num'] = $this->_getLineNumber();
+                $updateData[$behavior][$find['catalog_product_id']]['update_data']['company_id'] = $this->_getCompanyId();
+                $updateData[$behavior][$find['catalog_product_id']]['update_data']['manufacturer_id'] = $row['manufacturer'];
+                $updateData[$behavior][$find['catalog_product_id']]['update_data']['manufacturer_code'] = $row['code'];
+                $updateData[$behavior][$find['catalog_product_id']]['raw_data'] = $row;
+                $updateData[$behavior][$find['catalog_product_id']]['attributes'] = $this->_extractAttributes($row);
                 $idx++;
             } catch (Stableflow_Company_Exception $e) {
                 $this->addRowError($e->getMessage(), $row, $updateData, $this->_getLineNumber());
             } catch (PHPExcel_Exception $e) {
-
+                Mage::logException($e);
             }
             catch (Exception $e) {
-
+                Mage::logException($e);
             }
             finally{
                 $this->getSource()->next();
@@ -216,38 +210,32 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     protected function _saveProducts(array $updateData)
     {
+        $entityRowsIn = array();
+        $entityRowsUp = array();
         foreach($updateData as $behavior => $data){
             switch ($behavior){
                 case self::BEHAVIOR_UPDATE:
-                    foreach($data as $row){
-                        $entityRowsUp[] = array(
+                    foreach($data as $cpi => $row){
+                        $entityRowsUp[$cpi] = array(
                             'updated_at' => now(),
                             'entity_id'  => $row['update_data']['company_product_id']
                         );
-                        $this->_productRoutine($row['raw_data'], $row['update_data'], $behavior);
-                        $this->addMessage(self::SUCCESS_PRODUCT_UPDATED, $row['raw_data'], $row['update_data'], $row['update_data']['line_num']);
                     }
+                    //$this->addMessage(self::SUCCESS_PRODUCT_UPDATED, $row['raw_data'], $row['update_data'], $row['update_data']['line_num']);
                     break;
                 case self::BEHAVIOR_ADD_NEW:
-                    foreach($data as $row){
-                        $entityRowsIn[] = array(
+                    foreach($data as $cpi => $row){
+                        $entityRowsIn[$cpi] = array(
                             'entity_type_id'        => $this->_entityTypeId,
                             'catalog_product_id'    => $row['update_data']['catalog_product_id'],
-                            'company_id'            => $row['update_data']['catalog_id'],
+                            'company_id'            => $row['update_data']['company_id'],
                             'attribute_set_id'      => 0,
                             'is_active'             => 1,
                             'created_at'            => now(),
                             'updated_at'            => now()
                         );
-                        $attributes = self::;
-                        $this->_saveProductEntity($entityRowsIn, $entityRowsUp);
-                        $this->_prepareAttributes($row['update_data']);
-
-
-                        $newProduct = $this->_productRoutine($row['raw_data'], $row['update_data'], $behavior);
-                        $data['update_data']['company_product_id'] = $newProduct->getId();
-                        $this->addMessage(self::SUCCESS_PRODUCT_UPDATED, $row['raw_data'], $row['update_data'], $row['update_data']['line_num']);
                     }
+                    //$this->addMessage(self::SUCCESS_PRODUCT_UPDATED, $row['raw_data'], $row['update_data'], $row['update_data']['line_num']);
                     break;
                 case self::BEHAVIOR_DISABLE:
                     break;
@@ -256,6 +244,9 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 default:
                     Mage::throwException(self::BEHAVIOR_NOT_FOUND);
             }
+            $this->_saveProductEntity($entityRowsIn, $entityRowsUp);
+            //$attributes = $this->_prepareAttributes($row['update_data'], $this->_permanentAttr);
+            //$this->_saveProductAttributes($attributes);
         }
     }
 
@@ -280,6 +271,17 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         return $this;
     }
 
+    protected function _extractAttributes($row)
+    {
+        $attributes = array();
+        foreach($row as $key => $value){
+            if(array_key_exists($key, $this->_permanentAttr)){
+                $attributes[$this->_permanentAttr[$key]] = $value;
+            }
+        }
+        return $attributes;
+    }
+
     /**
      * Prepare attributes data
      *
@@ -302,16 +304,16 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $attribute->getBackend()->beforeSave($product);
                 $attrValue = $product->getData($attribute->getAttributeCode());
             }
-            if ('multiselect' == $attribute->getFrontendInput()) {
-                if (!isset($attributes[$attrTable][$rowSku][$attrId])) {
-                    $attributes[$attrTable][$rowSku][$attrId] = '';
-                } else {
-                    $attributes[$attrTable][$rowSku][$attrId .= ',';
-                }
-                $attributes[$attrTable][$rowSku][$attrId] .= $attrValue;
-            } else {
-                $attributes[$attrTable][$rowSku][$attrId] = $attrValue;
-            }
+//            if ('multiselect' == $attribute->getFrontendInput()) {
+//                if (!isset($attributes[$attrTable][$rowSku][$attrId])) {
+//                    $attributes[$attrTable][$rowSku][$attrId] = '';
+//                } else {
+//                    $attributes[$attrTable][$rowSku][$attrId .= ',';
+//                }
+//                $attributes[$attrTable][$rowSku][$attrId] .= $attrValue;
+//            } else {
+//                $attributes[$attrTable][$rowSku][$attrId] = $attrValue;
+//            }
             $attribute->setBackendModel($backModel); // restore 'backend_model' to avoid 'default' setting
         }
         return $attributes;
@@ -349,107 +351,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     }
 
     /**
-     * Gather and save information about product entities.
-     *
-     * @return Stableflow_Company_Model_Parser_Entity_Product
-     */
-    protected function _saveProducts_()
-    {
-        $productLimit   = null;
-        $productsQty    = null;
-
-        while ($bunch = $this->_dataSourceModel->getNextBunch()) {
-            $entityRowsIn = array();
-            $entityRowsUp = array();
-            $attributes   = array();
-            $websites     = array();
-            $previousType = null;
-            $previousAttributeSet = null;
-
-            foreach ($bunch as $rowNum => $rowData) {
-                $this->_filterRowData($rowData);
-                if (!$this->validateRow($rowData, $rowNum)) {
-                    continue;
-                }
-                $rowScope = $this->getRowScope($rowData);
-
-                if (self::SCOPE_DEFAULT == $rowScope) {
-                    $rowSku = $rowData[self::COL_SKU];
-
-                    // 1. Entity phase
-                    if (isset($this->_oldSku[$rowSku])) { // existing row
-                        $entityRowsUp[] = array(
-                            'updated_at' => now(),
-                            'entity_id'  => $this->_oldSku[$rowSku]['entity_id']
-                        );
-                    } else { // new row
-                        if (!$productLimit || $productsQty < $productLimit) {
-                            $entityRowsIn[$rowSku] = array(
-                                'entity_type_id'   => $this->_entityTypeId,
-                                'attribute_set_id' => $this->_newSku[$rowSku]['attr_set_id'],
-                                'type_id'          => $this->_newSku[$rowSku]['type_id'],
-                                'sku'              => $rowSku,
-                                'created_at'       => now(),
-                                'updated_at'       => now()
-                            );
-                            $productsQty++;
-                        } else {
-                            $rowSku = null; // sign for child rows to be skipped
-                            $this->_rowsToSkip[$rowNum] = true;
-                            continue;
-                        }
-                    }
-                } elseif (null === $rowSku) {
-                    $this->_rowsToSkip[$rowNum] = true;
-                    continue; // skip rows when SKU is NULL
-                } elseif (self::SCOPE_STORE == $rowScope) { // set necessary data from SCOPE_DEFAULT row
-                    $rowData[self::COL_TYPE]     = $this->_newSku[$rowSku]['type_id'];
-                    $rowData['attribute_set_id'] = $this->_newSku[$rowSku]['attr_set_id'];
-                    $rowData[self::COL_ATTR_SET] = $this->_newSku[$rowSku]['attr_set_code'];
-                }
-                if (!empty($rowData['_product_websites'])) { // 2. Product-to-Website phase
-                    $websites[$rowSku][$this->_websiteCodeToId[$rowData['_product_websites']]] = true;
-                }
-                // 6. Attributes phase
-                $rowStore     = self::SCOPE_STORE == $rowScope ? $this->_storeCodeToId[$rowData[self::COL_STORE]] : 0;
-                $productType  = isset($rowData[self::COL_TYPE]) ? $rowData[self::COL_TYPE] : null;
-                if (!is_null($productType)) {
-                    $previousType = $productType;
-                }
-                if (!is_null($rowData[self::COL_ATTR_SET])) {
-                    $previousAttributeSet = $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET];
-                }
-                if (self::SCOPE_NULL == $rowScope) {
-                    // for multiselect attributes only
-                    if (!is_null($previousAttributeSet)) {
-                        $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_ATTR_SET] = $previousAttributeSet;
-                    }
-                    if (is_null($productType) && !is_null($previousType)) {
-                        $productType = $previousType;
-                    }
-                    if (is_null($productType)) {
-                        continue;
-                    }
-                }
-                $rowData = $this->_productTypeModels[$productType]->prepareAttributesForSave(
-                    $rowData,
-                    !isset($this->_oldSku[$rowSku]) && (self::SCOPE_DEFAULT == $rowScope)
-                );
-                try {
-                    $attributes = $this->_prepareAttributes($rowData, $rowScope, $attributes, $rowSku, $rowStore);
-                } catch (Exception $e) {
-                    Mage::logException($e);
-                    continue;
-                }
-            }
-
-            $this->_saveProductEntity($entityRowsIn, $entityRowsUp)
-                ->_saveProductAttributes($attributes);
-        }
-        return $this;
-    }
-
-    /**
      * Update and insert data in entity table.
      *
      * @param array $entityRowsIn Row for insert
@@ -461,7 +362,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         static $entityTable = null;
 
         if (!$entityTable) {
-            $entityTable = Mage::getModel('company/product_resource')->getEntityTable();
+            $entityTable = Mage::getResourceModel('company/product')->getEntityTable();
         }
         if ($entityRowsUp) {
             $this->_connection->insertOnDuplicate(
@@ -474,14 +375,14 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $this->_connection->insertMultiple($entityTable, $entityRowsIn);
 
             $newProducts = $this->_connection->fetchPairs($this->_connection->select()
-                ->from($entityTable, array('sku', 'entity_id'))
-                ->where('sku IN (?)', array_keys($entityRowsIn))
+                ->from($entityTable, array('catalog_product_id', 'entity_id'))
+                ->where('catalog_product_id IN (?) AND company_id', array_keys($entityRowsIn), '12')
             );
-            foreach ($newProducts as $sku => $newId) { // fill up entity_id for new products
-                $this->_newSku[$sku]['entity_id'] = $newId;
+            foreach ($newProducts as $cpi => $newId) { // fill up entity_id for new products
+                $res[$cpi]['entity_id'] = $newId;
             }
         }
-        return $this;
+        return $res;
     }
 
     /**
@@ -501,70 +402,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         }
         return $attribute;
     }
-
-    /**
-     * Prepare attributes data
-     *
-     * @param array $rowData
-     * @param int $rowScope
-     * @param array $attributes
-     * @param string|null $rowSku
-     * @param int $rowStore
-     * @return array
-     */
-    protected function _prepareAttributes_($rowData, $rowScope, $attributes, $rowSku, $rowStore)
-    {
-        $product = Mage::getModel('importexport/import_proxy_product', $rowData);
-
-        foreach ($rowData as $attrCode => $attrValue) {
-            $attribute = $this->_getAttribute($attrCode);
-            if ('multiselect' != $attribute->getFrontendInput()
-                && self::SCOPE_NULL == $rowScope
-            ) {
-                continue; // skip attribute processing for SCOPE_NULL rows
-            }
-            $attrId = $attribute->getId();
-            $backModel = $attribute->getBackendModel();
-            $attrTable = $attribute->getBackend()->getTable();
-            $storeIds = array(0);
-
-            if ('datetime' == $attribute->getBackendType() && strtotime($attrValue)) {
-                $attrValue = gmstrftime($this->_getStrftimeFormat(), strtotime($attrValue));
-            } elseif ('url_key' == $attribute->getAttributeCode()) {
-                if (empty($attrValue)) {
-                    $attrValue = $product->formatUrlKey($product->getName());
-                }
-            } elseif ($backModel) {
-                $attribute->getBackend()->beforeSave($product);
-                $attrValue = $product->getData($attribute->getAttributeCode());
-            }
-            if (self::SCOPE_STORE == $rowScope) {
-                if (self::SCOPE_WEBSITE == $attribute->getIsGlobal()) {
-                    // check website defaults already set
-                    if (!isset($attributes[$attrTable][$rowSku][$attrId][$rowStore])) {
-                        $storeIds = $this->_storeIdToWebsiteStoreIds[$rowStore];
-                    }
-                } elseif (self::SCOPE_STORE == $attribute->getIsGlobal()) {
-                    $storeIds = array($rowStore);
-                }
-            }
-            foreach ($storeIds as $storeId) {
-                if ('multiselect' == $attribute->getFrontendInput()) {
-                    if (!isset($attributes[$attrTable][$rowSku][$attrId][$storeId])) {
-                        $attributes[$attrTable][$rowSku][$attrId][$storeId] = '';
-                    } else {
-                        $attributes[$attrTable][$rowSku][$attrId][$storeId] .= ',';
-                    }
-                    $attributes[$attrTable][$rowSku][$attrId][$storeId] .= $attrValue;
-                } else {
-                    $attributes[$attrTable][$rowSku][$attrId][$storeId] = $attrValue;
-                }
-            }
-            $attribute->setBackendModel($backModel); // restore 'backend_model' to avoid 'default' setting
-        }
-        return $attributes;
-    }
-
 
     /**
      * Check row for valid data
@@ -699,6 +536,12 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     public function findCompanyProduct($catalogProductId, $companyId)
     {
+        $entityTable = Mage::getResourceModel('company/product')->getEntityTable();
+        $newProducts = $this->_connection->fetchPairs($this->_connection->select()
+            ->from($entityTable, array('catalog_product_id', 'entity_id'))
+            ->where('catalog_product_id IN (?) AND company_id', $catalogProductId, $companyId)
+        );
+
         return Mage::getResourceModel('company/product_collection')
             ->addAttributeToFilter('catalog_product_id', $catalogProductId)
             ->addAttributeToFilter('company_id', $companyId)
