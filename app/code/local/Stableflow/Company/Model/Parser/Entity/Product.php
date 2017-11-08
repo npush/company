@@ -220,11 +220,12 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $this->getSource()->next();
             }
         }
-        return $updateData = array(
+        return $idx ? $updateData = array(
             'entityRowsUp' => $entityRowsUp,
             'entityRowsIn' => $entityRowsIn,
             'attributes' => $attributes,
-        );
+            'idx'       => $idx
+        ) : false;
     }
 
     /**
