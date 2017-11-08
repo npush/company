@@ -113,6 +113,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
 
     protected $_manufacturers = null;
 
+    protected $_newCompProdIds;
+
     protected $_processedData = array(
         'manufacturer_id'       => null,
         'manufacturer_code'     => null,
@@ -157,38 +159,54 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     {
         $idx = 0;
         $updateData = array();
+        $entityRowsIn = array();
+        $entityRowsUp = array();
+        $attributes = array();
         if($rewind){
             $this->getSource()->rewind();
         }
         if($_lastPos = $this->getTask()->checkPosition($this->_getLineNumber())){
             $this->getSource()->seek($_lastPos);
         }
-        while($idx < self::BUNCH_SIZE) {
-            if(!$this->getSource()->valid()){
-                break;
-            }
+        while($this->getSource()->valid() && $idx < self::BUNCH_SIZE){
             $row = $this->getSource()->current();
             if(!$this->_isValidRow($row)){
                 $this->addRowError(self::ERROR_UNKNOWN, $row, array(), $this->_getLineNumber());
                 $this->getSource()->next();
                 continue;
             }
-//            $rows[$idx] = $row;
-//            $codes[$idx] = $row['code'];
-//            $manufac[$idx] = $row['manufacturer'];
             try {
                 $find = $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId());
-                $behavior = is_null($find['company_product_id']) ? self::BEHAVIOR_ADD_NEW : self::BEHAVIOR_UPDATE;
-                $updateData[$behavior][$find['catalog_product_id']]['update_data'] = $this->_processedData;
-                $updateData[$behavior][$find['catalog_product_id']]['update_data'] =
-                    array_merge($updateData[$behavior][$find['catalog_product_id']]['update_data'], $find);
-                $updateData[$behavior][$find['catalog_product_id']]['update_data']['task_id'] = $this->_getTaskId();
-                $updateData[$behavior][$find['catalog_product_id']]['update_data']['line_num'] = $this->_getLineNumber();
-                $updateData[$behavior][$find['catalog_product_id']]['update_data']['company_id'] = $this->_getCompanyId();
-                $updateData[$behavior][$find['catalog_product_id']]['update_data']['manufacturer_id'] = $row['manufacturer'];
-                $updateData[$behavior][$find['catalog_product_id']]['update_data']['manufacturer_code'] = $row['code'];
-                $updateData[$behavior][$find['catalog_product_id']]['raw_data'] = $row;
-                $updateData[$behavior][$find['catalog_product_id']]['attributes'] = $this->_extractAttributes($row);
+                $catProdId = $find['catalog_product_id'];
+                $compProdId = $find['company_product_id'];
+                $behavior = is_null($compProdId) ? self::BEHAVIOR_ADD_NEW : self::BEHAVIOR_UPDATE;
+                switch ($behavior){
+                    case self::BEHAVIOR_UPDATE:
+                        $entityRowsUp[$catProdId] = array(
+                            'updated_at' => now(),
+                            'entity_id'  => $compProdId
+                        );
+                        $attributes[$catProdId] = $this->_extractAttributes($row);
+                        break;
+                    case self::BEHAVIOR_ADD_NEW:
+                        $entityRowsIn[$catProdId] = array(
+                            'entity_type_id'        => $this->_entityTypeId,
+                            'catalog_product_id'    => $catProdId,
+                            'company_id'            => $this->_getCompanyId(),
+                            'attribute_set_id'      => 0,
+                            'is_active'             => 1,
+                            'created_at'            => now(),
+                            'updated_at'            => now()
+                        );
+                        $attributes[$catProdId] = $this->_extractAttributes($row);
+                        break;
+                    case self::BEHAVIOR_DISABLE:
+                        break;
+                    case self::BEHAVIOR_DELETE:
+                        break;
+                    default:
+                        Mage::throwException(self::BEHAVIOR_NOT_FOUND);
+                }
                 $idx++;
             } catch (Stableflow_Company_Exception $e) {
                 $this->addRowError($e->getMessage(), $row, $updateData, $this->_getLineNumber());
@@ -202,54 +220,28 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $this->getSource()->next();
             }
         }
-        return $updateData;
+        return $updateData = array(
+            'entityRowsUp' => $entityRowsUp,
+            'entityRowsIn' => $entityRowsIn,
+            'attributes' => $attributes,
+        );
     }
 
     /**
-     * @param array $updateData
+     * Save products
+     *
+     * @param array $bunch
      */
-    protected function _saveProducts(array $updateData)
+    protected function _saveProducts(array $bunch)
     {
-        $entityRowsIn = array();
-        $entityRowsUp = array();
-        foreach($updateData as $behavior => $data){
-            switch ($behavior){
-                case self::BEHAVIOR_UPDATE:
-                    foreach($data as $cpi => $row){
-                        $entityRowsUp[$cpi] = array(
-                            'updated_at' => now(),
-                            'entity_id'  => $row['update_data']['company_product_id']
-                        );
-                    }
-                    //$this->addMessage(self::SUCCESS_PRODUCT_UPDATED, $row['raw_data'], $row['update_data'], $row['update_data']['line_num']);
-                    break;
-                case self::BEHAVIOR_ADD_NEW:
-                    foreach($data as $cpi => $row){
-                        $entityRowsIn[$cpi] = array(
-                            'entity_type_id'        => $this->_entityTypeId,
-                            'catalog_product_id'    => $row['update_data']['catalog_product_id'],
-                            'company_id'            => $row['update_data']['company_id'],
-                            'attribute_set_id'      => 0,
-                            'is_active'             => 1,
-                            'created_at'            => now(),
-                            'updated_at'            => now()
-                        );
-                    }
-                    //$this->addMessage(self::SUCCESS_PRODUCT_UPDATED, $row['raw_data'], $row['update_data'], $row['update_data']['line_num']);
-                    break;
-                case self::BEHAVIOR_DISABLE:
-                    break;
-                case self::BEHAVIOR_DELETE:
-                    break;
-                default:
-                    Mage::throwException(self::BEHAVIOR_NOT_FOUND);
-            }
-            $this->_saveProductEntity($entityRowsIn, $entityRowsUp);
-            //$attributes = $this->_prepareAttributes($row['update_data'], $this->_permanentAttr);
-            //$this->_saveProductAttributes($attributes);
+        try{
+            $this->_saveProductEntity($bunch['entityRowsIn'], $bunch['entityRowsUp']);
+            $attributes = $this->_prepareAttributes($bunch['attributes']);
+            $this->_saveProductAttributes($attributes);
+        }catch (Exception $e){
+
         }
     }
-
 
     /**
      * Delete products.
@@ -264,7 +256,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
 
         if ($idToDelete) {
             $this->_connection->query($this->_connection->quoteInto(
-                "DELETE FROM `{$productEntityTable}` WHERE `entity_id` IN (?)", $idToDelete
+                "DELETE FROM `{$productEntityTable}` WHERE `entity_id` IN (?) AND `company_id`", $idToDelete, $this->_getCompanyId()
                 ));
         }
 
@@ -286,35 +278,36 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      * Prepare attributes data
      *
      * @param array $attrData
-     * @param array $attributes
      * @return array
      */
-    protected function _prepareAttributes($attrData, $attributes)
+    protected function _prepareAttributes($attr)
     {
-        $product = Mage::getModel('company/product', $attrData);
-        foreach ($attrData as $attrCode => $attrValue) {
-            $attribute = $this->_getAttribute($attrCode);
-            $attrId = $attribute->getId();
-            $backModel = $attribute->getBackendModel();
-            $attrTable = $attribute->getBackend()->getTable();
+        foreach ($attr as $catProdId => $attrData) {
+            $product = Mage::getModel('company/product', $attrData);
+            foreach ($attrData as $attrCode => $attrValue) {
+                $attribute = $this->_getAttribute($attrCode);
+                $attrId = $attribute->getId();
+                $backModel = $attribute->getBackendModel();
+                $attrTable = $attribute->getBackend()->getTable();
 
-            if ('datetime' == $attribute->getBackendType() && strtotime($attrValue)) {
-                $attrValue = gmstrftime($this->_getStrftimeFormat(), strtotime($attrValue));
-            } elseif ($backModel) {
-                $attribute->getBackend()->beforeSave($product);
-                $attrValue = $product->getData($attribute->getAttributeCode());
+                if ('datetime' == $attribute->getBackendType() && strtotime($attrValue)) {
+                    $attrValue = gmstrftime($this->_getStrftimeFormat(), strtotime($attrValue));
+                } elseif ($backModel) {
+                    $attribute->getBackend()->beforeSave($product);
+                    $attrValue = $product->getData($attribute->getAttributeCode());
+                }
+                if ('multiselect' == $attribute->getFrontendInput()) {
+                    if (!isset($attributes[$attrTable][$catProdId][$attrId])) {
+                        $attributes[$attrTable][$catProdId][$attrId] = '';
+                    } else {
+                        $attributes[$attrTable][$catProdId][$attrId] .= ',';
+                    }
+                    $attributes[$attrTable][$catProdId][$attrId] .= $attrValue;
+                } else {
+                    $attributes[$attrTable][$catProdId][$attrId] = $attrValue;
+                }
+                $attribute->setBackendModel($backModel); // restore 'backend_model' to avoid 'default' setting
             }
-//            if ('multiselect' == $attribute->getFrontendInput()) {
-//                if (!isset($attributes[$attrTable][$rowSku][$attrId])) {
-//                    $attributes[$attrTable][$rowSku][$attrId] = '';
-//                } else {
-//                    $attributes[$attrTable][$rowSku][$attrId .= ',';
-//                }
-//                $attributes[$attrTable][$rowSku][$attrId] .= $attrValue;
-//            } else {
-//                $attributes[$attrTable][$rowSku][$attrId] = $attrValue;
-//            }
-            $attribute->setBackendModel($backModel); // restore 'backend_model' to avoid 'default' setting
         }
         return $attributes;
     }
@@ -330,19 +323,17 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         foreach ($attributesData as $tableName => $skuData) {
             $tableData = array();
 
-            foreach ($skuData as $sku => $attributes) {
-                $productId = $this->_newSku[$sku]['entity_id'];
+            foreach ($skuData as $catProdId => $attributes) {
+                $productId = $this->_newCompProdIds[$catProdId]['entity_id'];
 
-                foreach ($attributes as $attributeId => $storeValues) {
-                    foreach ($storeValues as $storeId => $storeValue) {
-                        $tableData[] = array(
-                            'entity_id'      => $productId,
-                            'entity_type_id' => $this->_entityTypeId,
-                            'attribute_id'   => $attributeId,
-                            'store_id'       => $storeId,
-                            'value'          => $storeValue
-                        );
-                    }
+                foreach ($attributes as $attributeId => $value) {
+                    $tableData[] = array(
+                        'entity_id'      => $productId,
+                        'entity_type_id' => $this->_entityTypeId,
+                        'attribute_id'   => $attributeId,
+                        'store_id'       => 0,
+                        'value'          => $value
+                    );
                 }
             }
             $this->_connection->insertOnDuplicate($tableName, $tableData, array('value'));
@@ -376,13 +367,13 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
 
             $newProducts = $this->_connection->fetchPairs($this->_connection->select()
                 ->from($entityTable, array('catalog_product_id', 'entity_id'))
-                ->where('catalog_product_id IN (?) AND company_id', array_keys($entityRowsIn), '12')
+                ->where('catalog_product_id IN (?) AND company_id', array_keys($entityRowsIn), $this->_getCompanyId())
             );
-            foreach ($newProducts as $cpi => $newId) { // fill up entity_id for new products
-                $res[$cpi]['entity_id'] = $newId;
+            foreach ($newProducts as $catProdId => $newId) { // fill up entity_id for new products
+                $this->_newCompProdIds[$catProdId]['entity_id'] = $newId;
             }
         }
-        return $res;
+        return $this;
     }
 
     /**
@@ -621,5 +612,19 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             'data_object'       => $this,
             $this->_eventObject => $this,
         );
+    }
+
+    protected function form()
+    {
+        $updateData[$behavior][$find['catalog_product_id']]['update_data'] = $this->_processedData;
+        $updateData[$behavior][$find['catalog_product_id']]['update_data'] =
+            array_merge($updateData[$behavior][$find['catalog_product_id']]['update_data'], $find);
+        $updateData[$behavior][$find['catalog_product_id']]['update_data']['task_id'] = $this->_getTaskId();
+        $updateData[$behavior][$find['catalog_product_id']]['update_data']['line_num'] = $this->_getLineNumber();
+        $updateData[$behavior][$find['catalog_product_id']]['update_data']['company_id'] = $this->_getCompanyId();
+        $updateData[$behavior][$find['catalog_product_id']]['update_data']['manufacturer_id'] = $row['manufacturer'];
+        $updateData[$behavior][$find['catalog_product_id']]['update_data']['manufacturer_code'] = $row['code'];
+        $updateData[$behavior][$find['catalog_product_id']]['raw_data'] = $row;
+        $updateData[$behavior][$find['catalog_product_id']]['attributes'] = $this->_extractAttributes($row);
     }
 }
