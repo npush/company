@@ -189,7 +189,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                             'updated_at' => now(),
                             'entity_id'  => $compProdId
                         );
-                        $this->_newCompProdIds[$catProdId] = $compProdId;
+                        $this->_newCompProdIds[$catProdId]['entity_id'] = $compProdId;
                         $attributes[$catProdId] = $this->_extractAttributes($row);
                         break;
                     case self::BEHAVIOR_ADD_NEW:
