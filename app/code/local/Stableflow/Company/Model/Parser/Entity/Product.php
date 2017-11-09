@@ -155,6 +155,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         return true;
     }
 
+    /**
+     *
+     * @param null $rewind
+     * @return array|bool
+     */
     protected function parseSource($rewind = null)
     {
         $idx = 0;
@@ -205,11 +210,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                     case self::BEHAVIOR_DELETE:
                         break;
                     default:
-                        Mage::throwException(self::BEHAVIOR_NOT_FOUND);
+                        throw new Stableflow_Company_Exception(self::BEHAVIOR_NOT_FOUND);
                 }
                 $idx++;
             } catch (Stableflow_Company_Exception $e) {
-                $this->addRowError($e->getMessage(), $row, $updateData, $this->_getLineNumber());
+                $this->addRowError($e->getMessage(), $row, array(), $this->_getLineNumber());
             } catch (PHPExcel_Exception $e) {
                 Mage::logException($e);
             }
@@ -240,7 +245,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $attributes = $this->_prepareAttributes($bunch['attributes']);
             $this->_saveProductAttributes($attributes);
         }catch (Exception $e){
-
+            Mage::logException($e);
         }
     }
 
@@ -283,6 +288,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     protected function _prepareAttributes($attr)
     {
+        $attributes = array();
         foreach ($attr as $catProdId => $attrData) {
             $product = Mage::getModel('company/product', $attrData);
             foreach ($attrData as $attrCode => $attrValue) {
@@ -413,72 +419,24 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     }
 
     /**
-     * @param array $row
-     * @param array $updateRow
-     * @param int $behavior
-     * @return int
-     */
-    protected function _productRoutine($row, $updateRow, $behavior)
-    {
-        $product = Mage::getModel('company/product');
-        switch($behavior){
-            case self::BEHAVIOR_ADD_NEW :
-                $_data = array(
-                    'price'             => $row['price'],
-                    'price_int'         => $row['price_internal'],
-                    'price_wholesale'   => $row['price_wholesale'],
-                    'catalog_product_id' => $updateRow['catalog_product_id'],
-                    'company_id'        => $updateRow['company_id'],
-                    'store_id'          => 0,
-                    'created_at'        => Varien_Date::now(),
-                    'updated_at'        => Varien_Date::now(),
-                );
-                $product->addData($_data);
-                //$productId = 654321;
-                $productId = $product->save();
-                break;
-            case self::BEHAVIOR_UPDATE :
-                $product->load($updateRow['company_product_id']);
-                $_data = array(
-                    'price'             => $row['price'],
-                    'price_int'         => $row['price_internal'],
-                    'price_wholesale'   => $row['price_wholesale'],
-                    'updated_at'        => Varien_Date::now(),
-                );
-                $product->addData($_data);
-                $productId = $product->save();
-                break;
-            case self::BEHAVIOR_DISABLE :
-                $product->load($updateRow['company_product_id']);
-                $product->setStatust(Stableflow_Company_Model_Product_Status::DISABLE);
-                $productId = $product->save();
-                break;
-            case self::BEHAVIOR_DELETE :
-                $product->load($updateRow['company_product_id']);
-                $productId = $product->delete();
-                break;
-        }
-        return $productId;
-    }
-
-    /**
      * Find product by manufacture code
      * @param int $code
      * @param string $manufacturer
      * @param int $companyId
      * @return mixed status code
+     * @throw Stableflow_Company_Exception
      */
     public function findByCode($code, $manufacturer, $companyId)
     {
         $manufacturerId = $this->getManufacturerIdByName($manufacturer);
         if(!$manufacturerId){
             //manufacturer did not found
-            Mage::throwException(self::ERROR_MANUFACTURER_NOT_FOUND);
+            throw new Stableflow_Company_Exception(self::ERROR_MANUFACTURER_NOT_FOUND);
         }
         $productCollection = $this->findBaseProductByCode($code, $manufacturerId);
         if($productCollection->getSize() == 0) {
             // base product did not found
-            Mage::throwException(self::ERROR_BASE_PRODUCT_NOT_FOUND);
+            throw new Stableflow_Company_Exception(self::ERROR_BASE_PRODUCT_NOT_FOUND);
         }
         $result = array(
             'catalog_product_id' => null,
@@ -613,19 +571,5 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             'data_object'       => $this,
             $this->_eventObject => $this,
         );
-    }
-
-    protected function form()
-    {
-        $updateData[$behavior][$find['catalog_product_id']]['update_data'] = $this->_processedData;
-        $updateData[$behavior][$find['catalog_product_id']]['update_data'] =
-            array_merge($updateData[$behavior][$find['catalog_product_id']]['update_data'], $find);
-        $updateData[$behavior][$find['catalog_product_id']]['update_data']['task_id'] = $this->_getTaskId();
-        $updateData[$behavior][$find['catalog_product_id']]['update_data']['line_num'] = $this->_getLineNumber();
-        $updateData[$behavior][$find['catalog_product_id']]['update_data']['company_id'] = $this->_getCompanyId();
-        $updateData[$behavior][$find['catalog_product_id']]['update_data']['manufacturer_id'] = $row['manufacturer'];
-        $updateData[$behavior][$find['catalog_product_id']]['update_data']['manufacturer_code'] = $row['code'];
-        $updateData[$behavior][$find['catalog_product_id']]['raw_data'] = $row;
-        $updateData[$behavior][$find['catalog_product_id']]['attributes'] = $this->_extractAttributes($row);
     }
 }
