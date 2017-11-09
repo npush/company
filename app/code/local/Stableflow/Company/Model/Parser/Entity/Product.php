@@ -148,8 +148,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         while($bunch = $this->parseSource()){
             $this->_saveProducts($bunch);
         }
-
-        Mage::log($this->getMessages(), null, 'success-product.log');
         Mage::dispatchEvent($this->_eventPrefix.'_run_after', array($this->_eventObject => $this));
         $this->getTask()->setComplete();
         return true;
@@ -191,6 +189,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                             'updated_at' => now(),
                             'entity_id'  => $compProdId
                         );
+                        $this->_newCompProdIds[$catProdId] = $compProdId;
                         $attributes[$catProdId] = $this->_extractAttributes($row);
                         break;
                     case self::BEHAVIOR_ADD_NEW:
@@ -431,12 +430,14 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         $manufacturerId = $this->getManufacturerIdByName($manufacturer);
         if(!$manufacturerId){
             //manufacturer did not found
-            throw new Stableflow_Company_Exception(self::ERROR_MANUFACTURER_NOT_FOUND);
+            $message = sprintf('%s in string %s',self::ERROR_MANUFACTURER_NOT_FOUND, $this->_getLineNumber());
+            throw new Stableflow_Company_Exception($message);
         }
         $productCollection = $this->findBaseProductByCode($code, $manufacturerId);
         if($productCollection->getSize() == 0) {
             // base product did not found
-            throw new Stableflow_Company_Exception(self::ERROR_BASE_PRODUCT_NOT_FOUND);
+            $message = sprintf('%s in string %s',self::ERROR_BASE_PRODUCT_NOT_FOUND, $this->_getLineNumber());
+            throw new Stableflow_Company_Exception($message);
         }
         $result = array(
             'catalog_product_id' => null,
@@ -486,7 +487,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     public function findCompanyProduct($catalogProductId, $companyId)
     {
-        $entityTable = Mage::getResourceModel('company/product')->getEntityTable();
+        static $entityTable = null;
+
+        if (!$entityTable) {
+            $entityTable = Mage::getResourceModel('company/product')->getEntityTable();
+        }
         $newProducts = $this->_connection->fetchPairs($this->_connection->select()
             ->from($entityTable, array('catalog_product_id', 'entity_id'))
             ->where('catalog_product_id IN (?) AND company_id', $catalogProductId, $companyId)
