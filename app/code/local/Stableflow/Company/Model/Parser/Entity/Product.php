@@ -268,6 +268,12 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         return $this;
     }
 
+    /**
+     * Extract attributes from row, and convert them to correspond format
+     *
+     * @param $row
+     * @return array
+     */
     protected function _extractAttributes($row)
     {
         $attributes = array();
@@ -282,7 +288,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     /**
      * Prepare attributes data
      *
-     * @param array $attrData
+     * @param array $attr
      * @return array
      */
     protected function _prepareAttributes($attr)
@@ -422,8 +428,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      * @param int $code
      * @param string $manufacturer
      * @param int $companyId
+     * @throws Stableflow_Company_Exception
      * @return mixed status code
-     * @throw Stableflow_Company_Exception
      */
     public function findByCode($code, $manufacturer, $companyId)
     {
@@ -455,7 +461,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $result['catalog_product_id'] = $catalogProductId;
                 $result['company_product_id'] = $companyProduct->getId();
             }else{
-                // company product did not found
+                // company product not found
                 $result['catalog_product_id'] = $catalogProductId;
             }
         }
@@ -514,7 +520,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $attribute = Mage::getModel('eav/entity_attribute')
                 ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
             $this->_manufacturers = $attribute->getSource()->getOptionArray();
-            //$this->_manufacturers = $attribute->getSource()->getAllOptions();
         }
         return $this->_manufacturers;
     }
