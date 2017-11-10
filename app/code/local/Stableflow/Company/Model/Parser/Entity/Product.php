@@ -448,7 +448,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             throw new Stableflow_Company_Exception($message);
         }
         $productCollection = $this->findBaseProductByCode($code, $manufacturerId);
-        if($productCollection->getSize() == 0) {
+        //if($productCollection->getSize() == 0) {
+        if(count($productCollection) == 0) {
             // base product did not found
             $message = sprintf('%s in string %s. Requested code:%s',self::ERROR_BASE_PRODUCT_NOT_FOUND, $this->_getLineNumber(), $code);
             throw new Stableflow_Company_Exception($message);
@@ -507,11 +508,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if (!$entityTable) {
             $entityTable = Mage::getResourceModel('company/product')->getEntityTable();
         }
-        $newProducts = $this->_connection->fetchPairs($this->_connection->select()
+        $newProducts = $this->_connection->fetchAll($this->_connection->select()
             ->from($entityTable, array('catalog_product_id', 'entity_id'))
             ->where('catalog_product_id IN (?) AND company_id', $catalogProductId, $companyId)
         );
-
+        return $newProducts;
         return Mage::getResourceModel('company/product_collection')
             ->addAttributeToFilter('catalog_product_id', $catalogProductId)
             ->addAttributeToFilter('company_id', $companyId)
