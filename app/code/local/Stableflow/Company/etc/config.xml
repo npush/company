@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Stableflow_Company>
-            <version>0.1.5</version>
+            <version>0.1.7</version>
         </Stableflow_Company>
     </modules>
     <global>
@@ -83,6 +83,10 @@
                     <product_entity_char>
                         <table>company_product_entity_char</table>
                     </product_entity_char>
+
+                    <product_attribute_manufacturer_number>
+                        <table>catalog_product_entity_manufacturer_number</table>
+                    </product_attribute_manufacturer_number>
 
                     <eav_attribute>
                         <table>company_eav_attribute</table>
