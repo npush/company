@@ -69,4 +69,14 @@ class Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber extends Mag
         return Mage::getResourceSingleton('company/product_attribute_backend_manufnumber');
     }
 
+    /**
+     * Get table name for the values of the attribute
+     *
+     * @return string
+     */
+    public function getTable()
+    {
+        return 'catalog_product_entity_manufacturer_number';
+    }
+
 }

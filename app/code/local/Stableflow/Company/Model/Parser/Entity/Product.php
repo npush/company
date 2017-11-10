@@ -487,13 +487,12 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_CODE_ATTRIBUTE);
         $mfNameAttribute = Mage::getModel('eav/entity_attribute')
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
-        $a = Mage::getResourceModel('catalog/product_collection')
+        return Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
             //->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
             ->addAttributeToFilter($mfCodeAttribute, array('eq' => $code))
             ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
             ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'));
-        return $a;
     }
 
     /**
