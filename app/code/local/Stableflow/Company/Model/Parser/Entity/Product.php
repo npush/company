@@ -448,8 +448,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             throw new Stableflow_Company_Exception($message);
         }
         $productCollection = $this->findBaseProductByCode($code, $manufacturerId);
-        //if($productCollection->getSize() == 0) {
-        if(count($productCollection) == 0) {
+        if($productCollection->getSize() == 0) {
             // base product did not found
             $message = sprintf('%s in string %s. Requested code:%s',self::ERROR_BASE_PRODUCT_NOT_FOUND, $this->_getLineNumber(), $code);
             throw new Stableflow_Company_Exception($message);
@@ -464,11 +463,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         foreach ($productCollection as $_product) {
             $catalogProductId = $_product->getId();
             $manufacturerCode = $_product->getData(self::MANUFACTURER_CODE_ATTRIBUTE);
-            $_codes = explode(self::MANUFACTURER_CODE_DELIMITER, $manufacturerCode);
-            if (in_array($code, $_codes) && $companyProduct = $this->findCompanyProduct($catalogProductId, $companyId)) {
+            $companyProductId = $this->findCompanyProduct($catalogProductId, $companyId);
+            if ($code == $manufacturerCode && $companyProductId) {
                 // company product found
                 $result['catalog_product_id'] = $catalogProductId;
-                $result['company_product_id'] = $companyProduct->getId();
+                $result['company_product_id'] = $companyProductId;//->getId();
             }else{
                 // company product not found
                 $result['catalog_product_id'] = $catalogProductId;
@@ -508,7 +507,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if (!$entityTable) {
             $entityTable = Mage::getResourceModel('company/product')->getEntityTable();
         }
-        $newProducts = $this->_connection->fetchAll($this->_connection->select()
+        $newProducts = $this->_connection->fetchOne($this->_connection->select()
             ->from($entityTable, array('catalog_product_id', 'entity_id'))
             ->where('catalog_product_id IN (?) AND company_id', $catalogProductId, $companyId)
         );
