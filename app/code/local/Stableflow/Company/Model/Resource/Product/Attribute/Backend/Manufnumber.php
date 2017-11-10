@@ -14,7 +14,7 @@ class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber ex
 {
     const MANUFCODE_TABLE = 'company/product_attribute_manufacturer_number';
 
-    protected $_eventPrefix = 'company_product_attribute_backend_manufnumber';
+    protected $_eventPrefix = 'company_product_attribute_backend_manufacturer_number';
 
     private $_attributeId = null;
 
@@ -27,13 +27,13 @@ class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber ex
     }
 
     /**
-     * Load gallery images for product using reusable select method
+     * Load manufacturer codes for product using reusable select method
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Product_Attribute_Backend_Media $object
+     * @param Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber $object
      * @return array
      */
-    public function loadGallery($product, $object)
+    public function loadCodes($product, $object)
     {
         $eventObjectWrapper = new Varien_Object(
             array(
@@ -42,7 +42,7 @@ class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber ex
             )
         );
         Mage::dispatchEvent(
-            $this->_eventPrefix . '_load_gallery_before',
+            $this->_eventPrefix . '_load_manufacturer_number_before',
             array('event_object_wrapper' => $eventObjectWrapper)
         );
 
@@ -52,30 +52,31 @@ class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber ex
             $productIds = array($product->getId());
         }
 
-        $select = $this->_getLoadGallerySelect($productIds, $product->getStoreId(), $object->getAttribute()->getId());
+        $select = $this->_getLoadCodeSelect($productIds, $object->getAttribute()->getId());
 
         $adapter = $this->_getReadAdapter();
         $result = $adapter->fetchAll($select);
-        $this->_removeDuplicates($result);
+        //$this->_removeDuplicates($result);
         return $result;
     }
 
     /**
-     * Get select to retrieve media gallery images
+     * Get select to retrieve manufacturer codes
      * for given product IDs.
      *
      * @param array $productIds
      * @param int $attributeId
      * @return Varien_Db_Select
      */
-    protected function _getLoadGallerySelect(array $productIds, $attributeId) {
+    protected function _getLoadCodeSelect(array $productIds, $attributeId) {
         $adapter = $this->_getReadAdapter();
 
         // Select gallery images for product
         $select = $adapter->select()
             ->from(
                 array('main'=>$this->getMainTable()),
-                array('value_id', 'value AS file', 'product_id' => 'entity_id')
+                //array('value_id', 'value AS file', 'product_id' => 'entity_id')
+                array('value AS code')
             )
             ->where('main.attribute_id = ?', $attributeId)
             ->where('main.entity_id in (?)', $productIds);

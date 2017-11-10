@@ -20,20 +20,12 @@ class Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber extends Mag
     public function afterLoad($object)
     {
         $attrCode = $this->getAttribute()->getAttributeCode();
-        $value = array();
-        $value['images'] = array();
-        $value['values'] = array();
-        $localAttributes = array('label', 'position', 'disabled');
-
-        foreach ($this->_getResource()->loadGallery($object, $this) as $image) {
-            foreach ($localAttributes as $localAttribute) {
-                if (is_null($image[$localAttribute])) {
-                    $image[$localAttribute] = $this->_getDefaultValue($localAttribute, $image);
-                }
-            }
-            $value['images'][] = $image;
+        //$value = array();
+        $value = '';
+        foreach ($this->_getResource()->loadCodes($object, $this) as $code) {
+            //$value['code'][] = $code;
+            $value[] = $code['code'];
         }
-
         $object->setData($attrCode, $value);
     }
 
@@ -70,11 +62,11 @@ class Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber extends Mag
     /**
      * Retrieve resource model
      *
-     * @return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Attribute_Backend_Media
+     * @return Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber
      */
     protected function _getResource()
     {
-        return Mage::getResourceSingleton('catalog/product_attribute_backend_media');
+        return Mage::getResourceSingleton('company/product_attribute_backend_manufnumber');
     }
 
 }

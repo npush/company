@@ -347,6 +347,14 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                         'value'          => $value
                     );
                 }
+                $where =
+                    $this->_connection->quoteInto('attribute_id = ?', $attributeId) .
+                    $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
+                    $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
+
+                $this->_connection->delete(
+                    $tableName, $where
+                );
             }
             $this->_connection->insertOnDuplicate($tableName, $tableData, array('value'));
         }
@@ -442,7 +450,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         $productCollection = $this->findBaseProductByCode($code, $manufacturerId);
         if($productCollection->getSize() == 0) {
             // base product did not found
-            $message = sprintf('%s in string %s',self::ERROR_BASE_PRODUCT_NOT_FOUND, $this->_getLineNumber());
+            $message = sprintf('%s in string %s. Requested code:%s',self::ERROR_BASE_PRODUCT_NOT_FOUND, $this->_getLineNumber(), $code);
             throw new Stableflow_Company_Exception($message);
         }
         $result = array(
@@ -479,11 +487,13 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_CODE_ATTRIBUTE);
         $mfNameAttribute = Mage::getModel('eav/entity_attribute')
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
-        return Mage::getResourceModel('catalog/product_collection')
+        $a = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
-            ->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
+            //->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
+            ->addAttributeToFilter($mfCodeAttribute, array('eq' => $code))
             ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
             ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'));
+        return $a;
     }
 
     /**
