@@ -213,7 +213,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $idx++;
             } catch (Stableflow_Company_Exception $e) {
                 $this->addRowError($e->getMessage(), $row, array(), $this->_getLineNumber());
-                Mage::logException($e);
             }
             catch (Exception $e) {
                 Mage::logException($e);
