@@ -10,7 +10,8 @@
  * Date: 11/9/17
  *
  */
-class Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract
+class Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber extends
+    Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
      * Load attribute data after product loaded
@@ -31,12 +32,12 @@ class Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber extends Mag
 
     public function beforeSave($object)
     {
-
+        return parent::beforeSave($object);
     }
 
     public function afterSave($object)
     {
-
+        return parent::afterSave($object);
     }
 
     public function addCode()

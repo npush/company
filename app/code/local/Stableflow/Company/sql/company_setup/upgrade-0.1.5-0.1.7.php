@@ -37,6 +37,12 @@ $table = $installer->getConnection()
     ), 'Entity ID')
     ->addColumn('value', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
     ), 'Value')
+    ->addColumn('store_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => true,
+        'default'   => '0',
+    ), 'Store ID')
     ->addIndex($installer->getIdxName('company/product_attribute_manufacturer_number', array('attribute_id')),
         array('attribute_id'))
     ->addIndex($installer->getIdxName('company/product_attribute_manufacturer_number', array('entity_id')),

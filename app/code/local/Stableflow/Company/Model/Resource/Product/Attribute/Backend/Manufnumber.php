@@ -10,9 +10,10 @@
  * Date: 11/9/17
  *
  */
-class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber extends Mage_Core_Model_Resource_Db_Abstract
+class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber
+    extends Mage_Core_Model_Resource_Db_Abstract
 {
-    const MANUFCODE_TABLE = 'company/product_attribute_manufacturer_number';
+    const MANUF_CODE_TABLE = 'company/product_attribute_manufacturer_number';
 
     protected $_eventPrefix = 'company_product_attribute_backend_manufacturer_number';
 
@@ -23,7 +24,7 @@ class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber ex
      */
     protected function _construct()
     {
-        $this->_init(self::MANUFCODE_TABLE, 'value_id');
+        $this->_init(self::MANUF_CODE_TABLE, 'value_id');
     }
 
     /**
@@ -97,5 +98,28 @@ class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber ex
             $this->_attributeId = $attribute->getId();
         }
         return $this->_attributeId;
+    }
+
+    /**
+     * Remove duplicates
+     *
+     * @param array $result
+     * @return Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media
+     */
+    protected function _removeDuplicates(&$result)
+    {
+        $fileToId = array();
+
+        foreach (array_keys($result) as $index) {
+            if (!isset($fileToId[$result[$index]['file']])) {
+                $fileToId[$result[$index]['file']] = $result[$index]['value_id'];
+            } elseif ($fileToId[$result[$index]['file']] != $result[$index]['value_id']) {
+                $this->deleteGallery($result[$index]['value_id']);
+                unset($result[$index]);
+            }
+        }
+
+        $result = array_values($result);
+        return $this;
     }
 }

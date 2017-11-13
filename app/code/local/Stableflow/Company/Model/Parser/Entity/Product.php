@@ -161,7 +161,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     protected function parseSource($rewind = null)
     {
         $idx = 0;
-        $updateData = array();
         $entityRowsIn = array();
         $entityRowsUp = array();
         $attributes = array();
@@ -173,12 +172,10 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         }
         while($this->getSource()->valid() && $idx < self::BUNCH_SIZE){
             $row = $this->getSource()->current();
-            if(!$this->_isValidRow($row)){
-                $this->addRowError(self::ERROR_UNKNOWN, $row, array(), $this->_getLineNumber());
-                $this->getSource()->next();
-                continue;
-            }
             try {
+                if(!$this->_isValidRow($row)){
+                    throw new Stableflow_Company_Exception(self::ERROR_UNKNOWN);
+                }
                 $find = $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId());
                 $catProdId = $find['catalog_product_id'];
                 $compProdId = $find['company_product_id'];
@@ -191,6 +188,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                         );
                         $this->_newCompProdIds[$catProdId]['entity_id'] = $compProdId;
                         $attributes[$catProdId] = $this->_extractAttributes($row);
+                        $this->addMessage(self::BEHAVIOR_UPDATE, $row, array(), $this->_getLineNumber());
                         break;
                     case self::BEHAVIOR_ADD_NEW:
                         $entityRowsIn[$catProdId] = array(
@@ -203,6 +201,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                             'updated_at'            => now()
                         );
                         $attributes[$catProdId] = $this->_extractAttributes($row);
+                        $this->addMessage(self::BEHAVIOR_ADD_NEW, $row, array(), $this->_getLineNumber());
                         break;
                     case self::BEHAVIOR_DISABLE:
                         break;
@@ -214,7 +213,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $idx++;
             } catch (Stableflow_Company_Exception $e) {
                 $this->addRowError($e->getMessage(), $row, array(), $this->_getLineNumber());
-            } catch (PHPExcel_Exception $e) {
                 Mage::logException($e);
             }
             catch (Exception $e) {
@@ -224,7 +222,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $this->getSource()->next();
             }
         }
-        return $idx ? $updateData = array(
+        return $idx ? array(
             'entityRowsUp' => $entityRowsUp,
             'entityRowsIn' => $entityRowsIn,
             'attributes' => $attributes,
@@ -447,31 +445,27 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $message = sprintf('%s in string %s',self::ERROR_MANUFACTURER_NOT_FOUND, $this->_getLineNumber());
             throw new Stableflow_Company_Exception($message);
         }
-        $productCollection = $this->findBaseProductByCode($code, $manufacturerId);
-        if($productCollection->getSize() == 0) {
+        $additionalCode = Mage::getModel('company/parser_addCode')->findCode($code, $this->_getCompanyId());
+        /** @var Mage_Catalog_Model_Product $baseProduct */
+        if($additionalCode){
+            $code = $additionalCode;
+        }
+        $baseProduct = $this->findBaseProductByCode($code, $manufacturerId);
+        $catalogProductId = $baseProduct->getId();
+        if(!$catalogProductId) {
             // base product did not found
-            $message = sprintf('%s in string %s. Requested code:%s',self::ERROR_BASE_PRODUCT_NOT_FOUND, $this->_getLineNumber(), $code);
+            $message = sprintf('%s in string %s. Requested code:%s', self::ERROR_BASE_PRODUCT_NOT_FOUND, $this->_getLineNumber(), $code);
             throw new Stableflow_Company_Exception($message);
         }
         $result = array(
-            'catalog_product_id' => null,
+            'catalog_product_id' => $catalogProductId,
             'company_product_id' => null,
         );
-
         // Base product found. Try to find company product
-        /** @var Mage_Catalog_Model_Product $_product */
-        foreach ($productCollection as $_product) {
-            $catalogProductId = $_product->getId();
-            $manufacturerCode = $_product->getData(self::MANUFACTURER_CODE_ATTRIBUTE);
-            $companyProductId = $this->findCompanyProduct($catalogProductId, $companyId);
-            if ($code == $manufacturerCode && $companyProductId) {
-                // company product found
-                $result['catalog_product_id'] = $catalogProductId;
-                $result['company_product_id'] = $companyProductId;//->getId();
-            }else{
-                // company product not found
-                $result['catalog_product_id'] = $catalogProductId;
-            }
+        $companyProductId = $this->findCompanyProduct($catalogProductId, $companyId);
+        if ($companyProductId) {
+            // company product found
+            $result['company_product_id'] = $companyProductId;
         }
         return $result;
     }
@@ -479,7 +473,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     /**
      * @param string $code
      * @param int $manufacturerId
-     * @return Mage_Catalog_Model_Resource_Product_Collection
+     * @return Mage_Catalog_Model_Resource_Product
      */
     public function findBaseProductByCode($code, $manufacturerId)
     {
@@ -487,18 +481,21 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_CODE_ATTRIBUTE);
         $mfNameAttribute = Mage::getModel('eav/entity_attribute')
             ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
-        return Mage::getResourceModel('catalog/product_collection')
+        $baseProduct = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
             //->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
             ->addAttributeToFilter($mfCodeAttribute, array('eq' => $code))
             ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
-            ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'));
+            ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'))
+            ->getFirstItem();
+
+        return $baseProduct;
     }
 
     /**
      * @param $catalogProductId
      * @param $companyId
-     * @return Stableflow_Company_Model_Product
+     * @return int $productId product Id
      */
     public function findCompanyProduct($catalogProductId, $companyId)
     {
@@ -507,17 +504,17 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if (!$entityTable) {
             $entityTable = Mage::getResourceModel('company/product')->getEntityTable();
         }
-        $newProducts = $this->_connection->fetchOne($this->_connection->select()
+        $productId = $this->_connection->fetchOne($this->_connection->select()
             ->from($entityTable, array('catalog_product_id', 'entity_id'))
             ->where('catalog_product_id IN (?) AND company_id', $catalogProductId, $companyId)
         );
-        return $newProducts;
-        return Mage::getResourceModel('company/product_collection')
-            ->addAttributeToFilter('catalog_product_id', $catalogProductId)
-            ->addAttributeToFilter('company_id', $companyId)
-            ->addAttributeToSelect(array('entity_id', 'catalog_product_id', 'company_id'))
-            ->initCache(Mage::app()->getCache(),'parser_company_product_collection',array('SOME_TAGS'))
-            ->getFirstItem();
+        return $productId;
+//        return Mage::getResourceModel('company/product_collection')
+//            ->addAttributeToFilter('catalog_product_id', $catalogProductId)
+//            ->addAttributeToFilter('company_id', $companyId)
+//            ->addAttributeToSelect(array('entity_id', 'catalog_product_id', 'company_id'))
+//            ->initCache(Mage::app()->getCache(),'parser_company_product_collection',array('SOME_TAGS'))
+//            ->getFirstItem();
     }
 
     /**
