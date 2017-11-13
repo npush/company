@@ -191,6 +191,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
             Mage::helper('company')->__('Import has been done successfully. Task ID: %d', $task->getId())
         ));
         $this->addDbParserLog($this->getErrors());
+        Mage::log($this->getMessages(), null, 'success-product.log');
         $task->setComplete();
         return true;
     }
