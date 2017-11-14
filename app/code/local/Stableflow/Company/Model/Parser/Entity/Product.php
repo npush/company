@@ -520,7 +520,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         }
         $productId = $this->_connection->fetchOne($this->_connection->select()
             ->from($entityTable, array('catalog_product_id', 'entity_id'))
-            ->where('catalog_product_id = (?) AND company_id = (?)', $catalogProductId, $companyId)
+            ->where('catalog_product_id = (?)', $catalogProductId)
+            ->where('company_id = (?)', $companyId)
         );
         return $productId;
 //        return Mage::getResourceModel('company/product_collection')
