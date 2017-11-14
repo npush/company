@@ -21,10 +21,8 @@ class Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber extends
     public function afterLoad($object)
     {
         $attrCode = $this->getAttribute()->getAttributeCode();
-        //$value = array();
-        $value = '';
+        $value = array();
         foreach ($this->_getResource()->loadCodes($object, $this) as $code) {
-            //$value['code'][] = $code;
             $value[] = $code['code'];
         }
         $object->setData($attrCode, $value);

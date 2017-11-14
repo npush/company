@@ -68,4 +68,25 @@ $table = $installer->getConnection()
     ->setComment('Catalog Product Manufacturer Number Attribute Backend Table');
 $installer->getConnection()->createTable($table);
 
+// adding the manufacturer attribute
+//$installer->addAttribute( 'catalog_product', 'manufacturer_number', array(
+//    'label'             => 'Manufacturer Number',
+//    'type'              => 'varchar',
+//    'input'             => 'text',
+//    'backend'           => 'company/product_attribute_backend_manufnumber',
+//    'source'            => '',
+//    'frontend'          => '',
+//    'required'          => false,
+//    'unique'            => false,
+//    'user_defined'      => true,
+//    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
+//    // -- catalog
+//    'filterable'        => false,
+//    'searchable'        => true,
+//    'visible_on_front'  => true,
+//    'used_in_product_listing' => true,
+//) );
+
+$installer->updateAttribute('catalog_product', 'manufacturer_number', 'backend', 'company/product_attribute_backend_manufnumber');
+
 $installer->endSetup();
