@@ -197,7 +197,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                     case self::BEHAVIOR_UPDATE:
                         $entityRowsUp[$catProdId] = array(
                             'updated_at' => now(),
-                            'entity_id'  => $compProdId
+                            'entity_id'  => $compProdId,
                         );
                         $this->_newCompProdIds[$catProdId]['entity_id'] = $compProdId;
                         $attributes[$catProdId] = $this->_extractAttributes($row);
@@ -271,7 +271,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
 
         if ($idToDelete) {
             $this->_connection->query($this->_connection->quoteInto(
-                "DELETE FROM `{$productEntityTable}` WHERE `entity_id` IN (?) AND `company_id`", $idToDelete, $this->_getCompanyId()
+                "DELETE FROM `{$productEntityTable}` WHERE `entity_id` IN (?) AND `company_id` (?)", $idToDelete, $this->_getCompanyId()
                 ));
         }
 
@@ -357,14 +357,14 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                         'value'          => $value
                     );
                 }
-                $where =
-                    $this->_connection->quoteInto('attribute_id = ?', $attributeId) .
-                    $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
-                    $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
-
-                $this->_connection->delete(
-                    $tableName, $where
-                );
+//                $where =
+//                    $this->_connection->quoteInto('attribute_id = ?', $attributeId) .
+//                    $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
+//                    $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
+//
+//                $this->_connection->delete(
+//                    $tableName, $where
+//                );
             }
             $this->_connection->insertOnDuplicate($tableName, $tableData, array('value'));
         }
@@ -519,7 +519,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $entityTable = Mage::getResourceModel('company/product')->getEntityTable();
         }
         $productId = $this->_connection->fetchOne($this->_connection->select()
-            ->from($entityTable, array('catalog_product_id', 'entity_id'))
+            ->from($entityTable, array('entity_id'))
             ->where('catalog_product_id = (?)', $catalogProductId)
             ->where('company_id = (?)', $companyId)
         );
