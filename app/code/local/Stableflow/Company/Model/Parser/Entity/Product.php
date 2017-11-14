@@ -133,6 +133,19 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         'name'              => 'name'
     );
 
+    protected $_attribute_models = array();
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_attribute_models = array(
+            'mfCodeAttribute' => Mage::getModel('eav/entity_attribute')
+                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_CODE_ATTRIBUTE),
+            'mfNameAttribute' => Mage::getModel('eav/entity_attribute')
+                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE),
+        );
+    }
+
     /**
      * Run parsing process
      *
@@ -476,10 +489,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     public function findBaseProductByCode($code, $manufacturerId)
     {
-        $mfCodeAttribute = Mage::getModel('eav/entity_attribute')
-            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_CODE_ATTRIBUTE);
-        $mfNameAttribute = Mage::getModel('eav/entity_attribute')
-            ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
+        $mfCodeAttribute = $this->_attribute_models['mfCodeAttribute'];
+        $mfNameAttribute = $this->_attribute_models['mfNameAttribute'];
+//        $query = $this->_connection->select()
+//            ->from($mfNameAttribute->getMainTable(), array('entity_id'))
+//            ->where('value = ()', $manufacturerId);
         $baseProduct = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
             //->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
