@@ -21,7 +21,7 @@ foreach ($data as $entity){
     foreach($codes as $code) {
         $code = trim($code);
         $installer->getConnection()
-            ->insert($installer->getTable('company/parser_additional_code'), array(
+            ->insert($installer->getTable('company/product_attribute_manufacturer_number'), array(
                 'attribute_id' => $entity['attribute_id'],
                 'entity_id' => $entity['entity_id'],
                 'value' => $code
