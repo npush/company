@@ -357,14 +357,14 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                         'value'          => $value
                     );
                 }
-//                $where =
-//                    $this->_connection->quoteInto('attribute_id = ?', $attributeId) .
-//                    $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
-//                    $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
-//
-//                $this->_connection->delete(
-//                    $tableName, $where
-//                );
+                $where =
+                    $this->_connection->quoteInto('attribute_id = ?', $attributeId) .
+                    $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
+                    $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
+
+                $this->_connection->delete(
+                    $tableName, $where
+                );
             }
             $this->_connection->insertOnDuplicate($tableName, $tableData, array('value'));
         }
