@@ -140,27 +140,8 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
             /** @var  $_taskInQueue Stableflow_Company_Model_Parser_Queue*/
         $this->addLogComment(Mage::helper('company')->__('Tasks in queue: %d', $queueCollection->getSize()));
         foreach($queueCollection as $_taskInQueue){
-            $this->addLogComment(Mage::helper('company')->__('Start parsing task ID: %d', $_taskInQueue->getTask()->getId()));
             $_taskInQueue->setInProgress();
-            /** @var string $sourceFile Full path to source file*/
-            $sourceFile = $this->getWorkingDir() . $_taskInQueue->getTask()->getSourceFile();
-            $sourceAdapter = $this->_getSourceAdapter(
-                $_taskInQueue->getTask()->getConfig(),
-                $sourceFile
-            );
-            $this->_getEntityAdapter()->setSource($sourceAdapter)->setTask($_taskInQueue->getTask());
-            $this->validateSource($sourceFile);
-            $this->_getEntityAdapter()->runParsingProcess();
-            $this->addLogComment(array(
-                Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
-                    $this->getProcessedRowsCount(),
-                    $this->getProcessedEntitiesCount(),
-                    $this->getInvalidRowsCount(),
-                    $this->getErrorsCount()),
-                Mage::helper('company')->__('Import has been done successfully.')
-            ));
-            $this->addDbParserLog($this->getErrors());
-            Mage::log($this->getMessages(), null, 'success-product.log');
+            $this->runTask($_taskInQueue->getTask());
             $_taskInQueue->setComplete();
         }
     }

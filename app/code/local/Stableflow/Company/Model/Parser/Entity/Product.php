@@ -494,10 +494,9 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         $mfNameAttribute = $this->_attribute_models['mfNameAttribute'];
 //        $query = $this->_connection->select()
 //            ->from($mfNameAttribute->getMainTable(), array('entity_id'))
-//            ->where('value = ()', $manufacturerId);
+//            ->where('value = (?)', $manufacturerId);
         $baseProduct = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
-            //->addAttributeToFilter($mfCodeAttribute, array('like' => '%'.$code.'%'))
             ->addAttributeToFilter($mfCodeAttribute, array('eq' => $code))
             ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
             ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'))
