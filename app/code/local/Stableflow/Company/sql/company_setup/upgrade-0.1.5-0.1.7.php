@@ -87,6 +87,6 @@ $installer->getConnection()->createTable($table);
 //    'used_in_product_listing' => true,
 //) );
 
-$installer->updateAttribute('catalog_product', 'manufacturer_number', 'backend', 'company/product_attribute_backend_manufnumber');
+$installer->updateAttribute('catalog_product', 'manufacturer_number', 'backend_model', 'company/product_attribute_backend_manufnumber');
 
 $installer->endSetup();
