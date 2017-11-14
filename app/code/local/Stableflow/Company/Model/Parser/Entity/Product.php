@@ -397,7 +397,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
 
             $newProducts = $this->_connection->fetchPairs($this->_connection->select()
                 ->from($entityTable, array('catalog_product_id', 'entity_id'))
-                ->where('catalog_product_id IN (?) AND company_id', array_keys($entityRowsIn), $this->_getCompanyId())
+                ->where('catalog_product_id IN (?)', array_keys($entityRowsIn))
+                ->where('company_id = (?)', $this->_getCompanyId())
             );
             foreach ($newProducts as $catProdId => $newId) { // fill up entity_id for new products
                 $this->_newCompProdIds[$catProdId]['entity_id'] = $newId;
@@ -519,7 +520,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         }
         $productId = $this->_connection->fetchOne($this->_connection->select()
             ->from($entityTable, array('catalog_product_id', 'entity_id'))
-            ->where('catalog_product_id IN (?) AND company_id', $catalogProductId, $companyId)
+            ->where('catalog_product_id = (?) AND company_id = (?)', $catalogProductId, $companyId)
         );
         return $productId;
 //        return Mage::getResourceModel('company/product_collection')
