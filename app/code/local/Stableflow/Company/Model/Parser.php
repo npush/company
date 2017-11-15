@@ -154,15 +154,25 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     {
         $this->addLogComment(Mage::helper('company')->__('Begin import. Task ID: %d', $task->getId()));
         $task->setInProgress();
-        /** @var string $sourceFile Full path to source file*/
-        $sourceFile = $this->getWorkingDir() . $task->getSourceFile();
-        $sourceAdapter = $this->_getSourceAdapter(
-            $task->getConfig(),
-            $sourceFile
-        );
-        $this->_getEntityAdapter()->setSource($sourceAdapter)->setTask($task);
-        $this->validateSource($sourceFile);
-        $this->_getEntityAdapter()->runParsingProcess();
+        try {
+            /** @var string $sourceFile Full path to source file */
+            $sourceFile = $this->getWorkingDir() . $task->getSourceFile();
+            $sourceAdapter = $this->_getSourceAdapter(
+                $task->getConfig(),
+                $sourceFile
+            );
+            $this->_getEntityAdapter()->setSource($sourceAdapter)->setTask($task);
+            $this->validateSource($sourceFile);
+            $this->_getEntityAdapter()->runParsingProcess();
+        }catch (PHPExcel_Exception $e){
+            Mage::log($e->getMessage(), null, 'PHPExcel-log');
+        }catch (Stableflow_Company_Exception $e){
+            Mage::log($e->getMessage(), null, 'Stableflow-Company-log');
+        }catch (Mage_Core_Exception $e){
+            Mage::log($e->getMessage(), null, 'Mage_Core-log');
+        }catch (Exception $e){
+            Mage::log($e->getMessage(), null, 'Exception-log');
+        }
         $this->addLogComment(array(
             Mage::helper('company')->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
                 $this->getProcessedRowsCount(),
@@ -175,23 +185,6 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
         Mage::log($this->getMessages(), null, 'success-product.log');
         $task->setComplete();
         return true;
-    }
-
-    public function update()
-    {
-        try{
-            $_taskInQueue->getTask()->setStatus(Stableflow_Company_Model_Parser_Task_Status::STATUS_ERRORS_FOUND);
-            $this->addLogComment(Mage::helper('company')->__('Error in task ID:%d', $_taskInQueue->getTask()->getId()));
-            //Mage::exception('Stableflow_Company', 'Task error', 0);
-        }catch (PHPExcel_Exception $e){
-
-        }catch (Stableflow_Company_Exception $e){
-            var_dump($e->getMessage());
-        }catch (Mage_Core_Exception $e){
-
-        }catch (Exception $e){
-            Mage::log($e->getMessage(), null, 'parser-log');
-        }
     }
 
     /**

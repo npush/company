@@ -133,19 +133,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         'name'              => 'name'
     );
 
-    protected $_attribute_models = array();
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->_attribute_models = array(
-            'mfCodeAttribute' => Mage::getModel('eav/entity_attribute')
-                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_CODE_ATTRIBUTE),
-            'mfNameAttribute' => Mage::getModel('eav/entity_attribute')
-                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE),
-        );
-    }
-
     /**
      * Run parsing process
      *
@@ -227,8 +214,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             } catch (Stableflow_Company_Exception $e) {
                 $this->addRowError($e->getMessage(), $row, array(), $this->_getLineNumber());
             }
-            catch (Exception $e) {
-                Mage::logException($e);
+            catch (Mage_Core_Exception $e) {
+                Mage::logException($e->getMessages());
             }
             finally{
                 $this->getSource()->next();
@@ -253,8 +240,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $this->_saveProductEntity($bunch['entityRowsIn'], $bunch['entityRowsUp']);
             $attributes = $this->_prepareAttributes($bunch['attributes']);
             $this->_saveProductAttributes($attributes);
-        }catch (Exception $e){
-            Mage::logException($e);
+        }catch (Mage_Core_Exception $e){
+            Mage::logException($e->getMessages());
         }
     }
 
@@ -490,8 +477,16 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     public function findBaseProductByCode($code, $manufacturerId)
     {
-        $mfCodeAttribute = $this->_attribute_models['mfCodeAttribute'];
-        $mfNameAttribute = $this->_attribute_models['mfNameAttribute'];
+        static $mfCodeAttribute = null;
+        if(!$mfCodeAttribute){
+            $mfCodeAttribute = Mage::getModel('eav/entity_attribute')
+                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_CODE_ATTRIBUTE);
+        }
+        static $mfNameAttribute = null;
+        if(!$mfNameAttribute){
+            $mfNameAttribute = Mage::getModel('eav/entity_attribute')
+                ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
+        }
 //        $query = $this->_connection->select()
 //            ->from($mfNameAttribute->getMainTable(), array('entity_id'))
 //            ->where('value = (?)', $manufacturerId);
