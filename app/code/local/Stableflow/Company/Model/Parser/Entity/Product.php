@@ -344,8 +344,8 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                         'value'          => $value
                     );
                 }
-                $where =
-                    $this->_connection->quoteInto('attribute_id = ?', $attributeId) .
+
+                $where = $this->_connection->quoteInto('attribute_id = ?', $attributeId) .
                     $this->_connection->quoteInto(' AND entity_id = ?', $productId) .
                     $this->_connection->quoteInto(' AND entity_type_id = ?', $this->_entityTypeId);
 
@@ -385,7 +385,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $newProducts = $this->_connection->fetchPairs($this->_connection->select()
                 ->from($entityTable, array('catalog_product_id', 'entity_id'))
                 ->where('catalog_product_id IN (?)', array_keys($entityRowsIn))
-                ->where('company_id = (?)', $this->_getCompanyId())
+                ->where('company_id = ?', $this->_getCompanyId())
             );
             foreach ($newProducts as $catProdId => $newId) { // fill up entity_id for new products
                 $this->_newCompProdIds[$catProdId]['entity_id'] = $newId;
@@ -504,19 +504,18 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 $productEntityTable.".entity_id = mfc.entity_id",
                 array('')
             )
-            ->where('mfn.value = (?)', $manufacturerId)
-            ->where('mfn.attribute_id = (?)', $mfNameAttribute->getId())
-            ->where('mfc.value = (?)', $code)
-            ->where('mfc.attribute_id = (?)', $mfCodeAttribute->getId());
+            ->where('mfn.value = ?', $manufacturerId)
+            ->where('mfn.attribute_id = ?', $mfNameAttribute->getId())
+            ->where('mfc.value = ?', $code)
+            ->where('mfc.attribute_id = ?', $mfCodeAttribute->getId());
         return  $this->_connection->fetchOne($query3);
 
-        $baseProduct = Mage::getResourceModel('catalog/product_collection')
-            ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
-            ->addAttributeToFilter($mfCodeAttribute, array('eq' => $code))
-            ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
-            ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'))
-            ->getFirstItem();
-        return $baseProduct;
+//        return Mage::getResourceModel('catalog/product_collection')
+//            ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
+//            ->addAttributeToFilter($mfCodeAttribute, array('eq' => $code))
+//            ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
+//            ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'))
+//            ->getFirstItem();
     }
 
     /**
@@ -533,10 +532,11 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         }
         $productId = $this->_connection->fetchOne($this->_connection->select()
             ->from($entityTable, array('entity_id'))
-            ->where('catalog_product_id = (?)', $catalogProductId)
-            ->where('company_id = (?)', $companyId)
+            ->where('catalog_product_id = ?', $catalogProductId)
+            ->where('company_id = ?', $companyId)
         );
         return $productId;
+
 //        return Mage::getResourceModel('company/product_collection')
 //            ->addAttributeToFilter('catalog_product_id', $catalogProductId)
 //            ->addAttributeToFilter('company_id', $companyId)

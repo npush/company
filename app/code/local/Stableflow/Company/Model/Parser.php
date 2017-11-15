@@ -154,13 +154,10 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     {
         $this->addLogComment(Mage::helper('company')->__('Begin import. Task ID: %d', $task->getId()));
         $task->setInProgress();
+        /** @var string $sourceFile Full path to source file */
+        $sourceFile = $this->getWorkingDir() . $task->getSourceFile();
         try {
-            /** @var string $sourceFile Full path to source file */
-            $sourceFile = $this->getWorkingDir() . $task->getSourceFile();
-            $sourceAdapter = $this->_getSourceAdapter(
-                $task->getConfig(),
-                $sourceFile
-            );
+            $sourceAdapter = $this->_getSourceAdapter($task->getConfig(),$sourceFile);
             $this->_getEntityAdapter()->setSource($sourceAdapter)->setTask($task);
             $this->validateSource($sourceFile);
             $this->_getEntityAdapter()->runParsingProcess();
