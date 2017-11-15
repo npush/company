@@ -451,7 +451,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $code = $additionalCode;
         }
         $baseProduct = $this->findBaseProductByCode($code, $manufacturerId);
-        $catalogProductId = $baseProduct->getId();
+        $catalogProductId = $baseProduct;//$baseProduct->getId();
         if(!$catalogProductId) {
             // base product did not found
             $message = sprintf('%s in string %s. Requested code:%s', self::ERROR_BASE_PRODUCT_NOT_FOUND, $this->_getLineNumber(), $code);
@@ -487,16 +487,35 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             $mfNameAttribute = Mage::getModel('eav/entity_attribute')
                 ->loadByCode(Mage_Catalog_Model_Product::ENTITY, self::MANUFACTURER_ATTRIBUTE);
         }
-//        $query = $this->_connection->select()
-//            ->from($mfNameAttribute->getMainTable(), array('entity_id'))
-//            ->where('value = (?)', $manufacturerId);
+        static $productEntityTable = null;
+
+        if (!$productEntityTable) {
+            $productEntityTable = Mage::getResourceModel('company/product')->getEntityTable();
+        }
+        $query3 = $this->_connection->select()
+            ->from($productEntityTable, array('entity_id'))
+            ->joinLeft(
+                array("mfn" => $mfNameAttribute->getBackend()->getTable()),
+                $productEntityTable.".entity_id = mfn.entity_id",
+                array('')
+            )
+            ->joinLeft(
+                array("mfc" => $mfCodeAttribute->getBackend()->getTable()),
+                $productEntityTable.".entity_id = mfc.entity_id",
+                array('')
+            )
+            ->where('mfn.value = (?)', $manufacturerId)
+            ->where('mfn.attribute_id = (?)', $mfNameAttribute->getId())
+            ->where('mfc.value = (?)', $code)
+            ->where('mfc.attribute_id = (?)', $mfCodeAttribute->getId());
+        return  $this->_connection->fetchOne($query3);
+
         $baseProduct = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
             ->addAttributeToFilter($mfCodeAttribute, array('eq' => $code))
             ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
             ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'))
             ->getFirstItem();
-
         return $baseProduct;
     }
 
