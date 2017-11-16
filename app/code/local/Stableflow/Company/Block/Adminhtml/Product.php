@@ -12,8 +12,9 @@ class Stableflow_Company_Block_Adminhtml_Product extends Mage_Adminhtml_Block_Wi
         $this->_controller         = 'adminhtml_product';
         $this->_blockGroup         = 'company';
         parent::__construct();
-        $this->_headerText         = Mage::helper('company')->__('Company');
-        $this->_updateButton('add', 'label', Mage::helper('company')->__('Add Company'));
+        $this->_headerText         = Mage::helper('company')->__('Company Products');
+        //$this->_updateButton('add', 'label', Mage::helper('company')->__('Add Company'));
+        $this->_removeButton('add');
 
         //$this->setTemplate('company/grid.phtml');
     }

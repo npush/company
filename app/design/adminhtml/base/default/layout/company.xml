@@ -73,9 +73,9 @@
         </reference>
     </adminhtml_company_company_saveproduct>
     <adminhtml_company_company_productlist>
-        <reference name="content">
-            <block type="company/adminhtml_product" name="task_grid"/>
-        </reference>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_product" name="product_grid"/>
+        </block>
     </adminhtml_company_company_productlist>
 <!-- Parser path -->
     <adminhtml_parser_queue_queue>

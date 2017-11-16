@@ -34,7 +34,7 @@ class Stableflow_Company_Model_Resource_Product_Collection extends Mage_Eav_Mode
     {
         $adapter = $this->getConnection();
         $select = $adapter->select()
-            ->from($this->_companyProductTable, 'company_product_id')
+            ->from($this->_companyProductTable, 'entity_id')
             ->where('company_id = :company_id');
         $this->_productIdArray = $adapter->fetchCol($select, array(':company_id' => $company->getId()));
         $this->addFieldToFilter('entity_id', array('in' => $this->_productIdArray));

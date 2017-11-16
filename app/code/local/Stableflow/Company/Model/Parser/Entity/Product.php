@@ -508,7 +508,9 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             ->where('mfn.attribute_id = ?', $mfNameAttribute->getId())
             ->where('mfc.value = ?', $code)
             ->where('mfc.attribute_id = ?', $mfCodeAttribute->getId());
-        return  $this->_connection->fetchOne($query3);
+        $productId = $this->_connection->fetchOne($query3);
+
+        return $productId;
 
 //        return Mage::getResourceModel('catalog/product_collection')
 //            ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
