@@ -72,11 +72,34 @@
             <block type="company/adminhtml_product_edit" name="product_edit"/>
         </reference>
     </adminhtml_company_company_saveproduct>
-    <adminhtml_company_company_productlist>
+
+    <!--<adminhtml_company_company_productlist>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="company/adminhtml_product" name="product_grid"/>
         </block>
-    </adminhtml_company_company_productlist>
+    </adminhtml_company_company_productlist>-->
+
+    <adminhtml_company_company_productlisttab>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_company_edit_tab_products" name="company.tab.products"/>
+            <block type="adminhtml/widget_grid_serializer" name="company.serializer.products">
+                <action method="initSerializerBlock">
+                    <grid_block_name>company.tab.products</grid_block_name>
+                    <data_callback>getSelectedProducts</data_callback>
+                    <hidden_input_name>product_ids</hidden_input_name>
+                    <reload_param_name>products</reload_param_name>
+                </action>
+            </block>
+        </block>
+    </adminhtml_company_company_productlisttab>
+
+    <adminhtml_company_company_productlistgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_company_edit_tab_products" name="company.tab.products"/>
+        </block>
+    </adminhtml_company_company_productlistgrid>
+
+
 <!-- Parser path -->
     <adminhtml_parser_queue_queue>
         <reference name="content">

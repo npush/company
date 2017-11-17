@@ -51,12 +51,12 @@ class Stableflow_Company_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Blo
             ->addAttributeToSelect('is_active')
             ->addAttributeToSelect('catalog_product_id');
         //->addStoreFilter($this->getRequest()->getParam('store'))
-        /*->joinField('catalog_product_name',
-            'catalog/category_product',
-            'name',
-            'product_id=entity_id',
-            'category_id='.(int) $this->getRequest()->getParam('id', 0),
-            'left');*/
+//        ->joinField('catalog_product_name',
+//            'catalog/product_entity',
+//            'value',
+//            'product_id=entity_id',
+//            null,
+//            'left');
         $this->setCollection($collection);
 
         if ($this->getCompany()->getProductsReadonly()) {

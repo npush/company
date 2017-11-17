@@ -49,8 +49,9 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
         ));
         $this->addTab('products', array(
                 'label'   => Mage::helper('company')->__('Company Products List'),
-                'url'   => $this->getUrl('*/*/productList', array('_current' => true)),
-                'class'    => 'ajax'//,
+                'title'   => Mage::helper('company')->__('Company Products List'),
+                'url'   => $this->getUrl('*/*/productListTab', array('_current' => true)),
+                'class'    => 'ajax'//
 //                'content' => $this->getLayout()->createBlock(
 //                    'company/adminhtml_company_edit_tab_products',
 //                    'company.product.grid'

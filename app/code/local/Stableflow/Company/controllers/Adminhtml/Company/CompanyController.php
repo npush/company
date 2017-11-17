@@ -120,6 +120,9 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
      */
     public function saveAction()
     {
+        if ($productsIds = $this->getRequest()->getParam('products_ids', null)) {
+            $productsIds = Mage::helper('adminhtml/js')->decodeGridSerializedInput($productsIds);
+        }
         $storeId        = $this->getRequest()->getParam('store');
         $redirectBack   = $this->getRequest()->getParam('back', false);
         $companyId   = $this->getRequest()->getParam('id');
@@ -420,6 +423,29 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     public function productListAction()
     {
         $this->loadLayout();
+        $this->renderLayout();
+    }
+
+    public function productListTabAction()
+    {
+        // used for selecting products on tab load
+        $saved_product_ids = array(); // your load logic here
+
+        $this->loadLayout()
+            ->getLayout()
+            ->getBlock('company.tab.products')
+            ->setSelectedProducts($saved_product_ids);
+
+        $this->renderLayout();
+    }
+
+    public function productListGridAction()
+    {
+        $this->loadLayout()
+            ->getLayout()
+            ->getBlock('company.tab.products')
+            ->setSelectedProducts($this->getRequest()->getPost('products', null));
+
         $this->renderLayout();
     }
 

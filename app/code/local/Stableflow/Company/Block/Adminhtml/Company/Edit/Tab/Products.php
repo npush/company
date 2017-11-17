@@ -14,7 +14,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
      */
     public function __construct(){
         parent::__construct();
-
+        $this->setSaveParametersInSession(false);
         $this->setId('company_products');
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
@@ -56,6 +56,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
      *
      */
     public function getCompany(){
+        return Mage::getModel('company/company')->load(1);
         return Mage::registry('current_company');
     }
 
@@ -115,16 +116,14 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
 
     protected function _prepareColumns()
     {
-        if (!$this->getCompany()->getIsReadonly()) {
-            $this->addColumn('in_category', array(
-                'header_css_class' => 'a-center',
-                'type'      => 'checkbox',
-                'name'      => 'in_category',
-                'values'    => $this->_getSelectedProducts(),
-                'align'     => 'center',
-                'index'     => 'entity_id'
-            ));
-        }
+        $this->addColumn('selected_products', array(
+            'header'    => $this->__('#'),
+            'type'      => 'checkbox',
+            'index'     => 'entity_id',
+            'align'     => 'center',
+            'field_name'=> 'selected_products',
+            'values'    => $this->getSelectedProducts(),
+        ));
         $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
@@ -178,7 +177,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
 
     public function getGridUrl()
     {
-        return '';//$this->getUrl('*/*/grid', array('_current'=>true));
+        return $this->getUrl('*/*/productListGrid', array('_current'=>true));
     }
 
     protected function _getSelectedProducts()
