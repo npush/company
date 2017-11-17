@@ -434,6 +434,7 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
         $this->loadLayout()
             ->getLayout()
             ->getBlock('company.tab.products')
+            ->setCurrentCompany($this->getRequest()->getPost('current_company_id', null))
             ->setSelectedProducts($saved_product_ids);
 
         $this->renderLayout();
