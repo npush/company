@@ -81,7 +81,7 @@
 
     <adminhtml_company_company_productlisttab>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="company/adminhtml_company_edit_tab_products" name="company.tab.products"/>
+            <block type="company/adminhtml_product_grid" name="company.tab.products"/>
             <block type="adminhtml/widget_grid_serializer" name="company.serializer.products">
                 <action method="initSerializerBlock">
                     <grid_block_name>company.tab.products</grid_block_name>
@@ -95,12 +95,13 @@
 
     <adminhtml_company_company_productlistgrid>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="company/adminhtml_company_edit_tab_products" name="company.tab.products"/>
+            <block type="company/adminhtml_product_grid" name="company.tab.products"/>
         </block>
     </adminhtml_company_company_productlistgrid>
 
 
 <!-- Parser path -->
+    <!-- Menu -->
     <adminhtml_parser_queue_queue>
         <reference name="content">
             <block type="company/adminhtml_parser_queue" name="queue_grid"/>
@@ -118,7 +119,8 @@
             <block type="company/adminhtml_parser_log" name="log_grid"/>
         </reference>
     </adminhtml_parser_parser_log>
-<!-- TABS -->
+    <!-- Menu -->
+    <!-- TABS -->
     <adminhtml_parser_parser_parserconfiguration>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="company/adminhtml_parser_config" name="parser_configuration_grid"/>
@@ -166,4 +168,6 @@
             <block type="company/adminhtml_parser_log" name="parser_task_log_grid"/>
         </block>
     </adminhtml_parser_log_tasklog>
+    <!-- TABS -->
+<!-- Parser path -->
 </layout>

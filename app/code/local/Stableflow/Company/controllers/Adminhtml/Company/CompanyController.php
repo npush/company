@@ -431,6 +431,9 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
         // used for selecting products on tab load
         $saved_product_ids = array(); // your load logic here
 
+        $companyId = $this->getRequest()->getParam('id');
+        $this->_getSession()->setCompanyId($companyId);
+
         $this->loadLayout()
             ->getLayout()
             ->getBlock('company.tab.products')
@@ -442,6 +445,9 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
 
     public function productListGridAction()
     {
+        $companyId = $this->getRequest()->getParam('id');
+        $this->_getSession()->setCompanyId($companyId);
+
         $this->loadLayout()
             ->getLayout()
             ->getBlock('company.tab.products')

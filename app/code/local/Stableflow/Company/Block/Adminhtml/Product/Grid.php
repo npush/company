@@ -19,31 +19,16 @@ class Stableflow_Company_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Blo
     }
 
     /**
-     * Check block is readonly.
-     *
-     * @return boolean
-     */
-    public function isReadonly(){
-        $customer = Mage::registry('current_company');
-        return $customer->isReadonly();
-    }
-
-    /**
      * get current entity
      *
      */
     public function getCompany(){
-        //return Mage::registry('current_company');
-        return Mage::getModel('company/company')->load(1);
+        $id = Mage::getSingleton('adminhtml/session')->getCompanyId();
+        return Mage::getModel('company/company')->load($id);
     }
 
     protected function _prepareCollection()
     {
-        if ($this->getCompany()->getId()) {
-            /*$this->setDefaultFilter(array(
-                'in_category'   => 1
-            ));*/
-        }
         $collection = Mage::getModel('company/product')->getCollection()
             ->addCompanyFilter($this->getCompany())
             ->addAttributeToSelect('name')
@@ -72,16 +57,14 @@ class Stableflow_Company_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Blo
 
     protected function _prepareColumns()
     {
-//        if (!$this->getCompany()->getIsReadonly()) {
-//            $this->addColumn('in_category', array(
-//                'header_css_class' => 'a-center',
-//                'type'      => 'checkbox',
-//                'name'      => 'in_category',
-//                'values'    => $this->_getSelectedProducts(),
-//                'align'     => 'center',
-//                'index'     => 'entity_id'
-//            ));
-//        }
+        $this->addColumn('selected_products', array(
+            'header'    => $this->__('#'),
+            'type'      => 'checkbox',
+            'index'     => 'entity_id',
+            'align'     => 'center',
+            'field_name'=> 'selected_products',
+            'values'    => $this->getSelectedProducts(),
+        ));
         $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
@@ -123,8 +106,28 @@ class Stableflow_Company_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Blo
             'header'    => Mage::helper('catalog')->__('Active'),
             'index'     => 'is_active',
             'width'     => '60',
-            'align'     => 'right'
+            'align'     => 'right',
+            'type'      => 'options',
+            'options'   => Mage::getSingleton('adminhtml/system_config_source_yesno')->toArray(),
         ));
+        $this->addColumn(
+            'created_at',
+            array(
+                'header' => Mage::helper('company')->__('Created at'),
+                'index' => 'created_at',
+                'width' => '120px',
+                'type' => 'datetime',
+            )
+        );
+        $this->addColumn(
+            'updated_at',
+            array(
+                'header' => Mage::helper('company')->__('Updated at'),
+                'index' => 'updated_at',
+                'width' => '120px',
+                'type' => 'datetime',
+            )
+        );
         $this->addColumn('action',array(
                 'header'    => Mage::helper('catalog')->__('Edit'),
                 'width'     => '5%',
@@ -163,7 +166,7 @@ class Stableflow_Company_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Blo
     }
 
     protected function _prepareMassaction(){
-        $this->setMassactionIdField('entity_id');
+        //$this->setMassactionIdField('entity_id');
         $this->getMassactionBlock()->setFormFieldName('company');
         $this->getMassactionBlock()->addItem(
             'delete',
@@ -195,12 +198,8 @@ class Stableflow_Company_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Blo
         return $this;
     }
 
-    public function getRowUrl($row){
-        return $this->getUrl('*/company_product/productEdit', array('id' => $row->getId()));
-    }
-
-
-    public function getGridUrl(){
-        return $this->getUrl('*/company_company/productList', array('_current'=>true));
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/productListGrid', array('_current'=>true));
     }
 }

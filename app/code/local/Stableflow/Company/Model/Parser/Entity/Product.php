@@ -439,6 +439,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
      */
     public function findByCode($code, $manufacturer, $companyId)
     {
+        #Varien_Profiler::start(__METHOD__.'/start');
         $manufacturerId = $this->getManufacturerIdByName($manufacturer);
         if(!$manufacturerId){
             //manufacturer did not found
@@ -467,6 +468,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             // company product found
             $result['company_product_id'] = $companyProductId;
         }
+        #Varien_Profiler::stop(__METHOD__.'/start');
         return $result;
     }
 

@@ -56,8 +56,8 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
      *
      */
     public function getCompany(){
-        return Mage::getModel('company/company')->load(1);
-        return Mage::registry('current_company');
+        $id = Mage::getSingleton('adminhtml/session')->getCompanyId();
+        return Mage::getModel('company/company')->load($id);
     }
 
     protected function _addColumnFilterToCollection($column)

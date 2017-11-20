@@ -98,4 +98,9 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Grid extends Mage_Admi
     {
         return $this->getUrl('*/parser_parser/priceType', array('_current' => true));
     }
+
+//    public function getRowUrl($row)
+//    {
+//        return $this->getUrl('*/parser_parser/editPriceType', array('type_id' => $row->getId()));
+//    }
 }
