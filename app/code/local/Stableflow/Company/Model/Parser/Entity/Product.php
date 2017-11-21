@@ -494,22 +494,40 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if (!$productEntityTable) {
             $productEntityTable = Mage::getResourceModel('company/product')->getEntityTable();
         }
+        $query1 = $this->_connection->select()
+            ->from($mfCodeAttribute->getBackend()->getTable(),array('entity_id'))
+            ->where('attribute_id = ?', $mfCodeAttribute->getId())
+            ->where('value = ?', $code);
+        $entityIds = $this->_connection->fetchAll($query1);
+        if(!$entityIds){
+            return false;
+        }
         $query3 = $this->_connection->select()
-            ->from($productEntityTable, array('entity_id'))
+            ->from(array('main.table' => $productEntityTable), array('entity_id'))
             ->joinLeft(
                 array("mfn" => $mfNameAttribute->getBackend()->getTable()),
-                $productEntityTable.".entity_id = mfn.entity_id",
+                "main.table.entity_id = mfn.entity_id",
                 array('')
             )
-            ->joinLeft(
-                array("mfc" => $mfCodeAttribute->getBackend()->getTable()),
-                $productEntityTable.".entity_id = mfc.entity_id",
-                array('')
-            )
+            ->where('main.table.entity_id IN (?)', $entityIds)
             ->where('mfn.value = ?', $manufacturerId)
-            ->where('mfn.attribute_id = ?', $mfNameAttribute->getId())
-            ->where('mfc.value = ?', $code)
-            ->where('mfc.attribute_id = ?', $mfCodeAttribute->getId());
+            ->where('mfn.attribute_id = ?', $mfNameAttribute->getId());
+//        $query3 = $this->_connection->select()
+//            ->from($productEntityTable, array('entity_id'))
+//            ->joinLeft(
+//                array("mfn" => $mfNameAttribute->getBackend()->getTable()),
+//                $productEntityTable.".entity_id = mfn.entity_id",
+//                array('')
+//            )
+//            ->joinLeft(
+//                array("mfc" => $mfCodeAttribute->getBackend()->getTable()),
+//                $productEntityTable.".entity_id = mfc.entity_id",
+//                array('')
+//            )
+//            ->where('mfn.value = ?', $manufacturerId)
+//            ->where('mfn.attribute_id = ?', $mfNameAttribute->getId())
+//            ->where('mfc.value = ?', $code)
+//            ->where('mfc.attribute_id = ?', $mfCodeAttribute->getId());
         $productId = $this->_connection->fetchOne($query3);
 
         return $productId;
