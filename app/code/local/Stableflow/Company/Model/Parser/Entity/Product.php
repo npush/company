@@ -450,6 +450,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         /** @var Mage_Catalog_Model_Product $baseProduct */
         if($additionalCode){
             $code = $additionalCode;
+            $code = '0025911';
         }
         $baseProduct = $this->findBaseProductByCode($code, $manufacturerId);
         $catalogProductId = $baseProduct;//$baseProduct->getId();
@@ -503,13 +504,13 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             return false;
         }
         $query3 = $this->_connection->select()
-            ->from(array('main.table' => $productEntityTable), array('entity_id'))
+            ->from(array('main_table' => $productEntityTable), array('entity_id'))
             ->joinLeft(
                 array("mfn" => $mfNameAttribute->getBackend()->getTable()),
-                "main.table.entity_id = mfn.entity_id",
+                "main_table.entity_id = mfn.entity_id",
                 array('')
             )
-            ->where('main.table.entity_id IN (?)', $entityIds)
+            ->where('main_table.entity_id IN (?)', $entityIds)
             ->where('mfn.value = ?', $manufacturerId)
             ->where('mfn.attribute_id = ?', $mfNameAttribute->getId());
 //        $query3 = $this->_connection->select()
