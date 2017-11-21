@@ -450,7 +450,6 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         /** @var Mage_Catalog_Model_Product $baseProduct */
         if($additionalCode){
             $code = $additionalCode;
-            $code = '0025911';
         }
         $baseProduct = $this->findBaseProductByCode($code, $manufacturerId);
         $catalogProductId = $baseProduct;//$baseProduct->getId();
