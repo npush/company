@@ -498,18 +498,13 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
             ->from($mfCodeAttribute->getBackend()->getTable(),array('entity_id'))
             ->where('attribute_id = ?', $mfCodeAttribute->getId())
             ->where('value = ?', $code);
-        $entityIds = $this->_connection->fetchAll($query1);
+        $entityIds = $this->_connection->fetchOne($query1);
         if(!$entityIds){
             return false;
         }
         $query3 = $this->_connection->select()
-            ->from(array('main_table' => $productEntityTable), array('entity_id'))
-            ->joinLeft(
-                array("mfn" => $mfNameAttribute->getBackend()->getTable()),
-                "main_table.entity_id = mfn.entity_id",
-                array('')
-            )
-            ->where('main_table.entity_id IN (?)', $entityIds)
+            ->from(array("mfn" => $mfNameAttribute->getBackend()->getTable()), array('entity_id'))
+            ->where('mfn.entity_id IN (?)', $entityIds)
             ->where('mfn.value = ?', $manufacturerId)
             ->where('mfn.attribute_id = ?', $mfNameAttribute->getId());
 //        $query3 = $this->_connection->select()
