@@ -20,7 +20,7 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
 
     protected function _initTask()
     {
-        $taskId  = (int) $this->getRequest()->getParam('task_id');
+        $taskId  = (int) $this->getRequest()->getParam('entity_id');
         $task = Mage::getModel('company/parser_task');
 
         if ($taskId) {
@@ -66,18 +66,24 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
     public function saveTaskAction()
     {
         $model = $this->_initTask();
-        $path = $this->_uploadFile();
-        $file = $path['file'];
         $data = $this->getRequest()->getPost();
         try{
-            if ($model->getCreatedAt == NULL || $model->getUpdatedAt() == NULL) {
+            if (!$model->getId()) {
+                $path = $this->_uploadFile();
+                $file = $path['file'];
                 $model->setCreatedAt(now())->setUpdateAt(now());
+                $model->addData($data);
+                $model->setData('name', $file);
             } else {
+                if($path = $this->_uploadFile()){
+                    $model->setData('name', $path['file']);
+                }
                 $model->setUpdatedAt(now());
+                $model->setData('time_spent', 0);
+                $model->setData('config_id', $data['config_id']);
+                $model->setData('status_id', $data['status_id']);
+                //$model->setData('status_id', Stableflow_Company_Model_Parser_Task_Status::STATUS_NEW);
             }
-            $model->setData('config_id', $data['config_id']);
-            $model->setData('status_id', $data['status_id']);
-            $model->setData('name', $file);
             $model->save();
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('company')->__('Task was successfully saved'));
             Mage::getSingleton('adminhtml/session')->setFormData(false);
@@ -128,6 +134,7 @@ class Stableflow_Company_Adminhtml_Parser_TaskController extends Mage_Adminhtml_
                 $this->_getSession()->addError($e->getMessage());
             }
         }
+        return false;
     }
 
     public function addTaskToQueueAction()

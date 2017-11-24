@@ -53,7 +53,14 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
         $this->addColumn('run_task', array(
             'header'    => Mage::helper('company')->__('Run Task'),
             'width'     => '100px',
-            'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_RunTask'
+            //'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_RunTask'
+            'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_Action',
+            'options' => array(
+                'caption' => Mage::helper('company')->__('Run Task'),
+                //'url' => array('base' => '*/parser_parser/runTaskImmediately'),
+                'window' => 'runTaskImmediately',
+                'field' => 'type_id',
+            ),
         ));
         $this->addColumn('created_at', array(
                 'header' => Mage::helper('company')->__('Created at'),
@@ -89,26 +96,13 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
         $this->addColumn('action', array(
                 'header'  =>  Mage::helper('company')->__('Action'),
                 'width'   => '100',
-                'type'    => 'action',
-                'getter'  => 'getId',
-                'actions' => array(
-                    array(
-                        'caption' => Mage::helper('company')->__('Edit'),
-                        'url' => array('base'=> '*/parser_task/editTask'),
-                        'field' => 'task_id',
-                        'popup' => true
-                    ),
-                    array(
-                        'caption' => Mage::helper('company')->__('Add To Queue'),
-                        'url' => array('base'=> '*/parser_task/addTaskToQueue'),
-                        'field' => 'task_id',
-                        'popup' => true
-                    ),
-                    array(
-                        'caption' => Mage::helper('company')->__('Delete'),
-                        'url' => array('base'=> '*/parser_task/deleteTask'),
-                        'field' => 'task_id',
-                    )
+
+                'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_Action',
+                'options' => array(
+                    'caption' => Mage::helper('company')->__('Edit'),
+                    //'url' => array('base'=> '*/parser_task/editTask'),
+                    'window' => 'editTask'
+
                 ),
                 'filter'    => false,
                 'is_system' => true,
@@ -119,15 +113,15 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Grid extends Mage_Adminhtml
 
     protected function _prepareMassaction(){
         $this->setMassactionIdField('entity_id');
-        $this->getMassactionBlock()->setFormFieldName('company');
+        $this->getMassactionBlock()->setFormFieldName('parser_task');
         $this->getMassactionBlock()->addItem('delete', array(
                 'label'=> Mage::helper('company')->__('Delete'),
-                'url'  => $this->getUrl('*/*/massDelete'),
+                'url'  => $this->getUrl('*/parser_task/massDeleteTask'),
                 'confirm'  => Mage::helper('company')->__('Are you sure?')
         ));
         $this->getMassactionBlock()->addItem('status', array(
                 'label'      => Mage::helper('company')->__('Change status'),
-                'url'        => $this->getUrl('*/*/massStatus', array('_current'=>true)),
+                'url'        => $this->getUrl('*/parser_task/massStatusTask', array('_current'=>true)),
                 'additional' => array(
                     'status' => array(
                         'name'   => 'status',

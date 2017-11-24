@@ -29,7 +29,7 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
      */
     protected function _initPriceType()
     {
-        $typeId  = (int) $this->getRequest()->getParam('type_id');
+        $typeId  = (int) $this->getRequest()->getParam('entity_id');
         $type = Mage::getModel('company/parser_price_type');
         if ($typeId) {
             $type->load($typeId);
@@ -45,7 +45,7 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
      */
     protected function _initConfiguration()
     {
-        $configId  = (int) $this->getRequest()->getParam('config_id');
+        $configId  = (int) $this->getRequest()->getParam('entity_id');
         $config = Mage::getModel('company/parser_config');
         if ($configId) {
             $config->load($configId);
@@ -100,7 +100,7 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
      */
     public function editConfigurationAction()
     {
-        $configId  = (int) $this->getRequest()->getParam('config_id');
+        $configId  = (int) $this->getRequest()->getParam('entity_id');
         $config = $this->_initConfiguration();
         if ($configId && !$config->getId()) {
             $this->_getSession()->addError(Mage::helper('company')->__('This configuration no longer exists.'));
@@ -121,7 +121,7 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         $model = $this->_initConfiguration();
         $data = $this->getRequest()->getPost();
         try{
-            if ($model->getCreatedAt == NULL || $model->getUpdatedAt() == NULL) {
+            if (!$model->getId()) {
                 $model->setCreatedAt(now())->setUpdateAt(now());
             } else {
                 $model->setUpdatedAt(now());
@@ -261,12 +261,13 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         $model = $this->_initPriceType();
         $data = $this->getRequest()->getPost();
         try{
-            if ($model->getCreatedAt == NULL || $model->getUpdatedAt() == NULL) {
-                $model->setCreatedAt(now())->setUpdateAt(now());
+            if (!$model->getId()) {
+                $model->setCreatedAt(now());
+                $data['company_id'] = $this->_getSession()->getCompanyId();
             } else {
                 $model->setUpdatedAt(now());
             }
-            $data['company_id'] = $this->_getSession()->getCompanyId();
+
             $model->addData($data);
             $model->save();
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('company')->__('Price Type was successfully saved'));
@@ -278,25 +279,25 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         }
     }
 
-    public function deletePriceTypeAction()
+    public function massDeletePriceTypeAction()
     {
-        if ($id = $this->getRequest()->getParam('type_id')) {
-            $task = Mage::getModel('company/parser_price_type')->load($id);
+        $ids = $this->getRequest()->getParam('type_id');
+        if(!is_array($ids)) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('company')->__('Please select Price Type(es).'));
+        }else{
             try {
-                $task->delete();
-                $this->_getSession()->addSuccess(Mage::helper('company')->__('The Price Type has been deleted.'));
-            } catch (Exception $e) {
-                $this->_getSession()->addError($e->getMessage());
+                $task = Mage::getModel('company/parser_price_type');
+                foreach($ids as $id){
+                    $task->load($id)->delete();
+                }
+                $this->_getSession()->addSuccess(Mage::helper('company')->__('Total of %d record(s) were deleted.', count($ids)));
+            }catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
         $this->getResponse()->setRedirect(
             $this->getUrl('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()))
         );
-    }
-
-    public function massDeletePriceTypeAction()
-    {
-
     }
 
     public function massStatusPriceTypeAction()

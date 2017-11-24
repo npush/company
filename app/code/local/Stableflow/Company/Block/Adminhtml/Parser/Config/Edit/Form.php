@@ -38,6 +38,10 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Edit_Form extends Mage_Ad
         $fieldset = $this->getForm()->addFieldset('config_form', array(
             'legend' => Mage::helper('company')->__('Configuration')
         ));
+        $fieldset->addField('entity_id', 'hidden', array(
+            'name' => 'entity_id',
+            'values' => ''
+        ));
         $fieldset->addField('description', 'text', array(
             'label' => Mage::helper('company')->__('Description'),
             'name' => 'description',

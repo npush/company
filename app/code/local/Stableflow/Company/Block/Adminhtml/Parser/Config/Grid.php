@@ -93,20 +93,13 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
         $this->addColumn('action',array(
                 'header'    => Mage::helper('company')->__('Edit'),
                 'width'     => '5%',
-                'type'      => 'action',
-                'getter'     => 'getId',
-                'actions'   => array(
+
+                'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_Action',
+                'options'   =>
                     array(
                         'caption' => Mage::helper('company')->__('Edit Configuration'),
-                        'url'     => array('base' => '*/parser_parser/editConfiguration'),
-                        'popup'   => true,
-                        'field'   => 'config_id'
-                    ),
-                    array(
-                        'caption' => Mage::helper('company')->__('Delete Configuration'),
-                        'url'     => array('base' => '*/parser_parser/deleteConfiguration'),
-                        'field'   => 'config_id'
-                    )
+                        //'url'     => array('base' => '*/parser_parser/editConfiguration'),
+                        'window' => 'editConfiguration',
                 ),
                 'filter'    => false,
                 'sortable'  => false,
@@ -125,5 +118,34 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
     public function getGridUrl()
     {
         return $this->getUrl('*/parser_parser/parserConfiguration', array('_current'=>true));
+    }
+
+    protected function _prepareMassaction()
+    {
+        $this->setMassactionIdField('entity_id');
+        $this->getMassactionBlock()->setFormFieldName('parser_config');
+
+        $this->getMassactionBlock()->addItem('delete', array(
+            'label'=> Mage::helper('company')->__('Delete'),
+            'url'  => $this->getUrl('*/parser_parser/massDeleteConfiguration'),
+            'confirm' => Mage::helper('company')->__('Are you sure?')
+        ));
+        $this->getMassactionBlock()->addItem('status', array(
+            'label'      => Mage::helper('company')->__('Change status'),
+            'url'        => $this->getUrl('*/parser_parser/massStatusConfiguration', array('_current'=>true)),
+            'additional' => array(
+                'status' => array(
+                    'name'   => 'status',
+                    'type'   => 'select',
+                    'class'  => 'required-entry',
+                    'label'  => Mage::helper('company')->__('Status'),
+                    'values' => array(
+                        '1' => Mage::helper('company')->__('Enabled'),
+                        '0' => Mage::helper('company')->__('Disabled'),
+                    )
+                )
+            )
+        ));
+        return $this;
     }
 }

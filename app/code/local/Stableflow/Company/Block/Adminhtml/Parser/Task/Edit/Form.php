@@ -39,13 +39,16 @@ class Stableflow_Company_Block_Adminhtml_Parser_Task_Edit_Form extends Mage_Admi
         $fieldset = $this->getForm()->addFieldset('taskparam_form', array(
             'legend' => Mage::helper('company')->__('Task Parameters')
         ));
+        $fieldset->addField('entity_id', 'hidden', array(
+            'name'  => 'entity_id',
+            'values' => ''
+        ));
         $fieldset->addType('text-file', Mage::getConfig()->getBlockClassName('company/adminhtml_parser_helper_file'));
         $fieldset->addField('name', 'text-file', array(
             'label' => Mage::helper('company')->__('File'),
             'value'  => '',
-            'class' => 'required-entry',
-            'required' => true,
-//            'readonly' => true,
+            //'class' => 'required-entry',
+            //'required' => true,
             'name' => 'name',
 
         ));

@@ -34,6 +34,12 @@ class Stableflow_Company_Block_Adminhtml_Parser_PriceType_Edit_Form extends Mage
                 'class' => 'fieldset-wide',
             )
         );
+        $fieldset->addField('entity_id', 'hidden', array(
+            'label' => Mage::helper('company')->__('entity_id'),
+            'name' => 'entity_id',
+            'readonly'  => true,
+            'values' => ''
+        ));
         $fieldset->addField('description', 'text', array(
             'label' => Mage::helper('company')->__('Description'),
             'name' => 'description',
