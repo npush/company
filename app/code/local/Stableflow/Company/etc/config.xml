@@ -108,9 +108,6 @@
                     <parser_config>
                         <table>company_parser_config</table>
                     </parser_config>
-                    <parser_config>
-                        <table>company_parser_config</table>
-                    </parser_config>
                     <parser_tasks>
                         <table>company_parser_tasks</table>
                     </parser_tasks>

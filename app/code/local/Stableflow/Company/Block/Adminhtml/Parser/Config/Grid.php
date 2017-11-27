@@ -42,14 +42,14 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
 
     protected function _prepareColumns()
     {
-        $this->addColumn('select', array(
-            'header_css_class'  => 'a-center',
-            'type'              => 'checkbox',
-            'name'              => 'select',
-            'values'            => '',
-            'align'             => 'center',
-            'index'             => 'entity_id'
-        ));
+//        $this->addColumn('select', array(
+//            'header_css_class'  => 'a-center',
+//            'type'              => 'checkbox',
+//            'name'              => 'select',
+//            'values'            => '',
+//            'align'             => 'center',
+//            'index'             => 'entity_id'
+//        ));
         $this->addColumn('entity_id', array(
             'header'    => Mage::helper('company')->__('ID'),
             'sortable'  => true,
@@ -68,7 +68,13 @@ class Stableflow_Company_Block_Adminhtml_Parser_Config_Grid extends Mage_Adminht
             'header'    => Mage::helper('company')->__('Setting String'),
             'index'     => 'config',
             'width'     => '300px',
-            'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_Config'
+            'renderer'  => 'Stableflow_Company_Block_Adminhtml_Parser_Renderer_Action',
+            'options' => array(
+                'caption' => Mage::helper('company')->__('Edit Settings'),
+                //'url' => array('base' => '*/parser_parser/editConfigurationField'),
+                'window' => 'editConfigurationField',
+                'field' => 'type_id',
+            ),
         ));
         $this->addColumn('is_active', array(
             'header'    => Mage::helper('company')->__('Status'),
