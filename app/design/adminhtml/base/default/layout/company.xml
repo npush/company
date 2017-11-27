@@ -163,6 +163,12 @@
         </block>
     </adminhtml_parser_task_edittask>
 
+    <adminhtml_parser_parser_companycodes>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_addCodes" name="parser_codes_grid"/>
+        </block>
+    </adminhtml_parser_parser_companycodes>
+
     <adminhtml_parser_log_tasklog>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="company/adminhtml_parser_log" name="parser_task_log_grid"/>

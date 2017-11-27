@@ -338,6 +338,13 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         }
     }
 
+    public function companyCodesAction()
+    {
+        $companyId = (int) $this->getRequest()->getParam('entity_id');
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
 //    public function gridAction()
 //    {
 //        $this->loadLayout();
