@@ -12,7 +12,7 @@ class Stableflow_Company_Block_Adminhtml_Parser_Log_Grid extends Mage_Adminhtml_
         parent::__construct();
         $this->setId('logGrid');
         $this->setDefaultSort('entity_id');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(true);
     }
@@ -37,24 +37,35 @@ class Stableflow_Company_Block_Adminhtml_Parser_Log_Grid extends Mage_Adminhtml_
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
-                'header' => Mage::helper('company')->__('Id'),
-                'index' => 'entity_id',
-                'type' => 'number'
+            'header' => Mage::helper('company')->__('N'),
+            'index' => 'entity_id',
+            'type' => 'number'
         ));
         $this->addColumn('task_id', array(
             'header' => Mage::helper('company')->__('Task Id'),
             'index' => 'task_id',
             'type' => 'number'
         ));
+        $this->addColumn('line', array(
+            'header' => Mage::helper('company')->__('Line (tab:row)'),
+            'index' => 'line',
+            'type' => 'text'
+        ));
         $this->addColumn('error_text', array(
-            'header' => Mage::helper('company')->__('Error Text'),
+            'header' => Mage::helper('company')->__('Error Code'),
             'index' => 'error_text',
             'type' => 'text'
         ));
-        $this->addColumn('status_id', array(
-            'header' => Mage::helper('company')->__('Status'),
-            'index' => 'status_id',
-            'type' => 'number'
+        $this->addColumn('raw_data', array(
+            'header' => Mage::helper('company')->__('Raw Text'),
+            'index' => 'raw_data',
+            'type' => 'text'
+        ));
+        $this->addColumn('created_at', array(
+            'header' => Mage::helper('company')->__('Created at'),
+            'index'  => 'created_at',
+            'width'  => '120px',
+            'type'   => 'datetime',
         ));
         return parent::_prepareColumns();
     }

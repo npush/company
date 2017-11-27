@@ -69,14 +69,24 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
      */
     public function addDbParserLog($messages)
     {
-        if (!$this->_logInstance) {
+        if (!$this->_logDbInstance) {
             $this->_logDbInstance = Mage::getModel('company/parser_log');
         }
         Mage::log($messages, null, 'addDbParserLog.log');
-//        foreach ($messages as $status => $message){
-//            $this->_logDbInstance->log($status, $message);
-//        }
-//        $this->_logDbInstance->save();
+        foreach ($messages as $status => $message){
+            $_data = array();
+            foreach($message as $row => $data){
+                $_data[] = array(
+                    'task_id' => Mage::registry('current_task_id'),
+                    'line' => $row,
+                    'raw_data' =>  $this->toJson($data['content']),
+                    'error_text' => $status,
+                    'created_at' => Varien_Date::now()
+                );
+            }
+            $this->_logDbInstance->log($_data);
+        }
+        //$this->_logDbInstance->save();
         return $this;
     }
 }

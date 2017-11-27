@@ -152,6 +152,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
      */
     public function runTask($task)
     {
+        Mage::register('current_task_id', $task->getId());
         $this->addLogComment(Mage::helper('company')->__('Begin import. Task ID: %d', $task->getId()));
         $task->setInProgress();
         /** @var string $sourceFile Full path to source file */
@@ -179,6 +180,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
             Mage::helper('company')->__('Import has been done successfully. Task ID: %d', $task->getId())
         ));
         $this->addDbParserLog($this->getErrors());
+        //$this->addDbParserLog($this->getMessages());
         Mage::log($this->getMessages(), null, 'success-product.log');
         $task->setComplete();
         return true;

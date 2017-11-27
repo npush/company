@@ -115,7 +115,7 @@
                         <table>company_parser_tasks</table>
                     </parser_tasks>
                     <parser_log>
-                        <table>company_parser_log</table>
+                        <table>company_parser_log_v2</table>
                     </parser_log>
                     <parser_queue>
                         <table>company_parser_queue</table>

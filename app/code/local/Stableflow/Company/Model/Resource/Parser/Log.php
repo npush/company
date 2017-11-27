@@ -13,6 +13,12 @@ class Stableflow_Company_Model_Resource_Parser_Log extends Mage_Core_Model_Resou
         $this->_init('company/parser_log', 'entity_id');
     }
 
+    public function addLog($data)
+    {
+        $adapter = $this->_getWriteAdapter();
+        $adapter->insertMultiple($this->getMainTable(), $data);
+    }
+
     /**
      * Clean up log table.
      *
@@ -26,8 +32,8 @@ class Stableflow_Company_Model_Resource_Parser_Log extends Mage_Core_Model_Resou
         $writeAdapter   = $this->_getWriteAdapter();
         $select = $readAdapter->select()
             ->from($this->getMainTable(), $this->getIdFieldName())
-            ->where('log_at < ? :clear_time')
-            ->order('log_at ASC')
+            ->where('created_at < ? :clear_time')
+            ->order('created_at ASC')
             ->limit(100);
         $bind = array(':clear_time' => $cleanTime);
         while($logIds = $readAdapter->fetchCol($select, $bind)){
