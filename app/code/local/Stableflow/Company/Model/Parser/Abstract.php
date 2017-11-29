@@ -84,7 +84,7 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
                     'created_at' => Varien_Date::now()
                 );
             }
-            $this->_logDbInstance->log($_data);
+            //$this->_logDbInstance->log($_data);
         }
         //$this->_logDbInstance->save();
         return $this;
