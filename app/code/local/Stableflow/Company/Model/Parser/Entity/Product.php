@@ -237,9 +237,9 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
     protected function _saveProducts(array $bunch)
     {
         try{
-            //$this->_saveProductEntity($bunch['entityRowsIn'], $bunch['entityRowsUp']);
-            //$attributes = $this->_prepareAttributes($bunch['attributes']);
-            //$this->_saveProductAttributes($attributes);
+            $this->_saveProductEntity($bunch['entityRowsIn'], $bunch['entityRowsUp']);
+            $attributes = $this->_prepareAttributes($bunch['attributes']);
+            $this->_saveProductAttributes($attributes);
         }catch (Mage_Core_Exception $e){
             Mage::logException($e->getMessages());
         }
