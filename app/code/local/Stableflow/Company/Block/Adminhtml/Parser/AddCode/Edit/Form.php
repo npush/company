@@ -31,10 +31,10 @@ class Stableflow_Company_Block_Adminhtml_Parser_AddCode_Edit_Form extends Mage_A
         $fieldset = $this->getForm()->addFieldset('config_form', array(
             'legend' => Mage::helper('company')->__('Add Codes')
         ));
-        $fieldset->addField('entity_id', 'hidden', array(
-            'name' => 'entity_id',
-            'values' => ''
-        ));
+//        $fieldset->addField('entity_id', 'hidden', array(
+//            'name' => 'entity_id',
+//            'values' => ''
+//        ));
         $fieldset->addField('company_id', 'hidden', array(
             'name' => 'company_id',
             'value' => $this->getCompanyId()
