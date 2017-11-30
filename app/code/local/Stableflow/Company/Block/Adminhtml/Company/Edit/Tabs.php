@@ -74,7 +74,7 @@ class  Stableflow_Company_Block_Adminhtml_Company_Edit_Tabs extends Mage_Adminht
         ));
         $this->addTab('codes', array(
             'label'   => Mage::helper('company')->__('Parser Additional codes'),
-            'url'   => $this->getUrl('*/parser_parser/companyCodes', array('_current' => true)),
+            'url'   => $this->getUrl('*/parser_parser/companyCode', array('_current' => true)),
             'class'    => 'ajax'
         ));
         $this->addTab('log', array(

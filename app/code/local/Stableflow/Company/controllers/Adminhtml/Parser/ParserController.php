@@ -64,6 +64,17 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
 
     }
 
+    protected function _initAddCode()
+    {
+        $codeId  = (int) $this->getRequest()->getParam('entity_id');
+        $addCode = Mage::getModel('company/parser_addCode');
+        if ($codeId) {
+            $addCode->load($codeId);
+        }
+        Mage::register('current_addCode', $addCode);
+        return $addCode;
+    }
+
     /**
      * Default action for parser controller
      */
@@ -338,11 +349,48 @@ class Stableflow_Company_Adminhtml_Parser_ParserController extends Mage_Adminhtm
         }
     }
 
-    public function companyCodesAction()
+    public function companyCodeAction()
     {
+        $companyId = $this->getRequest()->getParam('id');
+        $this->_getSession()->setCompanyId($companyId);
         $companyId = (int) $this->getRequest()->getParam('entity_id');
         $this->loadLayout();
         $this->renderLayout();
+    }
+
+    /**
+     * new action
+     *
+     * @return void
+     */
+    public function newAddCodeAction()
+    {
+        $this->_forward('editAddCode');
+    }
+
+
+    public function editAddCodeAction()
+    {
+        $this->_initAddCode();
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
+
+    public function saveAddCodeAction()
+    {
+        $model = $this->_initAddCode();
+        $data = $this->getRequest()->getPost();
+        try {
+            $model->addData($data);
+            $model->save();
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('company')->__('Add Code was successfully saved'));
+            Mage::getSingleton('adminhtml/session')->setFormData(false);
+            $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
+        } catch (Exception $e) {
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            $this->_redirect('*/company_company/edit', array('id' => $this->_getSession()->getCompanyId()));
+        }
     }
 
 //    public function gridAction()

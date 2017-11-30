@@ -219,6 +219,28 @@
             }
         });
     }
+//-----------------------------------------------------------------------------
 
+    function newAddCode()
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/newAddCode') ?>', {
+            method: 'post',
+            parameters: {id: '<?php echo Mage::registry('current_company')->getId()?>'},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("New Add CODE")?>',
+                        width:550,
+                        height:400,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
     //]]>
 </script>
