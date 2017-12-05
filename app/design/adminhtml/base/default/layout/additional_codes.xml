@@ -11,7 +11,8 @@
     </adminhtml_catalog_product_edit>
     <adminhtml_codes_index>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="additional_codes/adminhtml_catalog_product_codes" name="catalog.product.codes">
+            <block type="additional_codes/adminhtml_catalog_product_codes" name="catalog.product.codes"
+                    template="additional_codes/catalog/product/tab/manufnumber.phtml">
 
             </block>
         </block>

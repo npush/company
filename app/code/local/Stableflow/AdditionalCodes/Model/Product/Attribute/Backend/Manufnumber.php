@@ -10,7 +10,7 @@
  * Date: 11/9/17
  *
  */
-class Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber extends
+class Stableflow_AdditionalCodes_Model_Product_Attribute_Backend_Manufnumber extends
     Mage_Eav_Model_Entity_Attribute_Backend_Abstract
 {
     /**
@@ -61,11 +61,11 @@ class Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber extends
     /**
      * Retrieve resource model
      *
-     * @return Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber
+     * @return Stableflow_AdditionalCodes_Model_Resource_Product_Attribute_Backend_Manufnumber
      */
     protected function _getResource()
     {
-        return Mage::getResourceSingleton('company/product_attribute_backend_manufnumber');
+        return Mage::getResourceSingleton('additional_codes/product_attribute_backend_manufnumber');
     }
 
     /**

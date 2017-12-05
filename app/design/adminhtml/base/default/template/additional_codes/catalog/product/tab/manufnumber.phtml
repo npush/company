@@ -1,39 +1,7 @@
-<?php
-/**
- * Created by nick
- * Project magento1.dev
- * Date: 3/20/17
- * Time: 12:48 PM
- */
-?>
 
-<div class="entity-edit">
-    <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Manage Tooltips') ?></h4>
-    </div>
-    <div class="box">
-        <div class="hor-scroll">
-            <table class="dynamic-grid" cellspacing="0" id="attribute-labels-table">
-                <tr>
-                    <?php foreach ($this->getStores() as $_store): ?>
-                        <th><?php echo $_store->getName() ?></th>
-                    <?php endforeach; ?>
-                </tr>
-                <tr>
-                    <?php $_labels = $this->getLabelValues() ?>
-                    <?php foreach ($this->getStores() as $_store): ?>
-                        <td>
-                            <input class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" name="frontend_label[<?php echo $_store->getId() ?>]" value="<?php echo $this->htmlEscape($_labels[$_store->getId()]) ?>"<?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/>
-                        </td>
-                    <?php endforeach; ?>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
 <div class="entity-edit" id="matage-options-panel">
     <div class="entry-edit-head">
-        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Manage Options (values of your tooltips)') ?></h4>
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Manage Manufacturer Numbers') ?></h4>
     </div>
     <div class="box">
         <div class="hor-scroll">
@@ -73,7 +41,7 @@
     var optionDefaultInputType = 'radio';
 
     // IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
-    var tooltipTemplateText =
+    var manufnumbTemplateText =
         '<tr class="option-row">'+
         <?php foreach ($this->getStores() as $_store): ?>
         '<td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
@@ -88,15 +56,15 @@
         '<\/td>'+
         '<\/tr>';
 
-    var tooltipOption = {
+    var manufnumbOption = {
         table : $('attribute-options-table'),
         templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
-        tooltipTemplateText : tooltipTemplateText,
+        manufnumbTemplateText : manufnumbTemplateText,
         itemCount : 0,
         totalItems : 0,
         isReadOnly: <?php echo (int)$this->getReadOnly(); ?>,
         add : function(data) {
-            this.template = new Template(this.tooltipTemplateText, this.templateSyntax);
+            this.template = new Template(this.manufnumbTemplateText, this.templateSyntax);
             var isNewOption = false;
             if(!data.id){
                 data = {};
@@ -168,10 +136,10 @@
     if($('row-template')){
         $('row-template').remove();
     }
-    tooltipOption.bindRemoveButtons();
+    manufnumbOption.bindRemoveButtons();
 
     if($('add_new_option_button')){
-        Event.observe('add_new_option_button', 'click', tooltipOption.add.bind(tooltipOption));
+        Event.observe('add_new_option_button', 'click', manufnumbOption.add.bind(manufnumbOption));
     }
     Validation.addAllThese([
         ['required-option', '<?php echo $this->jsQuoteEscape($this->__('Failed')) ?>', function(v) {
@@ -182,7 +150,7 @@
             return !Validation.get('IsEmpty').test(v);
         }]]);
     <?php foreach ($this->getOptionValues() as $_value): ?>
-    tooltipOption.add(<?php echo $_value->toJson() ?>);
+    manufnumbOption.add(<?php echo $_value->toJson() ?>);
     <?php endforeach; ?>
     //]]>
 </script>

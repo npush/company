@@ -10,12 +10,12 @@
  * Date: 11/9/17
  *
  */
-class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber
+class Stableflow_AdditionalCodes_Model_Resource_Product_Attribute_Backend_Manufnumber
     extends Mage_Core_Model_Resource_Db_Abstract
 {
     const MANUF_CODE_TABLE = 'company/product_attribute_manufacturer_number';
 
-    protected $_eventPrefix = 'company_product_attribute_backend_manufacturer_number';
+    protected $_eventPrefix = 'additional_codes_product_attribute_backend_manufacturer_number';
 
     private $_attributeId = null;
 
@@ -31,7 +31,7 @@ class Stableflow_Company_Model_Resource_Product_Attribute_Backend_Manufnumber
      * Load manufacturer codes for product using reusable select method
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param Stableflow_Company_Model_Product_Attribute_Backend_Manufnumber $object
+     * @param Stableflow_AdditionalCodes_Model_Product_Attribute_Backend_Manufnumber $object
      * @return array
      */
     public function loadCodes($product, $object)
