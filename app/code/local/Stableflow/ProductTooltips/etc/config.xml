@@ -54,6 +54,20 @@
                 </connection>
             </product_tooltips_write>
         </resources>
+        <events>
+            <company_parser_entity_product_run_before>
+                <observers>
+                    <company_parser_observer>
+                        <type>model</type>
+                        <class>Stableflow_Company_Model_Observer</class>
+                        <method>whenParseStart</method>
+                        <args>
+                            <when>before</when>
+                        </args>
+                    </company_parser_observer>
+                </observers>
+            </company_parser_entity_product_run_before>
+        </events>
     </global>
     <frontend>
         <layout>

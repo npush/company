@@ -153,6 +153,7 @@ class Stableflow_Company_Model_Parser extends Stableflow_Company_Model_Parser_Ab
     public function runTask($task)
     {
         Mage::register('current_task_id', $task->getId());
+        //Mage::register('current_task', $task);
         $this->addLogComment(Mage::helper('company')->__('Begin import. Task ID: %d', $task->getId()));
         $task->setInProgress();
         /** @var string $sourceFile Full path to source file */

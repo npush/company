@@ -87,4 +87,9 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer
 
         return $this;
     }
+
+    public function whenParseStart($observer)
+    {
+        return $this;
+    }
 }

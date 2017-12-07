@@ -176,7 +176,9 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 if(!$this->_isValidRow($row)){
                     throw new Stableflow_Company_Exception(self::ERROR_UNKNOWN);
                 }
+                Mage::dispatchEvent($this->_eventPrefix.'_after_find', array('row' => $row, 'find' => null));
                 $find = $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId());
+                Mage::dispatchEvent($this->_eventPrefix.'_after_find', array('row' => $row, 'find' => $find));
                 $catProdId = $find['catalog_product_id'];
                 $compProdId = $find['company_product_id'];
                 $behavior = is_null($compProdId) ? self::BEHAVIOR_ADD_NEW : self::BEHAVIOR_UPDATE;
@@ -494,45 +496,32 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if (!$productEntityTable) {
             $productEntityTable = Mage::getResourceModel('company/product')->getEntityTable();
         }
-        $query1 = $this->_connection->select()
-            ->from($mfCodeAttribute->getBackend()->getTable(),array('entity_id'))
-            ->where('attribute_id = ?', $mfCodeAttribute->getId())
-            ->where('value = ?', $code);
-        $entityIds = $this->_connection->fetchOne($query1);
-        if(!$entityIds){
-            return false;
-        }
-        $query3 = $this->_connection->select()
-            ->from(array("mfn" => $mfNameAttribute->getBackend()->getTable()), array('entity_id'))
-            ->where('mfn.entity_id IN (?)', $entityIds)
-            ->where('mfn.value = ?', $manufacturerId)
-            ->where('mfn.attribute_id = ?', $mfNameAttribute->getId());
+
+        $product = Mage::getResourceModel('catalog/product_collection')
+            ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
+            ->addAttributeToFilter($mfCodeAttribute, array('eq' => $code))
+            ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
+            ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'))
+            ->getFirstItem();
+        return $product->getId();
+
+//        $query1 = $this->_connection->select()
+//            ->from($mfCodeAttribute->getBackend()->getTable(),array('entity_id'))
+//            ->where('attribute_id = ?', $mfCodeAttribute->getId())
+//            ->where('value = ?', $code);
+//        $entityIds = $this->_connection->fetchOne($query1);
+//        if(!$entityIds){
+//            return false;
+//        }
 //        $query3 = $this->_connection->select()
-//            ->from($productEntityTable, array('entity_id'))
-//            ->joinLeft(
-//                array("mfn" => $mfNameAttribute->getBackend()->getTable()),
-//                $productEntityTable.".entity_id = mfn.entity_id",
-//                array('')
-//            )
-//            ->joinLeft(
-//                array("mfc" => $mfCodeAttribute->getBackend()->getTable()),
-//                $productEntityTable.".entity_id = mfc.entity_id",
-//                array('')
-//            )
+//            ->from(array("mfn" => $mfNameAttribute->getBackend()->getTable()), array('entity_id'))
+//            ->where('mfn.entity_id IN (?)', $entityIds)
 //            ->where('mfn.value = ?', $manufacturerId)
-//            ->where('mfn.attribute_id = ?', $mfNameAttribute->getId())
-//            ->where('mfc.value = ?', $code)
-//            ->where('mfc.attribute_id = ?', $mfCodeAttribute->getId());
-        $productId = $this->_connection->fetchOne($query3);
-
-        return $productId;
-
-//        return Mage::getResourceModel('catalog/product_collection')
-//            ->addAttributeToFilter($mfNameAttribute, array('eq' => $manufacturerId))
-//            ->addAttributeToFilter($mfCodeAttribute, array('eq' => $code))
-//            ->addAttributeToSelect(array('entity_id',self::MANUFACTURER_CODE_ATTRIBUTE , self::MANUFACTURER_ATTRIBUTE))
-//            ->initCache(Mage::app()->getCache(),'parser_catalog_product_collection',array('SOME_TAGS'))
-//            ->getFirstItem();
+//            ->where('mfn.attribute_id = ?', $mfNameAttribute->getId());
+//
+//        $productId = $this->_connection->fetchOne($query3);
+//
+//        return $productId;
     }
 
     /**
@@ -547,19 +536,21 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
         if (!$entityTable) {
             $entityTable = Mage::getResourceModel('company/product')->getEntityTable();
         }
-        $productId = $this->_connection->fetchOne($this->_connection->select()
-            ->from($entityTable, array('entity_id'))
-            ->where('catalog_product_id = ?', $catalogProductId)
-            ->where('company_id = ?', $companyId)
-        );
-        return $productId;
 
-//        return Mage::getResourceModel('company/product_collection')
-//            ->addAttributeToFilter('catalog_product_id', $catalogProductId)
-//            ->addAttributeToFilter('company_id', $companyId)
-//            ->addAttributeToSelect(array('entity_id', 'catalog_product_id', 'company_id'))
-//            ->initCache(Mage::app()->getCache(),'parser_company_product_collection',array('SOME_TAGS'))
-//            ->getFirstItem();
+        $product = Mage::getResourceModel('company/product_collection')
+            ->addAttributeToFilter('catalog_product_id', $catalogProductId)
+            ->addAttributeToFilter('company_id', $companyId)
+            ->addAttributeToSelect(array('entity_id', 'catalog_product_id', 'company_id'))
+            ->initCache(Mage::app()->getCache(),'parser_company_product_collection',array('SOME_TAGS'))
+            ->getFirstItem();
+        return $product->getId();
+
+//        $productId = $this->_connection->fetchOne($this->_connection->select()
+//            ->from($entityTable, array('entity_id'))
+//            ->where('catalog_product_id = ?', $catalogProductId)
+//            ->where('company_id = ?', $companyId)
+//        );
+//        return $productId;
     }
 
     /**
