@@ -24,11 +24,11 @@ class Stableflow_Company_Model_Parser_Adapter_Xlsx extends Stableflow_Company_Mo
     {
         Mage::log("Initialize parser", Zend_Log::INFO, $this->_logFileName);
         try {
-            PHPExcel_Settings::setCacheStorageMethod(PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip);
+            PHPExcel_Settings::setCacheStorageMethod(PHPExcel_CachedObjectStorageFactory::cache_in_memory_serialized);
             PHPExcel_Settings::setLocale($this->_locale);
             $this->_objReader = PHPExcel_IOFactory::createReader(PHPExcel_IOFactory::identify($this->_source))
                 ->setReadDataOnly(true);
-            //->setReadFilter(new Stableflow_Company_Model_Parser_Adapter_Xlsx_ReaderFilter($init));
+            //->setReadFilter(new Stableflow_Company_Model_Parser_Adapter_Xlsx_ReaderFilter());
             $sheetNames = $this->_objReader->listWorksheetNames($this->_source);
             $sheetsIds = $this->getSettings()->getSheetsIds();
             array_walk($sheetsIds, function(&$value, $key, $names){
