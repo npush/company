@@ -172,6 +172,27 @@
                     </company_add_button_to_grid>
                 </observers>
             </adminhtml_widget_container_html_before>
+            <company_parser_entity_product_run_before>
+                <observers>
+                    <company_parser_observer>
+                        <type>model</type>
+                        <class>Stableflow_Company_Model_Observer</class>
+                        <method>whenParseStart</method>
+                        <args>
+                            <when>before</when>
+                        </args>
+                    </company_parser_observer>
+                </observers>
+            </company_parser_entity_product_run_before>
+            <company_parser_entity_product_after_find>
+                <observers>
+                    <company_parser_observer>
+                        <type>model</type>
+                        <class>Stableflow_Company_Model_Observer</class>
+                        <method>whenProductFound</method>
+                    </company_parser_observer>
+                </observers>
+            </company_parser_entity_product_after_find>
             <!--<company_parser_entity_product_update_after>
                 <observers>
                     <parser_product_update>
