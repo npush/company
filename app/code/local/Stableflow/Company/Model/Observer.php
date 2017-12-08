@@ -92,4 +92,14 @@ class Stableflow_Company_Model_Observer extends Mage_Core_Model_Observer
     {
         return $this;
     }
+
+    public function whenProductFound($observer)
+    {
+        //array('row' => $row, 'find' => $find)
+        $row = $observer->getData('row');
+        $found = $observer->getData('found');
+        $line = $observer->getData('line');
+        Mage::log(sprintf('line: %s | base_prd_id: %s | cat_prod_id: %s', $line,$found['catalog_product_id'], $found['company_product_id']), null, 'found_log.log');
+        return $this;
+    }
 }

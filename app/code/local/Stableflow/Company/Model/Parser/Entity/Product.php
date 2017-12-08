@@ -176,11 +176,10 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 if(!$this->_isValidRow($row)){
                     throw new Stableflow_Company_Exception(self::ERROR_UNKNOWN);
                 }
-                Mage::dispatchEvent($this->_eventPrefix.'_after_find', array('row' => $row, 'find' => null));
-                $find = $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId());
-                Mage::dispatchEvent($this->_eventPrefix.'_after_find', array('row' => $row, 'find' => $find));
-                $catProdId = $find['catalog_product_id'];
-                $compProdId = $find['company_product_id'];
+                $found = $this->findByCode($row['code'], $row['manufacturer'], $this->_getCompanyId());
+                Mage::dispatchEvent($this->_eventPrefix.'_after_find', array('line' => $this->_getLineNumber(), 'row' => $row, 'found' => $found));
+                $catProdId = $found['catalog_product_id'];
+                $compProdId = $found['company_product_id'];
                 $behavior = is_null($compProdId) ? self::BEHAVIOR_ADD_NEW : self::BEHAVIOR_UPDATE;
                 switch ($behavior){
                     case self::BEHAVIOR_UPDATE:

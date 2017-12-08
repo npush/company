@@ -13,10 +13,11 @@ class Stableflow_Company_Model_Parser_Adapter_Xlsx_ReaderFilter implements PHPEx
 {
     public function readCell($column, $row, $worksheetName = '')
     {
-        if ($row >= 1 && $row <= 7) {
-            if(in_array($column,range('A','E'))){
+        //if ($row >= 1 && $row <= 7) {
+            if(in_array($column,range('A','L'))){
                 return true;
             }
-        }return false;
+        //}
+        return false;
     }
 }
