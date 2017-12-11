@@ -25,17 +25,14 @@
  */
 
 
-
-class Stableflow_Company_Model_Resource_Form_Attribute extends Mage_Eav_Model_Resource_Form_Attribute
+/**
+ * Address region attribute backend
+ *
+ * @category    Mage
+ * @package     Mage_Customer
+ * @author      Magento Core Team <core@magentocommerce.com>
+ */
+class Stableflow_Company_Model_Entity_Address_Attribute_Backend_Region
+    extends Mage_Customer_Model_Resource_Address_Attribute_Backend_Region
 {
-    /**
-     * Initialize connection and define main table
-     *
-     */
-    protected function _construct()
-    {
-        $this->_init('company/address_form_attribute', 'attribute_id');
-    }
-
-
 }

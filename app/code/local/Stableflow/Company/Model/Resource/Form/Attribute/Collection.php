@@ -49,7 +49,7 @@ class Stableflow_Company_Model_Resource_Form_Attribute_Collection extends Mage_E
     protected function _construct()
     {
         parent::_construct();
-        $this->_init('eav/attribute', 'company/address_form_attribute');
+        $this->_init('company/address', 'company/form_attribute');
         //$this->_init('eav/attribute', 'company/eav_attribute');
     }
 
@@ -63,7 +63,7 @@ class Stableflow_Company_Model_Resource_Form_Attribute_Collection extends Mage_E
      */
     protected function _getEavWebsiteTable()
     {
-        //return $this->getTable('company/eav_attribute_website');
-        return null;
+        return $this->getTable('customer/eav_attribute_website');
+        //return null;
     }
 }

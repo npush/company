@@ -156,7 +156,7 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
             $modifiedAddresses = array();
             if (!empty($data['address'])) {
                 /** @var $addressForm Stableflow_Company_Model_Form */
-                $addressForm = Mage::getModel('customer/form');
+                $addressForm = Mage::getModel('company/form');
                 $addressForm->setFormCode('adminhtml_company_address')->ignoreInvisible(false);
 
                 foreach (array_keys($data['address']) as $index) {
@@ -169,21 +169,13 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
                     $formData = $addressForm->setEntity($address)
                         ->extractData($this->getRequest(), $requestScope);
 
-                    // Set default billing and shipping flags to address
-                    $isDefaultBilling = isset($data['account']['default_billing'])
-                        && $data['account']['default_billing'] == $index;
-                    $address->setIsDefaultBilling($isDefaultBilling);
-                    $isDefaultShipping = isset($data['account']['default_shipping'])
-                        && $data['account']['default_shipping'] == $index;
-                    $address->setIsDefaultShipping($isDefaultShipping);
-
                     $errors = $addressForm->validateData($formData);
                     if ($errors !== true) {
                         foreach ($errors as $error) {
                             $this->_getSession()->addError($error);
                         }
                         $this->_getSession()->setCustomerData($data);
-                        $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array(
+                        $this->getResponse()->setRedirect($this->getUrl('*/company/edit', array(
                                 'id' => $company->getId())
                         ));
                         return;
@@ -200,16 +192,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
                         $company->addAddress($address);
                     }
                 }
-            }
-            // Default billing and shipping
-            if (isset($data['account']['default_billing'])) {
-                $company->setData('default_billing', $data['account']['default_billing']);
-            }
-            if (isset($data['account']['default_shipping'])) {
-                $company->setData('default_shipping', $data['account']['default_shipping']);
-            }
-            if (isset($data['account']['confirmation'])) {
-                $company->setData('confirmation', $data['account']['confirmation']);
             }
 
             // Mark not modified customer addresses for delete
