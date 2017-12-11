@@ -220,8 +220,9 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default'   => Varien_Db_Ddl_Table::TIMESTAMP_INIT
     ), 'Created At')
-    ->addIndex($installer->getIdxName('company/parser_log', array('task_id', 'company_id')), array('task_id', 'company_id'))
-    //->addIndex($installer->getIdxName('company/parser_log', array('company_id')), array('company_id'))
+    //->addIndex($installer->getIdxName('company/parser_log', array('task_id', 'company_id')), array('task_id', 'company_id'))
+    ->addIndex($installer->getIdxName('company/parser_log', array('task_id')), array('task_id'))
+    ->addIndex($installer->getIdxName('company/parser_log', array('company_id')), array('company_id'))
     ->addForeignKey($installer->getFkName('company/parser_log', 'task_id', 'company/parser_tasks', 'entity_id'),
         'task_id',
         $installer->getTable('company/parser_tasks'),
