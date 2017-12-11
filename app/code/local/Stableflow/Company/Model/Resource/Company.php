@@ -6,11 +6,11 @@
  * Date: 12/9/16
  * Time: 11:58 AM
  */
-class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Abstract{
+class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Abstract
+{
 
-    protected $_companyProductTable = null;
-
-    public function _construct(){
+    public function _construct()
+    {
         /** @var  $resource Mage_Core_Model_Resource */
         $resource = Mage::getSingleton('core/resource');
         $this->setType('company_company');
@@ -18,14 +18,15 @@ class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Ab
             $resource->getConnection('company_read'),
             $resource->getConnection('company_write')
         );
-        //$this->_companyTable = $this->getTable('mageplaza_betterblog/post_category');
     }
 
-    public function getMainTable(){
+    public function getMainTable()
+    {
         return $this->getEntityTable();
     }
 
-    protected function _getDefaultAttributes(){
+    protected function _getDefaultAttributes()
+    {
         return [
             'entity_id',
             'entity_type_id',
@@ -69,7 +70,8 @@ class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Ab
      * @return Zend_Db_Select
      * @author Sam
      */
-    protected function _initCheckUrlKeySelect($urlKey, $store){
+    protected function _initCheckUrlKeySelect($urlKey, $store)
+    {
         $urlRewrite = Mage::getModel('eav/config')->getAttribute('company_company', 'url_key');
         if(!$urlRewrite || !$urlRewrite->getId()){
             return false;
@@ -117,7 +119,8 @@ class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Ab
      * @return bool
      * @author Sam
      */
-    protected function isNumericUrlKey(Mage_Core_Model_Abstract $object){
+    protected function isNumericUrlKey(Mage_Core_Model_Abstract $object)
+    {
         return preg_match('/^[0-9]+$/', $object->getData('url_key'));
     }
 
@@ -129,11 +132,13 @@ class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Ab
      * @return bool
      * @author Sam
      */
-    protected function isValidUrlKey(Mage_Core_Model_Abstract $object){
+    protected function isValidUrlKey(Mage_Core_Model_Abstract $object)
+    {
         return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('url_key'));
     }
 
-    protected function _updateAttribute($object, $attribute, $valueId, $value){
+    protected function _updateAttribute($object, $attribute, $valueId, $value)
+    {
         $table = $attribute->getBackend()->getTable();
         if(!isset($this->_attributeValuesToSave[$table])){
             $this->_attributeValuesToSave[$table] = array();
