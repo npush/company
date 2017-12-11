@@ -119,11 +119,11 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      * @param int $errorRowNum Row number.
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
-    public function addRowError($statusCode, $row, $processData, $errorRowNum)
+    public function addRowError($statusCode, $row, $company_id, $errorRowNum)
     {
         $this->_errors[$statusCode][] = array(
             'row_number' => $errorRowNum,
-            'process_data' => $processData,
+            'company_id' => $company_id,
             'content' => $row
         );
         $this->_invalidRows[$errorRowNum] = true;
@@ -153,11 +153,11 @@ abstract class Stableflow_Company_Model_Parser_Entity_Abstract
      * @param string $rowNum
      * @return Stableflow_Company_Model_Parser_Entity_Abstract
      */
-    public function addMessage($statusCode, $row, $processData, $rowNum)
+    public function addMessage($statusCode, $row, $company_id, $rowNum)
     {
         $this->_messages[$statusCode][] = array(
             'row_number' => $rowNum,
-            'process_data' => $processData,
+            'company_id' => $company_id,
             'content' => $row
         );
 

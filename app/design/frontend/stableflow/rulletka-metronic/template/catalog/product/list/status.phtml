@@ -8,9 +8,10 @@
 
 $_product = $this->getProduct();
 $_helper = $this->helper('catalog/output');
+$_currentDate = Mage::getModel('core/date')->date('Y-m-d H:i:s');
 ?>
 <div class="label-product clearfix">
-    <?php if ($_product->getData('news_from_date')): ?>
+    <?php if ($_product->getData('news_from_date') && strtotime($_currentDate) > strtotime($_product->getData('news_from_date'))): ?>
         <span type="button" class="label-span label-yellow"><?php echo $this->__('New');?></span>
     <?php endif; ?>
     <?php if ($_product->getData('sale')): ?>

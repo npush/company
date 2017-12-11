@@ -78,7 +78,7 @@ class Stableflow_Company_Model_Parser_Abstract extends Varien_Object
             foreach($message as $row => $data){
                 $_data[] = array(
                     'task_id' => Mage::registry('current_task_id'),
-                    'company_id' => 1,
+                    'company_id' => $data['company_id'],
                     'line' => $row,
                     'raw_data' =>  $this->toJson($data['content']),
                     'error_text' => $status,

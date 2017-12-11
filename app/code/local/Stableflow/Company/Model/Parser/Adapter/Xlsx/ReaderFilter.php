@@ -11,13 +11,18 @@
 
 class Stableflow_Company_Model_Parser_Adapter_Xlsx_ReaderFilter implements PHPExcel_Reader_IReadFilter
 {
+    protected $_range;
+
+    public function __construct($range)
+    {
+        $this->_range = $range;
+    }
+
     public function readCell($column, $row, $worksheetName = '')
     {
-        //if ($row >= 1 && $row <= 7) {
-            if(in_array($column,range('A','L'))){
-                return true;
-            }
-        //}
+        if(in_array($column, $this->_range)){
+            return true;
+        }
         return false;
     }
 }

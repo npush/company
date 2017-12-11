@@ -126,11 +126,15 @@ $table = $installer->getConnection()
         $installer->getTable('company/parser_config'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
-;
+    ->addForeignKey($installer->getFkName('company/parser_log', 'company_product_id', 'company/product_entity', 'entity_id'),
+        'company_product_id',
+        $installer->getTable('company/product_entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_NO_ACTION);
 $installer->getConnection()->createTable($table);
 
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('company/parser_log'))
+    ->newTable($installer->getTable('company/parser_log_full'))
     ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'unsigned'  => true,
@@ -141,6 +145,10 @@ $table = $installer->getConnection()
         'unsigned'  => true,
         'nullable'  => false,
     ), 'Task Id')
+    ->addColumn('company_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unsigned'  => true,
+        'nullable'  => false,
+    ), 'Company Id')
     ->addColumn('line', Varien_Db_Ddl_Table::TYPE_TEXT, 256, array(
         'nullable'  => false,
     ), 'Line Number')
@@ -164,12 +172,10 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
     ), 'Created At')
-    ->addIndex($installer->getIdxName('company/parser_log', array('task_id')),
-        array('task_id'))
-    ->addIndex($installer->getIdxName('company/parser_log', array('company_product_id')),
-        array('company_product_id'))
-    ->addIndex($installer->getIdxName('company/parser_log', array('status_id')),
-        array('status_id'))
+    ->addIndex($installer->getIdxName('company/parser_log', array('task_id')), array('task_id'))
+    ->addIndex($installer->getIdxName('company/parser_log', array('company_id')), array('company_id'))
+    ->addIndex($installer->getIdxName('company/parser_log', array('company_product_id')), array('company_product_id'))
+    ->addIndex($installer->getIdxName('company/parser_log', array('status_id')), array('status_id'))
     ->addForeignKey($installer->getFkName('company/parser_log', 'task_id', 'company/parser_tasks', 'entity_id'),
         'task_id',
         $installer->getTable('company/parser_tasks'),
@@ -186,6 +192,48 @@ $table = $installer->getConnection()
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_NO_ACTION);
 $installer->getConnection()->createTable($table);
+
+$table = $installer->getConnection()
+    ->newTable($installer->getTable('company/parser_log'))
+    ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'identity'  => true,
+        'unsigned'  => true,
+        'nullable'  => false,
+        'primary'   => true,
+    ), 'Entity Id')
+    ->addColumn('task_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unsigned'  => true,
+        'nullable'  => false,
+    ), 'Task Id')
+    ->addColumn('company_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+        'unsigned'  => true,
+        'nullable'  => false,
+    ), 'Company Id')
+    ->addColumn('line', Varien_Db_Ddl_Table::TYPE_TEXT, 20, array(
+        'nullable'  => false,
+    ), 'Line Number')
+    ->addColumn('raw_data', Varien_Db_Ddl_Table::TYPE_TEXT, 256, array(
+    ), 'Raw Data')
+    ->addColumn('error_text', Varien_Db_Ddl_Table::TYPE_TEXT, 256, array(
+    ), 'error_text')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+        'nullable'  => false,
+        'default'   => Varien_Db_Ddl_Table::TIMESTAMP_INIT
+    ), 'Created At')
+    ->addIndex($installer->getIdxName('company/parser_log', array('task_id', 'company_id')), array('task_id', 'company_id'))
+    //->addIndex($installer->getIdxName('company/parser_log', array('company_id')), array('company_id'))
+    ->addForeignKey($installer->getFkName('company/parser_log', 'task_id', 'company/parser_tasks', 'entity_id'),
+        'task_id',
+        $installer->getTable('company/parser_tasks'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
+    ->addForeignKey($installer->getFkName('company/parser_log', 'company_id', 'company/company_entity', 'entity_id'),
+        'company_id',
+        $installer->getTable('company/company_entity'),
+        'entity_id',
+        Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_NO_ACTION);
+$installer->getConnection()->createTable($table);
+
 
 $table = $installer->getConnection()
     ->newTable($installer->getTable('company/parser_queue'))

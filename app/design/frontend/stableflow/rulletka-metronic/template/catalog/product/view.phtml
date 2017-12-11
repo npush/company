@@ -64,6 +64,7 @@
                         <div class="line-number-id">
                             <label><?php echo  $label;?>:</label>
                             <?php foreach ($codes as $code) : ?>
+                                <?php if(!$code) continue;?>
                                 <span><?php echo  $code;?></span>
                             <?php endforeach; ?>
                         </div>

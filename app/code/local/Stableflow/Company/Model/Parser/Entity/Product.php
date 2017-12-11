@@ -189,7 +189,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                         );
                         $this->_newCompProdIds[$catProdId]['entity_id'] = $compProdId;
                         $attributes[$catProdId] = $this->_extractAttributes($row);
-                        $this->addMessage(self::BEHAVIOR_UPDATE, $row, array(), $this->_getLineNumber());
+                        $this->addMessage(self::BEHAVIOR_UPDATE, $row, $this->_getCompanyId(), $this->_getLineNumber());
                         break;
                     case self::BEHAVIOR_ADD_NEW:
                         $entityRowsIn[$catProdId] = array(
@@ -202,7 +202,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                             'updated_at'            => now()
                         );
                         $attributes[$catProdId] = $this->_extractAttributes($row);
-                        $this->addMessage(self::BEHAVIOR_ADD_NEW, $row, array(), $this->_getLineNumber());
+                        $this->addMessage(self::BEHAVIOR_ADD_NEW, $row, $this->_getCompanyId(), $this->_getLineNumber());
                         break;
                     case self::BEHAVIOR_DISABLE:
                         break;
@@ -213,7 +213,7 @@ class Stableflow_Company_Model_Parser_Entity_Product extends Stableflow_Company_
                 }
                 $idx++;
             } catch (Stableflow_Company_Exception $e) {
-                $this->addRowError($e->getMessage(), $row, array(), $this->_getLineNumber());
+                $this->addRowError($e->getMessage(), $row, $this->_getCompanyId(), $this->_getLineNumber());
             }
             catch (Mage_Core_Exception $e) {
                 Mage::logException($e->getMessages());

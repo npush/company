@@ -114,6 +114,9 @@
                     <parser_log>
                         <table>company_parser_log_v2</table>
                     </parser_log>
+                    <parser_log_full>
+                        <table>company_parser_log</table>
+                    </parser_log_full>
                     <parser_queue>
                         <table>company_parser_queue</table>
                     </parser_queue>
@@ -172,6 +175,7 @@
                     </company_add_button_to_grid>
                 </observers>
             </adminhtml_widget_container_html_before>
+<!-- Parser -->
             <company_parser_entity_product_run_before>
                 <observers>
                     <company_parser_observer>
@@ -201,6 +205,7 @@
                     </parser_product_update>
                 </observers>
             </company_parser_entity_product_update_after>-->
+<!-- Parser END -->
         </events>
         <parser module="company">
             <import_entities>
