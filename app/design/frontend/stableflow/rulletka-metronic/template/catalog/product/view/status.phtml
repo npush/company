@@ -20,7 +20,7 @@ $_currentDate = Mage::getModel('core/date')->date('Y-m-d H:i:s');
     <?php if ($_product->getData('promo')): ?>
         <span type="button" class="label-span label-yellow-light"><?php echo $this->__('Promo');?></span>
     <?php endif; ?>
-    <?php if ($_product->getData('out_of_production') || true): ?>
+    <?php if ($_product->getData('out_of_production')): ?>
         <span type="button" class="label-span label-grey"><?php echo $this->__('Out of production');?></span>
     <?php endif; ?>
 </div>
