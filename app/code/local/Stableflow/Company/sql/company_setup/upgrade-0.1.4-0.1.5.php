@@ -261,7 +261,7 @@ $table = $installer->getConnection()
 $installer->getConnection()->createTable($table);
 
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('company/parser_additional_code_info'))
+    ->newTable($installer->getTable('company/parser_additional_code'))
     ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
         'identity'  => true,
         'unsigned'  => true,
@@ -280,7 +280,7 @@ $table = $installer->getConnection()
     ), 'Base company name')
     ->addColumn('wrong_company_name', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
     ), 'Wrong company name')
-    ->addForeignKey($installer->getFkName('company/parser_additional_code_info', 'company_id', 'company/company_entity', 'entity_id'),
+    ->addForeignKey($installer->getFkName('company/parser_additional_code', 'company_id', 'company/company_entity', 'entity_id'),
         'company_id',
         $installer->getTable('company/company_entity'),
         'entity_id',
