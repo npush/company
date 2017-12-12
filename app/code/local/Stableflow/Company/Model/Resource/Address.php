@@ -9,6 +9,7 @@
 class Stableflow_Company_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstract
 {
 
+
     public function _construct()
     {
         /** @var  $resource Mage_Core_Model_Resource */

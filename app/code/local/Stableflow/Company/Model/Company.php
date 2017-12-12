@@ -118,11 +118,13 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
     /**
      * Initialize company model
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_init('company/company');
     }
 
-    public function getCompanyList(){
+    public function getCompanyList()
+    {
         return $this->getCollection();
     }
 
@@ -136,7 +138,8 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
      *
      * @return array
      */
-    public function getAddress(){
+    public function getAddress()
+    {
         $address = Mage::getModel('company/address')
             ->getCollection()
             ->addAttributeToSelect('*')

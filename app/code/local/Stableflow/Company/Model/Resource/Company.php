@@ -168,10 +168,11 @@ class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Ab
      * @param Varien_Object $company
      * @return Mage_Eav_Model_Entity_Abstract
      */
-    protected function _afterSave(Varien_Object $company)
+    protected function _afterSave(Stableflow_Company_Model_Company $company)
     {
+        parent::_afterSave($company);
         $this->_saveAddresses($company);
-        return parent::_afterSave($company);
+        return $this;
     }
 
     /**
@@ -196,7 +197,7 @@ class Stableflow_Company_Model_Resource_Company extends Mage_Eav_Model_Entity_Ab
             } else {
                 $address->setParentId($company->getId())
                     ->setStoreId($company->getStoreId())
-                    ->setIsCustomerSaveTransaction(true)
+                    //->setIsCustomerSaveTransaction(true)
                     ->save();
                 if (($address->getIsPrimaryBilling() || $address->getIsDefaultBilling())
                     && $address->getId() != $defaultBillingId
