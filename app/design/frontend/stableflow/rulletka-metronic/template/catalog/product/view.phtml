@@ -61,15 +61,13 @@
                         <?php $codes = $Attr->getFrontend()->getValue($_product);?>
                         <?php $label = $Attr->getStoreLabel();?>
 
-                        <?php if(strlen($codes)) : ?>
-                            <?php $codes = explode('|', $codes);?>
-                            <div class="line-number-id">
-                                <label><?php echo  $label;?>:</label>
-                                <?php foreach ($codes as $code) : ?>
-                                    <span><?php echo  $code;?><?php //echo $cnt > 1 ? '; ' : '';?></span>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php endif ;?>    
+                        <div class="line-number-id">
+                            <label><?php echo  $label;?>:</label>
+                            <?php foreach ($codes as $code) : ?>
+                                <?php if(!$code) continue;?>
+                                <span><?php echo  $code;?></span>
+                            <?php endforeach; ?>
+                        </div>
 
                         <div class="display-inline-all margin-45">
                             <ul class="basket-content">

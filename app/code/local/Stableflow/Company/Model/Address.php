@@ -6,11 +6,57 @@
  * Date: 12/9/16
  * Time: 1:31 PM
  */
-class Stableflow_Company_Model_Address extends Stableflow_Company_Model_Address_Abstract {
+class Stableflow_Company_Model_Address extends Stableflow_Company_Model_Address_Abstract
+{
+
+    const CACHE_TAG = 'company_address';
+
+    /**
+     * Model event prefix
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'company_address';
+
+    /**
+     * Name of the event object
+     *
+     * @var string
+     */
+    protected $_eventObject = 'company_address';
+
+    /**
+     * Is model deletable
+     *
+     * @var boolean
+     */
+    protected $_isDeleteable = true;
+
+    /**
+     * Is model readonly
+     *
+     * @var boolean
+     */
+    protected $_isReadonly = false;
+
+    /**
+     * Model cache tag for clear cache in after save and after delete
+     *
+     * @var string
+     */
+    protected $_cacheTag = self::CACHE_TAG;
+
+    /**
+     * Name of object id field
+     *
+     * @var string
+     */
+    protected $_idFieldName = 'entity_id';
 
     protected $_company;
 
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_init('company/address');
     }
 

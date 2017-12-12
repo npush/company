@@ -118,12 +118,18 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
     /**
      * Initialize company model
      */
-    protected function _construct(){
+    protected function _construct()
+    {
         $this->_init('company/company');
     }
 
-    public function getCompanyList(){
-        return $this->getResource()->getCollection();
+    public function getCompanyList()
+    {
+        return $this->getCollection();
+    }
+
+    public function getName(){
+        return $this->getData('name');
     }
 
     /**
@@ -132,7 +138,8 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
      *
      * @return array
      */
-    public function getAddress(){
+    public function getAddress()
+    {
         $address = Mage::getModel('company/address')
             ->getCollection()
             ->addAttributeToSelect('*')
@@ -313,16 +320,46 @@ class Stableflow_Company_Model_Company extends Mage_Core_Model_Abstract{
     }
 
     /**
-     * Retrieve company products`s
-     *
-     * @return array
+     * Retrieve company product
+     * @param int $productId
+     * @return Stableflow_Company_Model_Product
      */
-    public function getProducts(){
-
+    public function getProduct($productId){
+        return Mage::getModel('company/product')->getProduct($productId);
     }
 
-    public function getProductsCollection(){
-        return Mage::getModel('company/product_collection');
+    /**
+     * Retrieve product
+     * @param int $catalogProductId
+     * @return Mage_Catalog_Model_Product
+     */
+    public function getProductByCatalogProductId($catalogProductId){
+        return Mage::getModel('company/product')->getProductByCatalogProductId($catalogProductId, $this->getId());
+    }
+
+    /**
+     * Retrieve
+     * @return  Stableflow_Company_Model_Resource_Product_Collection
+     */
+    public function getProductsCollection($companyId = null){
+        if($companyId){
+            $companyId = $this->getId();
+        }
+        return Mage::getResourceModel('company/product_collection')
+            ->addAttributeToSelect('company_id', $companyId);
+    }
+
+    public function getCatalogProductCollection($companyId = null){
+        if(!$companyId){
+            $companyId = $this->getId();
+        }
+        $catalogProductIds = Mage::getModel('company/product')->getCatalogProductIds($companyId);
+        return Mage::getModel('catalog/product')->getCollection()
+            ->addAttributeToSelect('entity_id', array('in' => $catalogProductIds));
+    }
+
+    public function getTopicality(){
+        return null;
     }
 
     /**

@@ -7,7 +7,6 @@
             </action>
         </reference>
         <reference name="content">
-            <!-- We also reference our block by namespacename_modulename/adminhtml_controllername, and name it uniquely -->
             <block type="company/adminhtml_company" name="company_company" />
         </reference>
     </adminhtml_company_company_index>
@@ -17,12 +16,16 @@
         </block>
     </adminhtml_company_company_grid>
     <adminhtml_company_company_edit>
-        <update handle="editor"/>
         <reference name="menu">
             <action method="setActive">
                 <menupath>company/company/edit</menupath>
             </action>
         </reference>
+        <reference name="head">
+            <action method="setCanLoadTinyMce"><load>1</load></action>
+            <action method="addJs"><script>jsonedit/jsoneditor.js</script></action>
+        </reference>
+        <update handle="editor"/>
         <reference name="content">
             <block type="company/adminhtml_company_edit" name="company_edit"/>
         </reference>
@@ -30,11 +33,153 @@
             <block type="adminhtml/store_switcher" name="store_switcher" before="-"/>
             <block type="company/adminhtml_company_edit_tabs" name="company_tabs"/>
         </reference>
-        <reference name="head">
-            <action method="setCanLoadTinyMce"><load>1</load></action>
-        </reference>
         <reference name="js">
-            <block type="core/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
+            <block type="adminhtml/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
+            <block type="adminhtml/template" name="edit.configuration.js" template="company/parser/js.phtml" />
         </reference>
     </adminhtml_company_company_edit>
+    <adminhtml_company_company_editproduct>
+        <remove name="menu" />
+        <remove name="header" />
+        <remove name="footer" />
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addCss">
+                <name>lib/prototype/windows/themes/magento.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="company/adminhtml_product_edit" name="product_edit"/>
+        </reference>
+    </adminhtml_company_company_editproduct>
+    <adminhtml_company_company_saveproduct>
+        <remove name="menu" />
+        <remove name="header" />
+        <remove name="footer" />
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addCss">
+                <name>lib/prototype/windows/themes/magento.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="company/adminhtml_product_edit" name="product_edit"/>
+        </reference>
+    </adminhtml_company_company_saveproduct>
+
+    <!--<adminhtml_company_company_productlist>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_product" name="product_grid"/>
+        </block>
+    </adminhtml_company_company_productlist>-->
+
+    <adminhtml_company_company_productlisttab>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_product_grid" name="company.tab.products"/>
+            <block type="adminhtml/widget_grid_serializer" name="company.serializer.products">
+                <action method="initSerializerBlock">
+                    <grid_block_name>company.tab.products</grid_block_name>
+                    <data_callback>getSelectedProducts</data_callback>
+                    <hidden_input_name>product_ids</hidden_input_name>
+                    <reload_param_name>products</reload_param_name>
+                </action>
+            </block>
+        </block>
+    </adminhtml_company_company_productlisttab>
+
+    <adminhtml_company_company_productlistgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_product_grid" name="company.tab.products"/>
+        </block>
+    </adminhtml_company_company_productlistgrid>
+
+
+<!-- Parser path -->
+    <!-- Menu -->
+    <adminhtml_parser_queue_queue>
+        <reference name="content">
+            <block type="company/adminhtml_parser_queue" name="queue_grid"/>
+        </reference>
+    </adminhtml_parser_queue_queue>
+
+    <adminhtml_parser_task_tasklist>
+        <reference name="content">
+            <block type="company/adminhtml_parser_taskList_grid" name="task_grid"/>
+        </reference>
+    </adminhtml_parser_task_tasklist>
+
+    <adminhtml_parser_parser_log>
+        <reference name="content">
+            <block type="company/adminhtml_parser_log" name="log_grid"/>
+        </reference>
+    </adminhtml_parser_parser_log>
+    <!-- Menu -->
+    <!-- TABS -->
+    <adminhtml_parser_parser_parserconfiguration>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_config" name="parser_configuration_grid"/>
+        </block>
+    </adminhtml_parser_parser_parserconfiguration>
+
+    <adminhtml_parser_parser_editconfiguration>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_config_edit" name="parser_configuration_edit"/>
+        </block>
+    </adminhtml_parser_parser_editconfiguration>
+
+    <adminhtml_parser_parser_editparsersetting>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_editor_editor" name="parser_settings_editor"/>
+        </block>
+    </adminhtml_parser_parser_editparsersetting>
+
+    <adminhtml_parser_parser_pricetype>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_priceType" name="parser_price_type_grid"/>
+        </block>
+    </adminhtml_parser_parser_pricetype>
+
+    <adminhtml_parser_parser_editpricetype>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_priceType_edit" name="price_type_form"/>
+        </block>
+    </adminhtml_parser_parser_editpricetype>
+
+    <adminhtml_parser_task_task>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_task" name="parser_task_grid"/>
+        </block>
+    </adminhtml_parser_task_task>
+
+    <adminhtml_parser_task_edittask>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_task_edit" name="parser_task_edit"/>
+        </block>
+    </adminhtml_parser_task_edittask>
+
+    <adminhtml_parser_parser_companycode>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_addCode" name="parser_addcode_grid"/>
+        </block>
+    </adminhtml_parser_parser_companycode>
+
+    <adminhtml_parser_parser_editaddcode>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_addCode_edit" name="parser_addcode_edit"/>
+        </block>
+    </adminhtml_parser_parser_editaddcode>
+
+    <adminhtml_parser_log_tasklog>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="company/adminhtml_parser_log" name="parser_task_log_grid"/>
+        </block>
+    </adminhtml_parser_log_tasklog>
+    <!-- TABS -->
+<!-- Parser path -->
 </layout>

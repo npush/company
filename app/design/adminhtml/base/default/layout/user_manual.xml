@@ -11,7 +11,8 @@
     </adminhtml_catalog_product_edit>
     <adminhtml_manual_index>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="user_manual/adminhtml_catalog_product_manual" name="catalog.product.manual"/>
+            <block type="user_manual/adminhtml_catalog_product_manual" name="catalog.product.manual"
+                    template="user_manual/catalog/product/tab/manual.phtml"/>
         </block>
     </adminhtml_manual_index>
 </layout>

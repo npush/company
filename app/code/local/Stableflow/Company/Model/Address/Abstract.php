@@ -284,14 +284,14 @@ class Stableflow_Company_Model_Address_Abstract extends Mage_Core_Model_Abstract
             || !$formatType->getRenderer()) {
             return null;
         }
-        Mage::dispatchEvent('customer_address_format', array('type' => $formatType, 'address' => $this));
+        Mage::dispatchEvent('company_address_format', array('type' => $formatType, 'address' => $this));
         return $formatType->getRenderer()->render($this);
     }
 
     /**
      * Retrive address config object
      *
-     * @return Mage_Customer_Model_Address_Config
+     * @return Stableflow_Company_Model_Address_Config
      */
     public function getConfig()
     {

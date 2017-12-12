@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<layout>
-    <adminhtml_company_index>
-        <reference name="content">
-            <!-- We also reference our block by namespacename_modulename/adminhtml_controllername, and name it uniquely -->
-            <block type="company/adminhtml_company" name="company_company" />
-        </reference>
-    </adminhtml_company_index>
-</layout>

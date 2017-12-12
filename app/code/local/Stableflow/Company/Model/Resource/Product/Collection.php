@@ -14,12 +14,15 @@ class Stableflow_Company_Model_Resource_Product_Collection extends Mage_Eav_Mode
      */
     protected $_relationTable = null;
 
+    protected $_companyProductTable = null;
+
     protected $_productIdArray = null;
 
     protected function _construct()
     {
         $this->_init('company/product');
-        $this->_relationTable = $this->getTable('company/company_product');
+        //$this->_relationTable = $this->getTable('company/company_product');
+        $this->_companyProductTable = $this->getTable('company/product_entity');
     }
 
     /**
@@ -31,10 +34,11 @@ class Stableflow_Company_Model_Resource_Product_Collection extends Mage_Eav_Mode
     {
         $adapter = $this->getConnection();
         $select = $adapter->select()
-            ->from($this->_relationTable, 'company_product_id')
+            ->from($this->_companyProductTable, 'entity_id')
             ->where('company_id = :company_id');
         $this->_productIdArray = $adapter->fetchCol($select, array(':company_id' => $company->getId()));
         $this->addFieldToFilter('entity_id', array('in' => $this->_productIdArray));
+        //$this->addFieldToFilter('company_id', array('eq' => $company->getId()));
         return $this;
     }
 }

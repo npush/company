@@ -12,10 +12,7 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * constructor - set the used module name
      *
-     * @access protected
-     * @return void
      * @see Mage_Core_Controller_Varien_Action::_construct()
-     * @author nick
      */
     protected function _construct()
     {
@@ -25,9 +22,7 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * init the company
      *
-     * @access protected
      * @return Stableflow_Company_Model_Company
-     * @author nick
      */
     protected function _initCompany()
     {
@@ -45,12 +40,15 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
         return $company;
     }
 
+    protected function _initProduct(){
+        $productId = (int)$this->getRequest()->getParam('id');
+        $product = Mage::getModel('company/product')->load($productId);
+        return $product;
+    }
+
     /**
      * default action for company controller
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function indexAction()
     {
@@ -63,9 +61,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * new company action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function newAction()
     {
@@ -75,9 +70,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * edit company action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function editAction()
     {
@@ -125,11 +117,12 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * save company action
      *
-     * @access public
-     * @return void
      */
     public function saveAction()
     {
+        if ($productsIds = $this->getRequest()->getParam('products_ids', null)) {
+            $productsIds = Mage::helper('adminhtml/js')->decodeGridSerializedInput($productsIds);
+        }
         $storeId        = $this->getRequest()->getParam('store');
         $redirectBack   = $this->getRequest()->getParam('back', false);
         $companyId   = $this->getRequest()->getParam('id');
@@ -163,7 +156,7 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
             $modifiedAddresses = array();
             if (!empty($data['address'])) {
                 /** @var $addressForm Stableflow_Company_Model_Form */
-                $addressForm = Mage::getModel('customer/form');
+                $addressForm = Mage::getModel('company/form');
                 $addressForm->setFormCode('adminhtml_company_address')->ignoreInvisible(false);
 
                 foreach (array_keys($data['address']) as $index) {
@@ -176,21 +169,13 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
                     $formData = $addressForm->setEntity($address)
                         ->extractData($this->getRequest(), $requestScope);
 
-                    // Set default billing and shipping flags to address
-                    $isDefaultBilling = isset($data['account']['default_billing'])
-                        && $data['account']['default_billing'] == $index;
-                    $address->setIsDefaultBilling($isDefaultBilling);
-                    $isDefaultShipping = isset($data['account']['default_shipping'])
-                        && $data['account']['default_shipping'] == $index;
-                    $address->setIsDefaultShipping($isDefaultShipping);
-
                     $errors = $addressForm->validateData($formData);
                     if ($errors !== true) {
                         foreach ($errors as $error) {
                             $this->_getSession()->addError($error);
                         }
                         $this->_getSession()->setCustomerData($data);
-                        $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', array(
+                        $this->getResponse()->setRedirect($this->getUrl('*/company/edit', array(
                                 'id' => $company->getId())
                         ));
                         return;
@@ -207,16 +192,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
                         $company->addAddress($address);
                     }
                 }
-            }
-            // Default billing and shipping
-            if (isset($data['account']['default_billing'])) {
-                $company->setData('default_billing', $data['account']['default_billing']);
-            }
-            if (isset($data['account']['default_shipping'])) {
-                $company->setData('default_shipping', $data['account']['default_shipping']);
-            }
-            if (isset($data['account']['confirmation'])) {
-                $company->setData('confirmation', $data['account']['confirmation']);
             }
 
             // Mark not modified customer addresses for delete
@@ -261,9 +236,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * delete company
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function deleteAction()
     {
@@ -286,9 +258,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * mass delete companys
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function massDeleteAction()
     {
@@ -318,9 +287,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * mass status change - action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function massStatusAction()
     {
@@ -355,9 +321,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * grid action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function gridAction()
     {
@@ -368,10 +331,8 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * restrict access
      *
-     * @access protected
      * @return bool
      * @see Mage_Adminhtml_Controller_Action::_isAllowed()
-     * @author Sam
      */
     protected function _isAllowed()
     {
@@ -381,9 +342,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * Export companys in CSV format
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function exportCsvAction()
     {
@@ -396,9 +354,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * Export companys in Excel format
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function exportExcelAction()
     {
@@ -411,9 +366,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * Export companys in XML format
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function exportXmlAction()
     {
@@ -426,9 +378,6 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     /**
      * wysiwyg editor action
      *
-     * @access public
-     * @return void
-     * @author Sam
      */
     public function wysiwygAction()
     {
@@ -451,5 +400,71 @@ class Stableflow_Company_Adminhtml_Company_CompanyController extends Mage_Adminh
     public function generateSitemapAction()
     {
         Mage::getModel('company/generateSitemap')->generateXml();
+    }
+
+    public function productListAction()
+    {
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
+    public function productListTabAction()
+    {
+        // used for selecting products on tab load
+        $saved_product_ids = array(); // your load logic here
+
+        $companyId = $this->getRequest()->getParam('id');
+        $this->_getSession()->setCompanyId($companyId);
+
+        $this->loadLayout()
+            ->getLayout()
+            ->getBlock('company.tab.products')
+            ->setCurrentCompany($this->getRequest()->getPost('current_company_id', null))
+            ->setSelectedProducts($saved_product_ids);
+
+        $this->renderLayout();
+    }
+
+    public function productListGridAction()
+    {
+        $companyId = $this->getRequest()->getParam('id');
+        $this->_getSession()->setCompanyId($companyId);
+
+        $this->loadLayout()
+            ->getLayout()
+            ->getBlock('company.tab.products')
+            ->setSelectedProducts($this->getRequest()->getPost('products', null));
+
+        $this->renderLayout();
+    }
+
+    public function editProductAction()
+    {
+        $this->_initProduct();
+        $this->loadLayout();
+        $this->getLayout()->removeOutputBlock('header');
+        $this->renderLayout();
+    }
+    public function saveProductAction()
+    {
+        $storeId = $this->getRequest()->getParam('store');
+        $productId = $this->getRequest()->getParam('id');
+        $redirectBack = $this->getRequest()->getParam('back', false);
+        $data = $this->getRequest()->getPost();
+        if ($data) {
+            $model = Mage::getModel('company/product')->load($productId);
+            $model->addData($data);
+            try{
+                $model->save();
+                $this->_getSession()->addSuccess(
+                    Mage::helper('company')->__('Product was saved')
+                );
+            }
+            catch(Mage_Core_Exception $e){
+
+            }
+        }
+        $this->loadLayout();
+        $this->renderLayout();
     }
 }

@@ -24,7 +24,7 @@ $_helper = $this->helper('catalog/output');
              alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
              title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>"
              data-zoom-image="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>"/>
-
+        <?php echo $this->getChildHtml('product-status')?>
         <script type="application/javascript">
             images = [];
             <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>

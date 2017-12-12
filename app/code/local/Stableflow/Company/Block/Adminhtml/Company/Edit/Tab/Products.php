@@ -14,11 +14,23 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
      */
     public function __construct(){
         parent::__construct();
-
-        $this->setId('company_products_grid');
+        $this->setSaveParametersInSession(false);
+        $this->setId('company_products');
         $this->setDefaultSort('entity_id');
         $this->setUseAjax(true);
         //$this->setTemplate('company/tab/products.phtml');
+    }
+
+    protected function _prepareLayout(){
+        $this->setChild('add_new_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData(array(
+                    'label'     => Mage::helper('company')->__('Add new product'),
+                    'onclick'   => $this->getJsObjectName().'.doAddNew()',
+                    'class'   => 'task'
+                ))
+        );
+        parent::_prepareLayout();
     }
 
     /**
@@ -44,7 +56,8 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
      *
      */
     public function getCompany(){
-        return Mage::registry('current_company');
+        $id = Mage::getSingleton('adminhtml/session')->getCompanyId();
+        return Mage::getModel('company/company')->load($id);
     }
 
     protected function _addColumnFilterToCollection($column)
@@ -78,15 +91,16 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
         $collection = Mage::getModel('company/product')->getCollection()
             ->addCompanyFilter($this->getCompany())
             ->addAttributeToSelect('name')
-            ->addAttributeToSelect('sku')
             ->addAttributeToSelect('price')
+            ->addAttributeToSelect('is_active')
+            ->addAttributeToSelect('catalog_product_id');
             //->addStoreFilter($this->getRequest()->getParam('store'))
-            /*->joinField('position',
+            /*->joinField('catalog_product_name',
                 'catalog/category_product',
-                'position',
+                'name',
                 'product_id=entity_id',
                 'category_id='.(int) $this->getRequest()->getParam('id', 0),
-                'left')*/;
+                'left');*/
         $this->setCollection($collection);
 
         if ($this->getCompany()->getProductsReadonly()) {
@@ -102,30 +116,29 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
 
     protected function _prepareColumns()
     {
-        if (!$this->getCompany()->getIsReadonly()) {
-            $this->addColumn('in_category', array(
-                'header_css_class' => 'a-center',
-                'type'      => 'checkbox',
-                'name'      => 'in_category',
-                'values'    => $this->_getSelectedProducts(),
-                'align'     => 'center',
-                'index'     => 'entity_id'
-            ));
-        }
+        $this->addColumn('selected_products', array(
+            'header'    => $this->__('#'),
+            'type'      => 'checkbox',
+            'index'     => 'entity_id',
+            'align'     => 'center',
+            'field_name'=> 'selected_products',
+            'values'    => $this->getSelectedProducts(),
+        ));
         $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
             'width'     => '60',
             'index'     => 'entity_id'
         ));
+        $this->addColumn('catalog_product_id', array(
+            'header'    => Mage::helper('catalog')->__('Catalog Product ID'),
+            'sortable'  => true,
+            'width'     => '60',
+            'index'     => 'catalog_product_id'
+        ));
         $this->addColumn('name', array(
             'header'    => Mage::helper('catalog')->__('Name'),
             'index'     => 'name'
-        ));
-        $this->addColumn('sku', array(
-            'header'    => Mage::helper('catalog')->__('SKU'),
-            'width'     => '80',
-            'index'     => 'sku'
         ));
         $this->addColumn('price', array(
             'header'    => Mage::helper('catalog')->__('Price'),
@@ -134,13 +147,37 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Products extends Mage_
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
             'index'     => 'price'
         ));
+        $this->addColumn('is_active', array(
+            'header'    => Mage::helper('catalog')->__('Active'),
+            'index'     => 'is_active',
+            'width'     => '60',
+            'align'     => 'right'
+        ));
+        $this->addColumn('action',array(
+                'header'    => Mage::helper('catalog')->__('Edit'),
+                'width'     => '5%',
+                'type'      => 'action',
+                'getter'     => 'getId',
+                'actions'   => array(
+                    array(
+                        'caption' => Mage::helper('catalog')->__('Edit Product'),
+                        'url'     => array('base'=>'*/*/editProduct'),
+                        'popup'   => true,
+                        'field'   => 'id'
+                    )
+                ),
+                'filter'    => false,
+                'sortable'  => false,
+                'is_system' => true,
+            )
+        );
 
         return parent::_prepareColumns();
     }
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
+        return $this->getUrl('*/*/productListGrid', array('_current'=>true));
     }
 
     protected function _getSelectedProducts()

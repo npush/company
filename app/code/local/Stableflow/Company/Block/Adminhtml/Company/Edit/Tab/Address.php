@@ -18,7 +18,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
         $this->setChild('delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label'  => Mage::helper('customer')->__('Delete Address'),
+                    'label'  => Mage::helper('company')->__('Delete Address'),
                     'name'   => 'delete_address',
                     'element_name' => 'delete_address',
                     'disabled' => $this->isReadonly(),
@@ -28,7 +28,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
         $this->setChild('add_address_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label'  => Mage::helper('customer')->__('Add New Address'),
+                    'label'  => Mage::helper('company')->__('Add New Address'),
                     'id'     => 'add_address_button',
                     'name'   => 'add_address_button',
                     'element_name' => 'add_address_button',
@@ -40,7 +40,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
         $this->setChild('cancel_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
-                    'label'  => Mage::helper('customer')->__('Cancel'),
+                    'label'  => Mage::helper('company')->__('Cancel'),
                     'id'     => 'cancel_add_address'.$this->getTemplatePrefix(),
                     'name'   => 'cancel_address',
                     'element_name' => 'cancel_address',
@@ -112,7 +112,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
         }*/
         foreach ($attributes as $attribute) {
             /* @var $attribute Mage_Eav_Model_Entity_Attribute */
-            $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
+            $attribute->setFrontendLabel(Mage::helper('company')->__($attribute->getFrontend()->getLabel()));
             $attribute->unsIsVisible();
         }
         $this->_setFieldset($attributes, $fieldset);
@@ -121,7 +121,7 @@ class Stableflow_Company_Block_Adminhtml_Company_Edit_Tab_Address extends Mage_A
         if ($regionElement) {
             $isRequired = Mage::helper('directory')->isRegionRequired($addressModel->getCountryId());
             $regionElement->setRequired($isRequired);
-            $regionElement->setRenderer(Mage::getModel('adminhtml/customer_renderer_region'));
+            $regionElement->setRenderer(Mage::getModel('adminhtml/company_renderer_region'));
         }
 
         $regionElement = $form->getElement('region_id');

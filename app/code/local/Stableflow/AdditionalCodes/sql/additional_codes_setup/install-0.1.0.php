@@ -12,10 +12,10 @@ $installer->startSetup();
 // adding the manufacturer_number attribute as static attribute
 $installer->addAttribute( 'catalog_product', 'additional_codes', array(
     'label'             => 'Manufacturer Numbers',
-    'note'              => 'Enter numbers separated by semicolon ";"',
+    'note'              => '',
     'type'              => 'varchar',
     'input'             => 'text',
-    'backend'           => '',//'additional_codes/product_attribute_backend_codes',
+    'backend'           => 'additional_codes/product_attribute_backend_manufnumber',//'additional_codes/product_attribute_backend_codes',
     'source'            => '',
     'frontend'          => '',
     'required'          => false,

@@ -32,8 +32,8 @@ class Stableflow_Company_Model_Entity_Address_Attribute_Source_Country
     public function getAllOptions()
     {
         if (!$this->_options) {
-            $this->_options = $this->_factory->getResourceModel('directory/country_collection')
-                ->loadByStore($this->getAttribute()->getStoreId())->toOptionArray();
+            $this->_options = $this->_factory->getResourceModel('directory/country_collection')->loadData()->toOptionArray();
+                //->loadByStore($this->getAttribute()->getStoreId())->toOptionArray();
         }
         return $this->_options;
     }

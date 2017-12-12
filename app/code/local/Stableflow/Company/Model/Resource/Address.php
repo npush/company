@@ -6,9 +6,12 @@
  * Date: 12/9/16
  * Time: 1:42 PM
  */
-class Stableflow_Company_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstract {
+class Stableflow_Company_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstract
+{
 
-    public function _construct(){
+
+    public function _construct()
+    {
         /** @var  $resource Mage_Core_Model_Resource */
         $resource = Mage::getSingleton('core/resource');
         $this->setType('company_address');
@@ -18,11 +21,13 @@ class Stableflow_Company_Model_Resource_Address extends Mage_Eav_Model_Entity_Ab
         );
     }
 
-    public function getMainTable(){
+    public function getMainTable()
+    {
         return $this->getEntityTable();
     }
 
-    protected function _getDefaultAttributes(){
+    protected function _getDefaultAttributes()
+    {
         return array(
             'entity_id',
             'entity_type_id',
@@ -36,7 +41,8 @@ class Stableflow_Company_Model_Resource_Address extends Mage_Eav_Model_Entity_Ab
         );
     }
 
-    protected function _updateAttribute($object, $attribute, $valueId, $value){
+    protected function _updateAttribute($object, $attribute, $valueId, $value)
+    {
         $table = $attribute->getBackend()->getTable();
         if(!isset($this->_attributeValuesToSave[$table])){
             $this->_attributeValuesToSave[$table] = array();

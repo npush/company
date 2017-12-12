@@ -47,7 +47,7 @@ class Stableflow_Company_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Retrieve base image url
-     *
+     * @param Stableflow_Company_Model_Company $company
      * @return string
      */
     public function getImageUrl($company)
@@ -62,4 +62,16 @@ class Stableflow_Company_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $url;
     }
+
+    /**
+     * Get Companies That sell product
+     * @param int $catalogProductId
+     * @return Stableflow_Company_Model_Resource_Company_Collection
+     */
+    public function getSellsCompaniesByProductId($catalogProductId){
+        $companyIds = Mage::getResourceModel('company/product')->addCatalogProductFilter($catalogProductId);
+        return Mage::getResourceModel('company/company_collection')
+            ->addFieldToFilter('entity_id',array('in' => $companyIds));
+    }
+
 }

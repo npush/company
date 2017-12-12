@@ -14,6 +14,8 @@ class Stableflow_Company_Model_Resource_Product extends Mage_Eav_Model_Entity_Ab
      */
     protected $_relationTable = null;
 
+    protected $_companyProductTable = null;
+
     protected $_productIdArray = null;
 
     public function _construct()
@@ -25,7 +27,8 @@ class Stableflow_Company_Model_Resource_Product extends Mage_Eav_Model_Entity_Ab
             $resource->getConnection('company_read'),
             $resource->getConnection('company_write')
         );
-        $this->_relationTable = $this->getTable('company/company_product');
+        //$this->_relationTable = $this->getTable('company/company_product');
+        $this->_companyProductTable = $this->getTable('company/product_entity');
     }
 
     public function getMainTable()
@@ -37,6 +40,8 @@ class Stableflow_Company_Model_Resource_Product extends Mage_Eav_Model_Entity_Ab
         return [
             'entity_id',
             'entity_type_id',
+            'company_id',
+            'catalog_product_id',
             'attribute_set_id',
             'created_at',
             'updated_at',
@@ -47,13 +52,43 @@ class Stableflow_Company_Model_Resource_Product extends Mage_Eav_Model_Entity_Ab
         ];
     }
 
-    public function addCompanyFilter(Stableflow_Company_Model_Company $company)
+    public function addCompanyFilter($companyId)
     {
         $adapter = $this->_getReadAdapter();
         $select = $adapter->select()
-            ->from($this->_relationTable, array('product_id', 'company_product_id'))
+            ->from($this->_companyProductTable, array('entity_id', 'catalog_product_id'))
             ->where('company_id = :company_id');
-        $this->_productIdArray = $adapter->fetchAll($select, array(':company_id' => $company->getId()));
+        $this->_productIdArray = $adapter->fetchAll($select, array(':company_id' => $companyId));
         return $this->_productIdArray;
+    }
+
+    public function addCatalogProductFilter($catalogProductId){
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
+            ->from($this->_companyProductTable, 'company_id')
+            ->where('catalog_product_id =:catalog_product_id');
+        return $adapter->fetchAll($select, array(':catalog_product_id' => $catalogProductId));
+    }
+
+    public function _getProductId($catalogProductId, $companyId){
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
+            ->from($this->_companyProductTable, 'entity_id')
+            ->where('catalog_product_id =:catalog_product_id')
+            ->where('company_id =:company_id');
+        return $adapter->fetchOne($select, array(
+            ':catalog_product_id' => $catalogProductId,
+            ':company_id'   => $companyId
+        ));
+    }
+
+    public function _getCatalogProductIds ($companyId){
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
+            ->from($this->_companyProductTable, 'catalog_product_id')
+            ->where('company_id =:company_id');
+        return $adapter->fetchAll($select, array(
+            ':company_id'   => $companyId
+        ));
     }
 }

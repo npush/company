@@ -11,7 +11,8 @@
     </adminhtml_catalog_product_edit>
     <adminhtml_tooltips_index>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="product_tooltips/adminhtml_catalog_product_tooltip" name="catalog.product.tooltip"/>
+            <block type="product_tooltips/adminhtml_catalog_product_tooltip" name="catalog.product.tooltip"
+                    template="product_tooltips/catalog/product/tab/tooltip.phtml"/>
         </block>
     </adminhtml_tooltips_index>
 </layout>

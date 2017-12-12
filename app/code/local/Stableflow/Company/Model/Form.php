@@ -30,7 +30,22 @@ class Stableflow_Company_Model_Form extends Mage_Eav_Model_Form
      */
     protected function _getFormAttributeCollection()
     {
-        return parent::_getFormAttributeCollection()
-            ->addFieldToFilter('attribute_code', array('neq' => 'created_at'));
+        return parent::_getFormAttributeCollection();
+            //->addFieldToFilter('attribute_code', array('neq' => 'created_at'));
     }
+
+    /**
+     * Return attribute data model by attribute
+     *
+     * @param  Stableflow_Company_Model_Entity_Attribute $attribute
+     * @return Mage_Eav_Model_Attribute_Data_Abstract
+     */
+    protected function _getAttributeDataModel($attribute)
+    {
+        $dataModel =  Stableflow_Company_Model_Attribute_Data::factory($attribute, $this->getEntity());
+        $dataModel->setIsAjaxRequest($this->getIsAjaxRequest());
+
+        return $dataModel;
+    }
+
 }

@@ -6,6 +6,10 @@
  * Date: 3/1/17
  * Time: 11:42 AM
  */
+
+/** Deprecated
+ * Class Stableflow_Company_Model_Relation
+ */
 class Stableflow_Company_Model_Relation extends Mage_Core_Model_Abstract{
 
     protected function _construct(){

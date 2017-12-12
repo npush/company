@@ -27,7 +27,7 @@ class Stableflow_Company_Model_Catalog_Layer_Filter_Sale extends Mage_Catalog_Mo
      *
      * @param   Zend_Controller_Request_Abstract $request
      * @param   Mage_Core_Block_Abstract $filterBlock
-     * @return  Mage_Catalog_Model_Layer_Filter_Sale
+     * @return  Stableflow_Company_Model_Catalog_Layer_Filter_Sale
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
     {

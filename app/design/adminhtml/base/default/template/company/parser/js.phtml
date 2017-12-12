@@ -1,0 +1,246 @@
+<?php
+/**
+ * Created by nick
+ * Project magento1.dev
+ * Date: 9/4/17
+ * Time: 2:13 PM
+ */
+?>
+<script type="text/javascript">
+    //<![CDATA[
+
+  //  companyId = <?php echo Mage::registry('current_company')->getId(); ?>;
+    function editTask(fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_task/editTask') ?>', {
+            method: 'post',
+            parameters: { entity_id: fieldId},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("Edit Task")?>',
+                        width:650,
+                        height:300,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
+    function newTask(fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_task/newTask') ?>', {
+            method: 'post',
+            parameters: { id: fieldId},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("New Task")?>',
+                        width:650,
+                        height:300,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
+    function saveTask(button, fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/saveTask') ?>', {
+            method: 'post',
+            parameters: { id: fieldId, settings: editor.getValue() }
+        });
+    }
+//--
+    function newConfiguration(fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/newConfiguration') ?>', {
+            method: 'post',
+            parameters: { id: fieldId},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("New Configuration")?>',
+                        width:650,
+                        height:500,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
+    function editConfiguration(fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/editConfiguration') ?>', {
+            method: 'post',
+            parameters: { entity_id: fieldId},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("Edit Configuration")?>',
+                        width:650,
+                        height:500,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
+
+    function saveConfiguration(button, fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/saveConfiguration') ?>', {
+            method: 'post',
+            parameters: { id: fieldId, settings: editor.getValue() }
+        });
+    }
+//--
+    function editPriceType(id)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/editPriceType') ?>', {
+            method: 'post',
+            parameters: { entity_id: id},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("Price Type")?>',
+                        width:550,
+                        height:400,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
+
+    function newPriceType()
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/newPriceType') ?>', {
+            method: 'post',
+            parameters: { id: '<?php echo Mage::registry('current_company')->getId()?>'},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("Price New Type")?>',
+                        width:550,
+                        height:400,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
+    function savePriceType(button, fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/savePriceType') ?>', {
+            method: 'post',
+            parameters: { id: fieldId, settings: editor.getValue() }
+        });
+    }
+//-----------------------------------------------------------------------------
+    // Json Editor
+    // Get editor
+    function editConfigurationField(fieldId)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/editParserSetting') ?>', {
+            method: 'post',
+            parameters: { id: fieldId},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("Parser Setting")?>',
+                        width:550,
+                        height:650,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
+    // Json Editor
+    // Save Parser setting for specified configuration
+    function saveParserSetting(id, editor)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/saveParserSetting') ?>', {
+            method: 'post',
+            parameters: {
+                config_id: id,
+                settings: JSON.stringify(editor.getValue())
+            },
+            onSuccess: function(response){
+                if(200 == response.status){
+                    editor.destroy();
+                    win.close();
+                }
+            }
+        });
+    }
+//-----------------------------------------------------------------------------
+
+    function runTaskImmediately(id)
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_task/runTaskById') ?>', {
+            method: 'post',
+            parameters: {
+                entity_id: id
+            },
+            onSuccess: function(response){
+                if(200 == response.status){
+                    alert("Complete");
+                }
+            }
+        });
+    }
+//-----------------------------------------------------------------------------
+
+    function newAddCode()
+    {
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('*/parser_parser/newAddCode') ?>', {
+            method: 'post',
+            parameters: {id: '<?php echo Mage::registry('current_company')->getId()?>'},
+            onSuccess: function(response) {
+                if (200 == response.status){
+                    win = new Window({
+                        className: 'magento',
+                        title: '<?php echo Mage::helper('company')->__("New Add CODE")?>',
+                        width:550,
+                        height:400,
+                        destroyOnClose: true,
+                        recenterAuto:false
+                    });
+                    win.getContent().update(response.responseText);
+                    win.showCenter();
+                }
+            }
+        });
+    }
+    //]]>
+</script>

@@ -6,7 +6,8 @@
  * Date: 12/9/16
  * Time: 4:47 PM
  */
-class Stableflow_Company_Block_Adminhtml_Company extends Mage_Adminhtml_Block_Widget_Grid_Container{
+class Stableflow_Company_Block_Adminhtml_Company extends Mage_Adminhtml_Block_Widget_Grid_Container
+{
 
     public function __construct(){
         $this->_controller         = 'adminhtml_company';
