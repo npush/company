@@ -167,21 +167,21 @@ $table = $installer->getConnection()
         'nullable'  => false,
         'default' => Varien_Db_Ddl_Table::TIMESTAMP_INIT
     ), 'Created At')
-    ->addIndex($installer->getIdxName('company/parser_log', array('task_id')), array('task_id'))
-    ->addIndex($installer->getIdxName('company/parser_log', array('company_id')), array('company_id'))
-    ->addIndex($installer->getIdxName('company/parser_log', array('company_product_id')), array('company_product_id'))
-    ->addIndex($installer->getIdxName('company/parser_log', array('status_id')), array('status_id'))
-    ->addForeignKey($installer->getFkName('company/parser_log', 'task_id', 'company/parser_tasks', 'entity_id'),
+    ->addIndex($installer->getIdxName('company/parser_log_full', array('task_id')), array('task_id'))
+    ->addIndex($installer->getIdxName('company/parser_log_full', array('company_id')), array('company_id'))
+    ->addIndex($installer->getIdxName('company/parser_log_full', array('company_product_id')), array('company_product_id'))
+    ->addIndex($installer->getIdxName('company/parser_log_full', array('status_id')), array('status_id'))
+    ->addForeignKey($installer->getFkName('company/parser_log_full', 'task_id', 'company/parser_tasks', 'entity_id'),
         'task_id',
         $installer->getTable('company/parser_tasks'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_NO_ACTION, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
-    ->addForeignKey($installer->getFkName('company/parser_log', 'catalog_product_id', 'catalog/product', 'entity_id'),
+    ->addForeignKey($installer->getFkName('company/parser_log_full', 'catalog_product_id', 'catalog/product', 'entity_id'),
         'catalog_product_id',
         $installer->getTable('catalog/product'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
-    ->addForeignKey($installer->getFkName('company/parser_log', 'company_product_id', 'company/product_entity', 'entity_id'),
+    ->addForeignKey($installer->getFkName('company/parser_log_full', 'company_product_id', 'company/product_entity', 'entity_id'),
         'company_product_id',
         $installer->getTable('company/product_entity'),
         'entity_id',
