@@ -125,12 +125,7 @@ $table = $installer->getConnection()
         'config_id',
         $installer->getTable('company/parser_config'),
         'entity_id',
-        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_NO_ACTION)
-    ->addForeignKey($installer->getFkName('company/parser_log', 'company_product_id', 'company/product_entity', 'entity_id'),
-        'company_product_id',
-        $installer->getTable('company/product_entity'),
-        'entity_id',
-        Varien_Db_Ddl_Table::ACTION_SET_NULL, Varien_Db_Ddl_Table::ACTION_NO_ACTION);
+        Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_NO_ACTION);
 $installer->getConnection()->createTable($table);
 
 $table = $installer->getConnection()
