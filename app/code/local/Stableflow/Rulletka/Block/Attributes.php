@@ -38,7 +38,7 @@ class Stableflow_Rulletka_Block_Attributes extends Mage_Core_Block_Template
                 $value = $attribute->getFrontend()->getValue($product);
                 if (!$product->hasData($attribute->getAttributeCode())) {
                     $value = null;
-                } elseif ((string)$value == 'Нет') {
+                } elseif ($value == 'Нет') {
                     $value = null;
                 } elseif ($attribute->getFrontendInput() == 'price' && is_string($value)) {
                     $value = Mage::app()->getStore()->convertPrice($value, true);
