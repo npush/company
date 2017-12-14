@@ -13,7 +13,7 @@
 class Stableflow_AdditionalCodes_Model_Resource_Product_Attribute_Backend_Manufnumber
     extends Mage_Core_Model_Resource_Db_Abstract
 {
-    const MANUF_CODE_TABLE = 'company/product_attribute_manufacturer_number';
+    const MANUF_CODE_TABLE = 'additional_codes/product_attribute_manufacturer_number';
 
     protected $_eventPrefix = 'additional_codes_product_attribute_backend_manufacturer_number';
 

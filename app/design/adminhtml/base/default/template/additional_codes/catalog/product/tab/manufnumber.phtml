@@ -38,7 +38,7 @@
 </div>
 <script type="text/javascript">
     //<![CDATA[
-    var optionDefaultInputType = 'radio';
+    var manufnumbDefaultInputType = 'radio';
 
     // IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
     var manufnumbTemplateText =
@@ -72,7 +72,7 @@
                 isNewOption = true;
             }
             if (!data.intype)
-                data.intype = optionDefaultInputType;
+                data.intype = manufnumbDefaultInputType;
             Element.insert(this.table, {after: this.template.evaluate(data)});
             if (isNewOption && !this.isReadOnly) {
                 this.enableNewOptionDeleteButton(data.id);

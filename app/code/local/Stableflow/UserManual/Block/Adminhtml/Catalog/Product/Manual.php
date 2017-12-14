@@ -90,10 +90,9 @@ class Stableflow_UserManual_Block_Adminhtml_Catalog_Product_Manual extends Mage_
             //->setAttributeFilter($this->getAttributeObject()->getId())
             //->setPositionOrder('desc', true)
             //->load();
-            $optionCollection = Mage::getModel('user_manual/manual')
-                ->getCollection()
+            $optionCollection = Mage::getResourceModel('user_manual/manual_collection')
                 ->addFieldToFilter('entity_id', $productId)
-                ->load();
+                ;
 
             $helper = Mage::helper('core');
             foreach ($optionCollection as $option) {

@@ -5,16 +5,16 @@
             <!--<block type="user_manual/adminhtml_catalog_product_edit_tab" name="custom_tab"/>-->
             <action method="addTab">
                 <name>Additional Codes</name>
-                <block>additional_codes/adminhtml_catalog_product_tab_codes</block>
+                <block>additional_codes/adminhtml_catalog_product_tab_manufnumber</block>
             </action>
         </reference>
     </adminhtml_catalog_product_edit>
-    <adminhtml_codes_index>
+    <adminhtml_manufnumber_index>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="additional_codes/adminhtml_catalog_product_codes" name="catalog.product.codes"
+            <block type="additional_codes/adminhtml_catalog_product_manufnumber" name="catalog.product.manufnumber"
                     template="additional_codes/catalog/product/tab/manufnumber.phtml">
 
             </block>
         </block>
-    </adminhtml_codes_index>
+    </adminhtml_manufnumber_index>
 </layout>

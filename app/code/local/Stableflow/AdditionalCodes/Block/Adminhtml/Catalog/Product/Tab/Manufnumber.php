@@ -7,7 +7,7 @@
  * Time: 3:47 PM
  */
 
-class Stableflow_AdditionalCodes_Block_Adminhtml_Catalog_Product_Tab_Codes extends Mage_Adminhtml_Block_Template
+class Stableflow_AdditionalCodes_Block_Adminhtml_Catalog_Product_Tab_Manufnumber extends Mage_Adminhtml_Block_Template
     implements Mage_Adminhtml_Block_Widget_Tab_Interface{
 
     /**
@@ -91,7 +91,7 @@ class Stableflow_AdditionalCodes_Block_Adminhtml_Catalog_Product_Tab_Codes exten
      */
     public function getTabUrl()
     {
-        return $this->getUrl('*/codes/index', array('_current' => true));
+        return $this->getUrl('*/manufnumber/index', array('_current' => true));
     }
 
 }

@@ -17,6 +17,9 @@
                     <product_attribute_additional_codes>
                         <table>catalog_product_additional_codes</table>
                     </product_attribute_additional_codes>
+                    <product_attribute_manufacturer_number>
+                        <table>catalog_product_entity_manufacturer_number</table>
+                    </product_attribute_manufacturer_number>
                 </entities>
             </additional_codes_resource>
         </models>

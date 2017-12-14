@@ -84,10 +84,6 @@
                         <table>company_product_entity_char</table>
                     </product_entity_char>
 
-                    <product_attribute_manufacturer_number>
-                        <table>catalog_product_entity_manufacturer_number</table>
-                    </product_attribute_manufacturer_number>
-
                     <eav_attribute>
                         <table>company_eav_attribute</table>
                     </eav_attribute>
@@ -392,6 +388,7 @@
                 <js_template><![CDATA[#{prefix} #{firstname} #{middlename} #{lastname} #{suffix}<br/>#{company}<br/>#{street0}<br/>#{street1}<br/>#{street2}<br/>#{street3}<br/>#{city}, #{region}, #{postcode}<br/>#{country_id}<br/>T: #{telephone}<br/>F: #{fax}<br/>VAT: #{vat_id}]]></js_template>
             </address_templates>
         </company>
+
     </default>
     <crontab>
         <jobs>

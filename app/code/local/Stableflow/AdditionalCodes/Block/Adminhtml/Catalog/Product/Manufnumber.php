@@ -6,7 +6,7 @@
  * Date: 3/17/17
  * Time: 3:47 PM
  */
-class Stableflow_AdditionalCodes_Block_Adminhtml_Catalog_Product_Codes extends Mage_Adminhtml_Block_Widget{
+class Stableflow_AdditionalCodes_Block_Adminhtml_Catalog_Product_Manufnumber extends Mage_Adminhtml_Block_Widget{
 
     /**
      * Preparing layout, adding buttons
@@ -86,10 +86,14 @@ class Stableflow_AdditionalCodes_Block_Adminhtml_Catalog_Product_Codes extends M
         $values = $this->getData('option_values');
         if (is_null($values)) {
             $values = array();
-            //$optionCollection = Mage::getResourceModel('catalog/product_collection')
+            $optionCollection = Mage::getResourceModel('additional_codes/product_attribute_manufnumber_collection')
+                //->addAttributeToFilter($this->getAttributeObject()->getName())
                 //->setAttributeFilter($this->getAttributeObject()->getId())
+                ->addFieldToFilter('entity_id', Mage::registry('current_product_id'))
                 //->setPositionOrder('desc', true)
-                //->load();
+                ;
+
+            //$optionCollection = Mage::getModel('catalog/product')->load(318)->getData($this->getAttributeObject()->getName());
 
             $helper = Mage::helper('core');
             foreach ($optionCollection as $option) {
@@ -103,11 +107,12 @@ class Stableflow_AdditionalCodes_Block_Adminhtml_Catalog_Product_Codes extends M
                 $value['intype'] = $inputType;
                 $value['id'] = $option->getId();
                 $value['sort_order'] = $option->getSortOrder();
-                foreach ($this->getStores() as $store) {
-                    $storeValues = $this->getStoreOptionValues($store->getId());
-                    $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
-                        ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
-                }
+//                foreach ($this->getStores() as $store) {
+//                    $storeValues = $this->getStoreOptionValues($store->getId());
+//                    $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
+//                        ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
+//                }
+                $value['store' . 0] = $option->getValue();
                 $values[] = new Varien_Object($value);
             }
             $this->setData('option_values', $values);
@@ -121,23 +126,23 @@ class Stableflow_AdditionalCodes_Block_Adminhtml_Catalog_Product_Codes extends M
      *
      * @return array
      */
-//    public function getLabelValues()
-//    {
-//        $values = array();
-//        $values[0] = $this->getAttributeObject()->getFrontend()->getLabel();
-//        // it can be array and cause bug
-//        $frontendLabel = $this->getAttributeObject()->getFrontend()->getLabel();
-//        if (is_array($frontendLabel)) {
-//            $frontendLabel = array_shift($frontendLabel);
-//        }
-//        $storeLabels = $this->getAttributeObject()->getStoreLabels();
-//        foreach ($this->getStores() as $store) {
-//            if ($store->getId() != 0) {
-//                $values[$store->getId()] = isset($storeLabels[$store->getId()]) ? $storeLabels[$store->getId()] : '';
-//            }
-//        }
-//        return $values;
-//    }
+    public function getLabelValues()
+    {
+        $values = array();
+        $values[0] = $this->getAttributeObject()->getFrontend()->getLabel();
+        // it can be array and cause bug
+        $frontendLabel = $this->getAttributeObject()->getFrontend()->getLabel();
+        if (is_array($frontendLabel)) {
+            $frontendLabel = array_shift($frontendLabel);
+        }
+        $storeLabels = $this->getAttributeObject()->getStoreLabels();
+        foreach ($this->getStores() as $store) {
+            if ($store->getId() != 0) {
+                $values[$store->getId()] = isset($storeLabels[$store->getId()]) ? $storeLabels[$store->getId()] : '';
+            }
+        }
+        return $values;
+    }
 
     /**
      * Retrieve attribute option values for given store id
@@ -175,5 +180,10 @@ class Stableflow_AdditionalCodes_Block_Adminhtml_Catalog_Product_Codes extends M
         $model->load($id);
         return $model;
         return Mage::registry('entity_attribute');
+    }
+
+    public function getReadOnly()
+    {
+        return false;
     }
 }

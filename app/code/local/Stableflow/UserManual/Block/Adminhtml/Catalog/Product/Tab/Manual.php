@@ -11,17 +11,6 @@ class Stableflow_UserManual_Block_Adminhtml_Catalog_Product_Tab_Manual extends M
     implements Mage_Adminhtml_Block_Widget_Tab_Interface{
 
     /**
-     * Set the template for the block
-     *
-     */
-    public function _construct()
-    {
-        parent::_construct();
-
-        //$this->setTemplate('user_manual/catalog/product/tab/manual.phtml');
-    }
-
-    /**
      * Retrieve the label used for the tab relating to this block
      *
      * @return string
