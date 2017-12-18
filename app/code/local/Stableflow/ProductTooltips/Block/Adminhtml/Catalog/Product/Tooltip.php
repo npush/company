@@ -91,10 +91,13 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Catalog_Product_Tooltip extends
             //->setAttributeFilter($this->getAttributeObject()->getId())
             //->setPositionOrder('desc', true)
             //->load();
-            $optionCollection = Mage::getModel('product_tooltips/tooltip')
-                ->getCollection()
-                ->addFieldToFilter('entity_id', $productId)
-                ->load();
+            $product = Mage::getModel('catalog/product')->load($productId);
+            //$optionsArr = array_reverse($product->getTooltips(), true);
+            $optionCollection = $product->getResource()->getAttribute('tooltips');//->getFrontend()->getValue($product);
+//            $optionCollection = Mage::getModel('product_tooltips/tooltip')
+//                ->getCollection()
+//                ->addFieldToFilter('entity_id', $productId)
+//                ->load();
 
             $helper = Mage::helper('core');
             foreach ($optionCollection as $option) {

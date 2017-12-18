@@ -29,8 +29,8 @@ class Stableflow_ProductTooltips_Model_Tooltips_Attribute_Source_Tooltips extend
         if(is_null($this->_tooltips)) {
             $this->_tooltips = Mage::getModel('product_tooltips/tooltip')
                 ->getCollection()
-                ->addFieldToSelect(array('tooltip_id','title'))
-                ->setOrder('title','ASC');
+                //->addFieldToSelect(array('tooltip_id','title'))
+               // ->setOrder('title','ASC');
             ;
         }
         return $this->_tooltips;
