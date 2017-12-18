@@ -40,6 +40,11 @@ class Stableflow_ProductTooltips_Model_Tooltip extends Mage_Core_Model_Abstract{
         $this->_init('product_tooltips/tooltip');
     }
 
+    public function getId()
+    {
+        return $this->getData('tooltip_id');
+    }
+
     /**
      * before save attachment
      *

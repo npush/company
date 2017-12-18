@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Stableflow_ProductTooltips>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Stableflow_ProductTooltips>
     </modules>
     <global>
@@ -27,9 +27,9 @@
                     <tooltip>
                         <table>catalog_product_tooltip</table>
                     </tooltip>
-                    <product_tooltip>
+                    <tooltip_value>
                         <table>catalog_product_tooltip_value</table>
-                    </product_tooltip>
+                    </tooltip_value>
                 </entities>
             </product_tooltips_resource>
         </models>

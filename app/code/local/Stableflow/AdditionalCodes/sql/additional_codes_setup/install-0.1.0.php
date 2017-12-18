@@ -6,31 +6,6 @@
  * Time: 7:02 PM
  */
 
-$installer = Mage::getResourceModel('catalog/setup', 'catalog_setup');;
-$installer->startSetup();
-
-// adding the manufacturer_number attribute as static attribute
-$installer->addAttribute( 'catalog_product', 'additional_codes', array(
-    'label'             => 'Manufacturer Numbers',
-    'note'              => '',
-    'type'              => 'varchar',
-    'input'             => 'text',
-    'backend'           => 'additional_codes/product_attribute_backend_manufnumber',//'additional_codes/product_attribute_backend_codes',
-    'source'            => '',
-    'frontend'          => '',
-    'required'          => false,
-    'unique'            => false,
-    'filterable'        => false,
-    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
-    'searchable'        => true,
-    'visible_on_front'  => true,
-    'visible'           => true,
-    'user_defined'   => true
-) );
-
-$installer->endSetup();
-$installer = $this;
-
 
 /**
  * Create table 'catalog/product_attribute_manufacturer_number'
@@ -137,3 +112,28 @@ if($installer->getConnection()->isTableExists($installer->getTable('additional_c
     $installer->getConnection()->createTable($table);
 }
 $installer->endSetup();
+
+$installer = Mage::getResourceModel('catalog/setup', 'catalog_setup');;
+$installer->startSetup();
+
+// adding the manufacturer_number attribute as static attribute
+$installer->addAttribute( 'catalog_product', 'additional_codes', array(
+    'label'             => 'Manufacturer Numbers',
+    'note'              => '',
+    'type'              => 'varchar',
+    'input'             => 'text',
+    'backend'           => 'additional_codes/product_attribute_backend_manufnumber',//'additional_codes/product_attribute_backend_codes',
+    'source'            => '',
+    'frontend'          => '',
+    'required'          => false,
+    'unique'            => false,
+    'filterable'        => false,
+    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
+    'searchable'        => true,
+    'visible_on_front'  => true,
+    'visible'           => true,
+    'user_defined'   => true
+) );
+
+$installer->endSetup();
+$installer = $this;

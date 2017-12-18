@@ -31,7 +31,7 @@ class Stableflow_ProductTooltips_Model_Tooltips_Attribute_Frontend_Tooltips exte
                 $modelTooltip = Mage::getModel('product_tooltips/tooltip')->load($tooltipId);
                 $tooltipArray[$i] = array(
                     'title' => $modelTooltip->getTitle(),
-                    'file' => $imgPath . $modelTooltip->getImageFile(),
+                    'file' => $imgPath . $modelTooltip->getValue(),
                     'description' => $modelTooltip->getDescription(),
                 );
                 $i++;
