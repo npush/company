@@ -97,13 +97,14 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Catalog_Product_Tooltip extends
 //            $optionCollection = $product->getResource()->getAttribute('tooltips')->getSource()->getTooltipsValues($tips_id);//->getFrontend()->getValue($product);
             $optionCollection = Mage::getModel('product_tooltips/tooltip')
                 ->getCollection()
-                ->addFieldToFilter('main_table.tooltip_id' , array('in' => $tooltip_id) );
+                //->addFieldToFilter('main_table.tooltip_id' , array('in' => $tooltip_id) );
                 //->load();
+            ;
 
             $helper = Mage::helper('core');
             foreach ($optionCollection as $option) {
                 $value = array();
-                if (in_array($option->getId(), $defaultValues)) {
+                if (in_array($option->getId(), $tooltip_id)) {
                     $value['checked'] = 'checked="checked"';
                 } else {
                     $value['checked'] = '';
@@ -121,9 +122,17 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Catalog_Product_Tooltip extends
                     'description'   => $option->getDescription(),
                     'title'         => $option->getTitle()
                 );
+
+                $value['store' . 0] = $option->getTitle();
+
                 $value['image'] = Mage::app()->getStore($product->getStore())->getBaseUrl('media').'tooltips'.$option->getValue();
-                $values[] = new Varien_Object($value);
+                if($value['checked'] == 'checked="checked"') {
+                    $values_top[] = new Varien_Object($value);
+                }else {
+                    $values[] = new Varien_Object($value);
+                }
             }
+            if(isset($values_top)) $values = array_merge($values, $values_top);
             $this->setData('option_values', $values);
         }
 
@@ -189,5 +198,10 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Catalog_Product_Tooltip extends
         $model->load($id);
         return $model;
         return Mage::registry('entity_attribute');
+    }
+
+    public function getReadOnly()
+    {
+        return true;
     }
 }
