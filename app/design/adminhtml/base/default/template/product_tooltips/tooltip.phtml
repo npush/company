@@ -13,22 +13,25 @@
     <div class="box">
         <div class="hor-scroll">
             <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
-                <tr id="tooltip-options-table">
+                <tr id="attribute-options-table">
                     <?php foreach ($this->getStores() as $_store): ?>
                         <th><?php echo $_store->getName() . ' ' .$this->__('Label')?></th>
-<!--                        <th>--><?php //echo $_store->getName() . ' ' .$this->__('Description')?><!--</th>-->
+                        <th><?php echo $_store->getName() . ' ' .$this->__('Description')?></th>
                     <?php endforeach; ?>
                     <th><?php echo $this->__('Image') ?></th>
                     <th><?php echo $this->__('Position') ?></th>
-                    <th><?php echo $this->__('Selected') ?></th>
+                    <th class="nobr a-center"><?php echo $this->__('Is Default') ?></th>
+                    <th>
+                        <?php if (!$this->getReadOnly()):?>
+                            <?php echo $this->getAddNewButtonHtml() ?>
+                        <?php endif;?>
+                    </th>
+                </tr>
                 <tr class="no-display template" id="row-template">
                     <?php foreach ($this->getStores() as $_store): ?>
                         <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/></td>
                     <?php endforeach; ?>
-                    <td>
-                        <img src="{{image}}">
-                        <input name="option[value][{{id}}]" value="{{image}} path img" class="input-text required-option" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/>
-                    </td>
+                    <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{image<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/></td>
                     <td class="a-center"><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/></td>
                     <td><input class="input-radio" type="radio" name="default[]" value="{{id}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/></td>
                     <td class="a-left">
@@ -45,7 +48,7 @@
 </div>
 <script type="text/javascript">
     //<![CDATA[
-    var tooltipDefaultInputType = 'checkbox';
+    var tooltipDefaultInputType = 'radio';
 
     // IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
     var tooltipTemplateText =
@@ -53,14 +56,19 @@
         <?php foreach ($this->getStores() as $_store): ?>
         '<td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
         <?php endforeach; ?>
-        '<td><img src="{{image}} "height="142" width="142"><input name="option[image][{{id}}]" value="{{image}}" class="input-text required-option" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
+        '<td><input name="option[image][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
         '<td><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
         '<td class="a-center"><input class="input-radio" type="{{intype}}" name="default[]" value="{{id}}" {{checked}} <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
+        '<td class="a-left" id="delete_button_container_{{id}}">'+
+        '<input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />'+
+        <?php if (!$this->getReadOnly()):?>
+        '<?php echo Mage::helper('core')->jsQuoteEscape($this->getDeleteButtonHtml()) ?>'+
+        <?php endif;?>
         '<\/td>'+
         '<\/tr>';
 
     var tooltipOption = {
-        table : $('tooltip-options-table'),
+        table : $('attribute-options-table'),
         templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
         tooltipTemplateText : tooltipTemplateText,
         itemCount : 0,

@@ -25,14 +25,26 @@ class Stableflow_ProductTooltips_Model_Tooltips_Attribute_Source_Tooltips extend
         return $this->_options;
     }
 
-    public function getTooltips(){
+    public function getTooltips($tooltip_id){
         if(is_null($this->_tooltips)) {
             $this->_tooltips = Mage::getModel('product_tooltips/tooltip')
                 ->getCollection()
+                //->addFieldToFilter('tooltip_id', array('eq' => $tooltip_id))
                 //->addFieldToSelect(array('tooltip_id','title'))
                // ->setOrder('title','ASC');
             ;
         }
+        return $this->_tooltips;
+    }
+
+    public function getTooltipsValues($tooltip_id)
+    {
+        $this->_tooltips = Mage::getModel('product_tooltips/tooltip')
+            ->getCollection()
+            ->addFieldToFilter('tooltip_id', array('in' => $tooltip_id))
+            //->addFieldToSelect(array('tooltip_id','title'))
+            // ->setOrder('title','ASC');
+        ;
         return $this->_tooltips;
     }
 }

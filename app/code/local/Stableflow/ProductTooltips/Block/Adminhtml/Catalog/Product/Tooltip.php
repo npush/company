@@ -92,12 +92,13 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Catalog_Product_Tooltip extends
             //->setPositionOrder('desc', true)
             //->load();
             $product = Mage::getModel('catalog/product')->load($productId);
+            $tooltip_id = explode(',', $product->getData('tooltips'));
             //$optionsArr = array_reverse($product->getTooltips(), true);
-            $optionCollection = $product->getResource()->getAttribute('tooltips');//->getFrontend()->getValue($product);
-//            $optionCollection = Mage::getModel('product_tooltips/tooltip')
-//                ->getCollection()
-//                ->addFieldToFilter('entity_id', $productId)
-//                ->load();
+//            $optionCollection = $product->getResource()->getAttribute('tooltips')->getSource()->getTooltipsValues($tips_id);//->getFrontend()->getValue($product);
+            $optionCollection = Mage::getModel('product_tooltips/tooltip')
+                ->getCollection()
+                ->addFieldToFilter('main_table.tooltip_id' , array('in' => $tooltip_id) );
+                //->load();
 
             $helper = Mage::helper('core');
             foreach ($optionCollection as $option) {
@@ -111,11 +112,16 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Catalog_Product_Tooltip extends
                 $value['intype'] = $inputType;
                 $value['id'] = $option->getId();
                 $value['sort_order'] = $option->getSortOrder();
-                foreach ($this->getStores() as $store) {
-                    $storeValues = $this->getStoreOptionValues($store->getId());
-                    $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
-                        ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
-                }
+//                foreach ($this->getStores() as $store) {
+//                    $storeValues = $this->getStoreOptionValues($store->getId());
+//                    $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
+//                        ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
+//                }
+                $value['store' . 0] = array(
+                    'description'   => $option->getDescription(),
+                    'title'         => $option->getTitle()
+                );
+                $value['image'] = Mage::app()->getStore($product->getStore())->getBaseUrl('media').'catalog/tooltips'.$option->getValue();
                 $values[] = new Varien_Object($value);
             }
             $this->setData('option_values', $values);
@@ -177,7 +183,7 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Catalog_Product_Tooltip extends
      */
     public function getAttributeObject()
     {
-        $id = '146';//$this->getRequest()->getParam('attribute_id');
+        $id = '174';//$this->getRequest()->getParam('attribute_id');
         $model = Mage::getModel('catalog/resource_eav_attribute')
             ->setEntityTypeId('4');
         $model->load($id);
