@@ -26,8 +26,7 @@
                         <td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/></td>
                     <?php endforeach; ?>
                     <td>
-                        <img src="{{image}}">
-                        <input name="option[value][{{id}}]" value="{{image}} path img" class="input-text required-option" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/>
+                        <img src="{{image}}" height="72" width="72">
                     </td>
                     <td class="a-center"><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/></td>
                     <td><input class="input-radio" type="radio" name="default[]" value="{{id}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/></td>
@@ -53,7 +52,7 @@
         <?php foreach ($this->getStores() as $_store): ?>
         '<td><input name="option[value][{{id}}][<?php echo $_store->getId() ?>]" value="{{store<?php echo $_store->getId() ?>}}" class="input-text<?php if($_store->getId()==0): ?> required-option<?php endif; ?>" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
         <?php endforeach; ?>
-        '<td><img src="{{image}} "height="142" width="142"><input name="option[image][{{id}}]" value="{{image}}" class="input-text required-option" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
+        '<td><img src="{{image}}" height="72" width="72"><\/td>'+
         '<td><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
         '<td class="a-center"><input class="input-radio" type="{{intype}}" name="default[]" value="{{id}}" {{checked}} <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
         '<\/td>'+
