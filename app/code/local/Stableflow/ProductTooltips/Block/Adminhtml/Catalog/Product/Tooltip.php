@@ -121,7 +121,7 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Catalog_Product_Tooltip extends
                     'description'   => $option->getDescription(),
                     'title'         => $option->getTitle()
                 );
-                $value['image'] = Mage::app()->getStore($product->getStore())->getBaseUrl('media').'catalog/tooltips'.$option->getValue();
+                $value['image'] = Mage::app()->getStore($product->getStore())->getBaseUrl('media').'tooltips'.$option->getValue();
                 $values[] = new Varien_Object($value);
             }
             $this->setData('option_values', $values);
