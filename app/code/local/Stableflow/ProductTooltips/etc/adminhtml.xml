@@ -6,7 +6,7 @@
             <children>
                 <tooltips translate="title" module="product_tooltips">
                     <title>Product Tooltips</title>
-                    <action>adminhtml/tooltips_tooltip</action>
+                    <action>adminhtml/tooltips/index</action>
                     <sort_order>0</sort_order>
                 </tooltips>
             </children>

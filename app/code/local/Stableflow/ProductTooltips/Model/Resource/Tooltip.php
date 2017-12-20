@@ -10,6 +10,13 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip extends Mage_Core_Model_
 
     protected $_valueTable;
 
+    /**
+     * Main table primary key field name
+     *
+     * @var string
+     */
+    protected $_idFieldName = 'tooltip_id';
+
 
     /**
      *

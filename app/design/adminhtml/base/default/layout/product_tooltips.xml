@@ -10,9 +10,19 @@
         </reference>
     </adminhtml_catalog_product_edit>
     <adminhtml_tooltips_index>
-        <block type="core/text_list" name="root" output="toHtml">
-            <block type="product_tooltips/adminhtml_catalog_product_tooltip" name="catalog.product.tooltip"
-                    template="product_tooltips/catalog/product/tab/tooltip.phtml"/>
-        </block>
+        <reference name="content">
+            <block type="product_tooltips/adminhtml_tooltip" name="product.tooltip" />
+        </reference>
     </adminhtml_tooltips_index>
+    <adminhtml_tooltips_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="product_tooltips/adminhtml_tooltip_grid" name="product.tooltip.grid"/>
+        </block>
+    </adminhtml_tooltips_grid>
+    <adminhtml_tooltips_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="product_tooltips/adminhtml_tooltip_edit" name="product.tooltip.edit"/>
+        </reference>
+    </adminhtml_tooltips_edit>
 </layout>

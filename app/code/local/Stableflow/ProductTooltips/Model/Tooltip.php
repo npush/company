@@ -36,13 +36,9 @@ class Stableflow_ProductTooltips_Model_Tooltip extends Mage_Core_Model_Abstract{
      * constructor
      *
      */
-    public function _construct(){
-        $this->_init('product_tooltips/tooltip');
-    }
-
-    public function getId()
+    public function _construct()
     {
-        return $this->getData('tooltip_id');
+        $this->_init('product_tooltips/tooltip');
     }
 
     /**
