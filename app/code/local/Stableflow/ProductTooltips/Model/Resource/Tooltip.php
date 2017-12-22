@@ -70,25 +70,80 @@ class Stableflow_ProductTooltips_Model_Resource_Tooltip extends Mage_Core_Model_
     {
         parent::afterLoad($object);
 
-        if (!$object->getId()) {
-            return $this;
+//        if (!$object->getId()) {
+//            return $this;
+//        }
+//
+//        $adapter = $this->_getReadAdapter();
+//        $bind    = array(':tooltip_id' => (int)$object->getId());
+//        // load rating titles
+//        $select  = $adapter->select()
+//            ->from($this->_valueTable, array('store_id', 'value'))
+//            ->where('tooltip_id=:tooltip_id');
+//
+//        $result  = $adapter->fetchPairs($select, $bind);
+//        if ($result) {
+//            $object->setRatingCodes($result);
+//        }
+//
+//        // load rating available in stores
+//        $object->setStores($this->getStores((int)$object->getId()));
+//
+//        return $this;
+    }
+
+    /**
+     * Actions after save
+     *
+     * @param Mage_Rating_Model_Rating $object
+     * @return Mage_Rating_Model_Resource_Rating
+     */
+    protected function _afterSave(Mage_Core_Model_Abstract $object)
+    {
+        parent::_afterSave($object);
+
+        $adapter = $this->_getWriteAdapter();
+        $tooltipId = (int)$object->getId();
+
+        $adapter->beginTransaction();
+        try {
+            $select = $adapter->select()
+                ->from($this->_valueTable, array('store_id', 'description', 'title'))
+                ->where('tooltip_id = :tooltip_id');
+            $old = $adapter->fetchRow($select, array(':tooltip_id' => $tooltipId));
+            $new = array(
+                'store_id' => 1,
+                'description' => $object->getDescription(),
+                'title' => $object->getTitle()
+            );
+
+            $insert = array_diff_assoc($new, $old);
+            $delete = array_diff_assoc($old, $new);
+            if (!empty($delete)) {
+                $where = array(
+                    'tooltip_id = ?' => $tooltipId,
+                    'store_id IN(?)' => array_keys($delete)
+                );
+                $adapter->delete($this->_valueTable, $where);
+            }
+
+            if ($insert) {
+                $data = array();
+                foreach ($insert as $storeId => $title) {
+                    $data[] = array(
+                        'tooltip_id' => $tooltipId,
+                        'store_id' => (int)$storeId,
+                        'value' => $title
+                    );
+                }
+                if (!empty($data)) {
+                    $adapter->insertMultiple($this->_valueTable, $data);
+                }
+            }
+            $adapter->commit();
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $adapter->rollBack();
         }
-
-        $adapter = $this->_getReadAdapter();
-        $bind    = array(':tooltip_id' => (int)$object->getId());
-        // load rating titles
-        $select  = $adapter->select()
-            ->from($this->_valueTable, array('store_id', 'value'))
-            ->where('tooltip_id=:tooltip_id');
-
-        $result  = $adapter->fetchPairs($select, $bind);
-        if ($result) {
-            $object->setRatingCodes($result);
-        }
-
-        // load rating available in stores
-        $object->setStores($this->getStores((int)$object->getId()));
-
-        return $this;
     }
 }

@@ -111,7 +111,7 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Tooltip_Grid extends Mage_Admin
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('tooltip_id');
-        $this->getMassactionBlock()->setFormFieldName('company');
+        $this->getMassactionBlock()->setFormFieldName('tooltip');
         $this->getMassactionBlock()->addItem(
             'delete',
             array(

@@ -55,101 +55,58 @@ class Stableflow_ProductTooltips_Adminhtml_TooltipsController extends Mage_Admin
 
     public function saveAction()
     {
-
         $post_data = $this->getRequest()->getPost();
-        if ($post_data) {
-            try {
-                //Featured save image
-                try {
-                    if ((bool) $post_data['image']['delete'] == 1) {
-                        $post_data['image'] = '';
-                    } else {
-                        unset($post_data['image']);
-                        if (isset($_FILES)) {
-                            if ($_FILES['image']['name']) {
-                                if ($this->getRequest()->getParam("id")) {
-                                    $model = Mage::getModel("service/service")->load($this->getRequest()->getParam("id"));
-                                    if ($model->getData('image')) {
-                                        $io = new Varien_Io_File();
-                                        $io->rm(Mage::getBaseDir('media') . DS . implode(DS, explode('/', $model->getData('image'))));
-                                    }
-                                }
-                                $path = Mage::getBaseDir('media') . DS . 'service' . DS . 'service' . DS;
-                                $uploader = new Varien_File_Uploader('image');
-                                $uploader->setAllowedExtensions(array('jpg', 'png', 'gif'));
-                                $uploader->setAllowRenameFiles(true);
-                                $uploader->setFilesDispersion(false);
-                                $destFile = $path . $_FILES['image']['name'];
-                                $filename = $uploader->getNewFileName($destFile);
-                                $uploader->save($path, $filename);
-
-                                $post_data['image'] = 'service/service/' . $filename;
-                            }
+        try {
+            if ($post_data) {
+                $tooltip = $this->_init();
+                if ((bool)$post_data['value']['delete'] == 1) {
+                    $post_data['value'] = '';
+                } else {
+                    unset($post_data['value']);
+                    if (isset($_FILES)) {
+                        if ($_FILES['value']['name']) {
+//                            if ($this->getRequest()->getParam("id")) {
+//                                if ($tooltip->getData('image')) {
+//                                    $io = new Varien_Io_File();
+//                                    $io->rm(Mage::getBaseDir('media') . DS . 'tooltips' . $tooltip->getData('image'));
+//                                }
+//                            }
+                            $path = Mage::getBaseDir('media') . DS . 'tooltips' . DS;
+                            $uploader = new Varien_File_Uploader('value');
+                            $uploader->setAllowedExtensions(array('jpg', 'png', 'gif'));
+                            $uploader->setAllowRenameFiles(true);
+                            $uploader->setFilesDispersion(true);
+                            $filename = $uploader->getNewFileName($_FILES['value']['name']);
+                            $uploader->save($path, $filename);
+                            $filename = $uploader->getUploadedFileName();
+                            $post_data['value'] = $filename;
                         }
                     }
-                } catch (Exception $e) {
-                    Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                    $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
-                    return;
                 }
-                //save image
 
-                $model = Mage::getModel("service/service")
-                    ->addData($post_data)
-                    ->setId($this->getRequest()->getParam("id"))
-                    ->save();
-
-                Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Service was successfully saved"));
-                Mage::getSingleton("adminhtml/session")->setServiceData(false);
-
+                $tooltip->addData($post_data)->save();
+                Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Tooltip was successfully saved"));
+                Mage::getSingleton("adminhtml/session")->setTooltipData(false);
                 if ($this->getRequest()->getParam("back")) {
-                    $this->_redirect("*/*/edit", array("id" => $model->getId()));
+                    $this->_redirect("*/*/edit", array("id" => $tooltip->getId()));
                     return;
                 }
                 $this->_redirect("*/*/");
                 return;
-            } catch (Exception $e) {
-                Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
-                Mage::getSingleton("adminhtml/session")->setServiceData($this->getRequest()->getPost());
-                $this->_redirect("*/*/edit", array("id" => $this->getRequest()->getParam("id")));
-                return;
             }
+        } catch (Exception $e) {
+            Mage::getSingleton("adminhtml/session")->addError($e->getMessage());
+            Mage::getSingleton("adminhtml/session")->setTooltipData($this->getRequest()->getPost());
+            $this->_redirect("*/*/edit", array("id" => $this->getRequest()->getParam("id")));
+            return;
         }
-        $this->_redirect("*/*/");
-
-
-
-
-
-        $model = $this->_init();
-        if ($postData = $this->getRequest()->getPost()) {
-            $model->setData($postData);
-            try {
-                $model->save();
-
-                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The Tooltip has been saved.'));
-                $this->_redirect('*/*/');
-
-                return;
-            }
-            catch (Mage_Core_Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            }
-            catch (Exception $e) {
-                Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this baz.'));
-            }
-
-            Mage::getSingleton('adminhtml/session')->setBazData($postData);
-            $this->_redirectReferer();
-        }
-
     }
 
     public function deleteAction() {
         if ($this->getRequest()->getParam("id") > 0) {
             try {
-                $model = Mage::getModel("service/service");
-                $model->setId($this->getRequest()->getParam("id"))->delete();
+                $model = $this->_init();
+                $model->delete();
                 Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item was successfully deleted"));
                 $this->_redirect("*/*/");
             } catch (Exception $e) {
@@ -180,30 +137,6 @@ class Stableflow_ProductTooltips_Adminhtml_TooltipsController extends Mage_Admin
         // Output the result after all processing is finished
         // or else you will get an "Headers already sent" error.
         $this->getResponse()->setBody($block->toHtml());
-    }
-
-    protected function _uploadImage()
-    {
-        try {
-            if (isset($_FILES)) {
-                if ($_FILES['image']['name']) {
-                    $path = Mage::getBaseDir('media') . DS . 'tooltips' . DS;
-                    $uploader = new Varien_File_Uploader('image');
-                    $uploader->setAllowedExtensions(array('jpg', 'png', 'gif'));
-                    $uploader->setAllowRenameFiles(true);
-                    $uploader->setFilesDispersion(false);
-                    $destFile = $path . $_FILES['image']['name'];
-                    $filename = $uploader->getNewFileName($destFile);
-                    $uploader->save($path, $filename);
-                    return $filename;
-                }
-            }
-        }catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        }
-        catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this baz.'));
-        }
     }
 
     /**

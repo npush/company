@@ -7,7 +7,19 @@
  * Time: 6:33 PM
  */
 
-class Stableflow_UserManual_Adminhtml_ManualController extends Mage_Adminhtml_Controller_Action{
+class Stableflow_UserManual_Adminhtml_ManualController extends Mage_Adminhtml_Controller_Action
+{
+
+    protected function _init()
+    {
+        $tooltip = Mage::getModel('user_manual/manual');
+        $tooltipId  = (int) $this->getRequest()->getParam('id');
+        if ($tooltipId) {
+            $tooltip->load($tooltipId);
+            Mage::register('current_manual', $tooltip);
+        }
+        return $tooltip;
+    }
 
     /**
      * constructor - set the used module name
