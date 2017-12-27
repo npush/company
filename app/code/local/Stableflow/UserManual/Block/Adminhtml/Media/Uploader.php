@@ -1,7 +1,7 @@
 <?php
 
 
-class Stableflow_UserManual_Block_Adminhtml_Block_Media_Uploader extends Mage_Adminhtml_Block_Widget
+class Stableflow_UserManual_Block_Adminhtml_Media_Uploader extends Mage_Adminhtml_Block_Widget
 {
 
     protected $_config;
@@ -9,9 +9,9 @@ class Stableflow_UserManual_Block_Adminhtml_Block_Media_Uploader extends Mage_Ad
     public function __construct()
     {
         parent::__construct();
-        $this->setId($this->getId() . '_Uploader');
-        $this->setTemplate('media/uploader.phtml');
-        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/*/upload'));
+        $this->setId($this->getId() . '_UploaderMan');
+        $this->setTemplate('user_manual/media/uploader.phtml');
+        $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/user_manual/upload'));
         $this->getConfig()->setParams(array('form_key' => $this->getFormKey()));
         $this->getConfig()->setFileField('file');
         $this->getConfig()->setFilters(array(
@@ -20,8 +20,8 @@ class Stableflow_UserManual_Block_Adminhtml_Block_Media_Uploader extends Mage_Ad
                 'files' => array('*.gif', '*.jpg', '*.png')
             ),
             'media' => array(
-                'label' => Mage::helper('adminhtml')->__('Media (.pdf, .txt)'),
-                'files' => array('*.pdf', '*.txt')
+                'label' => Mage::helper('adminhtml')->__('Media (.pdf, .txt, doc, docx)'),
+                'files' => array('*.pdf', '*.txt', '*.doc', '*.docx')
             )
         ));
     }
@@ -160,26 +160,4 @@ class Stableflow_UserManual_Block_Adminhtml_Block_Media_Uploader extends Mage_Ad
         return $parsedSize;
     }
 
-    /**
-     * Retrieve full uploader SWF's file URL
-     * Implemented to solve problem with cross domain SWFs
-     * Now uploader can be only in the same URL where backend located
-     *
-     * @param string $url url to uploader in current theme
-     *
-     * @return string full URL
-     */
-    public function getUploaderUrl($url)
-    {
-        if (!is_string($url)) {
-            $url = '';
-        }
-        $design = Mage::getDesign();
-        $theme = $design->getTheme('skin');
-        if (empty($url) || !$design->validateFile($url, array('_type' => 'skin', '_theme' => $theme))) {
-            $theme = $design->getDefaultTheme();
-        }
-        return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . 'skin/' .
-        $design->getArea() . '/' . $design->getPackageName() . '/' . $theme . '/' . $url;
-    }
 }

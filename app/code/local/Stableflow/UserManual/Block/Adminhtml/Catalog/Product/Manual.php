@@ -15,42 +15,19 @@ class Stableflow_UserManual_Block_Adminhtml_Catalog_Product_Manual extends Mage_
      */
     protected function _prepareLayout()
     {
-        $this->setChild('delete_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('eav')->__('Delete'),
-                    'class' => 'delete delete-option'
-                )));
-
-        $this->setChild('add_button',
-            $this->getLayout()->createBlock('adminhtml/widget_button')
-                ->setData(array(
-                    'label' => Mage::helper('eav')->__('Add Option'),
-                    'class' => 'add',
-                    'id'    => 'add_new_option_button'
-                )));
+        $this->setChild('uploader', $this->getLayout()->createBlock('user_manual/adminhtml_media_uploader'));
         return parent::_prepareLayout();
     }
 
 
-    /**
-     * Retrieve HTML of delete button
-     *
-     * @return string
-     */
-    public function getDeleteButtonHtml()
+    public function getUploader()
     {
-        return $this->getChildHtml('delete_button');
+        return $this->getChild('uploader');
     }
 
-    /**
-     * Retrieve HTML of add button
-     *
-     * @return string
-     */
-    public function getAddNewButtonHtml()
+    public function getUploaderHtml()
     {
-        return $this->getChildHtml('add_button');
+        return $this->getChildHtml('uploader');
     }
 
     /**
@@ -207,5 +184,61 @@ class Stableflow_UserManual_Block_Adminhtml_Catalog_Product_Manual extends Mage_
 
     public function getStore(){
         return (int)Mage::app()->getStore()->getId();
+    }
+
+    public function getAddImagesButton()
+    {
+        return $this->getButtonHtml(
+            Mage::helper('catalog')->__('Add New Images'),
+            $this->getJsObjectName() . '.showUploader()',
+            'add',
+            $this->getHtmlId() . '_add_images_button'
+        );
+    }
+
+    public function getImagesJson()
+    {
+//        if(is_array($this->getElement()->getValue())) {
+//            $value = $this->getElement()->getValue();
+//            if(count($value['images'])>0) {
+//                foreach ($value['images'] as &$image) {
+//                    $image['url'] = Mage::getSingleton('catalog/product_media_config')
+//                        ->getMediaUrl($image['file']);
+//                }
+//                return Mage::helper('core')->jsonEncode($value['images']);
+//            }
+//        }
+        return '[]';
+    }
+
+    public function getImagesValuesJson()
+    {
+        $values = array();
+        foreach ($this->getMediaAttributes() as $attribute) {
+            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+            $values[$attribute->getAttributeCode()] = $this->getElement()->getDataObject()->getData(
+                $attribute->getAttributeCode()
+            );
+        }
+        return Mage::helper('core')->jsonEncode($values);
+    }
+
+    /**
+     * Enter description here...
+     *
+     * @return array
+     */
+    public function getImageTypes()
+    {
+        $imageTypes = array();
+        foreach ($this->getMediaAttributes() as $attribute) {
+            /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+            $imageTypes[$attribute->getAttributeCode()] = array(
+                'label' => $attribute->getFrontend()->getLabel() . ' '
+                    . Mage::helper('catalog')->__($this->getElement()->getScopeLabel($attribute)),
+                'field' => $this->getElement()->getAttributeFieldName($attribute)
+            );
+        }
+        return $imageTypes;
     }
 }
