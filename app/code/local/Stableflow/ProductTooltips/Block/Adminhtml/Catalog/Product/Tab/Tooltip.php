@@ -91,7 +91,7 @@ class Stableflow_ProductTooltips_Block_Adminhtml_Catalog_Product_Tab_Tooltip ext
      */
     public function getTabUrl()
     {
-        return $this->getUrl('*/tooltips/index', array('_current' => true));
+        return $this->getUrl('*/tooltips/grid', array('_current' => true));
     }
 
 }
