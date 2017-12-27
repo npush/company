@@ -27,7 +27,7 @@ class Stableflow_UserManual_Block_Adminhtml_Catalog_Product_Manual extends Mage_
 
     public function getUploaderHtml()
     {
-        return $this->getChildHtml('uploader');
+        return $this->getChildHtml('uploader', false);
     }
 
     /**
@@ -190,7 +190,7 @@ class Stableflow_UserManual_Block_Adminhtml_Catalog_Product_Manual extends Mage_
     {
         return $this->getButtonHtml(
             Mage::helper('catalog')->__('Add New Images'),
-            $this->getJsObjectName() . '.showUploader()',
+            $this->getUploader()->getJsObjectName() . '.showUploader()',
             'add',
             $this->getHtmlId() . '_add_images_button'
         );

@@ -9,7 +9,7 @@ class Stableflow_UserManual_Block_Adminhtml_Media_Uploader extends Mage_Adminhtm
     public function __construct()
     {
         parent::__construct();
-        $this->setId($this->getId() . '_UploaderMan');
+        $this->setId($this->getId() . '_Uploader');
         $this->setTemplate('user_manual/media/uploader.phtml');
         $this->getConfig()->setUrl(Mage::getModel('adminhtml/url')->addSessionParam()->getUrl('*/user_manual/upload'));
         $this->getConfig()->setParams(array('form_key' => $this->getFormKey()));

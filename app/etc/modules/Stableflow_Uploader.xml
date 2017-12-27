@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<config>
-     <modules>
-        <Stableflow_Uploader>
-            <active>true</active>
-            <codePool>local</codePool>
-        </Stableflow_Uploader>
-     </modules>
-</config>
