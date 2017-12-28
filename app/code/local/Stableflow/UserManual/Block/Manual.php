@@ -17,22 +17,13 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
     }
 
     /**
-     * initialize
-     */
-
-    public function _construct(){
-        parent::_construct();
-        $manual = $this->getManual();
-        $this->setManual($manual);
-    }
-
-    /**
      * get the current product
      *
      * @return mixed (Stableflow_UserManual_Model_Manual|null)
      */
 
-    public function getCurrentProduct(){
+    public function getCurrentProduct()
+    {
         return Mage::registry('current_product');
     }
 
@@ -41,7 +32,8 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
      * @return mixed
      */
 
-    public function getManual(){
+    public function getManual()
+    {
         $productId = $this->getCurrentProduct()->getId();
         $manualArray = null;
         $manualPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . self::BASE_MANUAL_PATH;
@@ -63,7 +55,8 @@ class Stableflow_UserManual_Block_Manual extends Mage_Core_Block_Template{
         return $manualArray;
     }
 
-    public function getStore(){
+    public function getStore()
+    {
         return (int)Mage::app()->getStore()->getId();
     }
 }

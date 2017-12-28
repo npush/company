@@ -27,6 +27,9 @@
     <editor>
         <update handle="stableflow_uploader"/>
     </editor>
+    <adminhtml_catalog_product_edit>
+        <update handle="stableflow_uploader"/>
+    </adminhtml_catalog_product_edit>
     <adminhtml_cms_wysiwyg_images_index>
         <reference name="wysiwyg_images.uploader">
             <action method="setTemplate">

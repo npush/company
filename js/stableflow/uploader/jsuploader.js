@@ -11,8 +11,10 @@ JsUploader.prototype = {
     onFilesComplete: false,
     onFileRemove: false,
     
-    initialize: function(containerId, config)
+    initialize: function(containerId, config, prefix)
     {
+        this.prefix = prefix || '';
+
         this.containerId = containerId;
         this.container   = $(containerId);
 
@@ -56,7 +58,7 @@ JsUploader.prototype = {
     
     handleBridgeInit: function()
     {
-        this.uploader = new Uploader(this.config, this.containerId);
+        this.uploader = new Uploader(this.config, this.containerId, this.prefix);
         
         this.uploader.addListener('select', this.handleSelect.bind(this));
         this.uploader.addListener('complete', this.handleComplete.bind(this));

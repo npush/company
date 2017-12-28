@@ -102,13 +102,22 @@
             </modules>
         </translate>
         <events>
+            <catalog_product_prepare_save>
+                <observers>
+                    <fetch_save_product_data>
+                        <type>singleton</type>
+                        <class>user_manual/observer</class>
+                        <method>fetchProductTabData</method>
+                    </fetch_save_product_data>
+                </observers>
+            </catalog_product_prepare_save>
             <catalog_product_save_after>
                 <observers>
-                    <fishpig_save_product_data>
+                    <manual_save_product_data>
                         <type>singleton</type>
                         <class>user_manual/observer</class>
                         <method>saveProductTabData</method>
-                    </fishpig_save_product_data>
+                    </manual_save_product_data>
                 </observers>
             </catalog_product_save_after>
         </events>

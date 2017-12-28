@@ -25,10 +25,13 @@ Uploader.prototype = {
     htmlIdBlock: 'uploadBlock-',
     htmlIdBlocks: 'uploadBlocks',
 
-    initialize: function(config, containerId)
+    initialize: function(config, containerId, prefix)
     {
+        this.prefix = prefix;
         this.config = config;
         this.containerId = containerId;
+        this.htmlIdBlock = this.prefix + this.htmlIdBlock;
+        this.htmlIdBlocks = this.prefix + this.htmlIdBlocks;
     },
     
     initUploadBlocks: function()
@@ -49,7 +52,7 @@ Uploader.prototype = {
     {
         var frameId = reference.getId(frame.parentNode.id, reference.htmlIdBlock);
         var status = reference.statusError;
-        var size = 0
+        var size = 0;
         
         if (response.evalJSON().error == 0)
         {
@@ -132,16 +135,16 @@ Uploader.prototype = {
     
     addUploadBlock: function(values)
     {
-        var inputFile = this.getForm($('uploadBlock-' + values.id)).getElementsByTagName('input')[0];
+        var inputFile = this.getForm($(this.htmlIdBlock + values.id)).getElementsByTagName('input')[0];
         var that = this;
         
         inputFile.onchange = function()
         {
             this.style.display = 'none';
         
-            ++that.id
+            ++that.id;
         
-            Element.insert($(that.htmlIdBlocks), {top: that.createTemplate(that).evaluate(that.getValues(that))});                                       
+            Element.insert($(that.htmlIdBlocks), {top: that.createTemplate(that).evaluate(that.getValues(that))});
             that.addUploadBlock(that.getValues(that));
             
             var file = Object();

@@ -15,6 +15,16 @@ class Stableflow_UserManual_Model_Observer extends Mage_Core_Model_Observer
      */
     static protected $_singletonFlag = false;
 
+    public function fetchProductTabData(Varien_Event_Observer $observer)
+    {
+        if (!self::$_singletonFlag) {
+            self::$_singletonFlag = true;
+
+            $reqest = $observer->getEvent()->getRequest();
+
+        }
+    }
+
     /**
      * This method will run when the product is saved from the Magento Admin
      * Use this function to update the product model, process the
@@ -34,7 +44,7 @@ class Stableflow_UserManual_Model_Observer extends Mage_Core_Model_Observer
                  * Perform any actions you want here
                  *
                  */
-                $customFieldValue =  $this->_getRequest()->getPost('custom_field');
+                $customFieldValue =  $this->_getRequest()->getPost('user_manual');
 
                 /**
                  * Uncomment the line below to save the product
