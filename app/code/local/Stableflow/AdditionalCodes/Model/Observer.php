@@ -6,7 +6,60 @@
  * Date: 3/23/17
  * Time: 3:39 PM
  */
-class Stableflow_AdditionalCodes_Model_Observer extends Mage_Core_Model_Observer{
+class Stableflow_AdditionalCodes_Model_Observer extends Mage_Core_Model_Observer
+{
+
+
+    /**
+     * Flag to stop observer executing more than once
+     *
+     * @var static bool
+     */
+    static protected $_singletonFlag = false;
+
+    public function fetchProductTabData(Varien_Event_Observer $observer)
+    {
+        if (!self::$_singletonFlag) {
+            self::$_singletonFlag = true;
+
+            $reqest = $observer->getEvent()->getRequest();
+
+        }
+    }
+
+    /**
+     * This method will run when the product is saved from the Magento Admin
+     * Use this function to update the product model, process the
+     * data or anything you like
+     *
+     * @param Varien_Event_Observer $observer
+     */
+    public function saveProductTabData(Varien_Event_Observer $observer)
+    {
+        if (!self::$_singletonFlag) {
+            self::$_singletonFlag = true;
+
+            $product = $observer->getEvent()->getProduct();
+
+            try {
+                /**
+                 * Perform any actions you want here
+                 *
+                 */
+                $customFieldValue =  $this->_getRequest()->getPost('additional_codes');
+
+                /**
+                 * Uncomment the line below to save the product
+                 *
+                 */
+                //$product->save();
+            }
+            catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+    }
+
 
 
     /**

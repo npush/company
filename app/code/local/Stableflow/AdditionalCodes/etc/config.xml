@@ -87,8 +87,26 @@
         </routers>
     </admin>
     <adminhtml>
-        <!--<events>
-            <adminhtml_product_attribute_types>
+        <events>
+            <catalog_product_prepare_save>
+                <observers>
+                    <fetch_save_product_data>
+                        <type>singleton</type>
+                        <class>additional_codes/observer</class>
+                        <method>fetchProductTabData</method>
+                    </fetch_save_product_data>
+                </observers>
+            </catalog_product_prepare_save>
+            <catalog_product_save_after>
+                <observers>
+                    <manual_save_product_data>
+                        <type>singleton</type>
+                        <class>additional_codes/observer</class>
+                        <method>saveProductTabData</method>
+                    </manual_save_product_data>
+                </observers>
+            </catalog_product_save_after>
+            <!--<adminhtml_product_attribute_types>
                 <observers>
                     <additional_codes>
                         <class>additional_codes/observer</class>
@@ -111,8 +129,8 @@
                         <method>updateExcludedFieldList</method>
                     </additional_codes>
                 </observers>
-            </adminhtml_catalog_product_form_prepare_excluded_field_list>
-        </events>-->
+            </adminhtml_catalog_product_form_prepare_excluded_field_list>-->
+        </events>
         <layout>
             <updates>
                 <additional_codes>
