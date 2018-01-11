@@ -119,10 +119,11 @@ $installer->startSetup();
 // adding the manufacturer_number attribute as static attribute
 $installer->addAttribute( 'catalog_product', 'additional_codes', array(
     'label'             => 'Manufacturer Numbers',
-    'note'              => '',
+    'note'              => 'See Tab for edit mode',
     'type'              => 'varchar',
     'input'             => 'text',
     'backend'           => 'additional_codes/product_attribute_backend_manufnumber',//'additional_codes/product_attribute_backend_codes',
+    'input_renderer'    => 'additional_codes/adminhtml_renderer_manufnumber',//definition of renderer
     'source'            => '',
     'frontend'          => '',
     'required'          => false,

@@ -7,6 +7,7 @@
  * Time: 3:22 PM
  */
 
-class Stableflow_ProductTooltips_Model_Tooltips_Attribute_Backend_Tooltips extends Mage_Eav_Model_Entity_Attribute_Backend_Array{
+class Stableflow_ProductTooltips_Model_Tooltips_Attribute_Backend_Tooltips extends Mage_Eav_Model_Entity_Attribute_Backend_Array
+{
 
 }

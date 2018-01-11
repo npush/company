@@ -108,6 +108,7 @@ $installer->addAttribute( 'catalog_product', 'tooltips', array(
     'note'              => 'Tooltips',
     'type'              => 'varchar',
     'input'             => 'multiselect',
+    'input_renderer'    => 'product_tooltips/adminhtml_renderer_tooltip',//definition of renderer
     'backend'           => 'product_tooltips/tooltips_attribute_backend_tooltips',
     'source'            => 'product_tooltips/tooltips_attribute_source_tooltips',
     'frontend'          => 'product_tooltips/tooltips_attribute_frontend_tooltips',

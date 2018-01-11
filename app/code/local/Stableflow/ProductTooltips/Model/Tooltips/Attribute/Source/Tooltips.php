@@ -19,6 +19,7 @@ class Stableflow_ProductTooltips_Model_Tooltips_Attribute_Source_Tooltips extend
                     array(
                         'label' => $tooltip->getData('title'),
                         'value' => $tooltip->getData('tooltip_id'),
+                        'image' => $tooltip->getData('value'),
                     );
             }
         }

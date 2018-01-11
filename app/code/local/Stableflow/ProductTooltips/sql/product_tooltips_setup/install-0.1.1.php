@@ -79,26 +79,3 @@ $table = $installer->getConnection()
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('Catalog Product Tooltip Attribute Value');
 $installer->getConnection()->createTable($table);
-
-//$installer = Mage::getResourceModel('catalog/setup', 'catalog_setup');;
-//$installer->startSetup();
-
-// adding the manufacturer_number attribute as static attribute
-//$installer->addAttribute( 'catalog_product', 'user_manual', array(
-//    'label'             => 'User Manual',
-//    'type'              => 'varchar',
-//    'input'             => 'multiselect',
-//    'backend'           => '', //'user_manual/manual_attribute_backend_manual',
-//    'source'            => 'product_tooltips/tooltip_attribute_source_manual',
-//    'frontend'          => '', //'user_manual/manual_attribute_frontend_manual',
-//    'required'          => false,
-//    'unique'            => false,
-//    'filterable'        => false,
-//    'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_WEBSITE,
-//    'searchable'        => false,
-//    'visible_on_front'  => true,
-//    'visible'           => true,
-//    'user_defined'      => true
-//) );
-//
-//$installer->endSetup();
