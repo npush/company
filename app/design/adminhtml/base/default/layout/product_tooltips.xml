@@ -3,10 +3,12 @@
     <adminhtml_catalog_product_edit>
         <reference name="product_tabs">
             <!--<block type="user_manual/adminhtml_catalog_product_edit_tab" name="custom_tab"/>-->
-            <action method="addTab">
-                <name>Product Tooltips</name>
-                <block>product_tooltips/adminhtml_catalog_product_tab_tooltip</block>
-            </action>
+
+            <!-- Можно добавить ссвой ТАВ и ...  -->
+            <!--<action method="addTab">-->
+                <!--<name>Product Tooltips</name>-->
+                <!--<block>product_tooltips/adminhtml_catalog_product_tab_tooltip</block>-->
+            <!--</action>-->
         </reference>
     </adminhtml_catalog_product_edit>
     <adminhtml_tooltips_index>
